@@ -1,6 +1,10 @@
 package fr.anatom3000.gwwhit;
 
+import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
@@ -18,8 +22,8 @@ public class Commands {
                             ServerPlayerEntity player = context.getSource().getPlayer();
                             if (player != null) {
                                 String msg = Config.getInstance().isPillTaken() ? "§6[§eGWWHITM§6] §3You wake up!" : "§6[§eGWWHITM§6] §3Everything stays the same!";
+                                ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.ID("reload_chunks"), new PacketByteBuf(Unpooled.buffer()));
                                 player.sendMessage(new LiteralText(msg), false);
-                                player.sendMessage(new LiteralText("§6[§eGWWHITM§6] §3Press F3+A to apply changes."), false);
                             }
                             return 1;
                         })

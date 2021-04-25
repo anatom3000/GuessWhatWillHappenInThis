@@ -6,7 +6,6 @@
   "mixins": [
     "ChatMessageC2SPacketMixin",
     "LanguageMixin",
-    "ReloadableResourceManagerImplMixin"
   ],
   "client": [
     "ChatScreenMixin",

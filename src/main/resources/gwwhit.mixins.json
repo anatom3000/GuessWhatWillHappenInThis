@@ -11,6 +11,7 @@
   "client": [
     "ChatScreenMixin",
     "Deadmau5FeatureRendererMixin",
+    "MixinFrustum",
     "PlayerEntityModelMixin",
     "LivingEntityRendererMixin"
   ],

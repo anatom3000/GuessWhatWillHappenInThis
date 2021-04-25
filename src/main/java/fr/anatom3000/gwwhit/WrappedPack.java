@@ -14,7 +14,7 @@ import java.util.Set;
 public class WrappedPack implements ResourcePack {
     private ResourcePack pack;
     @Override
-    public InputStream openRoot(java.lang.String fileName) throws IOException {
+    public InputStream openRoot(String fileName) throws IOException {
         if (fileName.endsWith(".ogg"))
             return openBlyat();
         return pack.openRoot(fileName);

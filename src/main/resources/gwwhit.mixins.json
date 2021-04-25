@@ -13,7 +13,9 @@
     "Deadmau5FeatureRendererMixin",
     "LivingEntityRendererMixin",
     "MatrixStackMixin",
-    "PlayerEntityModelMixin"
+    "PlayerEntityModelMixin",
+    "GameRendererMixin",
+    "KeyboardMixin"
   ],
   "injectors": {
     "defaultRequire": 1

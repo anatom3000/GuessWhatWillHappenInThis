@@ -71,6 +71,10 @@ public class OwoTransformer implements ITransformer<String> {
     }
 
     private static String substitute(String text) {
+        if (text == null) {
+            return "";
+        }
+
         return text
                 .replaceAll("r", "w")
                 .replaceAll("l", "w")

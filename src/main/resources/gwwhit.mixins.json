@@ -6,6 +6,8 @@
   "mixins": [
     "ChatMessageC2SPacketMixin",
     "LanguageMixin",
+    "RegistryMixin",
+    "SimpleRegistryMixin"
   ],
   "client": [
     "ChatScreenMixin",

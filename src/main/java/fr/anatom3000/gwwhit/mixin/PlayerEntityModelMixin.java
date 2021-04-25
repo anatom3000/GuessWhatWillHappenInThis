@@ -1,4 +1,4 @@
-package fr.anatom3000.gwwhit.mixins;
+package fr.anatom3000.gwwhit.mixin;
 
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
@@ -14,10 +14,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntityModel.class)
-public class Deadmau5Fixer<T extends LivingEntity> extends BipedEntityModel<T> {
+public class PlayerEntityModelMixin<T extends LivingEntity> extends BipedEntityModel<T> {
     @Shadow @Final private ModelPart ears;
 
-    public Deadmau5Fixer(float scale) {
+    public PlayerEntityModelMixin(float scale) {
         super(scale);
     }
 

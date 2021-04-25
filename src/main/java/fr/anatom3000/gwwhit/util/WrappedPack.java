@@ -1,4 +1,4 @@
-package fr.anatom3000.gwwhit;
+package fr.anatom3000.gwwhit.util;
 
 import net.minecraft.resource.ResourcePack;
 import net.minecraft.resource.ResourceType;

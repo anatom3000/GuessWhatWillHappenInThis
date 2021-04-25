@@ -4,11 +4,14 @@
   "package": "fr.anatom3000.gwwhit.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "ChatMessageC2SPacketMixin",
+    "LanguageMixin",
     "ReloadableResourceManagerImplMixin"
   ],
   "client": [
-    "Deadmau5Mixin",
-    "Deadmau5Fixer"
+    "Deadmau5FeatureRendererMixin",
+    "PlayerEntityModelMixin",
+    "ChatScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -14,6 +14,7 @@ You can do ANYTHING , adding blocks, items, whatever you want, mess with mixins,
 - OwOfy chat messages and translatable text (thanks to @JFronny)
 - Make all entity "Dinnerbone" (thanks to @Minenash)
 - mess up 3d graphics (thanks to @JFronny)
+- randomize block drops (thanks to @JFronny)
 
 ## License
 

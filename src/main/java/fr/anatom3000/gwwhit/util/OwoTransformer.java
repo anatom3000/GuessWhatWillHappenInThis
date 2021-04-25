@@ -1,8 +1,10 @@
 package fr.anatom3000.gwwhit.util;
 
-import java.util.Random;
+import java.util.function.UnaryOperator;
 
-public class OwoTransformer implements ITransformer<String> {
+import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
+
+public class OwoTransformer implements UnaryOperator<String> {
     public static final OwoTransformer TRANSFORMER_SIMPLE = new OwoTransformer(false, false);
     public static final OwoTransformer TRANSFORMER_SUFFIX = new OwoTransformer(false, true);
     public static final OwoTransformer TRANSFORMER_PREFIX = new OwoTransformer(true, false);
@@ -54,19 +56,18 @@ public class OwoTransformer implements ITransformer<String> {
             ", fwendo",
             "（＾ｖ＾）"
     };
-    private static Random rng = new Random();
     private boolean prefix;
     private boolean suffix;
 
 
     @Override
-    public String transform(String str) {
+    public String apply(String str) {
         String result = "";
         if (prefix)
-            result += prefixes[rng.nextInt(prefixes.length)];
+            result += prefixes[GuessWhatWillHappenInThisMod.rng.nextInt(prefixes.length)];
         result += substitute(str);
         if (suffix)
-            result += suffixes[rng.nextInt(suffixes.length)];
+            result += suffixes[GuessWhatWillHappenInThisMod.rng.nextInt(suffixes.length)];
         return result;
     }
 

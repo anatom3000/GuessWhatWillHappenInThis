@@ -3,15 +3,16 @@ package fr.anatom3000.gwwhit.util;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.UnaryOperator;
 
 public class TransformingMap<TKey, TVal> implements Map<TKey, TVal> {
     private final Map<TKey, TVal> backer;
-    private final ITransformer<TVal> transformer;
+    private final UnaryOperator<TVal> transformer;
     public boolean initializing;
     public int initI;
     public int initMax;
 
-    public TransformingMap(Map<TKey, TVal> m, ITransformer<TVal> t) {
+    public TransformingMap(Map<TKey, TVal> m, UnaryOperator<TVal> t) {
         backer = m;
         transformer = t;
     }
@@ -22,7 +23,7 @@ public class TransformingMap<TKey, TVal> implements Map<TKey, TVal> {
         initMax = values.size();
         initializing = true;
         for (TVal value : values) {
-            transformer.transform(value);
+            transformer.apply(value);
         }
         initializing = false;
     }
@@ -49,12 +50,12 @@ public class TransformingMap<TKey, TVal> implements Map<TKey, TVal> {
 
     @Override
     public TVal get(Object o) {
-        return transformer.transform(backer.get(o));
+        return transformer.apply(backer.get(o));
     }
 
     @Override
     public TVal put(TKey s, TVal s2) {
-        transformer.transform(s2);
+        transformer.apply(s2);
         return backer.put(s, s2);
     }
 
@@ -66,7 +67,7 @@ public class TransformingMap<TKey, TVal> implements Map<TKey, TVal> {
     @Override
     public void putAll(Map<? extends TKey, ? extends TVal> map) {
         for (TVal value : map.values()) {
-            transformer.transform(value);
+            transformer.apply(value);
         }
         backer.putAll(map);
     }

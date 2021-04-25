@@ -21,7 +21,7 @@ public class ChatMessageC2SPacketMixin {
                     : chatMessage.length() < 20
                     ? OwoTransformer.TRANSFORMER_PREFIX
                     : OwoTransformer.TRANSFORMER_FULL;
-            chatMessage = transformer.transform(chatMessage);
+            chatMessage = transformer.apply(chatMessage);
         }
 
         if (chatMessage.length() > 256) {

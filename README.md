@@ -9,11 +9,10 @@ You can do ANYTHING , adding blocks, items, whatever you want, mess with mixins,
 
 ## Current features (complete here in PR):
 
-• Replace all sounds with "blyat" (thanks to @JFronny)
-
-• deadmau5 ears for everyone (thanks to @KosmX)
-
-• Owofy chat messages and translatable text (thanks to @JFronny)
+- Replace all sounds with "blyat" (thanks to @JFronny)
+- deadmau5 ears for everyone (thanks to @KosmX)
+- OwOfy chat messages and translatable text (thanks to @JFronny)
+- mess up 3d graphics (thanks to @JFronny)
 
 ## License
 

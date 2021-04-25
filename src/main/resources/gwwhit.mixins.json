@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "fr.anatom3000.gwwhit.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [],
+  "client": [
+    "Deadmau5Mixin",
+    "Deadmau5Fixer"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

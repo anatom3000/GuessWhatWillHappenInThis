@@ -35,7 +35,7 @@ public class LanguageMixin {
         }
         if (language instanceof TranslationStorage) {
             try {
-                FIELD.set(language, new TransformingMap<String, String>((Map<String, String>) FIELD.get(language), OwoTransformer.TRANSFORMER_SIMPLE));
+                FIELD.set(language, new TransformingMap<>((Map<String, String>) FIELD.get(language), OwoTransformer.TRANSFORMER_SIMPLE));
             } catch (IllegalAccessException | ClassCastException e) {
                 e.printStackTrace();
             }

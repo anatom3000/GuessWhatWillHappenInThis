@@ -13,6 +13,8 @@ You can do ANYTHING , adding blocks, items, whatever you want, mess with mixins,
 
 • deadmau5 ears for everyone (thanks to @KosmX)
 
+• Owofy chat messages and translatable text (thanks to @JFronny)
+
 ## License
 
 This project is released under MIT license.

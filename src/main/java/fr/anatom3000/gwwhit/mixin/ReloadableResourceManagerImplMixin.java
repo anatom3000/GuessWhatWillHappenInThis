@@ -1,6 +1,6 @@
 package fr.anatom3000.gwwhit.mixin;
 
-import fr.anatom3000.gwwhit.WrappedPack;
+import fr.anatom3000.gwwhit.util.WrappedPack;
 import net.minecraft.resource.ReloadableResourceManagerImpl;
 import net.minecraft.resource.ResourcePack;
 import org.spongepowered.asm.mixin.Mixin;

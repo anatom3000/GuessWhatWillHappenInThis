@@ -11,8 +11,9 @@
   "client": [
     "ChatScreenMixin",
     "Deadmau5FeatureRendererMixin",
-    "PlayerEntityModelMixin",
-    "LivingEntityRendererMixin"
+    "LivingEntityRendererMixin",
+    "MatrixStackMixin",
+    "PlayerEntityModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

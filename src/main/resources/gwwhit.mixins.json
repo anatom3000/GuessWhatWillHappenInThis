@@ -6,13 +6,13 @@
   "mixins": [
     "ChatMessageC2SPacketMixin",
     "LanguageMixin",
-    "LivingEntityRendererMixin",
     "ReloadableResourceManagerImplMixin"
   ],
   "client": [
     "ChatScreenMixin",
     "Deadmau5FeatureRendererMixin",
-    "PlayerEntityModelMixin"
+    "PlayerEntityModelMixin",
+    "LivingEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

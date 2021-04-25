@@ -9,9 +9,10 @@
     "ReloadableResourceManagerImplMixin"
   ],
   "client": [
+    "ChatScreenMixin",
     "Deadmau5FeatureRendererMixin",
     "PlayerEntityModelMixin",
-    "ChatScreenMixin"
+    "LivingEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

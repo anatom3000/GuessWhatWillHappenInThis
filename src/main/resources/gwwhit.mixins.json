@@ -6,7 +6,8 @@
   "mixins": [
     "ChatMessageC2SPacketMixin",
     "LanguageMixin",
-    "ReloadableResourceManagerImplMixin"
+    "ReloadableResourceManagerImplMixin",
+    "GameModeMixin"
   ],
   "client": [
     "ChatScreenMixin",
@@ -14,6 +15,8 @@
     "LivingEntityRendererMixin",
     "MatrixStackMixin",
     "PlayerEntityModelMixin"
+    "PlayerEntityModelMixin",
+    "LivingEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

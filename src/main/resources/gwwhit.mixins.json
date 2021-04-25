@@ -14,7 +14,7 @@
     "Deadmau5FeatureRendererMixin",
     "LivingEntityRendererMixin",
     "MatrixStackMixin",
-    "PlayerEntityModelMixin"
+    "PlayerEntityModelMixin",
     "PlayerEntityModelMixin",
     "LivingEntityRendererMixin"
   ],

@@ -1,4 +1,4 @@
-package fr.anatom3000.gwwhit.;
+package fr.anatom3000.gwwhit;
 
 import net.fabricmc.api.ModInitializer;
 

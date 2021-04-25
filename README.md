@@ -12,6 +12,7 @@ You can do ANYTHING , adding blocks, items, whatever you want, mess with mixins,
 - Replace all sounds with "blyat" (thanks to @JFronny)
 - deadmau5 ears for everyone (thanks to @KosmX)
 - OwOfy chat messages and translatable text (thanks to @JFronny)
+- Make all entity "Dinnerbone" (thanks to @Minenash)
 - mess up 3d graphics (thanks to @JFronny)
 
 ## License

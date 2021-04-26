@@ -1,6 +1,7 @@
 package fr.anatom3000.gwwhit;
 
 import fr.anatom3000.gwwhit.util.CachingTransformer;
+import fr.anatom3000.gwwhit.util.ForcePlingManager;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -19,5 +20,6 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		System.out.println("Hello Fabric world!");
+		ForcePlingManager.register();
 	}
 }

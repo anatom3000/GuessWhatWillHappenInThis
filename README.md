@@ -15,6 +15,7 @@ You can do ANYTHING , adding blocks, items, whatever you want, mess with mixins,
 - Make all entity "Dinnerbone" (thanks to @Minenash)
 - mess up 3d graphics (thanks to @JFronny)
 - randomize block drops (thanks to @JFronny)
+- Add the forcepling command
 
 ## License
 

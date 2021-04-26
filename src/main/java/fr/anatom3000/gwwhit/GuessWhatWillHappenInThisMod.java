@@ -15,17 +15,24 @@ import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.UnaryOperator;
 
 public class GuessWhatWillHappenInThisMod implements ModInitializer {
-	public static final Logger logger = LogManager.getLogger("gwwhit");
+
+	public static final String MOD_ID = "gwwhit";
+
+	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 	public static final Random rng = new Random();
 	public static final CachingTransformer<Item> itemRandomizer = new CachingTransformer<>(s -> Registry.ITEM.getRandom(rng));
 	public static final UnaryOperator<ItemStack> itemStackRandomizer = s -> new ItemStack(itemRandomizer.apply(s.getItem()), s.getCount());
+
+    public static Identifier ID(String path) {
+    	return new Identifier(MOD_ID, path);
+    }
+
 	public static final Identifier LE_BLAZE_LOOT = new Identifier("minecraft","entities/blaze");
 
 	FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
@@ -35,25 +42,26 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		System.out.println("Hello Fabric world!");
+		Commands.registerCommands();
+		registerLootTables();
+		LOGGER.info("You shouldn't have done this.");
+	}
 
-		Logger logger = LogManager.getLogger(GuessWhatWillHappenInThisMod.class);
-		final List<String> hugeList = new ArrayList<String>(10000);
-        new Thread() {
-           public void run() {
-               logger.info("Child thread spawned");
-               for(String s:hugeList) {
-                   ////
-				   logger.info(s);
-               }
-           }
-        }.start();
+	private void registerLootTables() {
+		final List<String> hugeList = new ArrayList<>(10000);
+		new Thread(() -> {
+			LOGGER.info("Child thread spawned");
+			for(String s:hugeList) {
+				LOGGER.info(s);
+			}
+		}).start();
 		LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
 			if (LE_BLAZE_LOOT.equals(id)) {
 				supplier.withPool(poolBuilder.build());
 			}
 		});
 	}
+
 }
 
 

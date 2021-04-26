@@ -2,6 +2,7 @@ package fr.anatom3000.gwwhit.util;
 
 import java.util.function.UnaryOperator;
 
+import fr.anatom3000.gwwhit.Config;
 import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
 
 public class OwoTransformer implements UnaryOperator<String> {
@@ -62,12 +63,17 @@ public class OwoTransformer implements UnaryOperator<String> {
 
     @Override
     public String apply(String str) {
+        if (!Config.getInstance().isGodDead()) {
+            return str;
+        }
         String result = "";
-        if (prefix)
+        if (prefix) {
             result += prefixes[GuessWhatWillHappenInThisMod.rng.nextInt(prefixes.length)];
+        }
         result += substitute(str);
-        if (suffix)
+        if (suffix) {
             result += suffixes[GuessWhatWillHappenInThisMod.rng.nextInt(suffixes.length)];
+        }
         return result;
     }
 

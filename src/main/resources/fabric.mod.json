@@ -19,6 +19,9 @@
   "entrypoints": {
     "main": [
       "fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod"
+    ],
+    "client": [
+      "fr.anatom3000.gwwhit.GuessWhatWillHappenInThisModClient"
     ]
   },
   "mixins": [

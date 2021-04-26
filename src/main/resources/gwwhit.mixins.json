@@ -5,8 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "AbstractBlockMixin",
-    "ChatMessageC2SPacketMixin",
-    "LanguageMixin",
+    "ChatMessageC2SPacketMixin"
   ],
   "client": [
     "ChatScreenMixin",
@@ -14,6 +13,7 @@
     "LivingEntityRendererMixin",
     "MatrixStackMixin",
     "PlayerEntityModelMixin",
+    "LanguageMixin",
     "GameRendererMixin",
     "KeyboardMixin"
   ],

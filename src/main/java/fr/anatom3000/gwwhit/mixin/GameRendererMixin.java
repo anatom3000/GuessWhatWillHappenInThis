@@ -1,6 +1,7 @@
 package fr.anatom3000.gwwhit.mixin;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import fr.anatom3000.gwwhit.Config;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -31,6 +32,9 @@ public class GameRendererMixin {
 
 	@Inject(at = @At("TAIL"), method = "render")
 	public void render (float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
+		if (Config.getInstance().isRegistered()) {
+			return;
+		}
 		GlStateManager.disableLighting();
 		int var1 = this.client.getWindow().getScaledWidth();
 		TextRenderer textRenderer = this.client.textRenderer;

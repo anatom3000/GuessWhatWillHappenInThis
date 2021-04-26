@@ -1,5 +1,6 @@
 package fr.anatom3000.gwwhit.mixin;
 
+import fr.anatom3000.gwwhit.Config;
 import fr.anatom3000.gwwhit.util.OwoTransformer;
 import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,6 +16,9 @@ public class ChatMessageC2SPacketMixin {
 
     @Inject(at = @At("RETURN"), method = "<init>(Ljava/lang/String;)V")
     public void init(String chatMessage, CallbackInfo info) {
+        if (!Config.getInstance().isGodDead()) {
+            return;
+        }
         if (!chatMessage.startsWith("/")) {
             OwoTransformer transformer = chatMessage.length() < 5
                     ? OwoTransformer.TRANSFORMER_SIMPLE

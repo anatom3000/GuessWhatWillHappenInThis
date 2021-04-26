@@ -23,6 +23,7 @@ Fabric mod where anyone can PR anything, concerning or not. I'll merge everythin
 - - /gwwhit get \<option>
 - - /gwwhit toggle \<option>
 - add "Unregistered version" banner from Minecraft: 3D Shareware
+- Dream's RNG (thanks to @Noaaan)
 
 ## Dependencies
 

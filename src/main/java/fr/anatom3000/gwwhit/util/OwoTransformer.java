@@ -63,7 +63,7 @@ public class OwoTransformer implements UnaryOperator<String> {
 
     @Override
     public String apply(String str) {
-        if (!Config.getInstance().isGodDead()) {
+        if (!Config.getInstance().getValue(Config.OWO_ENABLED_KEY)) {
             return str;
         }
         String result = "";

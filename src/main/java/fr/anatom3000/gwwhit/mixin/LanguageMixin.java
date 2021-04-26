@@ -30,7 +30,7 @@ public class LanguageMixin {
     @Inject(at = @At("HEAD"), method = "setInstance")
     private static void languageSetInstance(Language language, CallbackInfo ci) {
         if (FIELD == null) {
-            GuessWhatWillHappenInThisMod.logger.warn("Could not set language map, field not found");
+            GuessWhatWillHappenInThisMod.LOGGER.warn("Could not set language map, field not found");
             return;
         }
         if (language instanceof TranslationStorage) {

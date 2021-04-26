@@ -8,6 +8,7 @@ public class Config {
     private boolean RNGesusAliveStatus = true;
     private boolean mouseIsElectric = true;
     private boolean spin = true;
+    private boolean registered = false;
 
     private Config(){}
 
@@ -58,4 +59,11 @@ public class Config {
         spin = !spin;
     }
 
+    public void register() {
+        registered = !registered;
+    }
+
+    public boolean isRegistered() {
+        return registered;
+    }
 }

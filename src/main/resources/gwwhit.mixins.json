@@ -13,7 +13,9 @@
     "LivingEntityRendererMixin",
     "MatrixStackMixin",
     "PlayerEntityModelMixin",
-    "LanguageMixin"
+    "LanguageMixin",
+    "GameRendererMixin",
+    "KeyboardMixin"
   ],
   "injectors": {
     "defaultRequire": 1

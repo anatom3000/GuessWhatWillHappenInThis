@@ -76,6 +76,19 @@ public class Commands {
                             return 1;
                         })
                 )
+                .then(CommandManager.literal("register")
+                        .requires(source -> source.hasPermissionLevel(2))
+                        .executes(context -> {
+                            Config.getInstance().register();
+                            ServerPlayerEntity player = context.getSource().getPlayer();
+                            String msg = Config.getInstance().isRegistered() ? "§6[§eGWWHITM§6] §3Registered!" : "§6[§eGWWHITM§6] §3Unregistered!";
+                            if (player != null) {
+                                ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.ID("reload_chunks"), new PacketByteBuf(Unpooled.buffer()));
+                                player.sendMessage(new LiteralText(msg), false);
+                            }
+                            return 1;
+                        })
+                )
         ));
 
     }

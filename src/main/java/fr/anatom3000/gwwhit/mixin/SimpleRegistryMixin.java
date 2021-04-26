@@ -53,7 +53,7 @@ public abstract class SimpleRegistryMixin<T> {
     }
 
     private boolean checkIfSafe(Object entry) {
-	    return entry instanceof Item || entry instanceof Biome || entry instanceof EntityAttribute || entry instanceof Codec || entry instanceof Potion ||
+	    return entry instanceof Item || entry instanceof EntityAttribute || entry instanceof Potion ||
                 entry instanceof Fluid || entry instanceof VillagerProfession || entry instanceof Enchantment;
     }
 }

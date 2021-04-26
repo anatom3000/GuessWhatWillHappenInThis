@@ -9,6 +9,7 @@ import fr.anatom3000.gwwhit.materials.CustomArmorMaterials;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.util.registry.Registry;
@@ -24,6 +25,7 @@ public class ItemRegistry {
         put("transdimensional_lens", new TransdimensionalLensItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHITGroup)));
         put("shock_resistant_boots", new ArmorItem(CustomArmorMaterials.SHOCK_RESISTANT_MATERIAL, EquipmentSlot.FEET, new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHITGroup)));
         put("reapers_scythe", new Item(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHITGroup)));
+        put("infected_mass", new BlockItem(BlockRegistry.get("infected_mass"), new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHITGroup)));
     }};
 
     public static void register() {

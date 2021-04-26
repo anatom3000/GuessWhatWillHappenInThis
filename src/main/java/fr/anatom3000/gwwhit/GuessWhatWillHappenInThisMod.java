@@ -1,5 +1,7 @@
 package fr.anatom3000.gwwhit;
 
+import fr.anatom3000.gwwhit.registry.BlockEntityRegistry;
+import fr.anatom3000.gwwhit.registry.BlockRegistry;
 import fr.anatom3000.gwwhit.registry.ItemRegistry;
 import fr.anatom3000.gwwhit.util.CachingTransformer;
 import net.fabricmc.api.ModInitializer;
@@ -44,6 +46,8 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ItemRegistry.register();
+		BlockRegistry.register();
+		BlockEntityRegistry.register();
 		Commands.register();
 		registerLootTables();
 		LOGGER.info("You shouldn't have done this.");

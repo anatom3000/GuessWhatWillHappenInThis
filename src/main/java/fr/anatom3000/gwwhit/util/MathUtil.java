@@ -1,5 +1,6 @@
 package fr.anatom3000.gwwhit.util;
 
+import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Quaternion;
 
@@ -19,4 +20,13 @@ public class MathUtil {
     public static float BoxedInvert(float value) {
         return BoxedInvert(MathHelper.floor(value), MathHelper.ceil(value), value);
     }
+
+    public static boolean getChance(float percent) {
+        if (percent <= 0) {
+            return false;
+        }
+        float roll = GuessWhatWillHappenInThisMod.rng.nextFloat() * 100;
+        return percent >= roll;
+    }
+
 }

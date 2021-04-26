@@ -23,6 +23,7 @@ public class ItemRegistry {
         put("booster", new BoosterItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHITGroup)));
         put("transdimensional_lens", new TransdimensionalLensItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHITGroup)));
         put("shock_resistant_boots", new ArmorItem(CustomArmorMaterials.SHOCK_RESISTANT_MATERIAL, EquipmentSlot.FEET, new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHITGroup)));
+        put("reapers_scythe", new Item(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHITGroup)));
     }};
 
     public static void register() {

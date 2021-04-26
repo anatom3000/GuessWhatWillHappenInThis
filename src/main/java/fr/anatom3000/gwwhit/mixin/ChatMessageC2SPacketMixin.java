@@ -16,9 +16,6 @@ public class ChatMessageC2SPacketMixin {
 
     @Inject(at = @At("RETURN"), method = "<init>(Ljava/lang/String;)V")
     public void init(String chatMessage, CallbackInfo info) {
-        if (!Config.getInstance().isGodDead()) {
-            return;
-        }
         if (!chatMessage.startsWith("/")) {
             OwoTransformer transformer = chatMessage.length() < 5
                     ? OwoTransformer.TRANSFORMER_SIMPLE

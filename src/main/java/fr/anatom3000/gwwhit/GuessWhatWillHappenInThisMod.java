@@ -44,7 +44,7 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ItemRegistry.register();
-		Commands.registerCommands();
+		Commands.register();
 		registerLootTables();
 		LOGGER.info("You shouldn't have done this.");
 	}

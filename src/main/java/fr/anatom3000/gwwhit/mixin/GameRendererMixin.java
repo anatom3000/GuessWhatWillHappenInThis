@@ -32,7 +32,7 @@ public class GameRendererMixin {
 
 	@Inject(at = @At("TAIL"), method = "render")
 	public void render (float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
-		if (Config.getInstance().isRegistered()) {
+		if (!Config.getInstance().getValue(Config.UNREGISTERED_ENABLED_KEY)) {
 			return;
 		}
 		GlStateManager.disableLighting();

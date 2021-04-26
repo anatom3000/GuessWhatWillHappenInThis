@@ -18,6 +18,7 @@ Fabric mod where anyone can PR anything, concerning or not. I'll merge everythin
 - Make all entity "Dinnerbone" (thanks to @Minenash)
 - mess up 3d graphics (thanks to @JFronny)
 - randomize block drops (thanks to @JFronny)
+- add "Unregistered version" banner from Minecraft: 3D Shareware
 
 ## Dependencies
 

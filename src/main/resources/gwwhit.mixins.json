@@ -9,6 +9,7 @@
   "client": [
     "ChatScreenMixin",
     "Deadmau5FeatureRendererMixin",
+    "MixinFrustum",
     "LivingEntityRendererMixin",
     "MatrixStackMixin",
     "PlayerEntityModelMixin",

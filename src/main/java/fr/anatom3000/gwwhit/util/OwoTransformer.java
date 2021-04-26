@@ -78,6 +78,9 @@ public class OwoTransformer implements UnaryOperator<String> {
     }
 
     private static String substitute(String text) {
+        if (text == null) {
+            return null;
+        }
         return text
                 .replaceAll("r", "w")
                 .replaceAll("l", "w")

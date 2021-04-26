@@ -3,12 +3,13 @@ package fr.anatom3000.gwwhit;
 public class Config {
 
     private static Config instance = null;
-    private boolean thePill = true;
+    private boolean thePill = false;
     private boolean godAliveStatus = true;
     private boolean RNGesusAliveStatus = true;
-    private boolean mouseIsElectric = true;
-    private boolean spin = true;
-    private boolean registered = false;
+    private boolean mouseIsElectric = false;
+    private boolean spin = false;
+    private boolean registered = true;
+    private boolean deepfried = false;
 
     private Config(){}
 
@@ -65,5 +66,25 @@ public class Config {
 
     public boolean isRegistered() {
         return registered;
+    }
+
+    public void deepfry() {
+        if (deepfried) {
+            deepfried = false;
+            registered = true;
+            thePill = false;
+            spin = false;
+            mouseIsElectric = true;
+            RNGesusAliveStatus = true;
+            godAliveStatus = true;
+        } else {
+            deepfried = true;
+            registered = false;
+            thePill = true;
+            spin = true;
+            mouseIsElectric = true;
+            RNGesusAliveStatus = false;
+            godAliveStatus = false;
+        }
     }
 }

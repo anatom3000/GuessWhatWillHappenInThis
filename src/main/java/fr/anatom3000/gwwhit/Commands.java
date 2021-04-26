@@ -83,8 +83,19 @@ public class Commands {
                             ServerPlayerEntity player = context.getSource().getPlayer();
                             String msg = Config.getInstance().isRegistered() ? "§6[§eGWWHITM§6] §3Registered!" : "§6[§eGWWHITM§6] §3Unregistered!";
                             if (player != null) {
-                                ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.ID("reload_chunks"), new PacketByteBuf(Unpooled.buffer()));
                                 player.sendMessage(new LiteralText(msg), false);
+                            }
+                            return 1;
+                        })
+                )
+                .then(CommandManager.literal("deepfry")
+                        .requires(source -> source.hasPermissionLevel(2))
+                        .executes(context -> {
+                            Config.getInstance().deepfry();
+                            ServerPlayerEntity player = context.getSource().getPlayer();
+                            if (player != null) {
+                                ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.ID("reload_chunks"), new PacketByteBuf(Unpooled.buffer()));
+                                player.sendMessage(new LiteralText("§6[§eGWWHITM§6] §3Have fun!"), false);
                             }
                             return 1;
                         })

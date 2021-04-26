@@ -11,6 +11,7 @@ import java.util.function.Predicate;
 import java.util.Collection;
 import java.util.Set;
 
+//Add config for this once it's fixed
 public class WrappedPack implements ResourcePack {
     private ResourcePack pack;
     @Override

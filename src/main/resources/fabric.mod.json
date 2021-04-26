@@ -6,19 +6,29 @@
   "name": "Guess What Will Happen In It",
   "description": "Fabric mod where anyone can PR anything, concerning or not. I'll merge everything as soon as it works.",
   "authors": [
-    ""
+    "anatom3000",
+    "JFronny",
+    "LordDeatHunter",
+    "SekoiaTree",
+    "Minenash",
+    "KosmX",
+    "Noaaan",
+    "PheonixVX"
   ],
   "contact": {
     "sources": "https://github.com/anatom3000/GuessWhatWillHappenInThis"
   },
 
   "license": "MIT",
-  "icon": "assets/gwwhit/icon.png",
+  "icon": "assets/gwwhit/gwwhit.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
       "fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod"
+    ],
+    "client": [
+      "fr.anatom3000.gwwhit.GuessWhatWillHappenInThisModClient"
     ]
   },
   "mixins": [

@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntityModel.class)
 public class PlayerEntityModelMixin<T extends LivingEntity> extends BipedEntityModel<T> {
+
     @Shadow @Final private ModelPart ears;
 
     public PlayerEntityModelMixin(float scale) {
@@ -22,10 +23,11 @@ public class PlayerEntityModelMixin<T extends LivingEntity> extends BipedEntityM
     }
 
     @Inject(method = "renderEars", at = @At(value = "HEAD"), cancellable = true)
-    private void earrRenderFix(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, CallbackInfo ci){
+    private void earRenderFix(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, CallbackInfo ci){
         this.ears.copyPositionAndRotation(this.head);
         ears.pivotX = 0;
         this.ears.render(matrices, vertices, light, overlay);
         ci.cancel();
     }
+
 }

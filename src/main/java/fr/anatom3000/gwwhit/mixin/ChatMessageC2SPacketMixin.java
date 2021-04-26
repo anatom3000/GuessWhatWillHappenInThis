@@ -1,5 +1,6 @@
 package fr.anatom3000.gwwhit.mixin;
 
+import fr.anatom3000.gwwhit.Config;
 import fr.anatom3000.gwwhit.util.OwoTransformer;
 import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,7 +22,7 @@ public class ChatMessageC2SPacketMixin {
                     : chatMessage.length() < 20
                     ? OwoTransformer.TRANSFORMER_PREFIX
                     : OwoTransformer.TRANSFORMER_FULL;
-            chatMessage = transformer.transform(chatMessage);
+            chatMessage = transformer.apply(chatMessage);
         }
 
         if (chatMessage.length() > 256) {

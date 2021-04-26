@@ -1,8 +1,11 @@
 package fr.anatom3000.gwwhit.util;
 
-import java.util.Random;
+import java.util.function.UnaryOperator;
 
-public class OwoTransformer implements ITransformer<String> {
+import fr.anatom3000.gwwhit.Config;
+import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
+
+public class OwoTransformer implements UnaryOperator<String> {
     public static final OwoTransformer TRANSFORMER_SIMPLE = new OwoTransformer(false, false);
     public static final OwoTransformer TRANSFORMER_SUFFIX = new OwoTransformer(false, true);
     public static final OwoTransformer TRANSFORMER_PREFIX = new OwoTransformer(true, false);
@@ -54,23 +57,30 @@ public class OwoTransformer implements ITransformer<String> {
             ", fwendo",
             "（＾ｖ＾）"
     };
-    private static Random rng = new Random();
     private boolean prefix;
     private boolean suffix;
 
 
     @Override
-    public String transform(String str) {
+    public String apply(String str) {
+        if (!Config.getInstance().getValue(Config.OWO_ENABLED_KEY)) {
+            return str;
+        }
         String result = "";
-        if (prefix)
-            result += prefixes[rng.nextInt(prefixes.length)];
+        if (prefix) {
+            result += prefixes[GuessWhatWillHappenInThisMod.rng.nextInt(prefixes.length)];
+        }
         result += substitute(str);
-        if (suffix)
-            result += suffixes[rng.nextInt(suffixes.length)];
+        if (suffix) {
+            result += suffixes[GuessWhatWillHappenInThisMod.rng.nextInt(suffixes.length)];
+        }
         return result;
     }
 
     private static String substitute(String text) {
+        if (text == null) {
+            return null;
+        }
         return text
                 .replaceAll("r", "w")
                 .replaceAll("l", "w")

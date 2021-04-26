@@ -24,6 +24,7 @@ Fabric mod where anyone can PR anything, concerning or not. I'll merge everythin
 - - /gwwhit pill
 - - /gwwhit electrifymouse
 - - /gwwhit spin
+- - /gwwhit register
 - add "Unregistered version" banner from Minecraft: 3D Shareware
 
 ## Dependencies

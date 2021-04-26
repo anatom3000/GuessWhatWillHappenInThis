@@ -3,7 +3,6 @@ package fr.anatom3000.gwwhit;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -59,6 +58,19 @@ public class Commands {
                             ServerPlayerEntity player = context.getSource().getPlayer();
                             String msg = Config.getInstance().isMouseElectric() ? "§6[§eGWWHITM§6] §3Let's get funky!" : "§6[§eGWWHITM§6] §3Rip dedma!";
                             if (player != null) {
+                                player.sendMessage(new LiteralText(msg), false);
+                            }
+                            return 1;
+                        })
+                )
+                .then(CommandManager.literal("spin")
+                        .requires(source -> source.hasPermissionLevel(2))
+                        .executes(context -> {
+                            Config.getInstance().changeSpin();
+                            ServerPlayerEntity player = context.getSource().getPlayer();
+                            String msg = Config.getInstance().spinIsUnlocked() ? "§6[§eGWWHITM§6] §3Achieved perfection!" : "§6[§eGWWHITM§6] §3Bye, Johnny!";
+                            if (player != null) {
+                                ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.ID("reload_chunks"), new PacketByteBuf(Unpooled.buffer()));
                                 player.sendMessage(new LiteralText(msg), false);
                             }
                             return 1;

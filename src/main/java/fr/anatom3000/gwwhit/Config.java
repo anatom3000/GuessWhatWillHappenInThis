@@ -7,6 +7,7 @@ public class Config {
     private boolean godAliveStatus = true;
     private boolean RNGesusAliveStatus = true;
     private boolean mouseIsElectric = true;
+    private boolean spin = true;
 
     private Config(){}
 
@@ -48,4 +49,13 @@ public class Config {
     public void electrifyMouse() {
         mouseIsElectric = !mouseIsElectric;
     }
+
+    public boolean spinIsUnlocked() {
+        return spin;
+    }
+
+    public void changeSpin() {
+        spin = !spin;
+    }
+
 }

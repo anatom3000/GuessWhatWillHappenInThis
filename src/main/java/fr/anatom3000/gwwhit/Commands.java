@@ -76,7 +76,7 @@ public class Commands {
                                     boolean value = Config.getInstance().getValue(option);
                                     ServerPlayerEntity player = context.getSource().getPlayer();
                                     if (player != null) {
-                                        player.sendMessage(new LiteralText("§6[§eGWWHITM§6] §3" + option + "is set to " + value), false);
+                                        player.sendMessage(new LiteralText("§6[§eGWWHITM§6] §3" + option + " is set to " + value), false);
                                     }
                                     return value ? 1 : 0;
                                 })

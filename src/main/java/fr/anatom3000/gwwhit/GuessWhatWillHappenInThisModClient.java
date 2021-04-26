@@ -7,9 +7,7 @@ public class GuessWhatWillHappenInThisModClient implements ClientModInitializer 
 
     @Override
     public void onInitializeClient() {
-        ClientPlayNetworking.registerGlobalReceiver(GuessWhatWillHappenInThisMod.ID("reload_chunks"), (client, networkHandler, data, sender) -> {
-            client.execute(client.worldRenderer::reload);
-        });
+        ClientPlayNetworking.registerGlobalReceiver(GuessWhatWillHappenInThisMod.ID("reload_chunks"), (client, networkHandler, data, sender) -> client.execute(client.worldRenderer::reload));
     }
 
 }

@@ -1,5 +1,6 @@
 package fr.anatom3000.gwwhit;
 
+import fr.anatom3000.gwwhit.registry.ItemRegistry;
 import fr.anatom3000.gwwhit.util.CachingTransformer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
@@ -22,7 +23,7 @@ import java.util.function.UnaryOperator;
 
 public class GuessWhatWillHappenInThisMod implements ModInitializer {
 
-	public static final String MOD_ID = "assets/gwwhit";
+	public static final String MOD_ID = "gwwhit";
 
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 	public static final Random rng = new Random();
@@ -42,6 +43,7 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ItemRegistry.register();
 		Commands.registerCommands();
 		registerLootTables();
 		LOGGER.info("You shouldn't have done this.");

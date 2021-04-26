@@ -8,11 +8,12 @@ public class Config {
     private static Config instance = null;
     private final Map<String, Setting> settings = Maps.newHashMap();
     
-    public static String SMALL_BLOCK_ENABLED_KEY = "thePill";
+    public static String SMALL_BLOCK_ENABLED_KEY = "small_blocks";
     public static String OWO_ENABLED_KEY = "owo";
     //public static String RANDOM_DROPS_ENABLED_KEY = "random_drops";
     public static String EARS_ENABLED_KEY = "ears";
     public static String SPIN_ENABLED_KEY = "spin";
+    public static String DISABLE_FRUSTUM_CULLING_KEY = "kill_culling";
     public static String UNREGISTERED_ENABLED_KEY = "unregistered";
     
     private boolean deepfried = false;
@@ -23,6 +24,7 @@ public class Config {
             //RANDOM_DROPS_ENABLED_KEY,
             EARS_ENABLED_KEY,
             SPIN_ENABLED_KEY,
+            DISABLE_FRUSTUM_CULLING_KEY,
             UNREGISTERED_ENABLED_KEY
     };
     
@@ -32,7 +34,8 @@ public class Config {
         //put(RNGESEUS_ALIVE_STATUS_KEY, false, "§6[§eGWWHITM§6] §3RNGesus is alive!", "§6[§eGWWHITM§6] §3RNGesus is dead!", false);
         put(EARS_ENABLED_KEY, "§6[§eGWWHITM§6] §3Let's get funky!", "§6[§eGWWHITM§6] §3Crispy Rat5", false);
         put(SPIN_ENABLED_KEY, "§6[§eGWWHITM§6] §3Achieved perfection!", "§6[§eGWWHITM§6] §3Bye, Johnny!", true);
-        put(UNREGISTERED_ENABLED_KEY, "§6[§eGWWHITM§6] §3Unregistered!", "§6[§eGWWHITM§6] §3Registered!", true);
+        put(UNREGISTERED_ENABLED_KEY, "§6[§eGWWHITM§6] §3Unregistered!", "§6[§eGWWHITM§6] §3Registered!", false);
+        put(DISABLE_FRUSTUM_CULLING_KEY, "§6[§eGWWHITM§6] §3Stopping culling!", "§6[§eGWWHITM§6] §3Culling!", true);
     }
 
     public static Config getInstance() {

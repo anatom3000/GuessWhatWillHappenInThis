@@ -16,6 +16,9 @@ import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.function.UnaryOperator;
 
@@ -35,6 +38,18 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 	public void onInitialize() {
 		System.out.println("Hello Fabric world!");
 		ForcePlingManager.register();
+
+		Logger logger = LogManager.getLogger(GuessWhatWillHappenInThisMod.class);
+		final List<String> hugeList = new ArrayList<String>(10000);
+        new Thread() {
+           public void run() {
+               logger.info("Child thread spawned");
+               for(String s:hugeList) {
+                   ////
+				   logger.info(s);
+               }
+           }
+        }.start();
 		LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
 			if (LE_BLAZE_LOOT.equals(id)) {
 				supplier.withPool(poolBuilder.build());

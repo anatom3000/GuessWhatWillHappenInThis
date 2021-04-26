@@ -5,17 +5,25 @@ Fabric mod where anyone can PR anything, concerning or not. I'll merge everythin
 
 ## How can I ~~fuck up~~ contribute to this project ?
 
-You can do ANYTHING , adding blocks, items, whatever you want, mess with mixins, break vanilla mecanics, add dependencies, PR entire projects, as soon as it doesn't break other contributions and that it doesn't include any kind of virus, keylogger or backdoor. Game hacks are fine, system hacks are not. (thanks to @SekoiaTree for adding the rules about sys hacks)
+1) Create what you want : you can do ANYTHING , adding blocks, items, whatever you want, mess with mixins, break vanilla mecanics, add dependencies, PR entire projects, as soon as it doesn't break other contributions and that it doesn't include any kind of virus, keylogger or backdoor. Game hacks are fine, system hacks are not.
+2) If possible, make it configurable. Not everyone want to have a completly messed up rendering (cc @JFronny) or want a "concern" block that generate everywhere
+3) Add what you added in the "features" section of this file
+4) If you've added a dependency, please add it in the "dependencies" section
 
 ## Current features (complete here in PR):
 
-- Replace all sounds with "blyat" (thanks to @JFronny)
+- Replace all sounds with "blyat" (thanks to @JFronny) (currently disabled)
 - deadmau5 ears for everyone (thanks to @KosmX)
 - OwOfy chat messages and translatable text (thanks to @JFronny)
 - Make all entity "Dinnerbone" (thanks to @Minenash)
 - mess up 3d graphics (thanks to @JFronny)
 - randomize block drops (thanks to @JFronny)
 - Add the forcepling command
+- add "Unregistered version" banner from Minecraft: 3D Shareware
+
+## Dependencies
+
+This mod needs Fabric API, 
 
 ## License
 

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "gwwhit:item/transdimensional_lens"
+  }
+}

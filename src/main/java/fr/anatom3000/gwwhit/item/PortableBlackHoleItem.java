@@ -27,7 +27,7 @@ public class PortableBlackHoleItem extends Item {
             context.getPlayer().setCurrentHand(context.getHand());
         }
         BlockPos startPos = context.getBlockPos();
-        new Thread(() -> storeBlocks(startPos, 8)).start();
+        new Thread(() -> storeBlocks(context.getWorld(), startPos, 8)).start();
         return ActionResult.CONSUME;
     }
 
@@ -43,8 +43,11 @@ public class PortableBlackHoleItem extends Item {
         ArrayList<BlockPos> positions = new ArrayList<>(remove);
         Collections.shuffle(positions);
         for (int i = 0; i < positions.size() && i < 128; ++i) {
-            world.breakBlock(positions.get(i), false);
-            remove.remove(positions.get(i));
+            BlockPos pos = positions.get(i);
+            if (!world.getBlockState(pos).isAir()) {
+                world.breakBlock(positions.get(i), false);
+            }
+            remove.remove(pos);
         }
     }
 
@@ -53,14 +56,17 @@ public class PortableBlackHoleItem extends Item {
         return 1;
     }
 
-    private static void storeBlocks(BlockPos pos, int distance) {
+    private static void storeBlocks(World world, BlockPos pos, int distance) {
         for (int x = -distance; x <= distance; ++x) {
             for (int y = -distance; y <= distance; ++y) {
                 for (int z = -distance; z <= distance; ++z) {
                     if (remove.size() >= 16384) {
                         return;
                     }
-                    remove.add(new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ() + z));
+                    BlockPos newPos = new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ() + z);
+                    if (!world.getBlockState(newPos).isAir()) {
+                        remove.add(newPos);
+                    }
                 }
             }
         }

@@ -16,8 +16,7 @@ public class Config {
     public static String DISABLE_FRUSTUM_CULLING_KEY = "kill_culling";
     public static String UNREGISTERED_ENABLED_KEY = "unregistered";
     public static String DINNERBONE_ENTITIES_ENABLED_KEY = "dinnerbone";
-    
-    private boolean deepfried = false;
+    public static final String DREAM_LUCK_ENABLED_KEY = "dream_luck";
     
     public static String[] ALL_CONFIG_KEYS = {
             SMALL_BLOCK_ENABLED_KEY,
@@ -27,18 +26,20 @@ public class Config {
             SPIN_ENABLED_KEY,
             DISABLE_FRUSTUM_CULLING_KEY,
             UNREGISTERED_ENABLED_KEY,
-            DINNERBONE_ENTITIES_ENABLED_KEY
+            DINNERBONE_ENTITIES_ENABLED_KEY,
+            DREAM_LUCK_ENABLED_KEY
     };
     
     private Config(){
-        put(SMALL_BLOCK_ENABLED_KEY, "§6[§eGWWHITM§6] §3You wake up!", "§6[§eGWWHITM§6] §3Everything stays the same!", true);
-        put(OWO_ENABLED_KEY, "§6[§eGWWHITM§6] §3God is dead!", "§6[§eGWWHITM§6] §3God is alive!", false);
+        put(SMALL_BLOCK_ENABLED_KEY, false, "§6[§eGWWHITM§6] §3You wake up!", "§6[§eGWWHITM§6] §3Everything stays the same!", true);
+        put(OWO_ENABLED_KEY, false,"§6[§eGWWHITM§6] §3God is dead!", "§6[§eGWWHITM§6] §3God is alive!", false);
         //put(RNGESEUS_ALIVE_STATUS_KEY, false, "§6[§eGWWHITM§6] §3RNGesus is alive!", "§6[§eGWWHITM§6] §3RNGesus is dead!", false);
-        put(EARS_ENABLED_KEY, "§6[§eGWWHITM§6] §3Let's get funky!", "§6[§eGWWHITM§6] §3Crispy Rat5", false);
-        put(SPIN_ENABLED_KEY, "§6[§eGWWHITM§6] §3Achieved perfection!", "§6[§eGWWHITM§6] §3Bye, Johnny!", true);
-        put(UNREGISTERED_ENABLED_KEY, "§6[§eGWWHITM§6] §3Unregistered!", "§6[§eGWWHITM§6] §3Registered!", false);
-        put(DISABLE_FRUSTUM_CULLING_KEY, "§6[§eGWWHITM§6] §3Stopping culling!", "§6[§eGWWHITM§6] §3Culling!", true);
-        put(DINNERBONE_ENTITIES_ENABLED_KEY, "§6[§eGWWHITM§6] §3Flipped!", "§6[§eGWWHITM§6] §3Flopped!", true);
+        put(EARS_ENABLED_KEY, false,"§6[§eGWWHITM§6] §3Let's get funky!", "§6[§eGWWHITM§6] §3Crispy Rat5", false);
+        put(SPIN_ENABLED_KEY, false,"§6[§eGWWHITM§6] §3Achieved perfection!", "§6[§eGWWHITM§6] §3Bye, Johnny!", true);
+        put(UNREGISTERED_ENABLED_KEY, false,"§6[§eGWWHITM§6] §3Unregistered!", "§6[§eGWWHITM§6] §3Registered!", false);
+        put(DISABLE_FRUSTUM_CULLING_KEY, false,"§6[§eGWWHITM§6] §3Stopping culling!", "§6[§eGWWHITM§6] §3Culling!", true);
+        put(DINNERBONE_ENTITIES_ENABLED_KEY, false,"§6[§eGWWHITM§6] §3Flipped!", "§6[§eGWWHITM§6] §3Flopped!", true);
+        put(DREAM_LUCK_ENABLED_KEY, false,"§6[§eGWWHITM§6] §3It's not cheating anymore! \n§6[§eGWWHITM§6] §cRemember to reload!", "§6[§eGWWHITM§6] §3Oh wait, it is! \n§6[§eGWWHITM§6] §cRemember to reload!", true);
     }
 
     public static Config getInstance() {
@@ -48,14 +49,14 @@ public class Config {
         return instance;
     }
     
-    private void put(String key, String enableMsg, String disableMsg, boolean needReRender) {
-        settings.put(key, new Setting(needReRender, enableMsg, disableMsg));
+    private void put(String key, boolean value, String enableMsg, String disableMsg, boolean needReRender) {
+        settings.put(key, new Setting(needReRender, value, enableMsg, disableMsg));
     }
     
     private Setting get(String key) {
         if (!settings.containsKey(key)) {
             GuessWhatWillHappenInThisMod.LOGGER.warn("Tried to get config value for unset key: " + key);
-            put(key, "", "", false);
+            put(key, false, "", "", false);
         }
         return settings.get(key);
     }
@@ -81,29 +82,17 @@ public class Config {
     public void invertValue(String key) {
         get(key).invert();
     }
-
-    public void deepfry() {
-        for (Setting setting : settings.values()) {
-            setting.reset();
-            if (!deepfried) {
-                setting.invert();
-            }
-        }
-        
-        deepfried = !deepfried;
-    }
     
+    //custom values are supported to enable syncing from server in the future
     public static final class Setting {
         private boolean value;
         private final boolean needsReRender;
-        private final boolean defaultValue;
         private final String enableMsg;
         private final String disableMsg;
     
-        private Setting(boolean needReRender, String enableMsg, String disableMsg) {
+        private Setting(boolean needReRender, boolean value, String enableMsg, String disableMsg) {
             this.needsReRender = needReRender;
-            this.defaultValue = false;
-            this.value = defaultValue;
+            this.value = value;
             this.enableMsg = enableMsg;
             this.disableMsg = disableMsg;
         }
@@ -121,7 +110,7 @@ public class Config {
         }
         
         public void reset() {
-            this.value = this.defaultValue;
+            this.value = false;
         }
     
         public String getEnableMsg() {

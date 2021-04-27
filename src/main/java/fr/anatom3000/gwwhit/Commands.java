@@ -21,7 +21,7 @@ public class Commands {
         SuggestionProvider<ServerCommandSource> provider = SuggestionProviders.register(GuessWhatWillHappenInThisMod.ID("config_key"), (commandContext, suggestionsBuilder) -> {
             for (String s : Config.ALL_CONFIG_KEYS)
                 suggestionsBuilder.suggest(s);
-            suggestionsBuilder.suggest("*");
+            //suggestionsBuilder.suggest("*");
             return suggestionsBuilder.buildFuture();
         });
         
@@ -34,23 +34,26 @@ public class Commands {
                                     String option = StringArgumentType.getString(context, "config_key");
                                     Config config = Config.getInstance();
                                     ServerPlayerEntity player = context.getSource().getPlayer();
-                                    if (option.equals("*")) {
-                                        for (String setting : Config.ALL_CONFIG_KEYS) {
-                                            config.invertValue(setting);
-                                        }
-                                        
-                                        if (player != null) {
-                                            if (config.needsReRender(option)) ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.ID("reload_chunks"), new PacketByteBuf(Unpooled.buffer()));
-                                            player.sendMessage(new LiteralText("§6[§eGWWHITM§6] §3Omega swap!"), false);
-                                        }
-                                    } else {
-                                        config.invertValue(option);
-                                        if (player != null) {
-                                            if (config.needsReRender(option)) ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.ID("reload_chunks"), new PacketByteBuf(Unpooled.buffer()));
-                                            player.sendMessage(new LiteralText(config.getMsg(option)), false);
-                                        }
+                                    config.invertValue(option);
+                                    if (player != null) {
+                                        if (config.needsReRender(option)) ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.ID("reload_chunks"), new PacketByteBuf(Unpooled.buffer()));
+                                        player.sendMessage(new LiteralText(config.getMsg(option)), false);
                                     }
                                     
+                                    return 1;
+                                })
+                        )
+                        .then(CommandManager.literal("*")
+                                .executes(context -> {
+                                    Config config = Config.getInstance();
+                                    ServerPlayerEntity player = context.getSource().getPlayer();
+                                    for (String setting : Config.ALL_CONFIG_KEYS) {
+                                        config.invertValue(setting);
+                                    }
+                                    if (player != null) {
+                                        ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.ID("reload_chunks"), new PacketByteBuf(Unpooled.buffer()));
+                                        player.sendMessage(new LiteralText("§6[§eGWWHITM§6] §3Omega swap!"), false);
+                                    }
                                     return 1;
                                 })
                         )
@@ -62,29 +65,35 @@ public class Commands {
                                             String option = StringArgumentType.getString(context, "config_key");
                                             boolean value = BoolArgumentType.getBool(context, "value");
                                             Config config = Config.getInstance();
-                                            boolean oldValue = !value;
+                                            boolean oldValue;
                                             ServerPlayerEntity player = context.getSource().getPlayer();
-                                            
-                                            if (option.equals("*")) {
-                                                for (String setting : Config.ALL_CONFIG_KEYS) {
-                                                    config.setValue(setting, value);
-                                                }
-        
-                                                if (player != null) {
-                                                    if (config.needsReRender(option)) ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.ID("reload_chunks"), new PacketByteBuf(Unpooled.buffer()));
-                                                    player.sendMessage(new LiteralText("§6[§eGWWHITM§6] §3Lets gooo!"), false);
-                                                }
-                                            } else {
-                                                oldValue = config.getValue(option);
-                                                config.setValue(option, value);
-                                                if (player != null) {
-                                                    if (config.needsReRender(option))
-                                                        ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.ID("reload_chunks"), new PacketByteBuf(Unpooled.buffer()));
-                                                    player.sendMessage(new LiteralText(config.getMsg(option)), false);
-                                                }
+    
+                                            oldValue = config.getValue(option);
+                                            config.setValue(option, value);
+                                            if (player != null) {
+                                                if (config.needsReRender(option))
+                                                    ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.ID("reload_chunks"), new PacketByteBuf(Unpooled.buffer()));
+                                                player.sendMessage(new LiteralText(config.getMsg(option)), false);
                                             }
                                             return oldValue == value ? 0 : 1;
                                         })
+                                )
+                        )
+                        .then(CommandManager.literal("*")
+                                .then(CommandManager.argument("value", BoolArgumentType.bool())
+                                    .executes(context -> {
+                                        boolean value = BoolArgumentType.getBool(context, "value");
+                                        Config config = Config.getInstance();
+                                        ServerPlayerEntity player = context.getSource().getPlayer();
+                                        for (String setting : Config.ALL_CONFIG_KEYS) {
+                                            config.setValue(setting, value);
+                                        }
+                                        if (player != null) {
+                                            ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.ID("reload_chunks"), new PacketByteBuf(Unpooled.buffer()));
+                                            player.sendMessage(new LiteralText("§6[§eGWWHITM§6] §3Lets gooo!"), false);
+                                        }
+                                        return 1;
+                                    })
                                 )
                         )
                 )
@@ -113,8 +122,21 @@ public class Commands {
                                 })
                                 
                         )
+                        .then(CommandManager.literal("*")
+                                .executes(context -> {
+                                    Config config = Config.getInstance();
+                                    ServerPlayerEntity player = context.getSource().getPlayer();
+                                    int enabledCount = 0;
+                                    if (player != null) {
+                                        for (String setting : Config.ALL_CONFIG_KEYS) {
+                                            player.sendMessage(new LiteralText("§6[§eGWWHITM§6] §3" + setting + " is set to " + config.getValue(setting)), false);
+                                            ++enabledCount;
+                                        }
+                                    }
+                                    return enabledCount;
+                                })
+                        )
                 )
-                
         ));
     }
 }

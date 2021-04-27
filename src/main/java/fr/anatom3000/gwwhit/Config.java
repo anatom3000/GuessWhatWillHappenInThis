@@ -30,6 +30,7 @@ public class Config {
             DREAM_LUCK_ENABLED_KEY
     };
     
+    //Do NOT enable any config by default or make them enabled on false. This is for the future
     private Config(){
         put(SMALL_BLOCK_ENABLED_KEY, false, "§6[§eGWWHITM§6] §3You wake up!", "§6[§eGWWHITM§6] §3Everything stays the same!", true);
         put(OWO_ENABLED_KEY, false,"§6[§eGWWHITM§6] §3God is dead!", "§6[§eGWWHITM§6] §3God is alive!", false);
@@ -39,7 +40,7 @@ public class Config {
         put(UNREGISTERED_ENABLED_KEY, false,"§6[§eGWWHITM§6] §3Unregistered!", "§6[§eGWWHITM§6] §3Registered!", false);
         put(DISABLE_FRUSTUM_CULLING_KEY, false,"§6[§eGWWHITM§6] §3Stopping culling!", "§6[§eGWWHITM§6] §3Culling!", true);
         put(DINNERBONE_ENTITIES_ENABLED_KEY, false,"§6[§eGWWHITM§6] §3Flipped!", "§6[§eGWWHITM§6] §3Flopped!", true);
-        put(DREAM_LUCK_ENABLED_KEY, false,"§6[§eGWWHITM§6] §3It's not cheating anymore! \n§6[§eGWWHITM§6] §cRemember to reload!", "§6[§eGWWHITM§6] §3Oh wait, it is! \n§6[§eGWWHITM§6] §cRemember to reload!", true);
+        put(DREAM_LUCK_ENABLED_KEY, false,"§6[§eGWWHITM§6] §3It's not cheating anymore! \n§6[§eGWWHITM§6] §cRemember to reload!", "§6[§eGWWHITM§6] §3Oh wait, it is! \n§6[§eGWWHITM§6] §cRemember to reload!", false);
     }
 
     public static Config getInstance() {

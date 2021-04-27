@@ -9,7 +9,9 @@
   "item.gwwhit.dashing_boots": "Dashing Boots",
 
   "item.gwwhit.infected_mass": "Infected Mass",
+  "item.gwwhit.inert_infected_mass": "Inert Infected Mass",
   "block.gwwhit.infected_mass": "Infected Mass",
+  "block.gwwhit.inert_infected_mass": "Inert Infected Mass",
 
   "itemGroup.gwwhit.gwwhit": "Guess What Will Happen In This"
 }

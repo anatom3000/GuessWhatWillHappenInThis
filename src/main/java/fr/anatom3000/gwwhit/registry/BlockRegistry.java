@@ -17,6 +17,7 @@ public class BlockRegistry {
 
     private static final HashMap<String, Block> BLOCKS = new HashMap<String, Block>() {{
         put("infected_mass", new InfectedMassBlock(FabricBlockSettings.of(Material.SOIL, MaterialColor.PURPLE).strength(10, 4f).sounds(BlockSoundGroup.SOUL_SOIL)));
+        put("inert_infected_mass", new Block(FabricBlockSettings.of(Material.SOIL, MaterialColor.PURPLE).strength(10, 4f).sounds(BlockSoundGroup.SOUL_SOIL)));
     }};
 
     public static void register() {

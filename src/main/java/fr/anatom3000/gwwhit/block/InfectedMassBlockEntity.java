@@ -25,44 +25,30 @@ public class InfectedMassBlockEntity extends BlockEntity implements Tickable {
         if (MathUtil.getChance(75F)) {
             return;
         }
-        BlockPos newPos;
+        int completed = 0;
+
+        completed = getCompleted(new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ()), completed);
+        completed = getCompleted(new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ()), completed);
+        completed = getCompleted(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()), completed);
+        completed = getCompleted(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ()), completed);
+        completed = getCompleted(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1), completed);
+        completed = getCompleted(new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1), completed);
+
+        if (completed == 6) {
+            world.setBlockState(pos, BlockRegistry.get("inert_infected_mass").getDefaultState());
+        }
+
+    }
+
+    private int getCompleted(BlockPos newPos, int completed) {
         BlockState state;
-
-        newPos = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
         state = world.getBlockState(newPos);
-        if (MathUtil.getChance(20F) && !state.isAir() && state.getBlock() != BlockRegistry.get("infected_mass")) {
+        if (state.isAir() || state.getBlock() == BlockRegistry.get("infected_mass") || state.getBlock() == BlockRegistry.get("inert_infected_mass")) {
+            return completed + 1;
+        } else if (MathUtil.getChance(20F)) {
             world.setBlockState(newPos, this.getCachedState());
         }
-
-        newPos = new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
-        state = world.getBlockState(newPos);
-        if (MathUtil.getChance(20F) && !state.isAir() && state.getBlock() != BlockRegistry.get("infected_mass")) {
-            world.setBlockState(newPos, this.getCachedState());
-        }
-
-        newPos = new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ());
-        state = world.getBlockState(newPos);
-        if (MathUtil.getChance(20F) && !state.isAir() && state.getBlock() != BlockRegistry.get("infected_mass")) {
-            world.setBlockState(newPos, this.getCachedState());
-        }
-
-        newPos = new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ());
-        state = world.getBlockState(newPos);
-        if (MathUtil.getChance(20F) && !state.isAir() && state.getBlock() != BlockRegistry.get("infected_mass")) {
-            world.setBlockState(newPos, this.getCachedState());
-        }
-
-        newPos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
-        state = world.getBlockState(newPos);
-        if (MathUtil.getChance(20F) && !state.isAir() && state.getBlock() != BlockRegistry.get("infected_mass")) {
-            world.setBlockState(newPos, this.getCachedState());
-        }
-
-        newPos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
-        state = world.getBlockState(newPos);
-        if (MathUtil.getChance(20F) && !state.isAir() && state.getBlock() != BlockRegistry.get("infected_mass")) {
-            world.setBlockState(newPos, this.getCachedState());
-        }
+        return completed;
     }
 
 }

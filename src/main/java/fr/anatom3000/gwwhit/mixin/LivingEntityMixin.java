@@ -82,6 +82,9 @@ public abstract class LivingEntityMixin {
 
     @Inject(method = "tickMovement", at = @At("TAIL"))
     public void tickMovement(CallbackInfo ci) {
+        if (getEquippedStack(EquipmentSlot.FEET).getItem() != ItemRegistry.get("dashing_boots")) {
+            return;
+        }
         if (!((Entity)(Object)this).isSprinting()) {
             dashTicks = 0;
             return;

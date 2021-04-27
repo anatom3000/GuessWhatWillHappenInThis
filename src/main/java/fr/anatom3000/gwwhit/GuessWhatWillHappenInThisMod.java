@@ -28,6 +28,8 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
     }
 
 	public static final Identifier LE_BLAZE_LOOT = new Identifier("minecraft","entities/blaze");
+	public static final Identifier LE_BARTER_LOOT = new Identifier("minecraft","gameplay/piglin_bartering");
+	public static final Identifier LE_NEW_BARTER_LOOT = ID("gameplay/new_piglin_barter");
 
 	FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
 			.rolls(UniformLootTableRange.between(0,1))
@@ -46,8 +48,12 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 
 	private void registerLootTables() {
 		LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
-			if (LE_BLAZE_LOOT.equals(id)) {
-				supplier.withPool(poolBuilder.build());
+			if (Config.getInstance().getValue(Config.DREAM_LUCK_ENABLED_KEY)) {
+				if (LE_BLAZE_LOOT.equals(id)) {
+					supplier.withPool(poolBuilder.build());
+				} else if (LE_BARTER_LOOT.equals(id)) {
+					setter.set(manager.getTable(LE_NEW_BARTER_LOOT));
+				}
 			}
 		});
 	}

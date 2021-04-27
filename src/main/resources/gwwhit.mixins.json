@@ -6,7 +6,8 @@
   "mixins": [
     "ChatMessageC2SPacketMixin",
     "LivingEntityAccessor",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "TitleScreenMixin"
   ],
   "client": [
     "ChatScreenMixin",

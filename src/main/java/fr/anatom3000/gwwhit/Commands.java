@@ -21,6 +21,7 @@ public class Commands {
         SuggestionProvider<ServerCommandSource> provider = SuggestionProviders.register(GuessWhatWillHappenInThisMod.ID("config_key"), (commandContext, suggestionsBuilder) -> {
             for (String s : Config.ALL_CONFIG_KEYS)
                 suggestionsBuilder.suggest(s);
+            suggestionsBuilder.suggest("*");
             return suggestionsBuilder.buildFuture();
         });
         
@@ -33,11 +34,14 @@ public class Commands {
                                     String option = StringArgumentType.getString(context, "config_key");
                                     Config config = Config.getInstance();
                                     ServerPlayerEntity player = context.getSource().getPlayer();
-                                    if (option.equals("deepfry")) {
-                                        config.deepfry();
+                                    if (option.equals("*")) {
+                                        for (String setting : Config.ALL_CONFIG_KEYS) {
+                                            config.invertValue(setting);
+                                        }
+                                        
                                         if (player != null) {
                                             if (config.needsReRender(option)) ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.ID("reload_chunks"), new PacketByteBuf(Unpooled.buffer()));
-                                            player.sendMessage(new LiteralText("§6[§eGWWHITM§6] §3Deepfried minecraft!"), false);
+                                            player.sendMessage(new LiteralText("§6[§eGWWHITM§6] §3Omega swap!"), false);
                                         }
                                     } else {
                                         config.invertValue(option);
@@ -58,13 +62,28 @@ public class Commands {
                                             String option = StringArgumentType.getString(context, "config_key");
                                             boolean value = BoolArgumentType.getBool(context, "value");
                                             Config config = Config.getInstance();
-                                            config.setValue(option, value);
+                                            boolean oldValue = !value;
                                             ServerPlayerEntity player = context.getSource().getPlayer();
-                                            if (player != null) {
-                                                if (config.needsReRender(option)) ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.ID("reload_chunks"), new PacketByteBuf(Unpooled.buffer()));
-                                                player.sendMessage(new LiteralText(config.getMsg(option)), false);
+                                            
+                                            if (option.equals("*")) {
+                                                for (String setting : Config.ALL_CONFIG_KEYS) {
+                                                    config.setValue(setting, value);
+                                                }
+        
+                                                if (player != null) {
+                                                    if (config.needsReRender(option)) ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.ID("reload_chunks"), new PacketByteBuf(Unpooled.buffer()));
+                                                    player.sendMessage(new LiteralText("§6[§eGWWHITM§6] §3Lets gooo!"), false);
+                                                }
+                                            } else {
+                                                oldValue = config.getValue(option);
+                                                config.setValue(option, value);
+                                                if (player != null) {
+                                                    if (config.needsReRender(option))
+                                                        ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.ID("reload_chunks"), new PacketByteBuf(Unpooled.buffer()));
+                                                    player.sendMessage(new LiteralText(config.getMsg(option)), false);
+                                                }
                                             }
-                                            return 1;
+                                            return oldValue == value ? 0 : 1;
                                         })
                                 )
                         )
@@ -74,7 +93,19 @@ public class Commands {
                                 .executes(context -> {
                                     String option = StringArgumentType.getString(context, "config_key");
                                     boolean value = Config.getInstance().getValue(option);
+                                    Config config = Config.getInstance();
                                     ServerPlayerEntity player = context.getSource().getPlayer();
+                                    if (option.equals("*")) {
+                                        int enabledCount = 0;
+                                        if (player != null) {
+                                            for (String setting : Config.ALL_CONFIG_KEYS) {
+                                                player.sendMessage(new LiteralText("§6[§eGWWHITM§6] §3" + setting + " is set to " + config.getValue(setting)), false);
+                                                ++enabledCount;
+                                            }
+                                        }
+                                        return enabledCount;
+                                    }
+                                    
                                     if (player != null) {
                                         player.sendMessage(new LiteralText("§6[§eGWWHITM§6] §3" + option + " is set to " + value), false);
                                     }

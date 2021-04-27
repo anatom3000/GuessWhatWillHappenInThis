@@ -15,6 +15,7 @@ public class Config {
     public static String SPIN_ENABLED_KEY = "spin";
     public static String DISABLE_FRUSTUM_CULLING_KEY = "kill_culling";
     public static String UNREGISTERED_ENABLED_KEY = "unregistered";
+    public static String DINNERBONE_ENTITIES_ENABLED_KEY = "dinnerbone";
     
     private boolean deepfried = false;
     
@@ -25,7 +26,8 @@ public class Config {
             EARS_ENABLED_KEY,
             SPIN_ENABLED_KEY,
             DISABLE_FRUSTUM_CULLING_KEY,
-            UNREGISTERED_ENABLED_KEY
+            UNREGISTERED_ENABLED_KEY,
+            DINNERBONE_ENTITIES_ENABLED_KEY
     };
     
     private Config(){
@@ -36,6 +38,7 @@ public class Config {
         put(SPIN_ENABLED_KEY, "§6[§eGWWHITM§6] §3Achieved perfection!", "§6[§eGWWHITM§6] §3Bye, Johnny!", true);
         put(UNREGISTERED_ENABLED_KEY, "§6[§eGWWHITM§6] §3Unregistered!", "§6[§eGWWHITM§6] §3Registered!", false);
         put(DISABLE_FRUSTUM_CULLING_KEY, "§6[§eGWWHITM§6] §3Stopping culling!", "§6[§eGWWHITM§6] §3Culling!", true);
+        put(DINNERBONE_ENTITIES_ENABLED_KEY, "§6[§eGWWHITM§6] §3Flipped!", "§6[§eGWWHITM§6] §3Flopped!", true);
     }
 
     public static Config getInstance() {
@@ -90,12 +93,8 @@ public class Config {
         deepfried = !deepfried;
     }
     
-    public boolean isDeepfried() {
-        return deepfried;
-    }
-    
     public static final class Setting {
-        private boolean value = true;
+        private boolean value;
         private final boolean needsReRender;
         private final boolean defaultValue;
         private final String enableMsg;

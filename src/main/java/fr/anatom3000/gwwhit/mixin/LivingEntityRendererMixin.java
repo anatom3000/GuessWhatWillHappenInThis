@@ -1,5 +1,6 @@
 package fr.anatom3000.gwwhit.mixin;
 
+import fr.anatom3000.gwwhit.Config;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
@@ -20,7 +21,7 @@ public class LivingEntityRendererMixin {
 
     @Inject(method = "setupTransforms", at = @At(value = "TAIL"))
     private void dinnerboneEntities(LivingEntity entity, MatrixStack matrices, float _animationProgress, float _bodyYaw, float _tickDelta, CallbackInfo _info) {
-        if (!(entity instanceof PlayerEntity)) {
+        if ((!(entity instanceof PlayerEntity)) && Config.getInstance().getValue(Config.DINNERBONE_ENTITIES_ENABLED_KEY)) {
             matrices.translate(0.0D, entity.getHeight() + 0.1F, 0.0D);
             matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180.0F));
         }

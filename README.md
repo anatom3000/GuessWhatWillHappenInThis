@@ -19,9 +19,9 @@ Fabric mod where anyone can PR anything, concerning or not. I'll merge everythin
 - mess up 3d graphics (thanks to @JFronny)
 - randomize block drops (thanks to @JFronny)
 - Config commands (thanks to @LordDeatHunter and @MattiDragon):
-- - /gwwhit set \<option>
-- - /gwwhit get \<option>
-- - /gwwhit toggle \<option>
+  - /gwwhit set \<option>
+  - /gwwhit get \<option>
+  - /gwwhit toggle \<option>
 - add "Unregistered version" banner from Minecraft: 3D Shareware
 - Dream's RNG (thanks to @Noaaan)
 

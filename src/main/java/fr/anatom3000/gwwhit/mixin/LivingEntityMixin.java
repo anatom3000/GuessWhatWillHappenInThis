@@ -5,6 +5,10 @@ import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -15,7 +19,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.UUID;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
@@ -33,6 +40,8 @@ public abstract class LivingEntityMixin {
     @Shadow public abstract void setAttacker(@Nullable LivingEntity attacker);
 
     @Shadow protected abstract void applyDamage(DamageSource source, float amount);
+
+    @Shadow @Nullable public abstract EntityAttributeInstance getAttributeInstance(EntityAttribute attribute);
 
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
     public void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
@@ -68,5 +77,28 @@ public abstract class LivingEntityMixin {
             cir.cancel();
         }
     }
+
+    private int dashTicks = 0;
+
+    @Inject(method = "tickMovement", at = @At("TAIL"))
+    public void tickMovement(CallbackInfo ci) {
+        if (!((Entity)(Object)this).isSprinting()) {
+            dashTicks = 0;
+            return;
+        } else {
+            ++dashTicks;
+        }
+        EntityAttributeInstance entityAttributeInstance = getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+        if (entityAttributeInstance.getModifier(DASHING_SPEED_BOOST_ID) != null) {
+            entityAttributeInstance.removeModifier(DASHING_SPEED_BOOST);
+        }
+        if (dashTicks >= 20) {
+            dashTicks = 20;
+            entityAttributeInstance.addTemporaryModifier(DASHING_SPEED_BOOST);
+        }
+    }
+
+    private static final UUID DASHING_SPEED_BOOST_ID = UUID.fromString("130b4542-4a89-5046-9e87-acbb7577a76b");
+    private static final EntityAttributeModifier DASHING_SPEED_BOOST = new EntityAttributeModifier(DASHING_SPEED_BOOST_ID, "Dashing speed boost", 0.25D, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
 
 }

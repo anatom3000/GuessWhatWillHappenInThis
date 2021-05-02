@@ -7,16 +7,22 @@
     "ChatMessageC2SPacketMixin",
     "LanguageMixin",
     "GameModeMixin",
-    "ExplosionMixin"
+    "ExplosionMixin",
+    "LivingEntityAccessor",
+    "LivingEntityMixin",
+    "TitleScreenMixin"
   ],
   "client": [
     "ChatScreenMixin",
     "Deadmau5FeatureRendererMixin",
+    "GameRendererMixin",
+    "KeyboardMixin",
+    "LanguageMixin",
     "LivingEntityRendererMixin",
     "MatrixStackMixin",
     "PlayerEntityModelMixin",
-    "PlayerEntityModelMixin",
-    "LivingEntityRendererMixin"
+    "LivingEntityRendererMixin",
+    "MixinFrustum"
   ],
   "injectors": {
     "defaultRequire": 1

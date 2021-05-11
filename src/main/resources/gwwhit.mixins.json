@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "ChatMessageC2SPacketMixin",
-    "ClientWorldMixin",
     "LivingEntityAccessor",
     "LivingEntityMixin",
     "PlayerManagerMixin",
@@ -13,6 +12,7 @@
   ],
   "client": [
     "ChatScreenMixin",
+    "ClientWorldMixin",
     "Deadmau5FeatureRendererMixin",
     "GameRendererMixin",
     "KeyboardMixin",

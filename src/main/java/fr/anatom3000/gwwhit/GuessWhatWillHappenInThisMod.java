@@ -1,8 +1,12 @@
 package fr.anatom3000.gwwhit;
 
+import fr.anatom3000.gwwhit.config.ModConfig;
 import fr.anatom3000.gwwhit.registry.BlockEntityRegistry;
 import fr.anatom3000.gwwhit.registry.BlockRegistry;
 import fr.anatom3000.gwwhit.registry.ItemRegistry;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
+import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Jankson;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
@@ -17,6 +21,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Random;
 
 public class GuessWhatWillHappenInThisMod implements ModInitializer {
+	public static final Jankson JANKSON = Jankson.builder().build();
 
 	public static final String MOD_ID = "gwwhit";
 
@@ -30,6 +35,8 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 	public static final Identifier LE_BLAZE_LOOT = new Identifier("minecraft","entities/blaze");
 	public static final Identifier LE_BARTER_LOOT = new Identifier("minecraft","gameplay/piglin_bartering");
 	public static final Identifier LE_NEW_BARTER_LOOT = ID("gameplay/new_piglin_barter");
+	
+	public static final Identifier CONFIG_SYNC_ID = ID("config_sync");
 
 	FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
 			.rolls(UniformLootTableRange.between(0,1))
@@ -42,13 +49,15 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 		BlockRegistry.register();
 		BlockEntityRegistry.register();
 		Commands.register();
+		AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new);
+		
 		registerLootTables();
 		LOGGER.info("You shouldn't have done this.");
 	}
 
 	private void registerLootTables() {
 		LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
-			if (Config.getInstance().getValue(Config.DREAM_LUCK_ENABLED_KEY)) {
+			if (ModConfig.getInstance().drops.dreamLuck) {
 				if (LE_BLAZE_LOOT.equals(id)) {
 					supplier.withPool(poolBuilder.build());
 				} else if (LE_BARTER_LOOT.equals(id)) {

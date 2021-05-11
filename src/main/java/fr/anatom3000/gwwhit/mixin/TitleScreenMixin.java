@@ -2,7 +2,6 @@ package fr.anatom3000.gwwhit.mixin;
 
 import net.minecraft.client.gui.screen.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(TitleScreen.class)

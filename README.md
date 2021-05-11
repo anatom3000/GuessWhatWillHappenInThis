@@ -18,10 +18,8 @@ Fabric mod where anyone can PR anything, concerning or not. I'll merge everythin
 - Make all entity "Dinnerbone" (thanks to @Minenash)
 - mess up 3d graphics (thanks to @JFronny)
 - randomize block drops (thanks to @JFronny)
-- Config commands (thanks to @LordDeatHunter and @MattiDragon):
-  - /gwwhit set \<option>
-  - /gwwhit get \<option>
-  - /gwwhit toggle \<option>
+- cloth config support (thanks to @MattiDragon)
+  - use /gwwhit reloadconfig to reload and sync it  
 - add "Unregistered version" banner from Minecraft: 3D Shareware
 - Dream's RNG (thanks to @Noaaan)
 

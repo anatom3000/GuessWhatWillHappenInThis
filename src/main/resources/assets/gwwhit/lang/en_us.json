@@ -13,5 +13,21 @@
   "block.gwwhit.infected_mass": "Infected Mass",
   "block.gwwhit.inert_infected_mass": "Inert Infected Mass",
 
-  "itemGroup.gwwhit.gwwhit": "Guess What Will Happen In This"
+  "itemGroup.gwwhit.gwwhit": "Guess What Will Happen In This",
+
+  "text.autoconfig.gwwhit.title": "Guess What Will Happen In This Mod",
+  "text.autoconfig.gwwhit.option.drops": "Drops",
+  "text.autoconfig.gwwhit.option.drops.randomizedDrops": "Random Drops",
+  "text.autoconfig.gwwhit.option.drops.dreamLuck": "Dream Luck",
+  "text.autoconfig.gwwhit.option.misc": "Miscellaneous",
+  "text.autoconfig.gwwhit.option.misc.killCulling": "Disable Frustrum Culling",
+  "text.autoconfig.gwwhit.option.misc.owoifyer": "Owoifyer",
+  "text.autoconfig.gwwhit.option.rendering": "Rendering",
+  "text.autoconfig.gwwhit.option.rendering.matrices": "Matrices",
+  "text.autoconfig.gwwhit.option.rendering.matrices.smallBlocks": "Small Blocks",
+  "text.autoconfig.gwwhit.option.rendering.matrices.spin": "Spin",
+  "text.autoconfig.gwwhit.option.rendering.other": "Other",
+  "text.autoconfig.gwwhit.option.rendering.other.deadmauEars": "Deadmau5 Ears",
+  "text.autoconfig.gwwhit.option.rendering.other.unregisteredVersion": "Unregistered Version",
+  "text.autoconfig.gwwhit.option.rendering.other.dinnerboneEntities": "Flip All Entities"
 }

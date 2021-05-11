@@ -6,10 +6,11 @@ import net.minecraft.resource.metadata.ResourceMetadataReader;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.*;
-import java.util.function.Predicate;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.Set;
+import java.util.function.Predicate;
 
 //Add config for this once it's fixed
 public class WrappedPack implements ResourcePack {

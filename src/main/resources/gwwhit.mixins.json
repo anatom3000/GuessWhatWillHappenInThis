@@ -5,8 +5,10 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "ChatMessageC2SPacketMixin",
+    "ClientWorldMixin",
     "LivingEntityAccessor",
     "LivingEntityMixin",
+    "PlayerManagerMixin",
     "TitleScreenMixin"
   ],
   "client": [

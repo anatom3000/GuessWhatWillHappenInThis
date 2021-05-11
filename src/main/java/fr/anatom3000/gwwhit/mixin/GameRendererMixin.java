@@ -1,7 +1,7 @@
 package fr.anatom3000.gwwhit.mixin;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import fr.anatom3000.gwwhit.Config;
+import fr.anatom3000.gwwhit.config.ModConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -32,7 +32,7 @@ public class GameRendererMixin {
 
 	@Inject(at = @At("TAIL"), method = "render")
 	public void render (float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
-		if (!Config.getInstance().getValue(Config.UNREGISTERED_ENABLED_KEY)) {
+		if (!ModConfig.getInstance().rendering.other.unregisteredVersion) {
 			return;
 		}
 		GlStateManager.disableLighting();

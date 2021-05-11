@@ -2,7 +2,6 @@ package fr.anatom3000.gwwhit.util;
 
 import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Quaternion;
 
 public class MathUtil {
     public static double BoxedInvert(double min, double max, double value) {

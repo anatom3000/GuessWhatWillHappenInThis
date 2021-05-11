@@ -1,5 +1,6 @@
 package fr.anatom3000.gwwhit.mixin;
 
+import fr.anatom3000.gwwhit.util.OwoTransformer;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import org.spongepowered.asm.mixin.Mixin;
@@ -7,7 +8,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import fr.anatom3000.gwwhit.util.OwoTransformer;
 
 @Mixin(ChatScreen.class)
 public class ChatScreenMixin {

@@ -1,7 +1,7 @@
 package fr.anatom3000.gwwhit.util;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.function.UnaryOperator;
 
 public class CachingTransformer<T> implements UnaryOperator<T> {

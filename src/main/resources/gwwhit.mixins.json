@@ -7,10 +7,12 @@
     "ChatMessageC2SPacketMixin",
     "LivingEntityAccessor",
     "LivingEntityMixin",
+    "PlayerManagerMixin",
     "TitleScreenMixin"
   ],
   "client": [
     "ChatScreenMixin",
+    "ClientWorldMixin",
     "Deadmau5FeatureRendererMixin",
     "GameRendererMixin",
     "KeyboardMixin",

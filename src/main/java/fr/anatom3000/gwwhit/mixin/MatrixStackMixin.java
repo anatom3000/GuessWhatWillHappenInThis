@@ -1,6 +1,6 @@
 package fr.anatom3000.gwwhit.mixin;
 
-import fr.anatom3000.gwwhit.Config;
+import fr.anatom3000.gwwhit.config.ModConfig;
 import fr.anatom3000.gwwhit.util.MathUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
@@ -19,10 +19,10 @@ public abstract class MatrixStackMixin {
 
     @Inject(method = "translate(DDD)V", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
     public void translate(double x, double y, double z, CallbackInfo ci, MatrixStack.Entry entry) {
-        if (Config.getInstance().getValue(Config.SMALL_BLOCK_ENABLED_KEY)) {
+        if (ModConfig.getInstance().rendering.matrices.smallBlocks) {
             entry.getModel().multiply(Matrix4f.translate(iv(x), iv(y), iv(z)));
         }
-        if (Config.getInstance().getValue(Config.SPIN_ENABLED_KEY)) {
+        if (ModConfig.getInstance().rendering.matrices.spin) {
             increment = (increment + MinecraftClient.getInstance().getTickDelta() * 0.00001f) % 360;
             entry.getModel().multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(increment));
             entry.getModel().multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(increment));

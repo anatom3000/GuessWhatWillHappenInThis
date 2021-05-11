@@ -1,9 +1,9 @@
 package fr.anatom3000.gwwhit.util;
 
-import java.util.function.UnaryOperator;
-
-import fr.anatom3000.gwwhit.Config;
 import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
+import fr.anatom3000.gwwhit.config.ModConfig;
+
+import java.util.function.UnaryOperator;
 
 public class OwoTransformer implements UnaryOperator<String> {
     public static final OwoTransformer TRANSFORMER_SIMPLE = new OwoTransformer(false, false);
@@ -63,7 +63,7 @@ public class OwoTransformer implements UnaryOperator<String> {
 
     @Override
     public String apply(String str) {
-        if (!Config.getInstance().getValue(Config.OWO_ENABLED_KEY)) {
+        if (!ModConfig.getInstance().misc.owoifyer || str == null) {
             return str;
         }
         String result = "";

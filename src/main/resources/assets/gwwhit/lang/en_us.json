@@ -11,6 +11,7 @@
   "item.gwwhit.infected_mass": "Infected Mass",
   "item.gwwhit.inert_infected_mass": "Inert Infected Mass",
   "block.gwwhit.infected_mass": "Infected Mass",
+  "block.gwwhit.infected_mass.tooltip": "WARNING: Can and will destroy your world and fps!",
   "block.gwwhit.inert_infected_mass": "Inert Infected Mass",
 
   "itemGroup.gwwhit.gwwhit": "Guess What Will Happen In This",
@@ -26,6 +27,7 @@
   "text.autoconfig.gwwhit.option.rendering.matrices": "Matrices",
   "text.autoconfig.gwwhit.option.rendering.matrices.smallBlocks": "Small Blocks",
   "text.autoconfig.gwwhit.option.rendering.matrices.spin": "Spin",
+  "text.autoconfig.gwwhit.option.rendering.matrices.matrixScale": "Matrix Scale",
   "text.autoconfig.gwwhit.option.rendering.other": "Other",
   "text.autoconfig.gwwhit.option.rendering.other.deadmauEars": "Deadmau5 Ears",
   "text.autoconfig.gwwhit.option.rendering.other.unregisteredVersion": "Unregistered Version",

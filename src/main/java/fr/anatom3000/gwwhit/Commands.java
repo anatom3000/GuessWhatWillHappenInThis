@@ -24,17 +24,19 @@ public class Commands {
         
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal(GuessWhatWillHappenInThisMod.MOD_ID)
                 .requires(source -> source.hasPermissionLevel(2))
-                .then(CommandManager.literal("reloadconfig")
-                    .executes(context -> {
-                        ConfigHolder<ModConfig> configHolder = ModConfig.getHolder();
-                        configHolder.load();
+                .then(CommandManager.literal("config")
+                        .then(CommandManager.literal("reload")
+                            .executes(context -> {
+                                ConfigHolder<ModConfig> configHolder = ModConfig.getHolder();
+                                configHolder.load();
+                                
+                                for (ServerPlayerEntity player : context.getSource().getMinecraftServer().getPlayerManager().getPlayerList()) {
+                                    ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.CONFIG_SYNC_ID, configHolder.getConfig().getSyncable());
+                                }
+                                return 1;
+                            })
+                        )
                         
-                        for (ServerPlayerEntity player : context.getSource().getMinecraftServer().getPlayerManager().getPlayerList()) {
-                            ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.CONFIG_SYNC_ID, configHolder.getConfig().getSyncable());
-                        }
-                        
-                        return 1;
-                    })
                 )
         ));
         

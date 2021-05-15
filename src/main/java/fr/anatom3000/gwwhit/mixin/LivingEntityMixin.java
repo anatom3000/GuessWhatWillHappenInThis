@@ -3,6 +3,7 @@ package fr.anatom3000.gwwhit.mixin;
 import fr.anatom3000.gwwhit.registry.ItemRegistry;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -14,6 +15,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -25,8 +27,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.UUID;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin {
-
+public abstract class LivingEntityMixin extends Entity {
+    
+    public LivingEntityMixin(EntityType<?> type, World world) {
+        super(type, world);
+    }
+    
     @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
 
     @Shadow public abstract void onDeath(DamageSource source);
@@ -45,9 +51,7 @@ public abstract class LivingEntityMixin {
 
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
     public void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (((Entity)(Object)this).world.isClient) {
-            return;
-        }
+        if (this.world.isClient) return;
         if (source == DamageSource.FALL && getEquippedStack(EquipmentSlot.FEET).getItem() == ItemRegistry.get("shock_resistant_boots")) {
             cir.setReturnValue(false);
             cir.cancel();
@@ -62,15 +66,15 @@ public abstract class LivingEntityMixin {
                 ((LivingEntityAccessor)this).setPlayerHitTimer(100);
             }
             ((LivingEntityAccessor)this).setLastDamageTaken(Float.MAX_VALUE);
-            ((Entity)(Object)this).world.sendEntityStatus((Entity)(Object)this, (byte) 2);
+            this.world.sendEntityStatus(this, (byte) 2);
             SoundEvent soundEvent = getDeathSound();
             if (soundEvent != null) {
-                ((Entity)(Object)this).playSound(soundEvent, getSoundVolume(), getSoundPitch());
+                this.playSound(soundEvent, getSoundVolume(), getSoundPitch());
             }
             onDeath(source);
 
             if (attacker instanceof ServerPlayerEntity) {
-                Criteria.PLAYER_HURT_ENTITY.trigger((ServerPlayerEntity)attacker, (Entity)(Object)this, source, 0, Float.MAX_VALUE, false);
+                Criteria.PLAYER_HURT_ENTITY.trigger((ServerPlayerEntity)attacker, this, source, 0, Float.MAX_VALUE, false);
             }
 
             cir.setReturnValue(true);
@@ -85,7 +89,7 @@ public abstract class LivingEntityMixin {
         if (getEquippedStack(EquipmentSlot.FEET).getItem() != ItemRegistry.get("dashing_boots")) {
             return;
         }
-        if (!((Entity)(Object)this).isSprinting()) {
+        if (!isSprinting()) {
             dashTicks = 0;
             return;
         } else {

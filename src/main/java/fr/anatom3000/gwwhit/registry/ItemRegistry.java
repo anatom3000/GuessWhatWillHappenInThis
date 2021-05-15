@@ -2,10 +2,7 @@ package fr.anatom3000.gwwhit.registry;
 
 import fr.anatom3000.gwwhit.CustomItemGroups;
 import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
-import fr.anatom3000.gwwhit.item.BoosterItem;
-import fr.anatom3000.gwwhit.item.CosmicEraserItem;
-import fr.anatom3000.gwwhit.item.PortableBlackHoleItem;
-import fr.anatom3000.gwwhit.item.TransdimensionalLensItem;
+import fr.anatom3000.gwwhit.item.*;
 import fr.anatom3000.gwwhit.materials.CustomArmorMaterials;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.EquipmentSlot;

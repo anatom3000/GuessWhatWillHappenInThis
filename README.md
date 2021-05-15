@@ -16,16 +16,16 @@ Fabric mod where anyone can PR anything, concerning or not. I'll merge everythin
 - deadmau5 ears for everyone (thanks to @KosmX)
 - OwOfy chat messages and translatable text (thanks to @JFronny)
 - Make all entity "Dinnerbone" (thanks to @Minenash)
-- mess up 3d graphics (thanks to @JFronny)
+- mess up 3d graphics (thanks to @JFronny and @MattiDragon)
 - randomize block drops (thanks to @JFronny)
 - cloth config support (thanks to @MattiDragon)
-  - use /gwwhit reloadconfig to reload and sync it  
+  - use **/gwwhit config reload** to reload and sync it  
 - add "Unregistered version" banner from Minecraft: 3D Shareware
 - Dream's RNG (thanks to @Noaaan)
 
 ## Dependencies
 
-This mod needs Fabric API, 
+This mod needs Fabric API and Cloth Config
 
 ## License
 

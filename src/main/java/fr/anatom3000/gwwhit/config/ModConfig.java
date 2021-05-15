@@ -6,14 +6,13 @@ import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui;
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Jankson;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.network.PacketByteBuf;
 import org.jetbrains.annotations.Nullable;
 
 @Config(name = GuessWhatWillHappenInThisMod.MOD_ID)
 public class ModConfig implements ConfigData {
-    private static final Jankson jankson = Jankson.builder().build();
+    @Gui.Excluded
     private static ModConfig SERVER_CONFIG = null;
     
     public static ModConfig getInstance() {
@@ -25,7 +24,7 @@ public class ModConfig implements ConfigData {
     }
     
     public PacketByteBuf getSyncable() {
-        String config = jankson.toJson(this).toJson();
+        String config = GuessWhatWillHappenInThisMod.JANKSON.toJson(this).toJson();
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeString(config);
         return buf;
@@ -46,9 +45,6 @@ public class ModConfig implements ConfigData {
     @Gui.CollapsibleObject
     public Misc misc = new Misc();
     
-    
-    
-    
     public static class Misc {
         public boolean killCulling = false;
         public boolean owoifyer = false;
@@ -68,6 +64,7 @@ public class ModConfig implements ConfigData {
         public static class Matrices {
             public boolean smallBlocks = false;
             public boolean spin = false;
+            public float matrixScale = 1;
         }
         
         public static class Other {

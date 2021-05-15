@@ -7,8 +7,6 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 
 public class GuessWhatWillHappenInThisModClient implements ClientModInitializer {
-    private static final Jankson jankson = Jankson.builder().build();
-    
     
     @Override
     public void onInitializeClient() {
@@ -17,7 +15,7 @@ public class GuessWhatWillHappenInThisModClient implements ClientModInitializer 
         ClientPlayNetworking.registerGlobalReceiver(GuessWhatWillHappenInThisMod.CONFIG_SYNC_ID, (client, networkHandler, data, sender) -> {
             ModConfig config = null;
             try {
-                config = jankson.fromJson(data.readString(), ModConfig.class);
+                config = GuessWhatWillHappenInThisMod.JANKSON.fromJson(data.readString(), ModConfig.class);
             } catch (SyntaxError syntaxError) {
                 GuessWhatWillHappenInThisMod.LOGGER.warn("Failed to load synced config, falling back to local config!");
             }

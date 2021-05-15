@@ -28,6 +28,7 @@ public abstract class MatrixStackMixin {
             entry.getModel().multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(increment));
             entry.getModel().multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(increment));
         }
+        entry.getModel().multiply(ModConfig.getInstance().rendering.matrices.matrixScale);
     }
     
     private static float iv(double v) {

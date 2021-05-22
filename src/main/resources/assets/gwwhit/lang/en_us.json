@@ -31,5 +31,6 @@
   "text.autoconfig.gwwhit.option.rendering.other": "Other",
   "text.autoconfig.gwwhit.option.rendering.other.deadmauEars": "Deadmau5 Ears",
   "text.autoconfig.gwwhit.option.rendering.other.unregisteredVersion": "Unregistered Version",
-  "text.autoconfig.gwwhit.option.rendering.other.dinnerboneEntities": "Flip All Entities"
+  "text.autoconfig.gwwhit.option.rendering.other.dinnerboneEntities": "Flip All Entities",
+  "text.autoconfig.gwwhit.option.rendering.other.shader": "Shader"
 }

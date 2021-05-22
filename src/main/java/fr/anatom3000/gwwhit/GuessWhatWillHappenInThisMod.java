@@ -4,6 +4,7 @@ import fr.anatom3000.gwwhit.config.ModConfig;
 import fr.anatom3000.gwwhit.registry.BlockEntityRegistry;
 import fr.anatom3000.gwwhit.registry.BlockRegistry;
 import fr.anatom3000.gwwhit.registry.ItemRegistry;
+import fr.anatom3000.gwwhit.registry.NewMaterials;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Jankson;
@@ -48,6 +49,7 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 		ItemRegistry.register();
 		BlockRegistry.register();
 		BlockEntityRegistry.register();
+		NewMaterials.onInitialize();
 		Commands.register();
 		AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new);
 		

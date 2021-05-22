@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["MMM", " S ", " S "], "key": {"M": {"item": "gwwhit:sijtyw"}, "S": {"item": "minecraft:stick"}}, "result": {"item": "gwwhit:sijtyw_pickaxe", "count": 1}}

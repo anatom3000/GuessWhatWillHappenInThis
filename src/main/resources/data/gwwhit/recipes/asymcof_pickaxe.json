@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["MMM", " S ", " S "], "key": {"M": {"item": "gwwhit:asymcof_ingot"}, "S": {"item": "minecraft:stick"}}, "result": {"item": "gwwhit:asymcof_pickaxe", "count": 1}}

@@ -7,14 +7,23 @@ import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.ShaderEffect;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
+
+import java.io.IOException;
 
 @Config(name = GuessWhatWillHappenInThisMod.MOD_ID)
 public class ModConfig implements ConfigData {
+
     @Gui.Excluded
     private static ModConfig SERVER_CONFIG = null;
-    
+
+    @Gui.Excluded
+    public ShaderEffect shader = null;
+
     public static ModConfig getInstance() {
         return SERVER_CONFIG == null ? AutoConfig.getConfigHolder(ModConfig.class).getConfig() : SERVER_CONFIG;
     }
@@ -32,6 +41,17 @@ public class ModConfig implements ConfigData {
     
     public static void setInstance(@Nullable ModConfig config) {
         SERVER_CONFIG = config;
+    }
+
+    public void setShader() {
+        MinecraftClient mc = MinecraftClient.getInstance();
+        Identifier shaderID = new Identifier(String.format("shaders/post/%s.json", ModConfig.getInstance().rendering.other.shader.toString().toLowerCase()));
+        try {
+            ShaderEffect shader = new ShaderEffect(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), shaderID);
+            this.shader = shader;
+        } catch (IOException e) {
+            this.shader = null;
+        }
     }
     
     private ModConfig() {}
@@ -56,6 +76,29 @@ public class ModConfig implements ConfigData {
     }
     
     public static class Rendering {
+
+        public enum Shaders {
+            I_Hate_Cool_Features,
+            Notch,
+            Bumpy,
+            Blobs,
+            Pencil,
+            Deconverge,
+            Flip,
+            Invert,
+            NTSC,
+            Outline,
+            Phosphor,
+            Sobel,
+            Bits,
+            Desaturate,
+            Blur,
+            Creeper,
+            Spider,
+            Wobble,
+            Green
+    }
+
         @Gui.CollapsibleObject
         public Matrices matrices = new Matrices();
         @Gui.CollapsibleObject
@@ -71,6 +114,8 @@ public class ModConfig implements ConfigData {
             public boolean deadmauEars = false;
             public boolean dinnerboneEntities = false;
             public boolean unregisteredVersion = false;
+
+            public Shaders shader = Shaders.I_Hate_Cool_Features;
         }
     }
 }

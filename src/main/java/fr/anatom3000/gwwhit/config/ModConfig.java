@@ -72,6 +72,16 @@ public class ModConfig implements ConfigData {
         public boolean killCulling = false;
         @Gui.Tooltip
         public boolean owoifyer = false;
+
+        @Gui.Tooltip
+        @Gui.CollapsibleObject
+        public WhatsAppWhistle whatsAppWhistle = new WhatsAppWhistle();
+
+        public static class WhatsAppWhistle {
+            public boolean playWhatsAppWhistleOnChat = false;
+
+            public float volume = 1f;
+        }
     }
     
     public static class Drops {

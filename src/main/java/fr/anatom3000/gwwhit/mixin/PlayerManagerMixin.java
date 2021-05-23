@@ -3,10 +3,8 @@ package fr.anatom3000.gwwhit.mixin;
 import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
 import fr.anatom3000.gwwhit.config.ModConfig;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Jankson;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.ClientConnection;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,6 +18,6 @@ public class PlayerManagerMixin {
     
     @Inject(method = "onPlayerConnect", at = @At("TAIL"))
     private void onPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo ci) {
-        ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.CONFIG_SYNC_ID , ModConfig.getHolder().getConfig().getSyncable());
+        ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.CONFIG_SYNC_ID , ModConfig.getHolder().getConfig().toPacketByteBuf());
     }
 }

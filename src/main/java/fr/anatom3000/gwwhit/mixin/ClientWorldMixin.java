@@ -11,6 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ClientWorldMixin {
     @Inject(method = "disconnect", at = @At("TAIL"))
     private void onDisconnect(CallbackInfo ci) {
-        ModConfig.setInstance(null);
+        ModConfig.loadConfig(null);
     }
 }

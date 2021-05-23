@@ -31,5 +31,22 @@
   "text.autoconfig.gwwhit.option.rendering.other": "Other",
   "text.autoconfig.gwwhit.option.rendering.other.deadmauEars": "Deadmau5 Ears",
   "text.autoconfig.gwwhit.option.rendering.other.unregisteredVersion": "Unregistered Version",
-  "text.autoconfig.gwwhit.option.rendering.other.dinnerboneEntities": "Flip All Entities"
+  "text.autoconfig.gwwhit.option.rendering.other.dinnerboneEntities": "Flip All Entities",
+
+  "text.autoconfig.gwwhit.option.drops.@Tooltip": "Settings for drops in the game.",
+  "text.autoconfig.gwwhit.option.drops.dreamLuck.@Tooltip[0]": "Increases the chance of ender pearls",
+  "text.autoconfig.gwwhit.option.drops.dreamLuck.@Tooltip[1]": "from bartering and blaze rods from blazes.",
+  "text.autoconfig.gwwhit.option.misc.@Tooltip": "Settings that don't fit in any other tab.",
+  "text.autoconfig.gwwhit.option.misc.killCulling.@Tooltip": "Decreases fps a lot.",
+  "text.autoconfig.gwwhit.option.misc.owoifyer.@Tooltip": "Owoify everything.",
+  "text.autoconfig.gwwhit.option.rendering.@Tooltip": "Settings for rendering.",
+  "text.autoconfig.gwwhit.option.rendering.matrices.@Tooltip[0]": "Settings that affect the matrix stack.",
+  "text.autoconfig.gwwhit.option.rendering.matrices.@Tooltip[1]": "It defines position and rotation for rendering.",
+  "text.autoconfig.gwwhit.option.rendering.matrices.smallBlocks.@Tooltip": "Makes all the faces of blocks smaller.",
+  "text.autoconfig.gwwhit.option.rendering.matrices.spin.@Tooltip": "Spins everything around.",
+  "text.autoconfig.gwwhit.option.rendering.matrices.matrixScale.@Tooltip": "Scales chunks of rendered blocks.",
+  "text.autoconfig.gwwhit.option.rendering.other.@Tooltip": "Other rendering settings.",
+  "text.autoconfig.gwwhit.option.rendering.other.deadmauEars.@Tooltip": "Gives everyone Deadmau5s ears.",
+  "text.autoconfig.gwwhit.option.rendering.other.unregisteredVersion.@Tooltip": "Shows the \"Unregistered Version\" banner.",
+  "text.autoconfig.gwwhit.option.rendering.other.dinnerboneEntities.@Tooltip": "Flips all entities upside down."
 }

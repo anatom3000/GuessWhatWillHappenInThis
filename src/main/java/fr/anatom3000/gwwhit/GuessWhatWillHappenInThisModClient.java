@@ -1,7 +1,6 @@
 package fr.anatom3000.gwwhit;
 
 import fr.anatom3000.gwwhit.config.ModConfig;
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Jankson;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.api.SyntaxError;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -25,7 +24,7 @@ public class GuessWhatWillHappenInThisModClient implements ClientModInitializer 
     
             ModConfig finalConfig = config;
             client.execute(() -> {
-                ModConfig.setInstance(finalConfig);
+                ModConfig.loadConfig(finalConfig);
                 client.worldRenderer.reload();
             });
             

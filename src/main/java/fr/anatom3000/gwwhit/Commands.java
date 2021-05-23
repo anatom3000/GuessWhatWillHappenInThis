@@ -31,7 +31,7 @@ public class Commands {
                                 configHolder.load();
                                 
                                 for (ServerPlayerEntity player : context.getSource().getMinecraftServer().getPlayerManager().getPlayerList()) {
-                                    ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.CONFIG_SYNC_ID, configHolder.getConfig().getSyncable());
+                                    ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.CONFIG_SYNC_ID, configHolder.getConfig().toPacketByteBuf());
                                 }
                                 return 1;
                             })
@@ -47,7 +47,7 @@ public class Commands {
                         .then(CommandManager.argument("config_key", StringArgumentType.word()).suggests(provider)
                                 .executes(context -> {
                                     String option = StringArgumentType.getString(context, "config_key");
-                                    OldConfig config = OldConfig.getInstance();
+                                    OldConfig config = OldConfig.getLoadedConfig();
                                     ServerPlayerEntity player = context.getSource().getPlayer();
                                     config.invertValue(option);
                                     if (player != null) {
@@ -60,7 +60,7 @@ public class Commands {
                         )
                         .then(CommandManager.literal("*")
                                 .executes(context -> {
-                                    OldConfig config = OldConfig.getInstance();
+                                    OldConfig config = OldConfig.getLoadedConfig();
                                     ServerPlayerEntity player = context.getSource().getPlayer();
                                     for (String setting : OldConfig.ALL_CONFIG_KEYS) {
                                         config.invertValue(setting);
@@ -79,7 +79,7 @@ public class Commands {
                                         .executes(context -> {
                                             String option = StringArgumentType.getString(context, "config_key");
                                             boolean value = BoolArgumentType.getBool(context, "value");
-                                            OldConfig config = OldConfig.getInstance();
+                                            OldConfig config = OldConfig.getLoadedConfig();
                                             boolean oldValue;
                                             ServerPlayerEntity player = context.getSource().getPlayer();
     
@@ -98,7 +98,7 @@ public class Commands {
                                 .then(CommandManager.argument("value", BoolArgumentType.bool())
                                     .executes(context -> {
                                         boolean value = BoolArgumentType.getBool(context, "value");
-                                        OldConfig config = OldConfig.getInstance();
+                                        OldConfig config = OldConfig.getLoadedConfig();
                                         ServerPlayerEntity player = context.getSource().getPlayer();
                                         for (String setting : OldConfig.ALL_CONFIG_KEYS) {
                                             config.setValue(setting, value);
@@ -116,8 +116,8 @@ public class Commands {
                         .then(CommandManager.argument("config_key", StringArgumentType.word()).suggests(provider)
                                 .executes(context -> {
                                     String option = StringArgumentType.getString(context, "config_key");
-                                    boolean value = OldConfig.getInstance().getValue(option);
-                                    OldConfig config = OldConfig.getInstance();
+                                    boolean value = OldConfig.getLoadedConfig().getValue(option);
+                                    OldConfig config = OldConfig.getLoadedConfig();
                                     ServerPlayerEntity player = context.getSource().getPlayer();
                                     if (option.equals("*")) {
                                         int enabledCount = 0;
@@ -139,7 +139,7 @@ public class Commands {
                         )
                         .then(CommandManager.literal("*")
                                 .executes(context -> {
-                                    OldConfig config = OldConfig.getInstance();
+                                    OldConfig config = OldConfig.getLoadedConfig();
                                     ServerPlayerEntity player = context.getSource().getPlayer();
                                     int enabledCount = 0;
                                     if (player != null) {

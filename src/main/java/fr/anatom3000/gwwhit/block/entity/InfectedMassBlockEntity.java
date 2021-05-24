@@ -1,4 +1,4 @@
-package fr.anatom3000.gwwhit.block;
+package fr.anatom3000.gwwhit.block.entity;
 
 import fr.anatom3000.gwwhit.registry.BlockEntityRegistry;
 import fr.anatom3000.gwwhit.registry.BlockRegistry;

@@ -28,6 +28,7 @@ public class ItemRegistry {
         put("eraser", new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup).maxCount(1)));
         put("cosmic_eraser", new CosmicEraserItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHITGroup).maxCount(1)));
         put("dashing_boots", new ArmorItem(CustomArmorMaterials.HASTY_MATERIAL, EquipmentSlot.FEET, new FabricItemSettings().group(CustomItemGroups.GWWHITGroup)));
+        put("randomising_block", new BlockItem(BlockRegistry.get("randomising_block"), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup)));
     }};
 
     public static void register() {

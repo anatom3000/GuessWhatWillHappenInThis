@@ -1,5 +1,6 @@
 package fr.anatom3000.gwwhit.config;
 
+import com.google.common.collect.Lists;
 import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigData;
@@ -10,8 +11,11 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.network.PacketByteBuf;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Config(name = GuessWhatWillHappenInThisMod.MOD_ID)
-public class ModConfig implements ConfigData {
+public final class ModConfig implements ConfigData {
     @Gui.Excluded
     private static ModConfig CURRENT_CONFIG = null;
     
@@ -34,7 +38,7 @@ public class ModConfig implements ConfigData {
     }
     
     public PacketByteBuf toPacketByteBuf() {
-        String config = GuessWhatWillHappenInThisMod.JANKSON.toJson(this).toJson();
+        String config = GuessWhatWillHappenInThisMod.GSON.toJson(this);
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeString(config);
         return buf;
@@ -66,6 +70,29 @@ public class ModConfig implements ConfigData {
     @Gui.Tooltip
     @Gui.CollapsibleObject
     public Misc misc = new Misc();
+    
+    @Gui.Tooltip
+    @Gui.CollapsibleObject
+    public Blocks blocks = new Blocks();
+    
+    public static class Blocks {
+        @Gui.Tooltip
+        @Gui.CollapsibleObject
+        public RandomisingBlock randomisingBlock = new RandomisingBlock();
+        
+        public static class RandomisingBlock {
+            @Gui.Tooltip
+            public int ticksBetweenPlacements = 20;
+            @Gui.Tooltip
+            public int totalPlacements = 64;
+            @Gui.Tooltip
+            public boolean scrambleBlockState = false;
+            @Gui.Tooltip
+            public boolean deWaterlog = true;
+            @Gui.Tooltip
+            public List<String> blockBlackList = Lists.newArrayList("gwwhit:infected_mass", "minecraft:air", "minecraft:cave_air", "gwwhit:randomising_block");
+        }
+    }
     
     public static class Misc {
         @Gui.Tooltip

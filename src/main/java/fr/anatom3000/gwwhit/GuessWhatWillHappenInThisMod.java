@@ -1,12 +1,13 @@
 package fr.anatom3000.gwwhit;
 
+import com.google.gson.Gson;
 import fr.anatom3000.gwwhit.config.ModConfig;
 import fr.anatom3000.gwwhit.registry.BlockEntityRegistry;
 import fr.anatom3000.gwwhit.registry.BlockRegistry;
 import fr.anatom3000.gwwhit.registry.ItemRegistry;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
 import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Jankson;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
@@ -23,6 +24,7 @@ import java.util.Random;
 
 public class GuessWhatWillHappenInThisMod implements ModInitializer {
 	public static final Jankson JANKSON = Jankson.builder().build();
+	public static final Gson GSON = new Gson();
 
 	public static final String MOD_ID = "gwwhit";
 
@@ -46,7 +48,7 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new);
+		AutoConfig.register(ModConfig.class, GsonConfigSerializer::new);
 		
 		ItemRegistry.register();
 		BlockRegistry.register();

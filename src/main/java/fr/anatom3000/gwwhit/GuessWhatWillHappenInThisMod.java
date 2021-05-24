@@ -30,13 +30,13 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 	public static final Random rng = new Random();
 
     public static Identifier ID(String path) {
-    	return new Identifier(MOD_ID, path);
-    }
+		return new Identifier(MOD_ID, path);
+	}
 
-	public static final Identifier LE_BLAZE_LOOT = new Identifier("minecraft","entities/blaze");
-	public static final Identifier LE_BARTER_LOOT = new Identifier("minecraft","gameplay/piglin_bartering");
+	public static final Identifier LE_BLAZE_LOOT = new Identifier("minecraft", "entities/blaze");
+	public static final Identifier LE_BARTER_LOOT = new Identifier("minecraft", "gameplay/piglin_bartering");
 	public static final Identifier LE_NEW_BARTER_LOOT = ID("gameplay/new_piglin_barter");
-	
+
 	public static final Identifier CONFIG_SYNC_ID = ID("config_sync");
 
 	FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
@@ -47,7 +47,7 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new);
-		
+
 		ItemRegistry.register();
 		BlockRegistry.register();
 		BlockEntityRegistry.register();

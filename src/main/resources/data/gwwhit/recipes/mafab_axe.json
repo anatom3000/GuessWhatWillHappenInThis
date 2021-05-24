@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": [" MM", " SM", " S "], "key": {"M": {"item": "gwwhit:mafab"}, "S": {"item": "minecraft:stick"}}, "result": {"item": "gwwhit:mafab_axe", "count": 1}}

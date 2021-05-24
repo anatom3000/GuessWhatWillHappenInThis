@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["MM", "S ", "S "], "key": {"M": {"item": "gwwhit:ecywygs"}, "S": {"item": "minecraft:stick"}}, "result": {"item": "gwwhit:ecywygs_hoe", "count": 1}}

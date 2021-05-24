@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import fr.anatom3000.gwwhit.registry.NewMaterials;
 
 public class GuessWhatWillHappenInThisModClient implements ClientModInitializer {
 
@@ -15,6 +16,8 @@ public class GuessWhatWillHappenInThisModClient implements ClientModInitializer 
 
     @Override
     public void onInitializeClient() {
+        NewMaterials.onInitializeClient();
+
         //ClientPlayNetworking.registerGlobalReceiver(GuessWhatWillHappenInThisMod.ID("reload_chunks"), (client, networkHandler, data, sender) -> client.execute(client.worldRenderer::reload));
         Registry.register(Registry.SOUND_EVENT, WHISTLE_SOUND, WHISTLE_SOUND_EVENT);
 

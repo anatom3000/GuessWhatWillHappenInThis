@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["M M", "MMM", "MMM"], "key": {"M": {"item": "gwwhit:izymam_ingot"}}, "result": {"item": "gwwhit:izymam_chestplate", "count": 1}}

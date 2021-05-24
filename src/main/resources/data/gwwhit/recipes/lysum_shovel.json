@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["M ", "S ", "S "], "key": {"M": {"item": "gwwhit:lysum"}, "S": {"item": "minecraft:stick"}}, "result": {"item": "gwwhit:lysum_shovel", "count": 1}}

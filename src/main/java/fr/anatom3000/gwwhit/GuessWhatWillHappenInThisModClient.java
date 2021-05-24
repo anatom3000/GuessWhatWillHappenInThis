@@ -25,6 +25,7 @@ public class GuessWhatWillHappenInThisModClient implements ClientModInitializer 
             ModConfig finalConfig = config;
             client.execute(() -> {
                 ModConfig.loadConfig(finalConfig);
+                finalConfig.setShader();
                 client.worldRenderer.reload();
             });
             

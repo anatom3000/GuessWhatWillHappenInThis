@@ -34,7 +34,6 @@ public class ModConfig implements ConfigData {
     
     public static void loadConfig(@Nullable ModConfig config) {
         if (config == null) config = getHolder().getConfig();
-        config.setShader();
       
         CURRENT_CONFIG = config;
     }

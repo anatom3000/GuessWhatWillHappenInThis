@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["M M", " M "], "key": {"M": {"item": "gwwhit:folso_dust"}}, "result": {"item": "minecraft:bucket", "count": 1}}

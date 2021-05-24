@@ -19,7 +19,7 @@ public class AbstractBlockMixin {
         Commented out and disabled in mixin config because it crashes
         Once fixed please uncomment the config key
         
-        if (Config.getInstance().getValue(Config.RANDOM_DROPS_ENABLED_KEY)) {
+        if (Config.getLoadedConfig().getValue(Config.RANDOM_DROPS_ENABLED_KEY)) {
             cir.getReturnValue().replaceAll(GuessWhatWillHappenInThisMod.itemStackRandomizer);
         }
          */

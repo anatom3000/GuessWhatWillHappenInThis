@@ -4,6 +4,7 @@ import fr.anatom3000.gwwhit.config.ModConfig;
 import fr.anatom3000.gwwhit.registry.BlockEntityRegistry;
 import fr.anatom3000.gwwhit.registry.BlockRegistry;
 import fr.anatom3000.gwwhit.registry.ItemRegistry;
+import fr.anatom3000.gwwhit.registry.NewMaterials;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Jankson;
@@ -45,11 +46,13 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new);
+		
 		ItemRegistry.register();
 		BlockRegistry.register();
 		BlockEntityRegistry.register();
+		NewMaterials.onInitialize();
 		Commands.register();
-		AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new);
 		
 		registerLootTables();
 		LOGGER.info("You shouldn't have done this.");
@@ -57,7 +60,7 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 
 	private void registerLootTables() {
 		LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
-			if (ModConfig.getInstance().drops.dreamLuck) {
+			if (ModConfig.getLoadedConfig().drops.dreamLuck) {
 				if (LE_BLAZE_LOOT.equals(id)) {
 					supplier.withPool(poolBuilder.build());
 				} else if (LE_BARTER_LOOT.equals(id)) {

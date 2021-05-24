@@ -63,7 +63,7 @@ public class OwoTransformer implements UnaryOperator<String> {
 
     @Override
     public String apply(String str) {
-        if (!ModConfig.getInstance().misc.owoifyer || str == null) {
+        if (!ModConfig.getLoadedConfig().misc.owoifyer || str == null) {
             return str;
         }
         String result = "";

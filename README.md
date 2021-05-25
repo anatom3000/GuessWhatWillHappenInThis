@@ -22,6 +22,7 @@ Fabric mod where anyone can PR anything, concerning or not. I'll merge everythin
   - use **/gwwhit config reload** to reload and sync it  
 - add "Unregistered version" banner from Minecraft: 3D Shareware
 - Dream's RNG (thanks to @Noaaan)
+- Added Super Secret Settings from 1.7 (thanks to @C10udburst)
 
 ## Dependencies
 

@@ -35,6 +35,7 @@
   "text.autoconfig.gwwhit.option.rendering.other.deadmauEars": "Deadmau5 Ears",
   "text.autoconfig.gwwhit.option.rendering.other.unregisteredVersion": "Unregistered Version",
   "text.autoconfig.gwwhit.option.rendering.other.dinnerboneEntities": "Flip All Entities",
+  "text.autoconfig.gwwhit.option.rendering.other.shader": "Shader",
 
   "text.autoconfig.gwwhit.option.drops.@Tooltip": "Settings for drops in the game.",
   "text.autoconfig.gwwhit.option.drops.dreamLuck.@Tooltip[0]": "Increases the chance of ender pearls",

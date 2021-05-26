@@ -1,12 +1,15 @@
 package fr.anatom3000.gwwhit.materials.fyfat;
-import net.minecraft.util.registry.*;
-import net.minecraft.util.Identifier;
-import net.minecraft.item.BlockItem;
+
 import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.biome.v1.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 public class FyfatRoot  {
 public static final Fyfat FYFAT = new Fyfat();
 public static final FyfatBlock FYFAT_BLOCK = new FyfatBlock();

@@ -14,10 +14,8 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import java.io.IOException;
+import java.util.List;
 
 @Config(name = GuessWhatWillHappenInThisMod.MOD_ID)
 public final class ModConfig implements ConfigData {
@@ -52,31 +50,43 @@ public final class ModConfig implements ConfigData {
         return buf;
     }
     
-    @Deprecated
-    public static ModConfig getInstance() {
-        return getLoadedConfig();
-    }
-    
-    @Deprecated
-    public static void setInstance(@Nullable ModConfig config) {
-        loadConfig(config);
-    }
-
+    //Suggestion: rename to onLoad when adding other features similar to this
     public void setShader() {
         MinecraftClient mc = MinecraftClient.getInstance();
-        Identifier shaderID = new Identifier(String.format("shaders/post/%s.json", ModConfig.getInstance().rendering.other.shader.toString().toLowerCase()));
+        Identifier shaderID = new Identifier(String.format("shaders/post/%s.json", ModConfig.getLoadedConfig().rendering.other.shader.toString().toLowerCase()));
         try {
-            ShaderEffect shader = new ShaderEffect(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), shaderID);
-            this.shader = shader;
+            this.shader = new ShaderEffect(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), shaderID);
         } catch (IOException e) {
             this.shader = null;
         }
     }
     
+    /**
+     * @deprecated Use {@link ModConfig#getLoadedConfig()}
+     */
+    @Deprecated
+    public static ModConfig getInstance() {
+        return getLoadedConfig();
+    }
+    
+    /**
+     * @deprecated Use {@link ModConfig#loadConfig(ModConfig)}
+     */
+    @Deprecated
+    public static void setInstance(@Nullable ModConfig config) {
+        loadConfig(config);
+    }
+    
+    /**
+     * @deprecated Use {@link ModConfig#toPacketByteBuf()}
+     */
     @Deprecated
     public PacketByteBuf getSyncable() {
         return toPacketByteBuf();
     }
+    
+    
+    //Config options
     
     @Gui.Tooltip
     @Gui.CollapsibleObject
@@ -93,6 +103,8 @@ public final class ModConfig implements ConfigData {
     @Gui.Tooltip
     @Gui.CollapsibleObject
     public Blocks blocks = new Blocks();
+    
+    //Option classes
     
     public static class Blocks {
         @Gui.Tooltip
@@ -138,6 +150,7 @@ public final class ModConfig implements ConfigData {
     
     public static class Rendering {
 
+        @SuppressWarnings("unused")
         public enum Shaders {
             I_Hate_Cool_Features,
             Notch,

@@ -6,7 +6,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
-import org.jetbrains.annotations.Nullable;
 
 public class RandomisingBlock extends BlockWithEntity {
     public RandomisingBlock(Settings settings) {

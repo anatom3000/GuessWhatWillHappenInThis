@@ -20,7 +20,8 @@
     "LivingEntityRendererMixin",
     "MatrixStackMixin",
     "MixinFrustum",
-    "PlayerEntityModelMixin"
+    "PlayerEntityModelMixin",
+    "ChatHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1

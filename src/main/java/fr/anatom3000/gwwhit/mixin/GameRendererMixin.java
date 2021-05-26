@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import fr.anatom3000.gwwhit.config.ModConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gl.ShaderEffect;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.BufferBuilderStorage;
 import net.minecraft.client.render.GameRenderer;
@@ -12,8 +13,7 @@ import net.minecraft.resource.ResourceManager;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GameRenderer.class)
@@ -50,5 +50,17 @@ public class GameRendererMixin {
 				this.textWidth = -textRenderer.getWidth(string);
 			}
 		}
+	}
+
+	@Redirect(method = "render", at = @At(value = "FIELD", target = "Lnet/minecraft/client/render/GameRenderer;shader:Lnet/minecraft/client/gl/ShaderEffect;", ordinal = 0))
+	private ShaderEffect render_Shader(GameRenderer renderer, float tickDelta) {
+		ShaderEffect shader = ModConfig.getInstance().shader;
+
+		if (shader!=null) {
+			shader.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
+			shader.render(tickDelta);
+		}
+		return null;
+
 	}
 }

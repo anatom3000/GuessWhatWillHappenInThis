@@ -25,6 +25,9 @@
   "text.autoconfig.gwwhit.option.misc": "Miscellaneous",
   "text.autoconfig.gwwhit.option.misc.killCulling": "Disable Frustrum Culling",
   "text.autoconfig.gwwhit.option.misc.owoifyer": "Owoifyer",
+  "text.autoconfig.gwwhit.option.misc.whatsAppWhistle": "WhatsApp Whistle",
+  "text.autoconfig.gwwhit.option.misc.whatsAppWhistle.playWhatsAppWhistleOnChat": "Play WhatsApp whistle when a message is sent",
+  "text.autoconfig.gwwhit.option.misc.whatsAppWhistle.volume": "Volume",
   "text.autoconfig.gwwhit.option.rendering": "Rendering",
   "text.autoconfig.gwwhit.option.rendering.matrices": "Matrices",
   "text.autoconfig.gwwhit.option.rendering.matrices.smallBlocks": "Small Blocks",
@@ -41,6 +44,7 @@
   "text.autoconfig.gwwhit.option.blocks.randomisingBlock.scrambleBlockState": "Scramble Block State",
   "text.autoconfig.gwwhit.option.blocks.randomisingBlock.deWaterlog": "Dewaterlog",
   "text.autoconfig.gwwhit.option.blocks.randomisingBlock.blockBlackList": "Block Blacklist",
+  "text.autoconfig.gwwhit.option.rendering.other.shader": "Shader",
 
   "text.autoconfig.gwwhit.option.drops.@Tooltip": "Settings for drops in the game.",
   "text.autoconfig.gwwhit.option.drops.dreamLuck.@Tooltip[0]": "Increases the chance of ender pearls",

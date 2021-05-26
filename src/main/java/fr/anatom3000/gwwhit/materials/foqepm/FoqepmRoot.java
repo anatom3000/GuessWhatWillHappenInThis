@@ -1,19 +1,23 @@
 package fr.anatom3000.gwwhit.materials.foqepm;
-
-import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.BlockItem;
+import net.minecraft.util.registry.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.item.BlockItem;
+import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class FoqepmRoot  {
 public static final Foqepm FOQEPM = new Foqepm();
-public static final FoqepmBlock FOQEPM_BLOCK = new FoqepmBlock();
-public static final FoqepmOre FOQEPM_ORE = new FoqepmOre();
+public static final Block FOQEPM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.881014037863231f,2.9255306535891106f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block FOQEPM_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.880363390947983f,4.972960277192808f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).slipperiness(0.7240324768934855f));
 public static final FoqepmShovel FOQEPM_SHOVEL = new FoqepmShovel(FoqepmMaterial.INSTANCE);
 public static final FoqepmPickaxe FOQEPM_PICKAXE = new FoqepmPickaxe(FoqepmMaterial.INSTANCE);
 public static final FoqepmAxe FOQEPM_AXE = new FoqepmAxe(FoqepmMaterial.INSTANCE);

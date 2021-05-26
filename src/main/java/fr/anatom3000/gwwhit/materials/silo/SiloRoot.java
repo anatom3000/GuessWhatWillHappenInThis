@@ -1,21 +1,25 @@
 package fr.anatom3000.gwwhit.materials.silo;
-
-import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.BlockItem;
+import net.minecraft.util.registry.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.minecraft.item.BlockItem;
+import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.item.ArmorMaterial;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class SiloRoot  {
 public static final Silo SILO = new Silo();
-public static final SiloBlock SILO_BLOCK = new SiloBlock();
-public static final SiloOre SILO_ORE = new SiloOre();
+public static final Block SILO_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.458043006073042f,1.0073381983237741f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0).luminance(6));
+public static final Block SILO_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.9326458369384065f,1.6891983454746753f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final ArmorMaterial siloArmorMaterial = new SiloArmorMaterial();
 public static final SiloHelmet SILO_HELMET = new SiloHelmet(siloArmorMaterial);
 public static final SiloChestplate SILO_CHESTPLATE = new SiloChestplate(siloArmorMaterial);

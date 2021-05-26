@@ -1,19 +1,23 @@
 package fr.anatom3000.gwwhit.materials.soneg;
-
-import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.BlockItem;
+import net.minecraft.util.registry.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.item.BlockItem;
+import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class SonegRoot  {
 public static final SonegDust SONEG_DUST = new SonegDust();
-public static final SonegBlock SONEG_BLOCK = new SonegBlock();
-public static final SonegOre SONEG_ORE = new SonegOre();
+public static final Block SONEG_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.893660516120522f,1.9490018076857392f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
+public static final Block SONEG_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.5540959459161985f,3.7316446948963162f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final SonegSword SONEG_SWORD = new SonegSword(SonegMaterial.INSTANCE);
 
 public void onInitialize() {

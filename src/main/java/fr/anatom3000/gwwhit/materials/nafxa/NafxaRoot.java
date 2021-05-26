@@ -1,20 +1,24 @@
 package fr.anatom3000.gwwhit.materials.nafxa;
-
+import net.minecraft.util.registry.*;
+import net.minecraft.util.Identifier;
+import net.minecraft.item.BlockItem;
 import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.BlockItem;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class NafxaRoot  {
 public static final NafxaDust NAFXA_DUST = new NafxaDust();
-public static final NafxaBlock NAFXA_BLOCK = new NafxaBlock();
-public static final NafxaOre NAFXA_ORE = new NafxaOre();
+public static final Block NAFXA_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.748258534596772f,4.567033414822431f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block NAFXA_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.4237191032727528f,1.6917404711542843f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final NafxaShovel NAFXA_SHOVEL = new NafxaShovel(NafxaMaterial.INSTANCE);
 public static final NafxaPickaxe NAFXA_PICKAXE = new NafxaPickaxe(NafxaMaterial.INSTANCE);
 public static final NafxaAxe NAFXA_AXE = new NafxaAxe(NafxaMaterial.INSTANCE);

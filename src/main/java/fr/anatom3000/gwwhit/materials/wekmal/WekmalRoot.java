@@ -1,19 +1,23 @@
 package fr.anatom3000.gwwhit.materials.wekmal;
-
-import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.BlockItem;
+import net.minecraft.util.registry.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.item.BlockItem;
+import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class WekmalRoot  {
 public static final WekmalDust WEKMAL_DUST = new WekmalDust();
-public static final WekmalBlock WEKMAL_BLOCK = new WekmalBlock();
-public static final WekmalOre WEKMAL_ORE = new WekmalOre();
+public static final Block WEKMAL_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.626049772608876f,4.792349075006154f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
+public static final Block WEKMAL_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.0999565424338655f,2.2627085630941344f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final WekmalShovel WEKMAL_SHOVEL = new WekmalShovel(WekmalMaterial.INSTANCE);
 public static final WekmalPickaxe WEKMAL_PICKAXE = new WekmalPickaxe(WekmalMaterial.INSTANCE);
 public static final WekmalAxe WEKMAL_AXE = new WekmalAxe(WekmalMaterial.INSTANCE);

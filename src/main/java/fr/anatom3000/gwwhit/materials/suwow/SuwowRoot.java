@@ -1,19 +1,23 @@
 package fr.anatom3000.gwwhit.materials.suwow;
-
-import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.BlockItem;
+import net.minecraft.util.registry.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.item.BlockItem;
+import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class SuwowRoot  {
 public static final SuwowDust SUWOW_DUST = new SuwowDust();
-public static final SuwowBlock SUWOW_BLOCK = new SuwowBlock();
-public static final SuwowOre SUWOW_ORE = new SuwowOre();
+public static final Block SUWOW_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.1801718777884025f,3.635981503342259f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
+public static final Block SUWOW_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.5441362138762518f,4.334463911378237f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 
 public void onInitialize() {
 Registry.register(Registry.ITEM, new Identifier("gwwhit","suwow_dust"),SUWOW_DUST);

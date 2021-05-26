@@ -1,19 +1,23 @@
 package fr.anatom3000.gwwhit.materials.botud;
-
-import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.BlockItem;
+import net.minecraft.util.registry.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.item.BlockItem;
+import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class BotudRoot  {
 public static final Botud BOTUD = new Botud();
-public static final BotudBlock BOTUD_BLOCK = new BotudBlock();
-public static final BotudOre BOTUD_ORE = new BotudOre();
+public static final Block BOTUD_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.895546018727078f,1.647412322453087f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
+public static final Block BOTUD_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.424393544424001f,4.2406564361777965f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final BotudShovel BOTUD_SHOVEL = new BotudShovel(BotudMaterial.INSTANCE);
 public static final BotudPickaxe BOTUD_PICKAXE = new BotudPickaxe(BotudMaterial.INSTANCE);
 public static final BotudAxe BOTUD_AXE = new BotudAxe(BotudMaterial.INSTANCE);

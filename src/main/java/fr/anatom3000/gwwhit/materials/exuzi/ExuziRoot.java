@@ -1,21 +1,25 @@
 package fr.anatom3000.gwwhit.materials.exuzi;
-
-import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.BlockItem;
+import net.minecraft.util.registry.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.minecraft.item.BlockItem;
+import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.item.ArmorMaterial;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class ExuziRoot  {
 public static final ExuziIngot EXUZI_INGOT = new ExuziIngot();
-public static final ExuziBlock EXUZI_BLOCK = new ExuziBlock();
-public static final ExuziOre EXUZI_ORE = new ExuziOre();
+public static final Block EXUZI_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.7347668944398564f,2.251161755292984f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block EXUZI_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.236883250592108f,2.9149704952957434f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final ArmorMaterial exuziArmorMaterial = new ExuziArmorMaterial();
 public static final ExuziHelmet EXUZI_HELMET = new ExuziHelmet(exuziArmorMaterial);
 public static final ExuziChestplate EXUZI_CHESTPLATE = new ExuziChestplate(exuziArmorMaterial);

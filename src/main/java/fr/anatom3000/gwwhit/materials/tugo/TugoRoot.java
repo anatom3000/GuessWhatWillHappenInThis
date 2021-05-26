@@ -1,20 +1,24 @@
 package fr.anatom3000.gwwhit.materials.tugo;
-
-import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.util.registry.*;
+import net.minecraft.util.Identifier;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.item.BlockItem;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class TugoRoot  {
 public static final Tugo TUGO = new Tugo();
-public static final TugoBlock TUGO_BLOCK = new TugoBlock();
-public static final TugoOre TUGO_ORE = new TugoOre();
+public static final Block TUGO_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.200979108884199f,2.039312289399117f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block TUGO_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.1213986174379613f,2.0118248104123397f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final TugoShovel TUGO_SHOVEL = new TugoShovel(TugoMaterial.INSTANCE);
 public static final TugoPickaxe TUGO_PICKAXE = new TugoPickaxe(TugoMaterial.INSTANCE);
 public static final TugoAxe TUGO_AXE = new TugoAxe(TugoMaterial.INSTANCE);

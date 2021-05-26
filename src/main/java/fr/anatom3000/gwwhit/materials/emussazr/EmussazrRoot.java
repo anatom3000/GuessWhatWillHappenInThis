@@ -1,20 +1,24 @@
 package fr.anatom3000.gwwhit.materials.emussazr;
-
+import net.minecraft.util.registry.*;
+import net.minecraft.util.Identifier;
+import net.minecraft.item.BlockItem;
 import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.BlockItem;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class EmussazrRoot  {
 public static final EmussazrIngot EMUSSAZR_INGOT = new EmussazrIngot();
-public static final EmussazrBlock EMUSSAZR_BLOCK = new EmussazrBlock();
-public static final EmussazrOre EMUSSAZR_ORE = new EmussazrOre();
+public static final Block EMUSSAZR_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.165230357008876f,4.2314710918464264f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
+public static final Block EMUSSAZR_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.155009599362658f,2.291764654354482f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final EmussazrShovel EMUSSAZR_SHOVEL = new EmussazrShovel(EmussazrMaterial.INSTANCE);
 public static final EmussazrPickaxe EMUSSAZR_PICKAXE = new EmussazrPickaxe(EmussazrMaterial.INSTANCE);
 public static final EmussazrAxe EMUSSAZR_AXE = new EmussazrAxe(EmussazrMaterial.INSTANCE);

@@ -1,20 +1,24 @@
 package fr.anatom3000.gwwhit.materials.hoke;
-
-import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.util.registry.*;
+import net.minecraft.util.Identifier;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.item.BlockItem;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class HokeRoot  {
 public static final HokeDust HOKE_DUST = new HokeDust();
 public static final HokeBlock HOKE_BLOCK = new HokeBlock();
-public static final HokeOre HOKE_ORE = new HokeOre();
+public static final Block HOKE_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.327095668626132f,2.7601037906941257f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).slipperiness(0.7664829949827581f));
 public static final HokeSword HOKE_SWORD = new HokeSword(HokeMaterial.INSTANCE);
 
 public void onInitialize() {

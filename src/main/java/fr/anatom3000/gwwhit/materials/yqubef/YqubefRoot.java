@@ -1,19 +1,23 @@
 package fr.anatom3000.gwwhit.materials.yqubef;
-
-import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.BlockItem;
+import net.minecraft.util.registry.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.item.BlockItem;
+import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class YqubefRoot  {
 public static final Yqubef YQUBEF = new Yqubef();
-public static final YqubefBlock YQUBEF_BLOCK = new YqubefBlock();
-public static final YqubefOre YQUBEF_ORE = new YqubefOre();
+public static final Block YQUBEF_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.311223746939808f,4.990162821721631f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block YQUBEF_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.2558084941717684f,2.054714714493969f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final YqubefSword YQUBEF_SWORD = new YqubefSword(YqubefMaterial.INSTANCE);
 
 public void onInitialize() {

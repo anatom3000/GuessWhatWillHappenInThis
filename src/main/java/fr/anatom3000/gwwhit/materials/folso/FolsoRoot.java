@@ -1,19 +1,23 @@
 package fr.anatom3000.gwwhit.materials.folso;
-
-import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.BlockItem;
+import net.minecraft.util.registry.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.item.BlockItem;
+import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class FolsoRoot  {
 public static final FolsoDust FOLSO_DUST = new FolsoDust();
 public static final FolsoBlock FOLSO_BLOCK = new FolsoBlock();
-public static final FolsoOre FOLSO_ORE = new FolsoOre();
+public static final Block FOLSO_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.9096448850323977f,3.3389590472190553f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final FolsoShovel FOLSO_SHOVEL = new FolsoShovel(FolsoMaterial.INSTANCE);
 public static final FolsoPickaxe FOLSO_PICKAXE = new FolsoPickaxe(FolsoMaterial.INSTANCE);
 public static final FolsoAxe FOLSO_AXE = new FolsoAxe(FolsoMaterial.INSTANCE);

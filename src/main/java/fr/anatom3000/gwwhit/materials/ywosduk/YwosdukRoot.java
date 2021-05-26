@@ -1,20 +1,24 @@
 package fr.anatom3000.gwwhit.materials.ywosduk;
-
-import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.util.registry.*;
+import net.minecraft.util.Identifier;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.item.BlockItem;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class YwosdukRoot  {
 public static final YwosdukIngot YWOSDUK_INGOT = new YwosdukIngot();
-public static final YwosdukBlock YWOSDUK_BLOCK = new YwosdukBlock();
-public static final YwosdukOre YWOSDUK_ORE = new YwosdukOre();
+public static final Block YWOSDUK_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.5623478770931882f,2.664279379455539f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0).slipperiness(0.7411951852765625f));
+public static final Block YWOSDUK_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.14771438823258f,2.5014601880671057f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 
 public void onInitialize() {
 Registry.register(Registry.ITEM, new Identifier("gwwhit","ywosduk_ingot"),YWOSDUK_INGOT);

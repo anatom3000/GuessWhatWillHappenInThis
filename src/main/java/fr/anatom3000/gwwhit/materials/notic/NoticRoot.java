@@ -1,20 +1,24 @@
 package fr.anatom3000.gwwhit.materials.notic;
-
+import net.minecraft.util.registry.*;
+import net.minecraft.util.Identifier;
+import net.minecraft.item.BlockItem;
 import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.BlockItem;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class NoticRoot  {
 public static final NoticDust NOTIC_DUST = new NoticDust();
 public static final NoticBlock NOTIC_BLOCK = new NoticBlock();
-public static final NoticOre NOTIC_ORE = new NoticOre();
+public static final Block NOTIC_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.6419959483162745f,3.11053404379917f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final ArmorMaterial noticArmorMaterial = new NoticArmorMaterial();
 public static final NoticHelmet NOTIC_HELMET = new NoticHelmet(noticArmorMaterial);
 public static final NoticChestplate NOTIC_CHESTPLATE = new NoticChestplate(noticArmorMaterial);

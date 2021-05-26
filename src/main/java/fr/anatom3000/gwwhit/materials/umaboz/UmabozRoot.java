@@ -1,21 +1,25 @@
 package fr.anatom3000.gwwhit.materials.umaboz;
-
-import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.BlockItem;
+import net.minecraft.util.registry.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.minecraft.item.BlockItem;
+import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.item.ArmorMaterial;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class UmabozRoot  {
 public static final UmabozIngot UMABOZ_INGOT = new UmabozIngot();
-public static final UmabozBlock UMABOZ_BLOCK = new UmabozBlock();
-public static final UmabozOre UMABOZ_ORE = new UmabozOre();
+public static final Block UMABOZ_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.974877379219731f,2.7777035087216837f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).luminance(4));
+public static final Block UMABOZ_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.48987759142475f,1.2928537118134944f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final UmabozShovel UMABOZ_SHOVEL = new UmabozShovel(UmabozMaterial.INSTANCE);
 public static final UmabozPickaxe UMABOZ_PICKAXE = new UmabozPickaxe(UmabozMaterial.INSTANCE);
 public static final UmabozAxe UMABOZ_AXE = new UmabozAxe(UmabozMaterial.INSTANCE);

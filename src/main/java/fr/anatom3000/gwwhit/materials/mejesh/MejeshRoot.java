@@ -1,20 +1,24 @@
 package fr.anatom3000.gwwhit.materials.mejesh;
-
+import net.minecraft.util.registry.*;
+import net.minecraft.util.Identifier;
+import net.minecraft.item.BlockItem;
 import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.BlockItem;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class MejeshRoot  {
 public static final Mejesh MEJESH = new Mejesh();
-public static final MejeshBlock MEJESH_BLOCK = new MejeshBlock();
-public static final MejeshOre MEJESH_ORE = new MejeshOre();
+public static final Block MEJESH_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.628913816797731f,4.194409895833226f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
+public static final Block MEJESH_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.8399171529213323f,1.8220717196783727f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final ArmorMaterial mejeshArmorMaterial = new MejeshArmorMaterial();
 public static final MejeshHelmet MEJESH_HELMET = new MejeshHelmet(mejeshArmorMaterial);
 public static final MejeshChestplate MEJESH_CHESTPLATE = new MejeshChestplate(mejeshArmorMaterial);

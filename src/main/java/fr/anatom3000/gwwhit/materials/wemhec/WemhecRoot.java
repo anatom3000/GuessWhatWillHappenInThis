@@ -1,20 +1,24 @@
 package fr.anatom3000.gwwhit.materials.wemhec;
-
-import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.util.registry.*;
+import net.minecraft.util.Identifier;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.item.BlockItem;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class WemhecRoot  {
 public static final Wemhec WEMHEC = new Wemhec();
-public static final WemhecBlock WEMHEC_BLOCK = new WemhecBlock();
-public static final WemhecOre WEMHEC_ORE = new WemhecOre();
+public static final Block WEMHEC_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.44884632406108f,4.738354687675475f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block WEMHEC_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.8977757298471705f,3.2981670557700973f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final WemhecShovel WEMHEC_SHOVEL = new WemhecShovel(WemhecMaterial.INSTANCE);
 public static final WemhecPickaxe WEMHEC_PICKAXE = new WemhecPickaxe(WemhecMaterial.INSTANCE);
 public static final WemhecAxe WEMHEC_AXE = new WemhecAxe(WemhecMaterial.INSTANCE);

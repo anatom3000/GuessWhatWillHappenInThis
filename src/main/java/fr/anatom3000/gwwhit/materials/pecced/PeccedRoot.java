@@ -1,19 +1,23 @@
 package fr.anatom3000.gwwhit.materials.pecced;
-
+import net.minecraft.util.registry.*;
+import net.minecraft.util.Identifier;
+import net.minecraft.item.BlockItem;
 import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.BlockItem;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class PeccedRoot  {
 public static final PeccedDust PECCED_DUST = new PeccedDust();
-public static final PeccedBlock PECCED_BLOCK = new PeccedBlock();
+public static final Block PECCED_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.6010260796534825f,2.3127495119359955f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final PeccedOre PECCED_ORE = new PeccedOre();
 public static final ArmorMaterial peccedArmorMaterial = new PeccedArmorMaterial();
 public static final PeccedHelmet PECCED_HELMET = new PeccedHelmet(peccedArmorMaterial);

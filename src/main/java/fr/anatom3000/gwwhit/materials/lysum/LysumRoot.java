@@ -1,20 +1,24 @@
 package fr.anatom3000.gwwhit.materials.lysum;
-
+import net.minecraft.util.registry.*;
+import net.minecraft.util.Identifier;
+import net.minecraft.item.BlockItem;
 import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.BlockItem;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class LysumRoot  {
 public static final Lysum LYSUM = new Lysum();
-public static final LysumBlock LYSUM_BLOCK = new LysumBlock();
-public static final LysumOre LYSUM_ORE = new LysumOre();
+public static final Block LYSUM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.1578215449520575f,4.975809376894033f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block LYSUM_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.3303088393458493f,3.5878142370699844f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final LysumShovel LYSUM_SHOVEL = new LysumShovel(LysumMaterial.INSTANCE);
 public static final LysumPickaxe LYSUM_PICKAXE = new LysumPickaxe(LysumMaterial.INSTANCE);
 public static final LysumAxe LYSUM_AXE = new LysumAxe(LysumMaterial.INSTANCE);

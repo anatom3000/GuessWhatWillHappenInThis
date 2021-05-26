@@ -1,20 +1,24 @@
 package fr.anatom3000.gwwhit.materials.ipacyk;
-
+import net.minecraft.util.registry.*;
+import net.minecraft.util.Identifier;
+import net.minecraft.item.BlockItem;
 import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.BlockItem;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class IpacykRoot  {
 public static final IpacykIngot IPACYK_INGOT = new IpacykIngot();
-public static final IpacykBlock IPACYK_BLOCK = new IpacykBlock();
-public static final IpacykOre IPACYK_ORE = new IpacykOre();
+public static final Block IPACYK_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.17412402140856f,1.9681537290110027f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
+public static final Block IPACYK_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.382447111002906f,1.7733044710387258f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final ArmorMaterial ipacykArmorMaterial = new IpacykArmorMaterial();
 public static final IpacykHelmet IPACYK_HELMET = new IpacykHelmet(ipacykArmorMaterial);
 public static final IpacykChestplate IPACYK_CHESTPLATE = new IpacykChestplate(ipacykArmorMaterial);

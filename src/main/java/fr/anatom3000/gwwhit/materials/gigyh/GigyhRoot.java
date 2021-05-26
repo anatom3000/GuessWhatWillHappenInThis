@@ -1,20 +1,24 @@
 package fr.anatom3000.gwwhit.materials.gigyh;
-
+import net.minecraft.util.registry.*;
+import net.minecraft.util.Identifier;
+import net.minecraft.item.BlockItem;
 import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.BlockItem;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class GigyhRoot  {
 public static final Gigyh GIGYH = new Gigyh();
-public static final GigyhBlock GIGYH_BLOCK = new GigyhBlock();
-public static final GigyhOre GIGYH_ORE = new GigyhOre();
+public static final Block GIGYH_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.514542120625487f,4.762194860120045f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
+public static final Block GIGYH_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.6065300153686977f,3.2447097769978046f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final ArmorMaterial gigyhArmorMaterial = new GigyhArmorMaterial();
 public static final GigyhHelmet GIGYH_HELMET = new GigyhHelmet(gigyhArmorMaterial);
 public static final GigyhChestplate GIGYH_CHESTPLATE = new GigyhChestplate(gigyhArmorMaterial);

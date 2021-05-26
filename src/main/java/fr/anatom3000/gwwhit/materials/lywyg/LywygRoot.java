@@ -1,19 +1,23 @@
 package fr.anatom3000.gwwhit.materials.lywyg;
-
-import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.BlockItem;
+import net.minecraft.util.registry.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.item.BlockItem;
+import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class LywygRoot  {
 public static final Lywyg LYWYG = new Lywyg();
-public static final LywygBlock LYWYG_BLOCK = new LywygBlock();
-public static final LywygOre LYWYG_ORE = new LywygOre();
+public static final Block LYWYG_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.750797031209085f,1.5024434389763544f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
+public static final Block LYWYG_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.59928814427294f,4.1831631822680775f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 
 public void onInitialize() {
 Registry.register(Registry.ITEM, new Identifier("gwwhit","lywyg"),LYWYG);

@@ -1,20 +1,24 @@
 package fr.anatom3000.gwwhit.materials.mafab;
-
+import net.minecraft.util.registry.*;
+import net.minecraft.util.Identifier;
+import net.minecraft.item.BlockItem;
 import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.BlockItem;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class MafabRoot  {
 public static final Mafab MAFAB = new Mafab();
-public static final MafabBlock MAFAB_BLOCK = new MafabBlock();
-public static final MafabOre MAFAB_ORE = new MafabOre();
+public static final Block MAFAB_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.489282987438932f,4.288498110418534f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block MAFAB_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.2086324757403393f,1.127308210678227f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final MafabShovel MAFAB_SHOVEL = new MafabShovel(MafabMaterial.INSTANCE);
 public static final MafabPickaxe MAFAB_PICKAXE = new MafabPickaxe(MafabMaterial.INSTANCE);
 public static final MafabAxe MAFAB_AXE = new MafabAxe(MafabMaterial.INSTANCE);

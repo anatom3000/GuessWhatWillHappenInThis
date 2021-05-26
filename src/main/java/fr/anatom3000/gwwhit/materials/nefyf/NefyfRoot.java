@@ -1,21 +1,25 @@
 package fr.anatom3000.gwwhit.materials.nefyf;
-
-import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.BlockItem;
+import net.minecraft.util.registry.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.minecraft.item.BlockItem;
+import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.item.ArmorMaterial;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class NefyfRoot  {
 public static final Nefyf NEFYF = new Nefyf();
-public static final NefyfBlock NEFYF_BLOCK = new NefyfBlock();
-public static final NefyfOre NEFYF_ORE = new NefyfOre();
+public static final Block NEFYF_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.0514950684122697f,4.11407684648582f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block NEFYF_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.6545992097134476f,1.6291803974155825f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final ArmorMaterial nefyfArmorMaterial = new NefyfArmorMaterial();
 public static final NefyfHelmet NEFYF_HELMET = new NefyfHelmet(nefyfArmorMaterial);
 public static final NefyfChestplate NEFYF_CHESTPLATE = new NefyfChestplate(nefyfArmorMaterial);

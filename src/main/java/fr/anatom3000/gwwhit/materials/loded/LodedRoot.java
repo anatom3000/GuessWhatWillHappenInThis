@@ -1,20 +1,24 @@
 package fr.anatom3000.gwwhit.materials.loded;
-
+import net.minecraft.util.registry.*;
+import net.minecraft.util.Identifier;
+import net.minecraft.item.BlockItem;
 import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.BlockItem;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class LodedRoot  {
 public static final Loded LODED = new Loded();
-public static final LodedBlock LODED_BLOCK = new LodedBlock();
-public static final LodedOre LODED_ORE = new LodedOre();
+public static final Block LODED_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.3143613274130503f,2.015023086608885f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0).slipperiness(0.8402559690947797f));
+public static final Block LODED_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.8145814230349977f,1.8744747390428116f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final LodedShovel LODED_SHOVEL = new LodedShovel(LodedMaterial.INSTANCE);
 public static final LodedPickaxe LODED_PICKAXE = new LodedPickaxe(LodedMaterial.INSTANCE);
 public static final LodedAxe LODED_AXE = new LodedAxe(LodedMaterial.INSTANCE);

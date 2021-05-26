@@ -1,21 +1,25 @@
 package fr.anatom3000.gwwhit.materials.ijyqbag;
-
-import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.BlockItem;
+import net.minecraft.util.registry.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.minecraft.item.BlockItem;
+import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.item.ArmorMaterial;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class IjyqbagRoot  {
 public static final IjyqbagIngot IJYQBAG_INGOT = new IjyqbagIngot();
-public static final IjyqbagBlock IJYQBAG_BLOCK = new IjyqbagBlock();
-public static final IjyqbagOre IJYQBAG_ORE = new IjyqbagOre();
+public static final Block IJYQBAG_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.440821872717974f,3.7070076935135803f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block IJYQBAG_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.59919753651398f,3.932431591499626f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final ArmorMaterial ijyqbagArmorMaterial = new IjyqbagArmorMaterial();
 public static final IjyqbagHelmet IJYQBAG_HELMET = new IjyqbagHelmet(ijyqbagArmorMaterial);
 public static final IjyqbagChestplate IJYQBAG_CHESTPLATE = new IjyqbagChestplate(ijyqbagArmorMaterial);

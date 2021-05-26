@@ -1,20 +1,24 @@
 package fr.anatom3000.gwwhit.materials.anaksox;
-
+import net.minecraft.util.registry.*;
+import net.minecraft.util.Identifier;
+import net.minecraft.item.BlockItem;
 import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.BlockItem;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class AnaksoxRoot  {
 public static final AnaksoxIngot ANAKSOX_INGOT = new AnaksoxIngot();
-public static final AnaksoxBlock ANAKSOX_BLOCK = new AnaksoxBlock();
-public static final AnaksoxOre ANAKSOX_ORE = new AnaksoxOre();
+public static final Block ANAKSOX_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.6814080560344435f,4.512405691425073f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block ANAKSOX_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.2356204987936117f,3.3451029887423895f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final AnaksoxShovel ANAKSOX_SHOVEL = new AnaksoxShovel(AnaksoxMaterial.INSTANCE);
 public static final AnaksoxPickaxe ANAKSOX_PICKAXE = new AnaksoxPickaxe(AnaksoxMaterial.INSTANCE);
 public static final AnaksoxAxe ANAKSOX_AXE = new AnaksoxAxe(AnaksoxMaterial.INSTANCE);

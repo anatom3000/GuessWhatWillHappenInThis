@@ -1,19 +1,23 @@
 package fr.anatom3000.gwwhit.materials.igekez;
-
+import net.minecraft.util.registry.*;
+import net.minecraft.util.Identifier;
+import net.minecraft.item.BlockItem;
 import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.BlockItem;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class IgekezRoot  {
 public static final IgekezIngot IGEKEZ_INGOT = new IgekezIngot();
-public static final IgekezBlock IGEKEZ_BLOCK = new IgekezBlock();
+public static final Block IGEKEZ_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.981758085844132f,2.9006502261373526f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final IgekezOre IGEKEZ_ORE = new IgekezOre();
 public static final ArmorMaterial igekezArmorMaterial = new IgekezArmorMaterial();
 public static final IgekezHelmet IGEKEZ_HELMET = new IgekezHelmet(igekezArmorMaterial);

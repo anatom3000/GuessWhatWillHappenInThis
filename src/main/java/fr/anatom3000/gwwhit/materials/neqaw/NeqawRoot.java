@@ -8,10 +8,17 @@ import net.minecraft.item.ArmorMaterial;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class NeqawRoot  {
 public static final Neqaw NEQAW = new Neqaw();
-public static final NeqawBlock NEQAW_BLOCK = new NeqawBlock();
-public static final NeqawOre NEQAW_ORE = new NeqawOre();
+public static final Block NEQAW_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.5969519643649353f,2.1444373929339013f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
+public static final Block NEQAW_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.9556859209403212f,1.4735036822625345f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final ArmorMaterial neqawArmorMaterial = new NeqawArmorMaterial();
 public static final NeqawHelmet NEQAW_HELMET = new NeqawHelmet(neqawArmorMaterial);
 public static final NeqawChestplate NEQAW_CHESTPLATE = new NeqawChestplate(neqawArmorMaterial);

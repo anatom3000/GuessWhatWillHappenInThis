@@ -8,10 +8,17 @@ import net.minecraft.item.ArmorMaterial;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class PeqyRoot  {
 public static final Peqy PEQY = new Peqy();
 public static final PeqyBlock PEQY_BLOCK = new PeqyBlock();
-public static final PeqyOre PEQY_ORE = new PeqyOre();
+public static final Block PEQY_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.0717287437950995f,4.740894063711734f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final ArmorMaterial peqyArmorMaterial = new PeqyArmorMaterial();
 public static final PeqyHelmet PEQY_HELMET = new PeqyHelmet(peqyArmorMaterial);
 public static final PeqyChestplate PEQY_CHESTPLATE = new PeqyChestplate(peqyArmorMaterial);

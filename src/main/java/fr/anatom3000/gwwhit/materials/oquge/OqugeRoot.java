@@ -8,10 +8,17 @@ import net.minecraft.item.ArmorMaterial;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class OqugeRoot  {
 public static final OqugeIngot OQUGE_INGOT = new OqugeIngot();
-public static final OqugeBlock OQUGE_BLOCK = new OqugeBlock();
-public static final OqugeOre OQUGE_ORE = new OqugeOre();
+public static final Block OQUGE_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.6079647262184853f,2.6323698050685547f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0).slipperiness(0.9918251559219082f));
+public static final Block OQUGE_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.021755368926826f,4.382757633251064f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final ArmorMaterial oqugeArmorMaterial = new OqugeArmorMaterial();
 public static final OqugeHelmet OQUGE_HELMET = new OqugeHelmet(oqugeArmorMaterial);
 public static final OqugeChestplate OQUGE_CHESTPLATE = new OqugeChestplate(oqugeArmorMaterial);

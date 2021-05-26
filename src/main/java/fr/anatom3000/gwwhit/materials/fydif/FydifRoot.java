@@ -8,10 +8,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class FydifRoot  {
 public static final Fydif FYDIF = new Fydif();
-public static final FydifBlock FYDIF_BLOCK = new FydifBlock();
-public static final FydifOre FYDIF_ORE = new FydifOre();
+public static final Block FYDIF_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.3060341567094085f,2.6318259882365216f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block FYDIF_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.6749089205557137f,2.8845978699148587f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final FydifShovel FYDIF_SHOVEL = new FydifShovel(FydifMaterial.INSTANCE);
 public static final FydifPickaxe FYDIF_PICKAXE = new FydifPickaxe(FydifMaterial.INSTANCE);
 public static final FydifAxe FYDIF_AXE = new FydifAxe(FydifMaterial.INSTANCE);

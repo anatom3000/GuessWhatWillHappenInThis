@@ -7,10 +7,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class AsymcofRoot  {
 public static final AsymcofIngot ASYMCOF_INGOT = new AsymcofIngot();
-public static final AsymcofBlock ASYMCOF_BLOCK = new AsymcofBlock();
-public static final AsymcofOre ASYMCOF_ORE = new AsymcofOre();
+public static final Block ASYMCOF_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.2041225327542704f,3.6898874468318734f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block ASYMCOF_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.2811016371460808f,2.154640712175668f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).luminance(7));
 public static final AsymcofShovel ASYMCOF_SHOVEL = new AsymcofShovel(AsymcofMaterial.INSTANCE);
 public static final AsymcofPickaxe ASYMCOF_PICKAXE = new AsymcofPickaxe(AsymcofMaterial.INSTANCE);
 public static final AsymcofAxe ASYMCOF_AXE = new AsymcofAxe(AsymcofMaterial.INSTANCE);

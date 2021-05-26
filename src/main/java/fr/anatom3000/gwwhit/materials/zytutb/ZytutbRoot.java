@@ -8,10 +8,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class ZytutbRoot  {
 public static final ZytutbDust ZYTUTB_DUST = new ZytutbDust();
 public static final ZytutbBlock ZYTUTB_BLOCK = new ZytutbBlock();
-public static final ZytutbOre ZYTUTB_ORE = new ZytutbOre();
+public static final Block ZYTUTB_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.7796033242652385f,4.253294922855739f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 
 public void onInitialize() {
 Registry.register(Registry.ITEM, new Identifier("gwwhit","zytutb_dust"),ZYTUTB_DUST);

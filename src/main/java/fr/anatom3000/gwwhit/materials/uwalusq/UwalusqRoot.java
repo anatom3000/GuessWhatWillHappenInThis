@@ -8,10 +8,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class UwalusqRoot  {
 public static final UwalusqIngot UWALUSQ_INGOT = new UwalusqIngot();
-public static final UwalusqBlock UWALUSQ_BLOCK = new UwalusqBlock();
-public static final UwalusqOre UWALUSQ_ORE = new UwalusqOre();
+public static final Block UWALUSQ_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.3473145044352015f,2.891956251751754f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
+public static final Block UWALUSQ_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.377612215255365f,4.642682211595366f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final UwalusqShovel UWALUSQ_SHOVEL = new UwalusqShovel(UwalusqMaterial.INSTANCE);
 public static final UwalusqPickaxe UWALUSQ_PICKAXE = new UwalusqPickaxe(UwalusqMaterial.INSTANCE);
 public static final UwalusqAxe UWALUSQ_AXE = new UwalusqAxe(UwalusqMaterial.INSTANCE);

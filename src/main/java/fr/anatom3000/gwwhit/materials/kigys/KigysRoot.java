@@ -8,10 +8,17 @@ import net.minecraft.item.ArmorMaterial;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class KigysRoot  {
 public static final Kigys KIGYS = new Kigys();
-public static final KigysBlock KIGYS_BLOCK = new KigysBlock();
-public static final KigysOre KIGYS_ORE = new KigysOre();
+public static final Block KIGYS_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.6722841564476028f,2.7251890877075384f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block KIGYS_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.8626982875521447f,1.526305296924992f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final KigysShovel KIGYS_SHOVEL = new KigysShovel(KigysMaterial.INSTANCE);
 public static final KigysPickaxe KIGYS_PICKAXE = new KigysPickaxe(KigysMaterial.INSTANCE);
 public static final KigysAxe KIGYS_AXE = new KigysAxe(KigysMaterial.INSTANCE);

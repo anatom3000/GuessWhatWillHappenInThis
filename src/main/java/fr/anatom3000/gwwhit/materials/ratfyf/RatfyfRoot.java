@@ -8,10 +8,17 @@ import net.minecraft.item.ArmorMaterial;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class RatfyfRoot  {
 public static final RatfyfDust RATFYF_DUST = new RatfyfDust();
-public static final RatfyfBlock RATFYF_BLOCK = new RatfyfBlock();
-public static final RatfyfOre RATFYF_ORE = new RatfyfOre();
+public static final Block RATFYF_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.1292234054993155f,2.4760845755496264f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
+public static final Block RATFYF_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.950570244488065f,1.0061783268193087f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final RatfyfShovel RATFYF_SHOVEL = new RatfyfShovel(RatfyfMaterial.INSTANCE);
 public static final RatfyfPickaxe RATFYF_PICKAXE = new RatfyfPickaxe(RatfyfMaterial.INSTANCE);
 public static final RatfyfAxe RATFYF_AXE = new RatfyfAxe(RatfyfMaterial.INSTANCE);

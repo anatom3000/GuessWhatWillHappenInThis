@@ -7,10 +7,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class RydyrpRoot  {
 public static final Rydyrp RYDYRP = new Rydyrp();
-public static final RydyrpBlock RYDYRP_BLOCK = new RydyrpBlock();
-public static final RydyrpOre RYDYRP_ORE = new RydyrpOre();
+public static final Block RYDYRP_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.8752172083406142f,1.9167528463130443f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).slipperiness(0.7405748679791418f));
+public static final Block RYDYRP_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.535047459890229f,3.198590248363163f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 
 public void onInitialize() {
 Registry.register(Registry.ITEM, new Identifier("gwwhit","rydyrp"),RYDYRP);

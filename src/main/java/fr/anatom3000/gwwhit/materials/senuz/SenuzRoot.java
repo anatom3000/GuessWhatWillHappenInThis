@@ -7,10 +7,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class SenuzRoot  {
 public static final SenuzDust SENUZ_DUST = new SenuzDust();
-public static final SenuzBlock SENUZ_BLOCK = new SenuzBlock();
-public static final SenuzOre SENUZ_ORE = new SenuzOre();
+public static final Block SENUZ_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.3259587871313485f,4.823242085775082f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block SENUZ_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.9219375389445275f,4.0401593593869265f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final SenuzSword SENUZ_SWORD = new SenuzSword(SenuzMaterial.INSTANCE);
 
 public void onInitialize() {

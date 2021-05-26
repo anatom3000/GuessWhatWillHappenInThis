@@ -7,10 +7,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class TefaRoot  {
 public static final TefaDust TEFA_DUST = new TefaDust();
-public static final TefaBlock TEFA_BLOCK = new TefaBlock();
-public static final TefaOre TEFA_ORE = new TefaOre();
+public static final Block TEFA_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.081838582236901f,3.0932909786732807f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block TEFA_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.6420650822213894f,1.56302812285616f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final TefaSword TEFA_SWORD = new TefaSword(TefaMaterial.INSTANCE);
 
 public void onInitialize() {

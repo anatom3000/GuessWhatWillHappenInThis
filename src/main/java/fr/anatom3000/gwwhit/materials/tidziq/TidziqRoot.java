@@ -8,10 +8,17 @@ import net.minecraft.item.ArmorMaterial;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class TidziqRoot  {
 public static final Tidziq TIDZIQ = new Tidziq();
-public static final TidziqBlock TIDZIQ_BLOCK = new TidziqBlock();
-public static final TidziqOre TIDZIQ_ORE = new TidziqOre();
+public static final Block TIDZIQ_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.578756144788023f,2.3471119683784356f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
+public static final Block TIDZIQ_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.6496302854756935f,3.218823129572453f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final ArmorMaterial tidziqArmorMaterial = new TidziqArmorMaterial();
 public static final TidziqHelmet TIDZIQ_HELMET = new TidziqHelmet(tidziqArmorMaterial);
 public static final TidziqChestplate TIDZIQ_CHESTPLATE = new TidziqChestplate(tidziqArmorMaterial);

@@ -8,10 +8,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class UwaplokRoot  {
 public static final Uwaplok UWAPLOK = new Uwaplok();
 public static final UwaplokBlock UWAPLOK_BLOCK = new UwaplokBlock();
-public static final UwaplokOre UWAPLOK_ORE = new UwaplokOre();
+public static final Block UWAPLOK_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.6749805451567803f,4.238319247376481f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 
 public void onInitialize() {
 Registry.register(Registry.ITEM, new Identifier("gwwhit","uwaplok"),UWAPLOK);

@@ -9,10 +9,17 @@ import net.minecraft.item.ArmorMaterial;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class LuqyskRoot  {
 public static final Luqysk LUQYSK = new Luqysk();
-public static final LuqyskBlock LUQYSK_BLOCK = new LuqyskBlock();
-public static final LuqyskOre LUQYSK_ORE = new LuqyskOre();
+public static final Block LUQYSK_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.2179804984444f,2.4804128513426646f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).slipperiness(0.9952457451652684f));
+public static final Block LUQYSK_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.4606853439713725f,3.1933893636656094f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final ArmorMaterial luqyskArmorMaterial = new LuqyskArmorMaterial();
 public static final LuqyskHelmet LUQYSK_HELMET = new LuqyskHelmet(luqyskArmorMaterial);
 public static final LuqyskChestplate LUQYSK_CHESTPLATE = new LuqyskChestplate(luqyskArmorMaterial);

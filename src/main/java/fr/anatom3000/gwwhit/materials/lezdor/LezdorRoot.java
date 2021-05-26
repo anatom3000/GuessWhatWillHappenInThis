@@ -8,10 +8,17 @@ import net.minecraft.item.ArmorMaterial;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class LezdorRoot  {
 public static final LezdorDust LEZDOR_DUST = new LezdorDust();
-public static final LezdorBlock LEZDOR_BLOCK = new LezdorBlock();
-public static final LezdorOre LEZDOR_ORE = new LezdorOre();
+public static final Block LEZDOR_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.855320847752626f,3.466843311687021f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
+public static final Block LEZDOR_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.472960557070697f,1.422640976883577f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).luminance(2));
 public static final ArmorMaterial lezdorArmorMaterial = new LezdorArmorMaterial();
 public static final LezdorHelmet LEZDOR_HELMET = new LezdorHelmet(lezdorArmorMaterial);
 public static final LezdorChestplate LEZDOR_CHESTPLATE = new LezdorChestplate(lezdorArmorMaterial);

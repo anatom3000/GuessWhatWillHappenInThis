@@ -7,10 +7,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class OhyxfuRoot  {
 public static final OhyxfuIngot OHYXFU_INGOT = new OhyxfuIngot();
-public static final OhyxfuBlock OHYXFU_BLOCK = new OhyxfuBlock();
-public static final OhyxfuOre OHYXFU_ORE = new OhyxfuOre();
+public static final Block OHYXFU_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.934614329831127f,4.387169677866746f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
+public static final Block OHYXFU_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.5797628151701555f,1.7304155122687859f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final OhyxfuSword OHYXFU_SWORD = new OhyxfuSword(OhyxfuMaterial.INSTANCE);
 
 public void onInitialize() {

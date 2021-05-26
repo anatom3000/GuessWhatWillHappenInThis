@@ -8,10 +8,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class UhyqolRoot  {
 public static final UhyqolIngot UHYQOL_INGOT = new UhyqolIngot();
 public static final UhyqolBlock UHYQOL_BLOCK = new UhyqolBlock();
-public static final UhyqolOre UHYQOL_ORE = new UhyqolOre();
+public static final Block UHYQOL_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.753951702568491f,2.9066074406262907f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final UhyqolSword UHYQOL_SWORD = new UhyqolSword(UhyqolMaterial.INSTANCE);
 
 public void onInitialize() {

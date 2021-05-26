@@ -8,10 +8,17 @@ import net.minecraft.item.ArmorMaterial;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class SijtywRoot  {
 public static final Sijtyw SIJTYW = new Sijtyw();
-public static final SijtywBlock SIJTYW_BLOCK = new SijtywBlock();
-public static final SijtywOre SIJTYW_ORE = new SijtywOre();
+public static final Block SIJTYW_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.87992097229947f,3.6945125541360677f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
+public static final Block SIJTYW_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.3281622699266435f,3.0974911198906443f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final SijtywShovel SIJTYW_SHOVEL = new SijtywShovel(SijtywMaterial.INSTANCE);
 public static final SijtywPickaxe SIJTYW_PICKAXE = new SijtywPickaxe(SijtywMaterial.INSTANCE);
 public static final SijtywAxe SIJTYW_AXE = new SijtywAxe(SijtywMaterial.INSTANCE);

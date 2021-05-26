@@ -8,10 +8,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class ObasehRoot  {
 public static final ObasehIngot OBASEH_INGOT = new ObasehIngot();
-public static final ObasehBlock OBASEH_BLOCK = new ObasehBlock();
-public static final ObasehOre OBASEH_ORE = new ObasehOre();
+public static final Block OBASEH_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.9844008373383866f,3.8564149777732926f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block OBASEH_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.43085804245456f,2.0314685723113426f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final ObasehShovel OBASEH_SHOVEL = new ObasehShovel(ObasehMaterial.INSTANCE);
 public static final ObasehPickaxe OBASEH_PICKAXE = new ObasehPickaxe(ObasehMaterial.INSTANCE);
 public static final ObasehAxe OBASEH_AXE = new ObasehAxe(ObasehMaterial.INSTANCE);

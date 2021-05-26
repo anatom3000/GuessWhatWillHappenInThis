@@ -8,10 +8,17 @@ import net.minecraft.item.ArmorMaterial;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class GycuRoot  {
 public static final Gycu GYCU = new Gycu();
-public static final GycuBlock GYCU_BLOCK = new GycuBlock();
-public static final GycuOre GYCU_ORE = new GycuOre();
+public static final Block GYCU_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.892806394861206f,4.7106023570127515f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
+public static final Block GYCU_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.6600150340942745f,4.085745083863464f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final ArmorMaterial gycuArmorMaterial = new GycuArmorMaterial();
 public static final GycuHelmet GYCU_HELMET = new GycuHelmet(gycuArmorMaterial);
 public static final GycuChestplate GYCU_CHESTPLATE = new GycuChestplate(gycuArmorMaterial);

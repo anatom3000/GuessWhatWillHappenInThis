@@ -9,10 +9,17 @@ import net.minecraft.item.ArmorMaterial;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class IqecolnRoot  {
 public static final IqecolnIngot IQECOLN_INGOT = new IqecolnIngot();
-public static final IqecolnBlock IQECOLN_BLOCK = new IqecolnBlock();
-public static final IqecolnOre IQECOLN_ORE = new IqecolnOre();
+public static final Block IQECOLN_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.088000516234878f,3.681516034707085f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
+public static final Block IQECOLN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.821530597791218f,2.387309768714658f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final ArmorMaterial iqecolnArmorMaterial = new IqecolnArmorMaterial();
 public static final IqecolnHelmet IQECOLN_HELMET = new IqecolnHelmet(iqecolnArmorMaterial);
 public static final IqecolnChestplate IQECOLN_CHESTPLATE = new IqecolnChestplate(iqecolnArmorMaterial);

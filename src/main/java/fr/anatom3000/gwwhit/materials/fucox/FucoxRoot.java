@@ -8,10 +8,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class FucoxRoot  {
 public static final FucoxDust FUCOX_DUST = new FucoxDust();
-public static final FucoxBlock FUCOX_BLOCK = new FucoxBlock();
-public static final FucoxOre FUCOX_ORE = new FucoxOre();
+public static final Block FUCOX_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.058751377033673f,4.809084437011796f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block FUCOX_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.2476019435773864f,2.6980823120057074f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final FucoxShovel FUCOX_SHOVEL = new FucoxShovel(FucoxMaterial.INSTANCE);
 public static final FucoxPickaxe FUCOX_PICKAXE = new FucoxPickaxe(FucoxMaterial.INSTANCE);
 public static final FucoxAxe FUCOX_AXE = new FucoxAxe(FucoxMaterial.INSTANCE);

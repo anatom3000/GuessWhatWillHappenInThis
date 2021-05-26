@@ -9,10 +9,17 @@ import net.minecraft.item.ArmorMaterial;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class IzymamRoot  {
 public static final IzymamIngot IZYMAM_INGOT = new IzymamIngot();
-public static final IzymamBlock IZYMAM_BLOCK = new IzymamBlock();
-public static final IzymamOre IZYMAM_ORE = new IzymamOre();
+public static final Block IZYMAM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.279469982202987f,1.0907666269647844f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
+public static final Block IZYMAM_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.73278793933846f,1.0817060508805998f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final IzymamShovel IZYMAM_SHOVEL = new IzymamShovel(IzymamMaterial.INSTANCE);
 public static final IzymamPickaxe IZYMAM_PICKAXE = new IzymamPickaxe(IzymamMaterial.INSTANCE);
 public static final IzymamAxe IZYMAM_AXE = new IzymamAxe(IzymamMaterial.INSTANCE);

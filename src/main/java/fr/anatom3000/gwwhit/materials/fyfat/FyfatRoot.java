@@ -7,10 +7,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class FyfatRoot  {
 public static final Fyfat FYFAT = new Fyfat();
-public static final FyfatBlock FYFAT_BLOCK = new FyfatBlock();
-public static final FyfatOre FYFAT_ORE = new FyfatOre();
+public static final Block FYFAT_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.9285772767259357f,1.6451633680577538f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
+public static final Block FYFAT_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.021983156281999f,1.7899523783311384f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).slipperiness(0.7672129234315004f));
 public static final FyfatShovel FYFAT_SHOVEL = new FyfatShovel(FyfatMaterial.INSTANCE);
 public static final FyfatPickaxe FYFAT_PICKAXE = new FyfatPickaxe(FyfatMaterial.INSTANCE);
 public static final FyfatAxe FYFAT_AXE = new FyfatAxe(FyfatMaterial.INSTANCE);

@@ -7,10 +7,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class YjotcehRoot  {
 public static final YjotcehIngot YJOTCEH_INGOT = new YjotcehIngot();
-public static final YjotcehBlock YJOTCEH_BLOCK = new YjotcehBlock();
-public static final YjotcehOre YJOTCEH_ORE = new YjotcehOre();
+public static final Block YJOTCEH_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.7466234188625087f,2.0991076153571644f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
+public static final Block YJOTCEH_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.684605805215211f,2.2255814440263992f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).slipperiness(0.8298249223988254f));
 public static final YjotcehSword YJOTCEH_SWORD = new YjotcehSword(YjotcehMaterial.INSTANCE);
 
 public void onInitialize() {

@@ -7,10 +7,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class RenuRoot  {
 public static final Renu RENU = new Renu();
-public static final RenuBlock RENU_BLOCK = new RenuBlock();
-public static final RenuOre RENU_ORE = new RenuOre();
+public static final Block RENU_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.3111354353630866f,2.8778156416473606f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0).slipperiness(0.8466700348669063f));
+public static final Block RENU_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.4194845704914698f,1.9795404760820334f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final RenuShovel RENU_SHOVEL = new RenuShovel(RenuMaterial.INSTANCE);
 public static final RenuPickaxe RENU_PICKAXE = new RenuPickaxe(RenuMaterial.INSTANCE);
 public static final RenuAxe RENU_AXE = new RenuAxe(RenuMaterial.INSTANCE);

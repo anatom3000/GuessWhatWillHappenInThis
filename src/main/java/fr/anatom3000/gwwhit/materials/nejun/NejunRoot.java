@@ -8,10 +8,17 @@ import net.minecraft.item.ArmorMaterial;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class NejunRoot  {
 public static final NejunIngot NEJUN_INGOT = new NejunIngot();
-public static final NejunBlock NEJUN_BLOCK = new NejunBlock();
-public static final NejunOre NEJUN_ORE = new NejunOre();
+public static final Block NEJUN_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.1418723658311514f,3.2793034861422825f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
+public static final Block NEJUN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.0202239094265817f,2.2594521275959054f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final ArmorMaterial nejunArmorMaterial = new NejunArmorMaterial();
 public static final NejunHelmet NEJUN_HELMET = new NejunHelmet(nejunArmorMaterial);
 public static final NejunChestplate NEJUN_CHESTPLATE = new NejunChestplate(nejunArmorMaterial);

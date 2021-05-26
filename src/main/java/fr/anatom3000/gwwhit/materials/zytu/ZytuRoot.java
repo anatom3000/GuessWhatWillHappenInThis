@@ -8,10 +8,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class ZytuRoot  {
 public static final ZytuDust ZYTU_DUST = new ZytuDust();
-public static final ZytuBlock ZYTU_BLOCK = new ZytuBlock();
-public static final ZytuOre ZYTU_ORE = new ZytuOre();
+public static final Block ZYTU_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.181319282819409f,2.856104339048716f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
+public static final Block ZYTU_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.7756672377378107f,4.245648694295583f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 
 public void onInitialize() {
 Registry.register(Registry.ITEM, new Identifier("gwwhit","zytu_dust"),ZYTU_DUST);

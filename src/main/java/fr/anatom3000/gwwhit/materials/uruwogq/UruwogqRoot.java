@@ -9,10 +9,17 @@ import net.minecraft.item.ArmorMaterial;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class UruwogqRoot  {
 public static final UruwogqIngot URUWOGQ_INGOT = new UruwogqIngot();
 public static final UruwogqBlock URUWOGQ_BLOCK = new UruwogqBlock();
-public static final UruwogqOre URUWOGQ_ORE = new UruwogqOre();
+public static final Block URUWOGQ_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.326361572300289f,2.987653755665146f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final ArmorMaterial uruwogqArmorMaterial = new UruwogqArmorMaterial();
 public static final UruwogqHelmet URUWOGQ_HELMET = new UruwogqHelmet(uruwogqArmorMaterial);
 public static final UruwogqChestplate URUWOGQ_CHESTPLATE = new UruwogqChestplate(uruwogqArmorMaterial);

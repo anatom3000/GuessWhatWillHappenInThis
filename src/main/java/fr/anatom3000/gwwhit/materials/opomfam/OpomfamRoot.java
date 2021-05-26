@@ -7,10 +7,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class OpomfamRoot  {
 public static final OpomfamIngot OPOMFAM_INGOT = new OpomfamIngot();
-public static final OpomfamBlock OPOMFAM_BLOCK = new OpomfamBlock();
-public static final OpomfamOre OPOMFAM_ORE = new OpomfamOre();
+public static final Block OPOMFAM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.9637485785869853f,3.445130065905783f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
+public static final Block OPOMFAM_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.37022927511029f,3.238710326358524f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 
 public void onInitialize() {
 Registry.register(Registry.ITEM, new Identifier("gwwhit","opomfam_ingot"),OPOMFAM_INGOT);

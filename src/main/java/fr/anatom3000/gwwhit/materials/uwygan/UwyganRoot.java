@@ -8,10 +8,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class UwyganRoot  {
 public static final UwyganIngot UWYGAN_INGOT = new UwyganIngot();
-public static final UwyganBlock UWYGAN_BLOCK = new UwyganBlock();
-public static final UwyganOre UWYGAN_ORE = new UwyganOre();
+public static final Block UWYGAN_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.348603208170338f,1.8438765823878045f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
+public static final Block UWYGAN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.5811496723917084f,2.910557168975662f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 
 public void onInitialize() {
 Registry.register(Registry.ITEM, new Identifier("gwwhit","uwygan_ingot"),UWYGAN_INGOT);

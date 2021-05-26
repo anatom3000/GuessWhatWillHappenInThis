@@ -7,10 +7,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class CojosRoot  {
 public static final Cojos COJOS = new Cojos();
-public static final CojosBlock COJOS_BLOCK = new CojosBlock();
-public static final CojosOre COJOS_ORE = new CojosOre();
+public static final Block COJOS_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.9424443425925553f,3.118955856497523f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
+public static final Block COJOS_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.258951485803472f,3.9675914010278306f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final CojosShovel COJOS_SHOVEL = new CojosShovel(CojosMaterial.INSTANCE);
 public static final CojosPickaxe COJOS_PICKAXE = new CojosPickaxe(CojosMaterial.INSTANCE);
 public static final CojosAxe COJOS_AXE = new CojosAxe(CojosMaterial.INSTANCE);

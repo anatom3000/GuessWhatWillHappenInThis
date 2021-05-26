@@ -8,10 +8,17 @@ import net.minecraft.item.ArmorMaterial;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class IcawluRoot  {
 public static final IcawluIngot ICAWLU_INGOT = new IcawluIngot();
-public static final IcawluBlock ICAWLU_BLOCK = new IcawluBlock();
-public static final IcawluOre ICAWLU_ORE = new IcawluOre();
+public static final Block ICAWLU_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.857869929715329f,4.754838937487107f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1).slipperiness(0.9732860557488623f));
+public static final Block ICAWLU_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.5862001393079908f,4.155325354252807f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final IcawluShovel ICAWLU_SHOVEL = new IcawluShovel(IcawluMaterial.INSTANCE);
 public static final IcawluPickaxe ICAWLU_PICKAXE = new IcawluPickaxe(IcawluMaterial.INSTANCE);
 public static final IcawluAxe ICAWLU_AXE = new IcawluAxe(IcawluMaterial.INSTANCE);

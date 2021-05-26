@@ -8,10 +8,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class GararRoot  {
 public static final GararDust GARAR_DUST = new GararDust();
-public static final GararBlock GARAR_BLOCK = new GararBlock();
-public static final GararOre GARAR_ORE = new GararOre();
+public static final Block GARAR_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.6738445167333618f,1.0845050158167724f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block GARAR_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.3234877943047625f,3.8066518989879503f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final GararShovel GARAR_SHOVEL = new GararShovel(GararMaterial.INSTANCE);
 public static final GararPickaxe GARAR_PICKAXE = new GararPickaxe(GararMaterial.INSTANCE);
 public static final GararAxe GARAR_AXE = new GararAxe(GararMaterial.INSTANCE);

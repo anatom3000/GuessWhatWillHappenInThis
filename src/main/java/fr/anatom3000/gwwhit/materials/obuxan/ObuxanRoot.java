@@ -8,10 +8,17 @@ import net.minecraft.item.ArmorMaterial;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class ObuxanRoot  {
 public static final ObuxanIngot OBUXAN_INGOT = new ObuxanIngot();
-public static final ObuxanBlock OBUXAN_BLOCK = new ObuxanBlock();
-public static final ObuxanOre OBUXAN_ORE = new ObuxanOre();
+public static final Block OBUXAN_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.4681756822411787f,2.2692449252063347f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
+public static final Block OBUXAN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.417769252878823f,3.5287271532378037f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final ObuxanShovel OBUXAN_SHOVEL = new ObuxanShovel(ObuxanMaterial.INSTANCE);
 public static final ObuxanPickaxe OBUXAN_PICKAXE = new ObuxanPickaxe(ObuxanMaterial.INSTANCE);
 public static final ObuxanAxe OBUXAN_AXE = new ObuxanAxe(ObuxanMaterial.INSTANCE);

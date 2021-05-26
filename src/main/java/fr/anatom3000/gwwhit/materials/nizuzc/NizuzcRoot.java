@@ -9,10 +9,17 @@ import net.minecraft.item.ArmorMaterial;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class NizuzcRoot  {
 public static final NizuzcDust NIZUZC_DUST = new NizuzcDust();
-public static final NizuzcBlock NIZUZC_BLOCK = new NizuzcBlock();
-public static final NizuzcOre NIZUZC_ORE = new NizuzcOre();
+public static final Block NIZUZC_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.8451189030996193f,2.7598381979559874f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
+public static final Block NIZUZC_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.3789682704694535f,3.7907699486664597f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final ArmorMaterial nizuzcArmorMaterial = new NizuzcArmorMaterial();
 public static final NizuzcHelmet NIZUZC_HELMET = new NizuzcHelmet(nizuzcArmorMaterial);
 public static final NizuzcChestplate NIZUZC_CHESTPLATE = new NizuzcChestplate(nizuzcArmorMaterial);

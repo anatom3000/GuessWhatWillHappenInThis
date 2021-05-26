@@ -7,10 +7,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class EcywygsRoot  {
 public static final Ecywygs ECYWYGS = new Ecywygs();
-public static final EcywygsBlock ECYWYGS_BLOCK = new EcywygsBlock();
-public static final EcywygsOre ECYWYGS_ORE = new EcywygsOre();
+public static final Block ECYWYGS_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.3828486778747457f,2.4402466979820847f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
+public static final Block ECYWYGS_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.646690681816971f,1.4386801129848248f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final EcywygsShovel ECYWYGS_SHOVEL = new EcywygsShovel(EcywygsMaterial.INSTANCE);
 public static final EcywygsPickaxe ECYWYGS_PICKAXE = new EcywygsPickaxe(EcywygsMaterial.INSTANCE);
 public static final EcywygsAxe ECYWYGS_AXE = new EcywygsAxe(EcywygsMaterial.INSTANCE);

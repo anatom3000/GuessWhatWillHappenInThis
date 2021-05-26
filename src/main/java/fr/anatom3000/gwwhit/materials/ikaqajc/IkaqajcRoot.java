@@ -8,10 +8,17 @@ import net.minecraft.item.ArmorMaterial;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class IkaqajcRoot  {
 public static final Ikaqajc IKAQAJC = new Ikaqajc();
-public static final IkaqajcBlock IKAQAJC_BLOCK = new IkaqajcBlock();
-public static final IkaqajcOre IKAQAJC_ORE = new IkaqajcOre();
+public static final Block IKAQAJC_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.31886082293468f,1.407981946078615f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
+public static final Block IKAQAJC_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.018616076545011f,1.9324388800180428f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final ArmorMaterial ikaqajcArmorMaterial = new IkaqajcArmorMaterial();
 public static final IkaqajcHelmet IKAQAJC_HELMET = new IkaqajcHelmet(ikaqajcArmorMaterial);
 public static final IkaqajcChestplate IKAQAJC_CHESTPLATE = new IkaqajcChestplate(ikaqajcArmorMaterial);

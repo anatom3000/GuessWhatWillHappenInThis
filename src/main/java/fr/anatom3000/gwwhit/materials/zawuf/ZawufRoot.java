@@ -8,10 +8,17 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.*;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+
 public class ZawufRoot  {
 public static final Zawuf ZAWUF = new Zawuf();
-public static final ZawufBlock ZAWUF_BLOCK = new ZawufBlock();
-public static final ZawufOre ZAWUF_ORE = new ZawufOre();
+public static final Block ZAWUF_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.250817848767256f,3.6778040632377955f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
+public static final Block ZAWUF_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.340466373211538f,2.952277851046418f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final ZawufShovel ZAWUF_SHOVEL = new ZawufShovel(ZawufMaterial.INSTANCE);
 public static final ZawufPickaxe ZAWUF_PICKAXE = new ZawufPickaxe(ZawufMaterial.INSTANCE);
 public static final ZawufAxe ZAWUF_AXE = new ZawufAxe(ZawufMaterial.INSTANCE);

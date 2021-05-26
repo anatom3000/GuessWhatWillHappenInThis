@@ -1,7 +1,8 @@
 package fr.anatom3000.gwwhit.materials.ipacyk;
+
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 public class IpacykArmorMaterial implements ArmorMaterial {

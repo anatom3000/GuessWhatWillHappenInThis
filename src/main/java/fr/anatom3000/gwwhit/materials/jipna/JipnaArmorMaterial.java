@@ -1,7 +1,8 @@
 package fr.anatom3000.gwwhit.materials.jipna;
+
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 public class JipnaArmorMaterial implements ArmorMaterial {

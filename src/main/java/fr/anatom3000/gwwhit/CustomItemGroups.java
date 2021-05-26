@@ -2,8 +2,6 @@ package fr.anatom3000.gwwhit;
 
 import fr.anatom3000.gwwhit.registry.ItemRegistry;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import fr.anatom3000.gwwhit.CustomItemGroups;
-
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 

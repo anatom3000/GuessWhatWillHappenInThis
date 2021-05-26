@@ -13,7 +13,9 @@ import net.minecraft.resource.ResourceManager;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GameRenderer.class)
@@ -54,7 +56,7 @@ public class GameRendererMixin {
 
 	@Redirect(method = "render", at = @At(value = "FIELD", target = "Lnet/minecraft/client/render/GameRenderer;shader:Lnet/minecraft/client/gl/ShaderEffect;", ordinal = 0))
 	private ShaderEffect render_Shader(GameRenderer renderer, float tickDelta) {
-		ShaderEffect shader = ModConfig.getInstance().shader;
+		ShaderEffect shader = ModConfig.getLoadedConfig().shader;
 
 		if (shader!=null) {
 			shader.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());

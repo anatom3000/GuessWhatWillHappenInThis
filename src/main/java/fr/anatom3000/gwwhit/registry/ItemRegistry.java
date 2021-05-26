@@ -2,7 +2,10 @@ package fr.anatom3000.gwwhit.registry;
 
 import fr.anatom3000.gwwhit.CustomItemGroups;
 import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
-import fr.anatom3000.gwwhit.item.*;
+import fr.anatom3000.gwwhit.item.BoosterItem;
+import fr.anatom3000.gwwhit.item.CosmicEraserItem;
+import fr.anatom3000.gwwhit.item.PortableBlackHoleItem;
+import fr.anatom3000.gwwhit.item.TransdimensionalLensItem;
 import fr.anatom3000.gwwhit.materials.CustomArmorMaterials;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.EquipmentSlot;
@@ -28,6 +31,7 @@ public class ItemRegistry {
         put("eraser", new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup).maxCount(1)));
         put("cosmic_eraser", new CosmicEraserItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHITGroup).maxCount(1)));
         put("dashing_boots", new ArmorItem(CustomArmorMaterials.HASTY_MATERIAL, EquipmentSlot.FEET, new FabricItemSettings().group(CustomItemGroups.GWWHITGroup)));
+        put("randomising_block", new BlockItem(BlockRegistry.get("randomising_block"), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup)));
     }};
 
     public static void register() {

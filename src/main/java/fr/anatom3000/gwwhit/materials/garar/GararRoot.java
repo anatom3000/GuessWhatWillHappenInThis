@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class GararRoot  {
-public static final GararDust GARAR_DUST = new GararDust();
+public static final Item GARAR_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block GARAR_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.6738445167333618f,1.0845050158167724f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block GARAR_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.3234877943047625f,3.8066518989879503f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final GararShovel GARAR_SHOVEL = new GararShovel(GararMaterial.INSTANCE);

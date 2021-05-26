@@ -16,8 +16,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class NefyfRoot  {
-public static final Nefyf NEFYF = new Nefyf();
+public static final Item NEFYF = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block NEFYF_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.0514950684122697f,4.11407684648582f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block NEFYF_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.6545992097134476f,1.6291803974155825f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final ArmorMaterial nefyfArmorMaterial = new NefyfArmorMaterial();

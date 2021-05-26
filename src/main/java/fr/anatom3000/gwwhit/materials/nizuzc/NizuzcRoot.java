@@ -16,8 +16,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class NizuzcRoot  {
-public static final NizuzcDust NIZUZC_DUST = new NizuzcDust();
+public static final Item NIZUZC_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block NIZUZC_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.8451189030996193f,2.7598381979559874f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final Block NIZUZC_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.3789682704694535f,3.7907699486664597f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final ArmorMaterial nizuzcArmorMaterial = new NizuzcArmorMaterial();

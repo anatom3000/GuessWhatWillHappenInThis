@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class CojosRoot  {
-public static final Cojos COJOS = new Cojos();
+public static final Item COJOS = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block COJOS_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.9424443425925553f,3.118955856497523f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final Block COJOS_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.258951485803472f,3.9675914010278306f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final CojosShovel COJOS_SHOVEL = new CojosShovel(CojosMaterial.INSTANCE);

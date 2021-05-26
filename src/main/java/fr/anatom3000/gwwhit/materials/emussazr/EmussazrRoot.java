@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class EmussazrRoot  {
-public static final EmussazrIngot EMUSSAZR_INGOT = new EmussazrIngot();
+public static final Item EMUSSAZR_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block EMUSSAZR_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.165230357008876f,4.2314710918464264f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final Block EMUSSAZR_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.155009599362658f,2.291764654354482f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final EmussazrShovel EMUSSAZR_SHOVEL = new EmussazrShovel(EmussazrMaterial.INSTANCE);

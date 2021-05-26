@@ -1,19 +1,17 @@
 package fr.anatom3000.gwwhit.materials.kuzidb;
-
-import fr.anatom3000.gwwhit.CustomItemGroups;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.BlockItem;
+import net.minecraft.util.registry.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.minecraft.item.BlockItem;
+import fr.anatom3000.gwwhit.CustomItemGroups;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.item.ArmorMaterial;
+import net.fabricmc.fabric.api.biome.v1.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.*;
+import net.minecraft.item.Item;
 public class KuzidbRoot  {
-public static final KuzidbDust KUZIDB_DUST = new KuzidbDust();
+public static final Item KUZIDB_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final KuzidbBlock KUZIDB_BLOCK = new KuzidbBlock();
 public static final KuzidbOre KUZIDB_ORE = new KuzidbOre();
 public static final ArmorMaterial kuzidbArmorMaterial = new KuzidbArmorMaterial();

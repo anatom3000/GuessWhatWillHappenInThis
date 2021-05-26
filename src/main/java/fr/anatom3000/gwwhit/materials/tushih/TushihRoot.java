@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class TushihRoot  {
-public static final TushihDust TUSHIH_DUST = new TushihDust();
+public static final Item TUSHIH_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block TUSHIH_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.435388534154923f,2.7252979966302475f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block TUSHIH_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.7391053259344154f,4.175071912502748f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final TushihSword TUSHIH_SWORD = new TushihSword(TushihMaterial.INSTANCE);

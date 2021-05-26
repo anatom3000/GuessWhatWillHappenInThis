@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class FolsoRoot  {
-public static final FolsoDust FOLSO_DUST = new FolsoDust();
+public static final Item FOLSO_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final FolsoBlock FOLSO_BLOCK = new FolsoBlock();
 public static final Block FOLSO_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.9096448850323977f,3.3389590472190553f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final FolsoShovel FOLSO_SHOVEL = new FolsoShovel(FolsoMaterial.INSTANCE);

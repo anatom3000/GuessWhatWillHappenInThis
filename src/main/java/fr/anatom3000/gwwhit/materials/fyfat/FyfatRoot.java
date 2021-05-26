@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class FyfatRoot  {
-public static final Fyfat FYFAT = new Fyfat();
+public static final Item FYFAT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block FYFAT_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.9285772767259357f,1.6451633680577538f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block FYFAT_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.021983156281999f,1.7899523783311384f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).slipperiness(0.7672129234315004f));
 public static final FyfatShovel FYFAT_SHOVEL = new FyfatShovel(FyfatMaterial.INSTANCE);

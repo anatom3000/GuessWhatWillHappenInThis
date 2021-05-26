@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class YfikalRoot  {
-public static final YfikalIngot YFIKAL_INGOT = new YfikalIngot();
+public static final Item YFIKAL_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block YFIKAL_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.102072885735272f,3.9307575802439843f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block YFIKAL_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.426399344319657f,2.1756509197354643f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final YfikalShovel YFIKAL_SHOVEL = new YfikalShovel(YfikalMaterial.INSTANCE);

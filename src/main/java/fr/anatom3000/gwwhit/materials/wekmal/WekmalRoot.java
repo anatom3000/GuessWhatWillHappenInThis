@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class WekmalRoot  {
-public static final WekmalDust WEKMAL_DUST = new WekmalDust();
+public static final Item WEKMAL_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block WEKMAL_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.626049772608876f,4.792349075006154f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block WEKMAL_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.0999565424338655f,2.2627085630941344f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final WekmalShovel WEKMAL_SHOVEL = new WekmalShovel(WekmalMaterial.INSTANCE);

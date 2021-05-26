@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class MudatbRoot  {
-public static final Mudatb MUDATB = new Mudatb();
+public static final Item MUDATB = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block MUDATB_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.288711501040225f,2.304988035400448f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block MUDATB_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.6302105090144665f,4.963595127333379f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final MudatbShovel MUDATB_SHOVEL = new MudatbShovel(MudatbMaterial.INSTANCE);

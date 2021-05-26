@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class YqubefRoot  {
-public static final Yqubef YQUBEF = new Yqubef();
+public static final Item YQUBEF = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block YQUBEF_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.311223746939808f,4.990162821721631f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block YQUBEF_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.2558084941717684f,2.054714714493969f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final YqubefSword YQUBEF_SWORD = new YqubefSword(YqubefMaterial.INSTANCE);

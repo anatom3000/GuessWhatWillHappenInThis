@@ -16,8 +16,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class IqecolnRoot  {
-public static final IqecolnIngot IQECOLN_INGOT = new IqecolnIngot();
+public static final Item IQECOLN_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block IQECOLN_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.088000516234878f,3.681516034707085f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block IQECOLN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.821530597791218f,2.387309768714658f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final ArmorMaterial iqecolnArmorMaterial = new IqecolnArmorMaterial();

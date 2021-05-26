@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class SonegRoot  {
-public static final SonegDust SONEG_DUST = new SonegDust();
+public static final Item SONEG_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block SONEG_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.893660516120522f,1.9490018076857392f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block SONEG_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.5540959459161985f,3.7316446948963162f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final SonegSword SONEG_SWORD = new SonegSword(SonegMaterial.INSTANCE);

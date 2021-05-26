@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class TugoRoot  {
-public static final Tugo TUGO = new Tugo();
+public static final Item TUGO = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block TUGO_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.200979108884199f,2.039312289399117f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block TUGO_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.1213986174379613f,2.0118248104123397f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final TugoShovel TUGO_SHOVEL = new TugoShovel(TugoMaterial.INSTANCE);

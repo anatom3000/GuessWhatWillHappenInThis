@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class HokeRoot  {
-public static final HokeDust HOKE_DUST = new HokeDust();
+public static final Item HOKE_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final HokeBlock HOKE_BLOCK = new HokeBlock();
 public static final Block HOKE_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.327095668626132f,2.7601037906941257f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).slipperiness(0.7664829949827581f));
 public static final HokeSword HOKE_SWORD = new HokeSword(HokeMaterial.INSTANCE);

@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class AsymcofRoot  {
-public static final AsymcofIngot ASYMCOF_INGOT = new AsymcofIngot();
+public static final Item ASYMCOF_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block ASYMCOF_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.2041225327542704f,3.6898874468318734f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block ASYMCOF_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.2811016371460808f,2.154640712175668f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).luminance(7));
 public static final AsymcofShovel ASYMCOF_SHOVEL = new AsymcofShovel(AsymcofMaterial.INSTANCE);

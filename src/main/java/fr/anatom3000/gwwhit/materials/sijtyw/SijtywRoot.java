@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class SijtywRoot  {
-public static final Sijtyw SIJTYW = new Sijtyw();
+public static final Item SIJTYW = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block SIJTYW_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.87992097229947f,3.6945125541360677f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final Block SIJTYW_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.3281622699266435f,3.0974911198906443f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final SijtywShovel SIJTYW_SHOVEL = new SijtywShovel(SijtywMaterial.INSTANCE);

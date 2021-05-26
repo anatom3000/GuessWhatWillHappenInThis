@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class XugawRoot  {
-public static final Xugaw XUGAW = new Xugaw();
+public static final Item XUGAW = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block XUGAW_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.4894045079779175f,3.602666379676259f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final Block XUGAW_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.461587851565492f,1.1769926659452317f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 

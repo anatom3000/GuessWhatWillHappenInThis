@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class FydifRoot  {
-public static final Fydif FYDIF = new Fydif();
+public static final Item FYDIF = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block FYDIF_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.3060341567094085f,2.6318259882365216f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block FYDIF_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.6749089205557137f,2.8845978699148587f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final FydifShovel FYDIF_SHOVEL = new FydifShovel(FydifMaterial.INSTANCE);

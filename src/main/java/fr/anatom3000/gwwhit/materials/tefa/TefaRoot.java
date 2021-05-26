@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class TefaRoot  {
-public static final TefaDust TEFA_DUST = new TefaDust();
+public static final Item TEFA_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block TEFA_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.081838582236901f,3.0932909786732807f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block TEFA_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.6420650822213894f,1.56302812285616f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final TefaSword TEFA_SWORD = new TefaSword(TefaMaterial.INSTANCE);

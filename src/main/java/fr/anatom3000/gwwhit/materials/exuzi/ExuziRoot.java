@@ -16,8 +16,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class ExuziRoot  {
-public static final ExuziIngot EXUZI_INGOT = new ExuziIngot();
+public static final Item EXUZI_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block EXUZI_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.7347668944398564f,2.251161755292984f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block EXUZI_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.236883250592108f,2.9149704952957434f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final ArmorMaterial exuziArmorMaterial = new ExuziArmorMaterial();

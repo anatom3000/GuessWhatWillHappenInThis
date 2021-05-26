@@ -16,8 +16,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class IzymamRoot  {
-public static final IzymamIngot IZYMAM_INGOT = new IzymamIngot();
+public static final Item IZYMAM_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block IZYMAM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.279469982202987f,1.0907666269647844f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block IZYMAM_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.73278793933846f,1.0817060508805998f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final IzymamShovel IZYMAM_SHOVEL = new IzymamShovel(IzymamMaterial.INSTANCE);

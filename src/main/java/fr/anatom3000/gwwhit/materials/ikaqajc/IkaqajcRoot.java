@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class IkaqajcRoot  {
-public static final Ikaqajc IKAQAJC = new Ikaqajc();
+public static final Item IKAQAJC = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block IKAQAJC_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.31886082293468f,1.407981946078615f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block IKAQAJC_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.018616076545011f,1.9324388800180428f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final ArmorMaterial ikaqajcArmorMaterial = new IkaqajcArmorMaterial();

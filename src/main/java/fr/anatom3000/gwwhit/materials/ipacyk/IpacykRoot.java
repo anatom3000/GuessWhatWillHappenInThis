@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class IpacykRoot  {
-public static final IpacykIngot IPACYK_INGOT = new IpacykIngot();
+public static final Item IPACYK_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block IPACYK_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.17412402140856f,1.9681537290110027f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final Block IPACYK_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.382447111002906f,1.7733044710387258f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final ArmorMaterial ipacykArmorMaterial = new IpacykArmorMaterial();

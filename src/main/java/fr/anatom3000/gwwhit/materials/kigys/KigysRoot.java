@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class KigysRoot  {
-public static final Kigys KIGYS = new Kigys();
+public static final Item KIGYS = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block KIGYS_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.6722841564476028f,2.7251890877075384f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block KIGYS_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.8626982875521447f,1.526305296924992f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final KigysShovel KIGYS_SHOVEL = new KigysShovel(KigysMaterial.INSTANCE);

@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class MafabRoot  {
-public static final Mafab MAFAB = new Mafab();
+public static final Item MAFAB = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block MAFAB_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.489282987438932f,4.288498110418534f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block MAFAB_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.2086324757403393f,1.127308210678227f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final MafabShovel MAFAB_SHOVEL = new MafabShovel(MafabMaterial.INSTANCE);

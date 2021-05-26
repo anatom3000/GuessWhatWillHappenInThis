@@ -16,8 +16,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class UruwogqRoot  {
-public static final UruwogqIngot URUWOGQ_INGOT = new UruwogqIngot();
+public static final Item URUWOGQ_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final UruwogqBlock URUWOGQ_BLOCK = new UruwogqBlock();
 public static final Block URUWOGQ_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.326361572300289f,2.987653755665146f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final ArmorMaterial uruwogqArmorMaterial = new UruwogqArmorMaterial();

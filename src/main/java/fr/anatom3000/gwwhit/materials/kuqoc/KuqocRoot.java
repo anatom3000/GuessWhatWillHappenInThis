@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class KuqocRoot  {
-public static final KuqocDust KUQOC_DUST = new KuqocDust();
+public static final Item KUQOC_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block KUQOC_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.00056298568912f,2.83465940238211f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final Block KUQOC_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.70339961008607f,2.910770862862184f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final KuqocSword KUQOC_SWORD = new KuqocSword(KuqocMaterial.INSTANCE);

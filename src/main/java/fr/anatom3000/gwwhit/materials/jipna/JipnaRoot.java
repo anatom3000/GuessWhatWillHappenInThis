@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class JipnaRoot  {
-public static final JipnaDust JIPNA_DUST = new JipnaDust();
+public static final Item JIPNA_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block JIPNA_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.011898314201292f,2.9745555629681393f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block JIPNA_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.0073136953248487f,4.0021043735890895f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final ArmorMaterial jipnaArmorMaterial = new JipnaArmorMaterial();

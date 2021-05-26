@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class BotudRoot  {
-public static final Botud BOTUD = new Botud();
+public static final Item BOTUD = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block BOTUD_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.895546018727078f,1.647412322453087f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block BOTUD_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.424393544424001f,4.2406564361777965f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final BotudShovel BOTUD_SHOVEL = new BotudShovel(BotudMaterial.INSTANCE);

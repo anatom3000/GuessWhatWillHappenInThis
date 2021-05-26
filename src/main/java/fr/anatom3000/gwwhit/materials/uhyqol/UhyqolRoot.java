@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class UhyqolRoot  {
-public static final UhyqolIngot UHYQOL_INGOT = new UhyqolIngot();
+public static final Item UHYQOL_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final UhyqolBlock UHYQOL_BLOCK = new UhyqolBlock();
 public static final Block UHYQOL_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.753951702568491f,2.9066074406262907f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final UhyqolSword UHYQOL_SWORD = new UhyqolSword(UhyqolMaterial.INSTANCE);

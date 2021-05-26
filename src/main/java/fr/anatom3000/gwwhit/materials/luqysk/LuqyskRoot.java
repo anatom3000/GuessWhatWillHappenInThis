@@ -16,8 +16,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class LuqyskRoot  {
-public static final Luqysk LUQYSK = new Luqysk();
+public static final Item LUQYSK = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block LUQYSK_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.2179804984444f,2.4804128513426646f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).slipperiness(0.9952457451652684f));
 public static final Block LUQYSK_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.4606853439713725f,3.1933893636656094f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final ArmorMaterial luqyskArmorMaterial = new LuqyskArmorMaterial();

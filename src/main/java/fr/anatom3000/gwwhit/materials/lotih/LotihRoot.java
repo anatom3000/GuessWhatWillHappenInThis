@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class LotihRoot  {
-public static final Lotih LOTIH = new Lotih();
+public static final Item LOTIH = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block LOTIH_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.1264012626747317f,1.9996258300620537f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final Block LOTIH_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.9635176449072658f,2.425915213582175f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1).luminance(1));
 

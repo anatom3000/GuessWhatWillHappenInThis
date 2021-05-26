@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class LywygRoot  {
-public static final Lywyg LYWYG = new Lywyg();
+public static final Item LYWYG = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block LYWYG_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.750797031209085f,1.5024434389763544f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block LYWYG_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.59928814427294f,4.1831631822680775f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 

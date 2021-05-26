@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class RenuRoot  {
-public static final Renu RENU = new Renu();
+public static final Item RENU = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block RENU_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.3111354353630866f,2.8778156416473606f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0).slipperiness(0.8466700348669063f));
 public static final Block RENU_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.4194845704914698f,1.9795404760820334f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final RenuShovel RENU_SHOVEL = new RenuShovel(RenuMaterial.INSTANCE);

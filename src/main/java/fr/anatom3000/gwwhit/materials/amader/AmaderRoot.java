@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class AmaderRoot  {
-public static final AmaderIngot AMADER_INGOT = new AmaderIngot();
+public static final Item AMADER_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block AMADER_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.0325704501380644f,3.013930612738863f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block AMADER_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.505565659243803f,1.0655254386080033f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final AmaderShovel AMADER_SHOVEL = new AmaderShovel(AmaderMaterial.INSTANCE);

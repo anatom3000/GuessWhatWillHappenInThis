@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class NoticRoot  {
-public static final NoticDust NOTIC_DUST = new NoticDust();
+public static final Item NOTIC_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final NoticBlock NOTIC_BLOCK = new NoticBlock();
 public static final Block NOTIC_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.6419959483162745f,3.11053404379917f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final ArmorMaterial noticArmorMaterial = new NoticArmorMaterial();

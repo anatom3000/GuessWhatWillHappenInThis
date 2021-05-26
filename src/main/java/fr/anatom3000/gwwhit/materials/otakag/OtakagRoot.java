@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class OtakagRoot  {
-public static final OtakagIngot OTAKAG_INGOT = new OtakagIngot();
+public static final Item OTAKAG_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block OTAKAG_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.7011058362365903f,1.403393897078998f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block OTAKAG_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.556025044681982f,4.327806248506748f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 

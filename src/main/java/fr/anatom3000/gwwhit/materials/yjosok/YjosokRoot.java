@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class YjosokRoot  {
-public static final YjosokIngot YJOSOK_INGOT = new YjosokIngot();
+public static final Item YJOSOK_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block YJOSOK_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.5052900536412075f,1.8634806830581572f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final Block YJOSOK_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.3993136294626387f,4.010573373808318f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final YjosokSword YJOSOK_SWORD = new YjosokSword(YjosokMaterial.INSTANCE);

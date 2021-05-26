@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class ObohylpRoot  {
-public static final ObohylpIngot OBOHYLP_INGOT = new ObohylpIngot();
+public static final Item OBOHYLP_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block OBOHYLP_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.5004622224738062f,2.398680958661891f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block OBOHYLP_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.0640294887474742f,2.151694244997517f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final ObohylpSword OBOHYLP_SWORD = new ObohylpSword(ObohylpMaterial.INSTANCE);

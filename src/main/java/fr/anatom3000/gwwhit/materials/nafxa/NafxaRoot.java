@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class NafxaRoot  {
-public static final NafxaDust NAFXA_DUST = new NafxaDust();
+public static final Item NAFXA_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block NAFXA_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.748258534596772f,4.567033414822431f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block NAFXA_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.4237191032727528f,1.6917404711542843f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final NafxaShovel NAFXA_SHOVEL = new NafxaShovel(NafxaMaterial.INSTANCE);

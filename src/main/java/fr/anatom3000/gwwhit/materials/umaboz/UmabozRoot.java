@@ -16,8 +16,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class UmabozRoot  {
-public static final UmabozIngot UMABOZ_INGOT = new UmabozIngot();
+public static final Item UMABOZ_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block UMABOZ_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.974877379219731f,2.7777035087216837f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).luminance(4));
 public static final Block UMABOZ_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.48987759142475f,1.2928537118134944f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final UmabozShovel UMABOZ_SHOVEL = new UmabozShovel(UmabozMaterial.INSTANCE);

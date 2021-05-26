@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class UwaplokRoot  {
-public static final Uwaplok UWAPLOK = new Uwaplok();
+public static final Item UWAPLOK = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final UwaplokBlock UWAPLOK_BLOCK = new UwaplokBlock();
 public static final Block UWAPLOK_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.6749805451567803f,4.238319247376481f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 

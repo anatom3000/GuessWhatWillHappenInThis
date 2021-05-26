@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class EmilamdRoot  {
-public static final EmilamdIngot EMILAMD_INGOT = new EmilamdIngot();
+public static final Item EMILAMD_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block EMILAMD_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.6159729501878695f,4.114099399066217f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final Block EMILAMD_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.000558898654879f,2.424559117826216f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0).luminance(5));
 public static final EmilamdSword EMILAMD_SWORD = new EmilamdSword(EmilamdMaterial.INSTANCE);

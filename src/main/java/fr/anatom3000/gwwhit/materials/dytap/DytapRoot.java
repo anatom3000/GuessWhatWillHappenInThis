@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class DytapRoot  {
-public static final Dytap DYTAP = new Dytap();
+public static final Item DYTAP = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final DytapBlock DYTAP_BLOCK = new DytapBlock();
 public static final Block DYTAP_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.999940103251278f,3.6295528662994885f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final DytapShovel DYTAP_SHOVEL = new DytapShovel(DytapMaterial.INSTANCE);

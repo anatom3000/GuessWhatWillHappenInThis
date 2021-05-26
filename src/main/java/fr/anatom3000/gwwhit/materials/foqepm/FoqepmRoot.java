@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class FoqepmRoot  {
-public static final Foqepm FOQEPM = new Foqepm();
+public static final Item FOQEPM = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block FOQEPM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.881014037863231f,2.9255306535891106f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block FOQEPM_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.880363390947983f,4.972960277192808f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).slipperiness(0.7240324768934855f));
 public static final FoqepmShovel FOQEPM_SHOVEL = new FoqepmShovel(FoqepmMaterial.INSTANCE);

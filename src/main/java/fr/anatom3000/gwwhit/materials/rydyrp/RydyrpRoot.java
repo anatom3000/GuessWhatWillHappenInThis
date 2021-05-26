@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class RydyrpRoot  {
-public static final Rydyrp RYDYRP = new Rydyrp();
+public static final Item RYDYRP = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block RYDYRP_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.8752172083406142f,1.9167528463130443f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).slipperiness(0.7405748679791418f));
 public static final Block RYDYRP_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.535047459890229f,3.198590248363163f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 

@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class GigyhRoot  {
-public static final Gigyh GIGYH = new Gigyh();
+public static final Item GIGYH = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block GIGYH_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.514542120625487f,4.762194860120045f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block GIGYH_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.6065300153686977f,3.2447097769978046f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final ArmorMaterial gigyhArmorMaterial = new GigyhArmorMaterial();

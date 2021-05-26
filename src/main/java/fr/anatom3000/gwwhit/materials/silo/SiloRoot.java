@@ -16,8 +16,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class SiloRoot  {
-public static final Silo SILO = new Silo();
+public static final Item SILO = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block SILO_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.458043006073042f,1.0073381983237741f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0).luminance(6));
 public static final Block SILO_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.9326458369384065f,1.6891983454746753f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final ArmorMaterial siloArmorMaterial = new SiloArmorMaterial();

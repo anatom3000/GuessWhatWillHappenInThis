@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class SenuzRoot  {
-public static final SenuzDust SENUZ_DUST = new SenuzDust();
+public static final Item SENUZ_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block SENUZ_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.3259587871313485f,4.823242085775082f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block SENUZ_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.9219375389445275f,4.0401593593869265f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final SenuzSword SENUZ_SWORD = new SenuzSword(SenuzMaterial.INSTANCE);

@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class ObuxanRoot  {
-public static final ObuxanIngot OBUXAN_INGOT = new ObuxanIngot();
+public static final Item OBUXAN_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block OBUXAN_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.4681756822411787f,2.2692449252063347f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block OBUXAN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.417769252878823f,3.5287271532378037f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final ObuxanShovel OBUXAN_SHOVEL = new ObuxanShovel(ObuxanMaterial.INSTANCE);

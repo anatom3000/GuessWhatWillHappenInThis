@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class LodedRoot  {
-public static final Loded LODED = new Loded();
+public static final Item LODED = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block LODED_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.3143613274130503f,2.015023086608885f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0).slipperiness(0.8402559690947797f));
 public static final Block LODED_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.8145814230349977f,1.8744747390428116f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final LodedShovel LODED_SHOVEL = new LodedShovel(LodedMaterial.INSTANCE);

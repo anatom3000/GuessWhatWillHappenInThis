@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class NugoRoot  {
-public static final NugoDust NUGO_DUST = new NugoDust();
+public static final Item NUGO_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block NUGO_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.540433387192429f,4.765545385894495f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block NUGO_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.5944410167235135f,2.9528731166038953f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0).luminance(5));
 public static final ArmorMaterial nugoArmorMaterial = new NugoArmorMaterial();

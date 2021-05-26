@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class LezdorRoot  {
-public static final LezdorDust LEZDOR_DUST = new LezdorDust();
+public static final Item LEZDOR_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block LEZDOR_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.855320847752626f,3.466843311687021f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block LEZDOR_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.472960557070697f,1.422640976883577f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).luminance(2));
 public static final ArmorMaterial lezdorArmorMaterial = new LezdorArmorMaterial();

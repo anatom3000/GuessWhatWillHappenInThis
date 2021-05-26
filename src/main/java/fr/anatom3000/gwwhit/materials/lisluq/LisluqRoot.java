@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class LisluqRoot  {
-public static final Lisluq LISLUQ = new Lisluq();
+public static final Item LISLUQ = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final LisluqBlock LISLUQ_BLOCK = new LisluqBlock();
 public static final Block LISLUQ_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.86715504264314f,4.521702004858694f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final LisluqShovel LISLUQ_SHOVEL = new LisluqShovel(LisluqMaterial.INSTANCE);

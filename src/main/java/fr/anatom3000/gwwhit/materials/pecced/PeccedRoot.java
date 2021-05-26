@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class PeccedRoot  {
-public static final PeccedDust PECCED_DUST = new PeccedDust();
+public static final Item PECCED_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block PECCED_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.6010260796534825f,2.3127495119359955f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final PeccedOre PECCED_ORE = new PeccedOre();
 public static final ArmorMaterial peccedArmorMaterial = new PeccedArmorMaterial();

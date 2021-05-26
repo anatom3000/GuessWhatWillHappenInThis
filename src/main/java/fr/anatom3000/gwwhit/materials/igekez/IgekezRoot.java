@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class IgekezRoot  {
-public static final IgekezIngot IGEKEZ_INGOT = new IgekezIngot();
+public static final Item IGEKEZ_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block IGEKEZ_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.981758085844132f,2.9006502261373526f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final IgekezOre IGEKEZ_ORE = new IgekezOre();
 public static final ArmorMaterial igekezArmorMaterial = new IgekezArmorMaterial();

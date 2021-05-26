@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class YjotcehRoot  {
-public static final YjotcehIngot YJOTCEH_INGOT = new YjotcehIngot();
+public static final Item YJOTCEH_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block YJOTCEH_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.7466234188625087f,2.0991076153571644f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final Block YJOTCEH_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.684605805215211f,2.2255814440263992f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).slipperiness(0.8298249223988254f));
 public static final YjotcehSword YJOTCEH_SWORD = new YjotcehSword(YjotcehMaterial.INSTANCE);

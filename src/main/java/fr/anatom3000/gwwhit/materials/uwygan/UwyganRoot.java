@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class UwyganRoot  {
-public static final UwyganIngot UWYGAN_INGOT = new UwyganIngot();
+public static final Item UWYGAN_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block UWYGAN_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.348603208170338f,1.8438765823878045f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final Block UWYGAN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.5811496723917084f,2.910557168975662f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 

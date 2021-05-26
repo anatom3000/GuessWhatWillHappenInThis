@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class TidziqRoot  {
-public static final Tidziq TIDZIQ = new Tidziq();
+public static final Item TIDZIQ = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block TIDZIQ_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.578756144788023f,2.3471119683784356f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block TIDZIQ_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.6496302854756935f,3.218823129572453f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final ArmorMaterial tidziqArmorMaterial = new TidziqArmorMaterial();

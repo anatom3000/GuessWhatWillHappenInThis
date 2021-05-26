@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class MejeshRoot  {
-public static final Mejesh MEJESH = new Mejesh();
+public static final Item MEJESH = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block MEJESH_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.628913816797731f,4.194409895833226f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final Block MEJESH_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.8399171529213323f,1.8220717196783727f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final ArmorMaterial mejeshArmorMaterial = new MejeshArmorMaterial();

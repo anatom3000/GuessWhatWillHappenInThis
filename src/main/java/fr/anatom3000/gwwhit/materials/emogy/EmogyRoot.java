@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class EmogyRoot  {
-public static final EmogyIngot EMOGY_INGOT = new EmogyIngot();
+public static final Item EMOGY_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block EMOGY_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.6645702079544282f,3.385852761280221f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block EMOGY_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.5971413820150935f,3.3921055132188536f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final ArmorMaterial emogyArmorMaterial = new EmogyArmorMaterial();

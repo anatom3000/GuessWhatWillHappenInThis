@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class PeqyRoot  {
-public static final Peqy PEQY = new Peqy();
+public static final Item PEQY = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final PeqyBlock PEQY_BLOCK = new PeqyBlock();
 public static final Block PEQY_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.0717287437950995f,4.740894063711734f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final ArmorMaterial peqyArmorMaterial = new PeqyArmorMaterial();

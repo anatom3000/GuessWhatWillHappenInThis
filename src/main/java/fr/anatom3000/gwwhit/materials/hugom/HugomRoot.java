@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class HugomRoot  {
-public static final HugomDust HUGOM_DUST = new HugomDust();
+public static final Item HUGOM_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block HUGOM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.898667262197131f,3.7385198932044745f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final Block HUGOM_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.831169711630695f,1.1322997320594994f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final HugomSword HUGOM_SWORD = new HugomSword(HugomMaterial.INSTANCE);

@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class UwalusqRoot  {
-public static final UwalusqIngot UWALUSQ_INGOT = new UwalusqIngot();
+public static final Item UWALUSQ_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block UWALUSQ_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.3473145044352015f,2.891956251751754f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block UWALUSQ_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.377612215255365f,4.642682211595366f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final UwalusqShovel UWALUSQ_SHOVEL = new UwalusqShovel(UwalusqMaterial.INSTANCE);

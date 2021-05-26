@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class TesxesRoot  {
-public static final Tesxes TESXES = new Tesxes();
+public static final Item TESXES = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block TESXES_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.091801783598851f,1.7926571357386263f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block TESXES_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.307610301978136f,1.868869433512132f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 

@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class RyqoRoot  {
-public static final RyqoDust RYQO_DUST = new RyqoDust();
+public static final Item RYQO_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block RYQO_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.568845296175102f,4.625908568029239f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final RyqoOre RYQO_ORE = new RyqoOre();
 public static final ArmorMaterial ryqoArmorMaterial = new RyqoArmorMaterial();

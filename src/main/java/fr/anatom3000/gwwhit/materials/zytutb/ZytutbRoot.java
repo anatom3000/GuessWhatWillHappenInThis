@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class ZytutbRoot  {
-public static final ZytutbDust ZYTUTB_DUST = new ZytutbDust();
+public static final Item ZYTUTB_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final ZytutbBlock ZYTUTB_BLOCK = new ZytutbBlock();
 public static final Block ZYTUTB_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.7796033242652385f,4.253294922855739f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 

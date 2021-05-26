@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class UbertegRoot  {
-public static final UbertegIngot UBERTEG_INGOT = new UbertegIngot();
+public static final Item UBERTEG_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block UBERTEG_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.650320076307138f,1.3782695586894111f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final Block UBERTEG_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.839481016192175f,3.194925813277477f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final UbertegShovel UBERTEG_SHOVEL = new UbertegShovel(UbertegMaterial.INSTANCE);

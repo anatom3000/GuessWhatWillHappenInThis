@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class OqugeRoot  {
-public static final OqugeIngot OQUGE_INGOT = new OqugeIngot();
+public static final Item OQUGE_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block OQUGE_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(3.6079647262184853f,2.6323698050685547f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0).slipperiness(0.9918251559219082f));
 public static final Block OQUGE_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.021755368926826f,4.382757633251064f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final ArmorMaterial oqugeArmorMaterial = new OqugeArmorMaterial();

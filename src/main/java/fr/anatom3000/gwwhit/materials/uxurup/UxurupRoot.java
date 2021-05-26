@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class UxurupRoot  {
-public static final UxurupIngot UXURUP_INGOT = new UxurupIngot();
+public static final Item UXURUP_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block UXURUP_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.6794135957403693f,2.2701997525637334f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final Block UXURUP_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.5181291584583785f,4.489720722059051f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 

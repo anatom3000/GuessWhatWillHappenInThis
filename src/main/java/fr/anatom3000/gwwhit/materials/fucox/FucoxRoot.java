@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class FucoxRoot  {
-public static final FucoxDust FUCOX_DUST = new FucoxDust();
+public static final Item FUCOX_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block FUCOX_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.058751377033673f,4.809084437011796f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block FUCOX_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.2476019435773864f,2.6980823120057074f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final FucoxShovel FUCOX_SHOVEL = new FucoxShovel(FucoxMaterial.INSTANCE);

@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class GiryRoot  {
-public static final GiryDust GIRY_DUST = new GiryDust();
+public static final Item GIRY_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block GIRY_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.650919625155666f,3.400853871662096f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block GIRY_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3.5787943127478266f,1.815625046045092f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final ArmorMaterial giryArmorMaterial = new GiryArmorMaterial();

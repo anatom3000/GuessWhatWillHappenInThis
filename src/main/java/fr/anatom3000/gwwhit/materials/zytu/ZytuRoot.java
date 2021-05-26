@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class ZytuRoot  {
-public static final ZytuDust ZYTU_DUST = new ZytuDust();
+public static final Item ZYTU_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block ZYTU_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.181319282819409f,2.856104339048716f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final Block ZYTU_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.7756672377378107f,4.245648694295583f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 

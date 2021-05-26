@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class OpomfamRoot  {
-public static final OpomfamIngot OPOMFAM_INGOT = new OpomfamIngot();
+public static final Item OPOMFAM_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block OPOMFAM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.9637485785869853f,3.445130065905783f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block OPOMFAM_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.37022927511029f,3.238710326358524f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 

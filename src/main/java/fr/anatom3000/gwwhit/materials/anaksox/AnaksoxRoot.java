@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class AnaksoxRoot  {
-public static final AnaksoxIngot ANAKSOX_INGOT = new AnaksoxIngot();
+public static final Item ANAKSOX_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block ANAKSOX_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.6814080560344435f,4.512405691425073f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block ANAKSOX_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(1.2356204987936117f,3.3451029887423895f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final AnaksoxShovel ANAKSOX_SHOVEL = new AnaksoxShovel(AnaksoxMaterial.INSTANCE);

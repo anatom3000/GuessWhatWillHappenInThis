@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class OhyxfuRoot  {
-public static final OhyxfuIngot OHYXFU_INGOT = new OhyxfuIngot();
+public static final Item OHYXFU_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block OHYXFU_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.934614329831127f,4.387169677866746f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block OHYXFU_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.5797628151701555f,1.7304155122687859f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final OhyxfuSword OHYXFU_SWORD = new OhyxfuSword(OhyxfuMaterial.INSTANCE);

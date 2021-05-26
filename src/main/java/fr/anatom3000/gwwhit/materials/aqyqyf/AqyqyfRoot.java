@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class AqyqyfRoot  {
-public static final AqyqyfIngot AQYQYF_INGOT = new AqyqyfIngot();
+public static final Item AQYQYF_INGOT = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block AQYQYF_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(4.714998321129406f,3.402009140837683f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final Block AQYQYF_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.5719358374057593f,4.335500428922923f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 0));
 public static final AqyqyfShovel AQYQYF_SHOVEL = new AqyqyfShovel(AqyqyfMaterial.INSTANCE);

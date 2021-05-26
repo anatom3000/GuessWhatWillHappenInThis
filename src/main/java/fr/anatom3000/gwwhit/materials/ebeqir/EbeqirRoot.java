@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class EbeqirRoot  {
-public static final Ebeqir EBEQIR = new Ebeqir();
+public static final Item EBEQIR = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block EBEQIR_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.0200575717385765f,4.09310446844129f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block EBEQIR_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.814845340756406f,3.577373239355208f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2).luminance(14));
 public static final EbeqirShovel EBEQIR_SHOVEL = new EbeqirShovel(EbeqirMaterial.INSTANCE);

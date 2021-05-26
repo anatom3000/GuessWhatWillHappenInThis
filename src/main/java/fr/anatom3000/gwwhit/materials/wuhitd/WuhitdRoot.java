@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class WuhitdRoot  {
-public static final WuhitdDust WUHITD_DUST = new WuhitdDust();
+public static final Item WUHITD_DUST = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final WuhitdBlock WUHITD_BLOCK = new WuhitdBlock();
 public static final Block WUHITD_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(2.4142621195825815f,1.4998161462391546f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 

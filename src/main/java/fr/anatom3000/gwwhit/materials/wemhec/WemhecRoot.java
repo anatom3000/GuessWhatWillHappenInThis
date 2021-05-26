@@ -15,8 +15,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class WemhecRoot  {
-public static final Wemhec WEMHEC = new Wemhec();
+public static final Item WEMHEC = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block WEMHEC_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(2.44884632406108f,4.738354687675475f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final Block WEMHEC_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.8977757298471705f,3.2981670557700973f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final WemhecShovel WEMHEC_SHOVEL = new WemhecShovel(WemhecMaterial.INSTANCE);

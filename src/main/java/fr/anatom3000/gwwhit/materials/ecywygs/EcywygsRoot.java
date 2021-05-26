@@ -14,8 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 
+import net.minecraft.item.Item;
 public class EcywygsRoot  {
-public static final Ecywygs ECYWYGS = new Ecywygs();
+public static final Item ECYWYGS = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
 public static final Block ECYWYGS_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(1.3828486778747457f,2.4402466979820847f).sounds(BlockSoundGroup.METAL).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1));
 public static final Block ECYWYGS_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.646690681816971f,1.4386801129848248f).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, 2));
 public static final EcywygsShovel ECYWYGS_SHOVEL = new EcywygsShovel(EcywygsMaterial.INSTANCE);

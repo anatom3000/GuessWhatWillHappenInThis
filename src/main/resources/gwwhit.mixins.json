@@ -8,7 +8,6 @@
 		"LivingEntityAccessor",
 		"LivingEntityMixin",
 		"PlayerManagerMixin",
-		"SoundSystemMixin",
 		"TitleScreenMixin"
 	],
 	"client": [
@@ -22,7 +21,8 @@
 		"LivingEntityRendererMixin",
 		"MatrixStackMixin",
 		"MixinFrustum",
-		"PlayerEntityModelMixin"
+		"PlayerEntityModelMixin",
+		"SoundSystemMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

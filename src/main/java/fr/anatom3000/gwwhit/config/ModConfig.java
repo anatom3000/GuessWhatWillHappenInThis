@@ -44,7 +44,8 @@ public final class ModConfig implements ConfigData {
     }
     
     public PacketByteBuf toPacketByteBuf() {
-        String config = GuessWhatWillHappenInThisMod.GSON.toJson(this);
+        //String config = GuessWhatWillHappenInThisMod.GSON.toJson(this);
+        String config = GuessWhatWillHappenInThisMod.JANKSON.toJson(this).toJson();
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeString(config);
         return buf;

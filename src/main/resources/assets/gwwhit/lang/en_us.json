@@ -18,8 +18,7 @@
 
   "text.autoconfig.gwwhit.title": "Guess What Will Happen In This Mod",
   "text.autoconfig.gwwhit.option.blocks": "Blocks",
-  "text.autoconfig.gwwhit.option.blocks.stoneBlocksAreInfected": "Makes every stone block infected",
-  "text.autoconfig.gwwhit.option.blocks.destroyOnLand": "Break blocks when an entity lands on them (more than 2 blocks)",
+  "text.autoconfig.gwwhit.option.blocks.stoneBlocksAreInfected": "Infect stone blocks",
   "text.autoconfig.gwwhit.option.drops": "Drops",
   "text.autoconfig.gwwhit.option.drops.randomizedDrops": "Random Drops",
   "text.autoconfig.gwwhit.option.drops.dreamLuck": "Dream Luck",
@@ -40,6 +39,7 @@
   "text.autoconfig.gwwhit.option.rendering.other.dinnerboneEntities": "Flip All Entities",
   "text.autoconfig.gwwhit.option.rendering.other.shader": "Shader",
 
+	"text.autoconfig.gwwhit.option.blocks.stoneBlocksAreInfected.@Tooltip": "Makes every stone block infected",
   "text.autoconfig.gwwhit.option.drops.@Tooltip": "Settings for drops in the game.",
   "text.autoconfig.gwwhit.option.drops.dreamLuck.@Tooltip[0]": "Increases the chance of ender pearls",
   "text.autoconfig.gwwhit.option.drops.dreamLuck.@Tooltip[1]": "from bartering and blaze rods from blazes.",

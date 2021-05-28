@@ -93,6 +93,9 @@ public class ModConfig implements ConfigData {
         @Gui.Tooltip
         public boolean owoifyer = false;
 
+        @Gui.Tooltip( count = 2 )
+        public boolean mojaaaangStartupSound = false;
+
         @Gui.Tooltip
         @Gui.CollapsibleObject
         public WhatsAppWhistle whatsAppWhistle = new WhatsAppWhistle();

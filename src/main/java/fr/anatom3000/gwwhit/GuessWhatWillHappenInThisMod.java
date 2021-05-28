@@ -8,6 +8,9 @@ import fr.anatom3000.gwwhit.registry.ItemRegistry;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
+import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Jankson;
+
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
@@ -22,7 +25,8 @@ import org.apache.logging.log4j.Logger;
 import java.util.Random;
 
 public class GuessWhatWillHappenInThisMod implements ModInitializer {
-	public static final Gson GSON = new Gson();
+	//public static final Gson GSON = new Gson();
+	public static final Jankson JANKSON = Jankson.builder().build();
 
 	public static final String MOD_ID = "gwwhit";
 
@@ -46,14 +50,13 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		AutoConfig.register(ModConfig.class, GsonConfigSerializer::new);
-		
+		AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new);
+
 		ItemRegistry.register();
 		BlockRegistry.register();
 		BlockEntityRegistry.register();
-		NewMaterials.onInitialize();
 		Commands.register();
-		
+		NewMaterials.INSTANCE.onInitialize();
 		registerLootTables();
 		LOGGER.info("You shouldn't have done this.");
 	}

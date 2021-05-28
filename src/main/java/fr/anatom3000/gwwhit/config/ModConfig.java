@@ -119,8 +119,6 @@ public class ModConfig implements ConfigData {
     public static class Blocks {
         @Gui.Tooltip
         public boolean stoneBlocksAreInfected = false;
-        @Gui.Tooltip
-        public boolean destroyOnEntityLand = false;
     }
     
     public static class Rendering {

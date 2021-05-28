@@ -39,7 +39,8 @@
   "text.autoconfig.gwwhit.option.rendering.other.dinnerboneEntities": "Flip All Entities",
   "text.autoconfig.gwwhit.option.rendering.other.shader": "Shader",
 
-	"text.autoconfig.gwwhit.option.blocks.stoneBlocksAreInfected.@Tooltip": "Makes every stone block infected",
+  "text.autoconfig.gwwhit.option.blocks.@Tooltip": "Settings for blocks in the game.",
+  "text.autoconfig.gwwhit.option.blocks.stoneBlocksAreInfected.@Tooltip": "Makes every stone block infected",
   "text.autoconfig.gwwhit.option.drops.@Tooltip": "Settings for drops in the game.",
   "text.autoconfig.gwwhit.option.drops.dreamLuck.@Tooltip[0]": "Increases the chance of ender pearls",
   "text.autoconfig.gwwhit.option.drops.dreamLuck.@Tooltip[1]": "from bartering and blaze rods from blazes.",

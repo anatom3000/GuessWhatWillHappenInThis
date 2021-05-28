@@ -77,6 +77,10 @@ public class ModConfig implements ConfigData {
     
     @Gui.Tooltip
     @Gui.CollapsibleObject
+    public Blocks blocks = new Blocks();
+
+    @Gui.Tooltip
+    @Gui.CollapsibleObject
     public Drops drops = new Drops();
     
     @Gui.Tooltip
@@ -86,6 +90,8 @@ public class ModConfig implements ConfigData {
     @Gui.Tooltip
     @Gui.CollapsibleObject
     public Misc misc = new Misc();
+
+
     
     public static class Misc {
         @Gui.Tooltip
@@ -108,6 +114,13 @@ public class ModConfig implements ConfigData {
         //public boolean randomizedDrops = false; //crashes
         @Gui.Tooltip(count = 2)
         public boolean dreamLuck = false;
+    }
+
+    public static class Blocks {
+        @Gui.Tooltip
+        public boolean stoneBlocksAreInfected = false;
+        @Gui.Tooltip
+        public boolean destroyOnEntityLand = false;
     }
     
     public static class Rendering {

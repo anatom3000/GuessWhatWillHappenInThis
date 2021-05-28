@@ -17,6 +17,9 @@
   "itemGroup.gwwhit.gwwhit": "Guess What Will Happen In This",
 
   "text.autoconfig.gwwhit.title": "Guess What Will Happen In This Mod",
+  "text.autoconfig.gwwhit.option.blocks": "Blocks",
+  "text.autoconfig.gwwhit.option.blocks.stoneBlocksAreInfected": "Makes every stone block infected",
+  "text.autoconfig.gwwhit.option.blocks.destroyOnLand": "Break blocks when an entity lands on them (more than 2 blocks)",
   "text.autoconfig.gwwhit.option.drops": "Drops",
   "text.autoconfig.gwwhit.option.drops.randomizedDrops": "Random Drops",
   "text.autoconfig.gwwhit.option.drops.dreamLuck": "Dream Luck",

@@ -21,17 +21,17 @@ import java.util.Map;
 public class ItemRegistry {
 
     private static final HashMap<String, Item> ITEMS = new HashMap<String, Item>() {{
-        put("portable_black_hole", new PortableBlackHoleItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHITGroup).maxCount(1)));
-        put("booster", new BoosterItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHITGroup).maxCount(1)));
-        put("transdimensional_lens", new TransdimensionalLensItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHITGroup).maxCount(1)));
-        put("shock_resistant_boots", new ArmorItem(CustomArmorMaterials.SHOCK_RESISTANT_MATERIAL, EquipmentSlot.FEET, new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHITGroup)));
-        put("reapers_scythe", new Item(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHITGroup).maxCount(1)));
-        put("infected_mass", new BlockItem(BlockRegistry.get("infected_mass"), new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHITGroup)));
-        put("inert_infected_mass", new BlockItem(BlockRegistry.get("inert_infected_mass"), new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHITGroup)));
-        put("eraser", new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup).maxCount(1)));
-        put("cosmic_eraser", new CosmicEraserItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHITGroup).maxCount(1)));
-        put("dashing_boots", new ArmorItem(CustomArmorMaterials.HASTY_MATERIAL, EquipmentSlot.FEET, new FabricItemSettings().group(CustomItemGroups.GWWHITGroup)));
-        put("randomising_block", new BlockItem(BlockRegistry.get("randomising_block"), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup)));
+        put("portable_black_hole", new PortableBlackHoleItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP).maxCount(1)));
+        put("booster", new BoosterItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP).maxCount(1)));
+        put("transdimensional_lens", new TransdimensionalLensItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP).maxCount(1)));
+        put("shock_resistant_boots", new ArmorItem(CustomArmorMaterials.SHOCK_RESISTANT_MATERIAL, EquipmentSlot.FEET, new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP)));
+        put("reapers_scythe", new Item(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP).maxCount(1)));
+        put("infected_mass", new BlockItem(BlockRegistry.get("infected_mass"), new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP)));
+        put("inert_infected_mass", new BlockItem(BlockRegistry.get("inert_infected_mass"), new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP)));
+        put("eraser", new Item(new FabricItemSettings().group(CustomItemGroups.GWWHIT_GROUP).maxCount(1)));
+        put("cosmic_eraser", new CosmicEraserItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP).maxCount(1)));
+        put("dashing_boots", new ArmorItem(CustomArmorMaterials.HASTY_MATERIAL, EquipmentSlot.FEET, new FabricItemSettings().group(CustomItemGroups.GWWHIT_GROUP)));
+        put("randomising_block", new BlockItem(BlockRegistry.get("randomising_block"), new FabricItemSettings().group(CustomItemGroups.GWWHIT_GROUP)));
     }};
 
     public static void register() {

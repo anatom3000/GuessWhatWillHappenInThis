@@ -24,7 +24,7 @@ public class MathUtil {
         if (percent <= 0) {
             return false;
         }
-        float roll = GuessWhatWillHappenInThisMod.rng.nextFloat() * 100;
+        float roll = GuessWhatWillHappenInThisMod.RANDOM.nextFloat() * 100;
         return percent >= roll;
     }
 

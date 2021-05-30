@@ -4,8 +4,12 @@ import fr.anatom3000.gwwhit.CustomItemGroups;
 
 import java.util.Random;
 
+import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
+import fr.anatom3000.gwwhit.config.ModConfig;
+import fr.anatom3000.gwwhit.registry.ItemRegistry;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
@@ -13,16 +17,7 @@ import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.ShovelItem;
-import net.minecraft.item.SwordItem;
-import net.minecraft.item.ToolMaterial;
+import net.minecraft.item.*;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
@@ -36,18 +31,19 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import static fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod.MOD_ID;
 
 public class CustomOre {
+    private static ItemGroup itemGroup;
 
     public enum Type {
-        Gem,
-        Dust,
-        Ingot
+        GEM,
+        DUST,
+        INGOT
     }
 
     private enum ArmorType {
-        Helmet,
-        Chestplate,
-        Leggings,
-        Boots
+        HELMET,
+        CHESTPLATE,
+        LEGGINGS,
+        BOOTS
     }
 
     public final Item material;
@@ -68,20 +64,21 @@ public class CustomOre {
         this.hasTools = hasTools;
         this.hasSword = hasSword;
         this.name = name;
-        this.material = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+        this.material = new Item(createItemSettings());
         this.ore = new Block(FabricBlockSettings.of(Material.STONE).strength((float)(rnd.nextDouble()*5), (float)(rnd.nextDouble()*5)).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, rnd.nextInt(3)));
         this.block = new Block(FabricBlockSettings.of(Material.STONE).strength((float)(rnd.nextDouble()*5), (float)(rnd.nextDouble()*5)).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, rnd.nextInt(3)));
     }
 
     public void onInitialize() {
+        if (itemGroup == null && ModConfig.getLoadedConfig().packs.moreOres.tab == ModConfig.Packs.MoreOres.Tab.SEPARATE) itemGroup = FabricItemGroupBuilder.create(GuessWhatWillHappenInThisMod.ID("more_ores")).icon(() -> new ItemStack(block)).build();;
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, getItemId()), material);
         if (rnd.nextDouble()<0.3D) FuelRegistry.INSTANCE.add(material, rnd.nextInt(1000));
         Registry.register(Registry.BLOCK, new Identifier(MOD_ID, String.format("%s_block", name.toLowerCase())), block);
-        Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_block", name.toLowerCase())), new BlockItem(block, new FabricItemSettings().group(CustomItemGroups.GWWHITGroup)));
+        Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_block", name.toLowerCase())), new BlockItem(block, createItemSettings()));
         Registry.register(Registry.BLOCK, new Identifier(MOD_ID, String.format("%s_ore", name.toLowerCase())), ore);
-        Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_ore", name.toLowerCase())), new BlockItem(ore, new FabricItemSettings().group(CustomItemGroups.GWWHITGroup)));
+        Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_ore", name.toLowerCase())), new BlockItem(ore, createItemSettings()));
         RegistryKey<ConfiguredFeature<?, ?>> ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, new Identifier(MOD_ID, String.format("ore_%s", name.toLowerCase())));
-        BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, ore);
+        if (ModConfig.getLoadedConfig().packs.moreOres.generateInWorld) BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, ore);
         if (hasArmor) {
             ArmorMaterial material = getArmorMaterial();
             
@@ -93,20 +90,20 @@ public class CustomOre {
         if (hasTools || hasSword) {
             ToolMaterial material = getToolMaterial();
             if (hasSword) {
-                SwordItem swordItem = new CustomSword(material, rnd.nextInt(17),(float)(rnd.nextDouble()*3-1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+                SwordItem swordItem = new CustomSword(material, rnd.nextInt(17), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_sword", name.toLowerCase())), swordItem);
             }
             if (hasTools) {
-                PickaxeItem pickaxeItem = new CustomPickaxe(material, rnd.nextInt(8),(float)(rnd.nextDouble()*3-1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+                PickaxeItem pickaxeItem = new CustomPickaxe(material, rnd.nextInt(8), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_pickaxe", name.toLowerCase())), pickaxeItem);
 
-                ShovelItem shovelItem = new CustomShovel(material, (float)(rnd.nextDouble()*8),(float)(rnd.nextDouble()*3-1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+                ShovelItem shovelItem = new CustomShovel(material, (float) (rnd.nextDouble() * 8), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_shovel", name.toLowerCase())), shovelItem);
 
-                AxeItem axeItem = new CustomAxe(material, (float)(rnd.nextDouble()*8),(float)(rnd.nextDouble()*3-1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+                AxeItem axeItem = new CustomAxe(material, (float) (rnd.nextDouble() * 8), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_axe", name.toLowerCase())), axeItem);
 
-                HoeItem hoeItem = new CustomHoe(material, rnd.nextInt(8),(float)(rnd.nextDouble()*3-1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+                HoeItem hoeItem = new CustomHoe(material, rnd.nextInt(8), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_hoe", name.toLowerCase())), hoeItem);
             }
         }
@@ -117,61 +114,74 @@ public class CustomOre {
     }
 
     private String getItemId() {
-        if (type == Type.Gem) return name.toLowerCase();
+        if (type == Type.GEM) return name.toLowerCase();
         else return String.format("%s_%s", name.toLowerCase(), type.toString().toLowerCase());
     }
 
     private ArmorMaterial getArmorMaterial() {
-        ArmorMaterial armorMaterial = new CustomArmorMaterial(
-            rnd.nextInt(175-4)+4, 
-            rnd.nextInt(20)+5, 
-            material, 
-            name.toLowerCase(), 
-            (int)rnd.nextDouble()*3, 
-            1, 
+        return new CustomArmorMaterial(
+            rnd.nextInt(175-4)+4,
+            rnd.nextInt(20)+5,
+            material,
+            name.toLowerCase(),
+            (int)rnd.nextDouble()*3,
+            1,
             (int)rnd.nextDouble()*5
         );
-        return armorMaterial;
     }
 
     private ToolMaterial getToolMaterial() {
-        ToolMaterial toolMaterial = new CustomToolMaterial(
-            (float)(rnd.nextDouble()*8.5D), 
-            rnd.nextInt(2100), 
+        return new CustomToolMaterial(
+            (float)(rnd.nextDouble()*8.5D),
+            rnd.nextInt(2100),
             rnd.nextInt(15),
-            rnd.nextInt(4)+1, 
-            rnd.nextInt(20)+5, 
+            rnd.nextInt(4)+1,
+            rnd.nextInt(20)+5,
             material
         );
-        return toolMaterial;
     }
 
     private void createArmorItem(ArmorType type, ArmorMaterial material) {
-        ArmorItem item = new ArmorItem(material, geEquipmentSlot(type), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+        ArmorItem item = new ArmorItem(material, getEquipmentSlot(type), createItemSettings());
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_%s", name.toLowerCase(), type.toString().toLowerCase())), item);
     }
-
-    private EquipmentSlot geEquipmentSlot(ArmorType type) {
-        switch (type) {
-            case Helmet:
-                return EquipmentSlot.HEAD;
-            
-            case Chestplate:
-                return EquipmentSlot.CHEST;
-
-            case Leggings:
-                return EquipmentSlot.LEGS;
-
-            case Boots:
-                return EquipmentSlot.FEET;
-        
-            default:
+    
+    private FabricItemSettings createItemSettings() {
+        FabricItemSettings settings = new FabricItemSettings();
+        switch (ModConfig.getLoadedConfig().packs.moreOres.tab) {
+            case MAIN:
+                settings.group(CustomItemGroups.GWWHIT_GROUP);
                 break;
+            case SEPARATE:
+                settings.group(itemGroup);
+                break;
+            
         }
-        return null;
+        
+        return settings;
     }
 
-    private class CustomSword extends SwordItem {
+    private EquipmentSlot getEquipmentSlot(ArmorType type) {
+        switch (type) {
+            case HELMET:
+                return EquipmentSlot.HEAD;
+            
+            case CHESTPLATE:
+                return EquipmentSlot.CHEST;
+
+            case LEGGINGS:
+                return EquipmentSlot.LEGS;
+
+            case BOOTS:
+                return EquipmentSlot.FEET;
+                
+            default:
+                throw new IllegalStateException("No case for enum value " + type);
+                
+        }
+    }
+
+    private static class CustomSword extends SwordItem {
 
         public CustomSword(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
             super(toolMaterial, attackDamage, attackSpeed, settings);
@@ -179,7 +189,7 @@ public class CustomOre {
 
     }
 
-    private class CustomPickaxe extends PickaxeItem {
+    private static class CustomPickaxe extends PickaxeItem {
 
         public CustomPickaxe(ToolMaterial material, int attackDamage, float attackSpeed, Settings settings) {
             super(material, attackDamage, attackSpeed, settings);
@@ -187,7 +197,7 @@ public class CustomOre {
         
     }
 
-    private class CustomShovel extends ShovelItem {
+    private static class CustomShovel extends ShovelItem {
 
         public CustomShovel(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
             super(material, attackDamage, attackSpeed, settings);
@@ -195,7 +205,7 @@ public class CustomOre {
         
     }
 
-    private class CustomAxe extends AxeItem {
+    private static class CustomAxe extends AxeItem {
 
         public CustomAxe(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
             super(material, attackDamage, attackSpeed, settings);
@@ -203,7 +213,7 @@ public class CustomOre {
 
     }
 
-    private class CustomHoe extends HoeItem {
+    private static class CustomHoe extends HoeItem {
 
         public CustomHoe(ToolMaterial material, int attackDamage, float attackSpeed, Settings settings) {
             super(material, attackDamage, attackSpeed, settings);

@@ -33,6 +33,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
@@ -48,7 +49,6 @@ import static fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod.MOD_ID;
 
 public class CustomOre {
     private static ItemGroup itemGroup;
-    private static final Item[] dyes = Registry.ITEM.stream().filter(s -> s instanceof DyeItem).toArray(Item[]::new);
     private final Dimension dimension;
 
     public enum Type {
@@ -86,10 +86,12 @@ public class CustomOre {
     private final Identifier oreId;
     private final Identifier blockBlockId;
     private final Identifier oreBlockId;
-    public final Map<ArmorType, ArmorItem> armorItems = new HashMap<>();
+    private final DyeColor color;
+    private final Map<ArmorType, ArmorItem> armorItems = new HashMap<>();
 
-    public CustomOre(String name, Type type, boolean hasArmor, boolean hasTools, boolean hasSword, Dimension dimension) {
+    public CustomOre(String name, Type type, boolean hasArmor, boolean hasTools, boolean hasSword, Dimension dimension, DyeColor color) {
         this.dimension = dimension;
+        this.color = color;
         this.rnd = new Random(name.hashCode()^type.hashCode());
         this.type = type;
         this.hasArmor = hasArmor;
@@ -288,7 +290,7 @@ public class CustomOre {
         if (rnd.nextInt(10) == 0) {
             addRecipe(type.toString(), JRecipe.shapeless(
                     JIngredients.ingredients().add(JIngredient.ingredient().item(material)),
-                    JResult.itemStack(dyes[rnd.nextInt(dyes.length)], 1)
+                    JResult.itemStack(DyeItem.byColor(color), 1)
             ));
         }
         if (rnd.nextInt(10) == 0) {

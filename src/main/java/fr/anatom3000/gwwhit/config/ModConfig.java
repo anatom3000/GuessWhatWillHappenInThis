@@ -44,8 +44,7 @@ public final class ModConfig implements ConfigData {
     }
     
     public PacketByteBuf toPacketByteBuf() {
-        //String config = GuessWhatWillHappenInThisMod.GSON.toJson(this);
-        String config = GuessWhatWillHappenInThisMod.JANKSON.toJson(this).toJson();
+        String config = GuessWhatWillHappenInThisMod.GSON.toJson(this);
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeString(config);
         return buf;
@@ -89,26 +88,24 @@ public final class ModConfig implements ConfigData {
     
     //Config options
     
-    @Gui.Tooltip
     @Gui.CollapsibleObject
     public Drops drops = new Drops();
     
-    @Gui.Tooltip
     @Gui.CollapsibleObject
     public Rendering rendering = new Rendering();
     
-    @Gui.Tooltip
     @Gui.CollapsibleObject
     public Misc misc = new Misc();
     
-    @Gui.Tooltip
     @Gui.CollapsibleObject
     public Blocks blocks = new Blocks();
+    
+    @Gui.CollapsibleObject
+    public Packs packs = new Packs();
     
     //Option classes
     
     public static class Blocks {
-        @Gui.Tooltip
         @Gui.CollapsibleObject
         public RandomisingBlock randomisingBlock = new RandomisingBlock();
         
@@ -126,19 +123,40 @@ public final class ModConfig implements ConfigData {
         }
     }
     
+    public static class Packs {
+        @Gui.CollapsibleObject
+        public MoreOres moreOres = new MoreOres();
+    
+        public static class MoreOres {
+            @Gui.Tooltip
+            @Gui.RequiresRestart
+            public boolean generateInWorld = false;
+            @Gui.RequiresRestart
+            @Gui.Tooltip
+            @Gui.EnumHandler(option = Gui.EnumHandler.EnumDisplayOption.BUTTON)
+            public Tab tab = Tab.NONE;
+    
+            @SuppressWarnings("unused")
+            public enum Tab {
+                NONE,
+                MAIN,
+                SEPARATE
+            }
+        }
+    }
+    
     public static class Misc {
         @Gui.Tooltip
         public boolean killCulling = false;
         @Gui.Tooltip
         public boolean owoifyer = false;
-
-        @Gui.Tooltip
+        
         @Gui.CollapsibleObject
         public WhatsAppWhistle whatsAppWhistle = new WhatsAppWhistle();
 
         public static class WhatsAppWhistle {
+            @Gui.Tooltip
             public boolean playWhatsAppWhistleOnChat = false;
-
             public float volume = 1f;
         }
     }
@@ -153,31 +171,30 @@ public final class ModConfig implements ConfigData {
 
         @SuppressWarnings("unused")
         public enum Shaders {
-            I_Hate_Cool_Features,
-            Notch,
-            Bumpy,
-            Blobs,
-            Pencil,
-            Deconverge,
-            Flip,
-            Invert,
+            I_HATE_COOL_FEATURES,
+            NOTCH,
+            BUMPY,
+            BLOBS,
+            PENCIL,
+            DECONVERGE,
+            FLIP,
+            INVERT,
             NTSC,
-            Outline,
-            Phosphor,
-            Sobel,
-            Bits,
-            Desaturate,
-            Blur,
-            Creeper,
-            Spider,
-            Wobble,
-            Green
+            OUTLINE,
+            PHOSPHOR,
+            SOBEL,
+            BITS,
+            DESATURATE,
+            BLUR,
+            CREEPER,
+            SPIDER,
+            WOBBLE,
+            GREEN
         }
       
-        @Gui.Tooltip(count = 2)
+        @Gui.Tooltip
         @Gui.CollapsibleObject
         public Matrices matrices = new Matrices();
-        @Gui.Tooltip
         @Gui.CollapsibleObject
         public Other other = new Other();
         
@@ -197,8 +214,9 @@ public final class ModConfig implements ConfigData {
             public boolean dinnerboneEntities = false;
             @Gui.Tooltip
             public boolean unregisteredVersion = false;
-
-            public Shaders shader = Shaders.I_Hate_Cool_Features;
+            @Gui.EnumHandler(option = Gui.EnumHandler.EnumDisplayOption.BUTTON)
+            @Gui.Tooltip
+            public Shaders shader = Shaders.I_HATE_COOL_FEATURES;
         }
     }
 }

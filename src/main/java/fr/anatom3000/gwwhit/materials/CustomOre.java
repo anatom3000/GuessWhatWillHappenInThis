@@ -4,8 +4,12 @@ import fr.anatom3000.gwwhit.CustomItemGroups;
 
 import java.util.Random;
 
+import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
+import fr.anatom3000.gwwhit.config.ModConfig;
+import fr.anatom3000.gwwhit.registry.ItemRegistry;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
@@ -13,16 +17,7 @@ import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.ShovelItem;
-import net.minecraft.item.SwordItem;
-import net.minecraft.item.ToolMaterial;
+import net.minecraft.item.*;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
@@ -36,6 +31,7 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import static fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod.MOD_ID;
 
 public class CustomOre {
+    private static ItemGroup itemGroup;
 
     public enum Type {
         GEM,
@@ -68,20 +64,21 @@ public class CustomOre {
         this.hasTools = hasTools;
         this.hasSword = hasSword;
         this.name = name;
-        this.material = new Item(new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+        this.material = new Item(createItemSettings());
         this.ore = new Block(FabricBlockSettings.of(Material.STONE).strength((float)(rnd.nextDouble()*5), (float)(rnd.nextDouble()*5)).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, rnd.nextInt(3)));
         this.block = new Block(FabricBlockSettings.of(Material.STONE).strength((float)(rnd.nextDouble()*5), (float)(rnd.nextDouble()*5)).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, rnd.nextInt(3)));
     }
 
     public void onInitialize() {
+        if (itemGroup == null && ModConfig.getLoadedConfig().packs.moreOres.tab == ModConfig.Packs.MoreOres.Tab.SEPARATE) itemGroup = FabricItemGroupBuilder.create(GuessWhatWillHappenInThisMod.ID("more_ores")).icon(() -> new ItemStack(block)).build();;
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, getItemId()), material);
         if (rnd.nextDouble()<0.3D) FuelRegistry.INSTANCE.add(material, rnd.nextInt(1000));
         Registry.register(Registry.BLOCK, new Identifier(MOD_ID, String.format("%s_block", name.toLowerCase())), block);
-        Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_block", name.toLowerCase())), new BlockItem(block, new FabricItemSettings().group(CustomItemGroups.GWWHITGroup)));
+        Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_block", name.toLowerCase())), new BlockItem(block, createItemSettings()));
         Registry.register(Registry.BLOCK, new Identifier(MOD_ID, String.format("%s_ore", name.toLowerCase())), ore);
-        Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_ore", name.toLowerCase())), new BlockItem(ore, new FabricItemSettings().group(CustomItemGroups.GWWHITGroup)));
+        Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_ore", name.toLowerCase())), new BlockItem(ore, createItemSettings()));
         RegistryKey<ConfiguredFeature<?, ?>> ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, new Identifier(MOD_ID, String.format("ore_%s", name.toLowerCase())));
-        BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, ore);
+        if (ModConfig.getLoadedConfig().packs.moreOres.generateInWorld) BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, ore);
         if (hasArmor) {
             ArmorMaterial material = getArmorMaterial();
             
@@ -93,20 +90,20 @@ public class CustomOre {
         if (hasTools || hasSword) {
             ToolMaterial material = getToolMaterial();
             if (hasSword) {
-                SwordItem swordItem = new CustomSword(material, rnd.nextInt(17), (float) (rnd.nextDouble() * 3 - 1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+                SwordItem swordItem = new CustomSword(material, rnd.nextInt(17), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_sword", name.toLowerCase())), swordItem);
             }
             if (hasTools) {
-                PickaxeItem pickaxeItem = new CustomPickaxe(material, rnd.nextInt(8), (float) (rnd.nextDouble() * 3 - 1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+                PickaxeItem pickaxeItem = new CustomPickaxe(material, rnd.nextInt(8), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_pickaxe", name.toLowerCase())), pickaxeItem);
 
-                ShovelItem shovelItem = new CustomShovel(material, (float) (rnd.nextDouble() * 8), (float) (rnd.nextDouble() * 3 - 1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+                ShovelItem shovelItem = new CustomShovel(material, (float) (rnd.nextDouble() * 8), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_shovel", name.toLowerCase())), shovelItem);
 
-                AxeItem axeItem = new CustomAxe(material, (float) (rnd.nextDouble() * 8), (float) (rnd.nextDouble() * 3 - 1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+                AxeItem axeItem = new CustomAxe(material, (float) (rnd.nextDouble() * 8), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_axe", name.toLowerCase())), axeItem);
 
-                HoeItem hoeItem = new CustomHoe(material, rnd.nextInt(8), (float) (rnd.nextDouble() * 3 - 1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+                HoeItem hoeItem = new CustomHoe(material, rnd.nextInt(8), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_hoe", name.toLowerCase())), hoeItem);
             }
         }
@@ -145,8 +142,23 @@ public class CustomOre {
     }
 
     private void createArmorItem(ArmorType type, ArmorMaterial material) {
-        ArmorItem item = new ArmorItem(material, getEquipmentSlot(type), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+        ArmorItem item = new ArmorItem(material, getEquipmentSlot(type), createItemSettings());
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_%s", name.toLowerCase(), type.toString().toLowerCase())), item);
+    }
+    
+    private FabricItemSettings createItemSettings() {
+        FabricItemSettings settings = new FabricItemSettings();
+        switch (ModConfig.getLoadedConfig().packs.moreOres.tab) {
+            case MAIN:
+                settings.group(CustomItemGroups.GWWHIT_GROUP);
+                break;
+            case SEPARATE:
+                settings.group(itemGroup);
+                break;
+            
+        }
+        
+        return settings;
     }
 
     private EquipmentSlot getEquipmentSlot(ArmorType type) {

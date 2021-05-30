@@ -1,12 +1,17 @@
 package fr.anatom3000.gwwhit.materials;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import fr.anatom3000.gwwhit.CustomItemGroups;
 
 import java.util.Random;
 
 import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
 import fr.anatom3000.gwwhit.config.ModConfig;
-import fr.anatom3000.gwwhit.registry.ItemRegistry;
+import net.devtech.arrp.json.blockstate.JState;
+import net.devtech.arrp.json.loot.JCondition;
+import net.devtech.arrp.json.loot.JLootTable;
+import net.devtech.arrp.json.models.JModel;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -15,6 +20,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
@@ -22,21 +28,34 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.decorator.Decorator;
+import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
 
 import static fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod.MOD_ID;
 
 public class CustomOre {
     private static ItemGroup itemGroup;
+    private final Dimension dimension;
 
     public enum Type {
         GEM,
         DUST,
         INGOT
+    }
+    
+    public enum Dimension {
+        OVERWORLD,
+        NETHER,
+        END
     }
 
     private enum ArmorType {
@@ -49,6 +68,7 @@ public class CustomOre {
     public final Item material;
     public final Block ore;
     public final Block block;
+    public final ConfiguredFeature<?, ?> feature;
     public final boolean hasArmor;
     public final boolean hasTools;
     public final boolean hasSword;
@@ -56,28 +76,53 @@ public class CustomOre {
     private final Random rnd;
     private final Type type;
     private final String name;
+    private final Identifier materialId;
+    private final Identifier blockId;
+    private final Identifier oreId;
+    private final Identifier blockBlockId;
+    private final Identifier oreBlockId;
 
-    public CustomOre(String name, Type type, boolean hasArmor, boolean hasTools, boolean hasSword) {
+    public CustomOre(String name, Type type, boolean hasArmor, boolean hasTools, boolean hasSword, Dimension dimension) {
+        this.dimension = dimension;
         this.rnd = new Random(name.hashCode()^type.hashCode());
         this.type = type;
         this.hasArmor = hasArmor;
         this.hasTools = hasTools;
         this.hasSword = hasSword;
         this.name = name;
+        materialId = new Identifier(MOD_ID, getItemId());
+        blockId = new Identifier(MOD_ID, String.format("%s_block", name.toLowerCase()));
+        oreId = new Identifier(MOD_ID, String.format("%s_ore", name.toLowerCase()));
+        blockBlockId = new Identifier(MOD_ID, String.format("block/%s_block", name.toLowerCase()));
+        oreBlockId = new Identifier(MOD_ID, String.format("block/%s_ore", name.toLowerCase()));
         this.material = new Item(createItemSettings());
         this.ore = new Block(FabricBlockSettings.of(Material.STONE).strength((float)(rnd.nextDouble()*5), (float)(rnd.nextDouble()*5)).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, rnd.nextInt(3)));
         this.block = new Block(FabricBlockSettings.of(Material.STONE).strength((float)(rnd.nextDouble()*5), (float)(rnd.nextDouble()*5)).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, rnd.nextInt(3)));
+        this.feature = Feature.ORE
+                .configure(new OreFeatureConfig(
+                        dimension == Dimension.END ? new BlockMatchRuleTest(Blocks.END_STONE)
+                                : dimension == Dimension.NETHER ? OreFeatureConfig.Rules.BASE_STONE_NETHER
+                                : OreFeatureConfig.Rules.BASE_STONE_OVERWORLD,
+                        ore.getDefaultState(),
+                        rnd.nextInt(16) + 4
+                )).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(
+                        0,
+                        0,
+                        rnd.nextInt(128) + 32
+                )))
+                .spreadHorizontally()
+                .repeat(rnd.nextInt(12) + 4);
     }
 
     public void onInitialize() {
         if (itemGroup == null && ModConfig.getLoadedConfig().packs.moreOres.tab == ModConfig.Packs.MoreOres.Tab.SEPARATE) itemGroup = FabricItemGroupBuilder.create(GuessWhatWillHappenInThisMod.ID("more_ores")).icon(() -> new ItemStack(block)).build();;
-        Registry.register(Registry.ITEM, new Identifier(MOD_ID, getItemId()), material);
+        Registry.register(Registry.ITEM, materialId, material);
         if (rnd.nextDouble()<0.3D) FuelRegistry.INSTANCE.add(material, rnd.nextInt(1000));
-        Registry.register(Registry.BLOCK, new Identifier(MOD_ID, String.format("%s_block", name.toLowerCase())), block);
-        Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_block", name.toLowerCase())), new BlockItem(block, createItemSettings()));
-        Registry.register(Registry.BLOCK, new Identifier(MOD_ID, String.format("%s_ore", name.toLowerCase())), ore);
-        Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_ore", name.toLowerCase())), new BlockItem(ore, createItemSettings()));
-        RegistryKey<ConfiguredFeature<?, ?>> ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, new Identifier(MOD_ID, String.format("ore_%s", name.toLowerCase())));
+        Registry.register(Registry.BLOCK, blockId, block);
+        Registry.register(Registry.ITEM, blockId, new BlockItem(block, createItemSettings()));
+        Registry.register(Registry.BLOCK, oreId, ore);
+        Registry.register(Registry.ITEM, oreId, new BlockItem(ore, createItemSettings()));
+        RegistryKey<ConfiguredFeature<?, ?>> ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, oreId);
         if (ModConfig.getLoadedConfig().packs.moreOres.generateInWorld) BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, ore);
         if (hasArmor) {
             ArmorMaterial material = getArmorMaterial();
@@ -107,10 +152,120 @@ public class CustomOre {
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_hoe", name.toLowerCase())), hoeItem);
             }
         }
+
+        RegistryKey<ConfiguredFeature<?, ?>> registryKey = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, oreId);
+        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, registryKey.getValue(), feature);
+        BiomeModifications.addFeature(dimension == Dimension.END ? BiomeSelectors.foundInTheEnd()
+                : dimension == Dimension.NETHER ? BiomeSelectors.foundInTheNether()
+                : BiomeSelectors.foundInOverworld(),
+                GenerationStep.Feature.UNDERGROUND_ORES,
+                registryKey);
+
+        lootTableSimple("block");
+        if (type == Type.INGOT) {
+            lootTableSimple("ore");
+        } else {
+            JsonParser jp = new JsonParser();
+            JsonElement predicate = jp.parse("{\"enchantments\": [{\"enchantment\": \"minecraft:silk_touch\", \"levels\": {\"min\": 1}}]}");
+            double base = rnd.nextDouble() + 1;
+            JsonElement count = jp.parse(String.format("{\"min\": %s, \"max\": %s, \"type\": \"minecraft:uniform\"}", base, base + rnd.nextDouble() * 2));
+            JsonElement enchantmentParameters = jp.parse("{\"bonusMultiplier\": 1}");
+            GuessWhatWillHappenInThisMod.RESOURCE_PACK.addLootTable(new Identifier(MOD_ID, String.format("blocks/%s_ore", name.toLowerCase())),
+                    JLootTable.loot("minecraft:block").pool(JLootTable.pool().rolls(1)
+                            .entry(JLootTable.entry().type("minecraft:alternatives")
+                                    .child(JLootTable.entry()
+                                            .name(oreId.toString())
+                                            .type("minecraft:item")
+                                            .condition(new JCondition("minecraft:match_tool").parameter("predicate", predicate))
+                                    )
+                                    .child(JLootTable.entry()
+                                            .name(materialId.toString())
+                                            .type("minecraft:item")
+                                            .function(JLootTable.function("minecraft:set_count")
+                                                    .parameter("count", count)
+                                            )
+                                            .function(JLootTable.function("minecraft:apply_bonus")
+                                                    .parameter("enchantment", "minecraft:fortune")
+                                                    .parameter("formula", "minecraft:uniform_bonus_count")
+                                                    .parameter("parameters", enchantmentParameters)
+                                            )
+                                            .function("minecraft:explosion_decay")
+                                    )
+                            )
+                    )
+            );
+        }
+    }
+
+    private void lootTableSimple(String suffix) {
+        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addLootTable(new Identifier(MOD_ID, String.format("blocks/%s_%s", name.toLowerCase(), suffix)),
+                JLootTable.loot("minecraft:block").pool(JLootTable.pool().rolls(1)
+                        .entry(JLootTable.entry().type("minecraft:item").name(String.format("%s:%s_%s", MOD_ID, name.toLowerCase(), suffix)))
+                        .condition(new JCondition("minecraft:survives_explosion"))
+                )
+        );
     }
 
     public void onInitializeClient() {
+        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addModel(JModel.model()
+                        .parent("minecraft:block/cube_all")
+                        .textures(JModel.textures().var("all", blockBlockId.toString())),
+                blockBlockId);
 
+        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addModel(JModel.model()
+                        .parent("minecraft:block/cube_all")
+                        .textures(JModel.textures().var("all", oreBlockId.toString())),
+                oreBlockId);
+
+        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addBlockState(JState.state(JState.variant(JState.model(blockBlockId.toString()))), blockId);
+        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addBlockState(JState.state(JState.variant(JState.model(oreBlockId.toString()))), oreId);
+
+        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addModel(JModel.model().parent(blockBlockId.toString()),
+                new Identifier(MOD_ID, String.format("item/%s_block", name.toLowerCase())));
+        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addModel(JModel.model().parent(oreBlockId.toString()),
+                new Identifier(MOD_ID, String.format("item/%s_ore", name.toLowerCase())));
+        
+        if (hasArmor) {
+            generateBasicItemModel("_helmet");
+            generateBasicItemModel("_chestplate");
+            generateBasicItemModel("_leggings");
+            generateBasicItemModel("_boots");
+        }
+
+        if (hasTools) {
+            generateToolModel("pickaxe");
+            generateToolModel("shovel");
+            generateToolModel("axe");
+            generateToolModel("hoe");
+        }
+
+        if (hasSword) {
+            generateToolModel("sword");
+        }
+
+        switch (type) {
+            case GEM:
+                generateBasicItemModel("");
+                break;
+            case DUST:
+                generateBasicItemModel("_dust");
+                break;
+            case INGOT:
+                generateBasicItemModel("_ingot");
+                break;
+        }
+    }
+
+    private void generateToolModel(String type) {
+        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addModel(JModel.model().parent("minecraft:item/handheld")
+                        .textures(JModel.textures().layer0(String.format("gwwhit:item/%s_%s", name.toLowerCase(), type))),
+                new Identifier(MOD_ID, String.format("item/%s_%s", name.toLowerCase(), type)));
+    }
+
+    private void generateBasicItemModel(String type) {
+        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addModel(JModel.model().parent("minecraft:item/generated")
+                        .textures(JModel.textures().layer0(String.format("gwwhit:item/%s%s", name.toLowerCase(), type))),
+                new Identifier(MOD_ID, String.format("item/%s%s", name.toLowerCase(), type)));
     }
 
     private String getItemId() {

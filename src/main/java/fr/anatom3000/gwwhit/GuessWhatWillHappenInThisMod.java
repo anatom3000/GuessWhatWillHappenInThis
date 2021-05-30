@@ -11,6 +11,8 @@ import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Jankson;
 
+import net.devtech.arrp.api.RRPCallback;
+import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
@@ -55,6 +57,8 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 
 	public static final Identifier CONFIG_SYNC_ID = ID("config_sync");
 
+	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create(MOD_ID + ":data");
+
 	FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
 			.rolls(UniformLootTableRange.between(0,1))
 			.with(ItemEntry.builder(Items.BLAZE_ROD))
@@ -71,6 +75,7 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 		NewMaterials.INSTANCE.onInitialize();
 		registerLootTables();
 		registerEvents();
+		RRPCallback.EVENT.register(a -> a.add(RESOURCE_PACK));
 		LOGGER.info("[GWWHIT] You shouldn't have done this.");
 	}
 

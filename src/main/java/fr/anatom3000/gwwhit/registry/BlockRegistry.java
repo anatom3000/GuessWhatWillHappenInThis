@@ -31,5 +31,4 @@ public class BlockRegistry {
     public static Block get(String blockId) {
         return BLOCKS.getOrDefault(blockId, Blocks.AIR);
     }
-
 }

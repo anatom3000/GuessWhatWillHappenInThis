@@ -7,10 +7,10 @@ import fr.anatom3000.gwwhit.CustomItemGroups;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
 import fr.anatom3000.gwwhit.config.ModConfig;
+import fr.anatom3000.gwwhit.registry.NewMaterials;
 import net.devtech.arrp.json.blockstate.JState;
 import net.devtech.arrp.json.loot.JCondition;
 import net.devtech.arrp.json.loot.JLootTable;
@@ -86,7 +86,7 @@ public class CustomOre {
     private final Identifier oreId;
     private final Identifier blockBlockId;
     private final Identifier oreBlockId;
-    private final Map<ArmorType, ArmorItem> armorItems = new HashMap<>();
+    public final Map<ArmorType, ArmorItem> armorItems = new HashMap<>();
 
     public CustomOre(String name, Type type, boolean hasArmor, boolean hasTools, boolean hasSword, Dimension dimension) {
         this.dimension = dimension;
@@ -120,7 +120,7 @@ public class CustomOre {
                 .repeat(rnd.nextInt(12) + 4);
     }
 
-    public void onInitialize() {
+    public void onInitialize(NewMaterials.OreInitParam param) {
         if (itemGroup == null && ModConfig.getLoadedConfig().packs.moreOres.tab == ModConfig.Packs.MoreOres.Tab.SEPARATE) itemGroup = FabricItemGroupBuilder.create(GuessWhatWillHappenInThisMod.ID("more_ores")).icon(() -> new ItemStack(block)).build();;
         Registry.register(Registry.ITEM, materialId, material);
         if (rnd.nextDouble()<0.3D) FuelRegistry.INSTANCE.add(material, rnd.nextInt(1000));
@@ -305,6 +305,18 @@ public class CustomOre {
                             .add(JIngredient.ingredient().item(material)),
                     JResult.itemStack(Items.FIRE_CHARGE, 1)
             ));
+        }
+
+        //Tags
+        param.blocks.add(blockId);
+        if (hasTools) {
+            param.axes.add(new Identifier(MOD_ID, String.format("%s_axe", name.toLowerCase())));
+            param.hoes.add(new Identifier(MOD_ID, String.format("%s_hoe", name.toLowerCase())));
+            param.pickaxes.add(new Identifier(MOD_ID, String.format("%s_pickaxe", name.toLowerCase())));
+            param.shovels.add(new Identifier(MOD_ID, String.format("%s_shovel", name.toLowerCase())));
+        }
+        if (hasSword) {
+            param.swords.add(new Identifier(MOD_ID, String.format("%s_sword", name.toLowerCase())));
         }
     }
 

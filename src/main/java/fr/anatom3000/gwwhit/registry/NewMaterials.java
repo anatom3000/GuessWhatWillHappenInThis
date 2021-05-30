@@ -3,7 +3,11 @@ package fr.anatom3000.gwwhit.registry;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
 import fr.anatom3000.gwwhit.materials.CustomOre;
+import net.devtech.arrp.json.tags.JTag;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.util.Identifier;
 
 import static fr.anatom3000.gwwhit.materials.CustomOre.*;
 
@@ -117,13 +121,30 @@ public class NewMaterials {
     }
 
     public void onInitialize() {
+        OreInitParam param = new OreInitParam();
         for (CustomOre ore : ores) {
             try {
-                ore.onInitialize();
+                ore.onInitialize(param);
             } catch (RuntimeException ex) {
                 ex.printStackTrace();
             }
         }
+
+        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addTag(BlockTags.BEACON_BASE_BLOCKS.getId(), param.blocks);
+        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addTag(new Identifier("fabric", "items/axes"), param.axes);
+        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addTag(new Identifier("fabric", "items/hoes"), param.hoes);
+        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addTag(new Identifier("fabric", "items/pickaxes"), param.pickaxes);
+        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addTag(new Identifier("fabric", "items/shovels"), param.shovels);
+        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addTag(new Identifier("fabric", "items/swords"), param.swords);
+    }
+
+    public static class OreInitParam {
+        public final JTag blocks = JTag.tag();
+        public final JTag axes = JTag.tag();
+        public final JTag hoes = JTag.tag();
+        public final JTag pickaxes = JTag.tag();
+        public final JTag shovels = JTag.tag();
+        public final JTag swords = JTag.tag();
     }
 
     public void onInitializeClient() {

@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.Tickable;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 public class RandomisingBlockEntity extends BlockEntity implements Tickable {
     private static final Random RANDOM = new Random();
+    public static int removeTick = -1;
     
     private int usesRemaining = ModConfig.getLoadedConfig().blocks.randomisingBlock.totalPlacements;
     private int cooldown = ModConfig.getLoadedConfig().blocks.randomisingBlock.ticksBetweenPlacements;
@@ -54,6 +56,10 @@ public class RandomisingBlockEntity extends BlockEntity implements Tickable {
     public void tick() {
         assert world != null;
         if (!world.isClient) {
+            if (((ServerWorld) world).getServer().getTicks() == removeTick + 1) {
+                world.breakBlock(pos, false);
+            }
+            
             --cooldown;
             if (cooldown <= 0) {
                 --usesRemaining;

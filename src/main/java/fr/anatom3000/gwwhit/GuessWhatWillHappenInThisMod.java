@@ -24,15 +24,23 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
+/*  IMPORTANT NOTICE:
+	When adding to this mod make sure you follow proper naming standards:
+		Classes 								ThisIsAClass
+		Static final fields and enum constants 	THIS_IS_STATIC_FINAL
+		Everything else  						thisIsEverythingElse
+*/
+
+
 public class GuessWhatWillHappenInThisMod implements ModInitializer {
-	//public static final Gson GSON = new Gson();
-	public static final Jankson JANKSON = Jankson.builder().build();
+	public static final Gson GSON = new Gson();
 
 	public static final String MOD_ID = "gwwhit";
 
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
-	public static final Random rng = new Random();
+	public static final Random RANDOM = new Random();
 
+	//TODO: change case
     public static Identifier ID(String path) {
 		return new Identifier(MOD_ID, path);
 	}
@@ -50,7 +58,7 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new);
+		AutoConfig.register(ModConfig.class, GsonConfigSerializer::new);
 
 		ItemRegistry.register();
 		BlockRegistry.register();
@@ -58,7 +66,7 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 		Commands.register();
 		NewMaterials.INSTANCE.onInitialize();
 		registerLootTables();
-		LOGGER.info("You shouldn't have done this.");
+		LOGGER.info("[GWWHIT] You shouldn't have done this.");
 	}
 
 	private void registerLootTables() {

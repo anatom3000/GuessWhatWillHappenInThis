@@ -38,16 +38,16 @@ import static fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod.MOD_ID;
 public class CustomOre {
 
     public enum Type {
-        Gem,
-        Dust,
-        Ingot
+        GEM,
+        DUST,
+        INGOT
     }
 
     private enum ArmorType {
-        Helmet,
-        Chestplate,
-        Leggings,
-        Boots
+        HELMET,
+        CHESTPLATE,
+        LEGGINGS,
+        BOOTS
     }
 
     public final Item material;
@@ -93,20 +93,20 @@ public class CustomOre {
         if (hasTools || hasSword) {
             ToolMaterial material = getToolMaterial();
             if (hasSword) {
-                SwordItem swordItem = new CustomSword(material, rnd.nextInt(17),(float)(rnd.nextDouble()*3-1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+                SwordItem swordItem = new CustomSword(material, rnd.nextInt(17), (float) (rnd.nextDouble() * 3 - 1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_sword", name.toLowerCase())), swordItem);
             }
             if (hasTools) {
-                PickaxeItem pickaxeItem = new CustomPickaxe(material, rnd.nextInt(8),(float)(rnd.nextDouble()*3-1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+                PickaxeItem pickaxeItem = new CustomPickaxe(material, rnd.nextInt(8), (float) (rnd.nextDouble() * 3 - 1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_pickaxe", name.toLowerCase())), pickaxeItem);
 
-                ShovelItem shovelItem = new CustomShovel(material, (float)(rnd.nextDouble()*8),(float)(rnd.nextDouble()*3-1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+                ShovelItem shovelItem = new CustomShovel(material, (float) (rnd.nextDouble() * 8), (float) (rnd.nextDouble() * 3 - 1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_shovel", name.toLowerCase())), shovelItem);
 
-                AxeItem axeItem = new CustomAxe(material, (float)(rnd.nextDouble()*8),(float)(rnd.nextDouble()*3-1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+                AxeItem axeItem = new CustomAxe(material, (float) (rnd.nextDouble() * 8), (float) (rnd.nextDouble() * 3 - 1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_axe", name.toLowerCase())), axeItem);
 
-                HoeItem hoeItem = new CustomHoe(material, rnd.nextInt(8),(float)(rnd.nextDouble()*3-1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+                HoeItem hoeItem = new CustomHoe(material, rnd.nextInt(8), (float) (rnd.nextDouble() * 3 - 1.0D), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_hoe", name.toLowerCase())), hoeItem);
             }
         }
@@ -117,61 +117,59 @@ public class CustomOre {
     }
 
     private String getItemId() {
-        if (type == Type.Gem) return name.toLowerCase();
+        if (type == Type.GEM) return name.toLowerCase();
         else return String.format("%s_%s", name.toLowerCase(), type.toString().toLowerCase());
     }
 
     private ArmorMaterial getArmorMaterial() {
-        ArmorMaterial armorMaterial = new CustomArmorMaterial(
-            rnd.nextInt(175-4)+4, 
-            rnd.nextInt(20)+5, 
-            material, 
-            name.toLowerCase(), 
-            (int)rnd.nextDouble()*3, 
-            1, 
+        return new CustomArmorMaterial(
+            rnd.nextInt(175-4)+4,
+            rnd.nextInt(20)+5,
+            material,
+            name.toLowerCase(),
+            (int)rnd.nextDouble()*3,
+            1,
             (int)rnd.nextDouble()*5
         );
-        return armorMaterial;
     }
 
     private ToolMaterial getToolMaterial() {
-        ToolMaterial toolMaterial = new CustomToolMaterial(
-            (float)(rnd.nextDouble()*8.5D), 
-            rnd.nextInt(2100), 
+        return new CustomToolMaterial(
+            (float)(rnd.nextDouble()*8.5D),
+            rnd.nextInt(2100),
             rnd.nextInt(15),
-            rnd.nextInt(4)+1, 
-            rnd.nextInt(20)+5, 
+            rnd.nextInt(4)+1,
+            rnd.nextInt(20)+5,
             material
         );
-        return toolMaterial;
     }
 
     private void createArmorItem(ArmorType type, ArmorMaterial material) {
-        ArmorItem item = new ArmorItem(material, geEquipmentSlot(type), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
+        ArmorItem item = new ArmorItem(material, getEquipmentSlot(type), new FabricItemSettings().group(CustomItemGroups.GWWHITGroup));
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_%s", name.toLowerCase(), type.toString().toLowerCase())), item);
     }
 
-    private EquipmentSlot geEquipmentSlot(ArmorType type) {
+    private EquipmentSlot getEquipmentSlot(ArmorType type) {
         switch (type) {
-            case Helmet:
+            case HELMET:
                 return EquipmentSlot.HEAD;
             
-            case Chestplate:
+            case CHESTPLATE:
                 return EquipmentSlot.CHEST;
 
-            case Leggings:
+            case LEGGINGS:
                 return EquipmentSlot.LEGS;
 
-            case Boots:
+            case BOOTS:
                 return EquipmentSlot.FEET;
-        
+                
             default:
-                break;
+                throw new IllegalStateException("No case for enum value " + type);
+                
         }
-        return null;
     }
 
-    private class CustomSword extends SwordItem {
+    private static class CustomSword extends SwordItem {
 
         public CustomSword(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
             super(toolMaterial, attackDamage, attackSpeed, settings);
@@ -179,7 +177,7 @@ public class CustomOre {
 
     }
 
-    private class CustomPickaxe extends PickaxeItem {
+    private static class CustomPickaxe extends PickaxeItem {
 
         public CustomPickaxe(ToolMaterial material, int attackDamage, float attackSpeed, Settings settings) {
             super(material, attackDamage, attackSpeed, settings);
@@ -187,7 +185,7 @@ public class CustomOre {
         
     }
 
-    private class CustomShovel extends ShovelItem {
+    private static class CustomShovel extends ShovelItem {
 
         public CustomShovel(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
             super(material, attackDamage, attackSpeed, settings);
@@ -195,7 +193,7 @@ public class CustomOre {
         
     }
 
-    private class CustomAxe extends AxeItem {
+    private static class CustomAxe extends AxeItem {
 
         public CustomAxe(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
             super(material, attackDamage, attackSpeed, settings);
@@ -203,7 +201,7 @@ public class CustomOre {
 
     }
 
-    private class CustomHoe extends HoeItem {
+    private static class CustomHoe extends HoeItem {
 
         public CustomHoe(ToolMaterial material, int attackDamage, float attackSpeed, Settings settings) {
             super(material, attackDamage, attackSpeed, settings);

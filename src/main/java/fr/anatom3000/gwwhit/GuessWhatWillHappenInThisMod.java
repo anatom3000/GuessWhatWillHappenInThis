@@ -12,8 +12,12 @@ import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Jankson;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.minecraft.block.Material;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.mob.SilverfishEntity;
 import net.minecraft.item.Items;
 import net.minecraft.loot.UniformLootTableRange;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
@@ -66,6 +70,7 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 		Commands.register();
 		NewMaterials.INSTANCE.onInitialize();
 		registerLootTables();
+		registerEvents();
 		LOGGER.info("[GWWHIT] You shouldn't have done this.");
 	}
 
@@ -79,6 +84,28 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 				}
 			}
 		});
+	}
+
+	private void registerEvents() {
+		PlayerBlockBreakEvents.AFTER.register(
+				(world, player, pos, state, blockEntity) -> {
+					if ( ModConfig.getLoadedConfig().blocks.stoneBlocksAreInfected) {
+						// AUTHOR: ENDERZOMBI102
+						if ( state.getMaterial() == Material.STONE ) {
+							SilverfishEntity silverfishEntity = EntityType.SILVERFISH.create(world);
+							silverfishEntity.refreshPositionAndAngles(
+									(double)pos.getX() + 0.5D,
+									pos.getY(),
+									(double)pos.getZ() + 0.5D,
+									0.0F,
+									0.0F
+							);
+							world.spawnEntity(silverfishEntity);
+							silverfishEntity.playSpawnEffects();
+						}
+					}
+				}
+		);
 	}
 
 }

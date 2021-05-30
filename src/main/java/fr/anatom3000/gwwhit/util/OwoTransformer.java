@@ -68,11 +68,11 @@ public class OwoTransformer implements UnaryOperator<String> {
         }
         String result = "";
         if (prefix) {
-            result += prefixes[GuessWhatWillHappenInThisMod.rng.nextInt(prefixes.length)];
+            result += prefixes[GuessWhatWillHappenInThisMod.RANDOM.nextInt(prefixes.length)];
         }
         result += substitute(str);
         if (suffix) {
-            result += suffixes[GuessWhatWillHappenInThisMod.rng.nextInt(suffixes.length)];
+            result += suffixes[GuessWhatWillHappenInThisMod.RANDOM.nextInt(suffixes.length)];
         }
         return result;
     }

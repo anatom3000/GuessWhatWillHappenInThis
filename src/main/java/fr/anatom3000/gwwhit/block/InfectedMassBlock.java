@@ -1,5 +1,6 @@
 package fr.anatom3000.gwwhit.block;
 
+import fr.anatom3000.gwwhit.block.entity.InfectedMassBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -7,7 +8,6 @@ import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;

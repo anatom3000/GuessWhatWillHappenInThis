@@ -1,5 +1,7 @@
 package fr.anatom3000.gwwhit;
 
+import fr.anatom3000.gwwhit.block.entity.InfectedMassBlockEntity;
+import fr.anatom3000.gwwhit.block.entity.RandomisingBlockEntity;
 import fr.anatom3000.gwwhit.config.ModConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
@@ -36,7 +38,16 @@ public class Commands {
                                 return 1;
                             })
                         )
-                        
+                )
+                .then(CommandManager.literal("debug")
+                        .then(CommandManager.literal("remove_destructive_blocks")
+                                .executes(context -> {
+                                    int ticks = context.getSource().getMinecraftServer().getTicks();
+                                    InfectedMassBlockEntity.removeTick = ticks;
+                                    RandomisingBlockEntity.removeTick = ticks;
+                                    return 1;
+                                })
+                        )
                 )
         ));
         

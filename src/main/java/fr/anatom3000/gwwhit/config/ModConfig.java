@@ -1,5 +1,6 @@
 package fr.anatom3000.gwwhit.config;
 
+import com.google.common.collect.Lists;
 import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigData;
@@ -14,13 +15,13 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
+import java.util.List;
 
 @Config(name = GuessWhatWillHappenInThisMod.MOD_ID)
-public class ModConfig implements ConfigData {
-
+public final class ModConfig implements ConfigData {
     @Gui.Excluded
     private static ModConfig CURRENT_CONFIG = null;
-      
+    
     @Gui.Excluded
     public ShaderEffect shader = null;
     
@@ -43,49 +44,110 @@ public class ModConfig implements ConfigData {
     }
     
     public PacketByteBuf toPacketByteBuf() {
-        String config = GuessWhatWillHappenInThisMod.JANKSON.toJson(this).toJson();
+        String config = GuessWhatWillHappenInThisMod.GSON.toJson(this);
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeString(config);
         return buf;
     }
     
-    @Deprecated
-    public static ModConfig getInstance() {
-        return getLoadedConfig();
-    }
-    
-    @Deprecated
-    public static void setInstance(@Nullable ModConfig config) {
-        loadConfig(config);
-    }
-
+    //Suggestion: rename to onLoad when adding other features similar to this
     public void setShader() {
         MinecraftClient mc = MinecraftClient.getInstance();
-        Identifier shaderID = new Identifier(String.format("shaders/post/%s.json", ModConfig.getInstance().rendering.other.shader.toString().toLowerCase()));
+        Identifier shaderID = new Identifier(String.format("shaders/post/%s.json", ModConfig.getLoadedConfig().rendering.other.shader.toString().toLowerCase()));
         try {
-            ShaderEffect shader = new ShaderEffect(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), shaderID);
-            this.shader = shader;
+            this.shader = new ShaderEffect(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), shaderID);
         } catch (IOException e) {
             this.shader = null;
         }
     }
     
+    /**
+     * @deprecated Use {@link ModConfig#getLoadedConfig()}
+     */
+    @Deprecated
+    public static ModConfig getInstance() {
+        return getLoadedConfig();
+    }
+    
+    /**
+     * @deprecated Use {@link ModConfig#loadConfig(ModConfig)}
+     */
+    @Deprecated
+    public static void setInstance(@Nullable ModConfig config) {
+        loadConfig(config);
+    }
+    
+    /**
+     * @deprecated Use {@link ModConfig#toPacketByteBuf()}
+     */
     @Deprecated
     public PacketByteBuf getSyncable() {
         return toPacketByteBuf();
     }
     
-    @Gui.Tooltip
+    
+    //Config options
+    
     @Gui.CollapsibleObject
     public Drops drops = new Drops();
     
-    @Gui.Tooltip
     @Gui.CollapsibleObject
     public Rendering rendering = new Rendering();
     
-    @Gui.Tooltip
     @Gui.CollapsibleObject
     public Misc misc = new Misc();
+    
+    @Gui.CollapsibleObject
+    public Blocks blocks = new Blocks();
+    
+    @Gui.CollapsibleObject
+    public Packs packs = new Packs();
+    
+    //Option classes
+    
+    public static class Blocks {
+
+        @Gui.Tooltip
+        public boolean stoneBlocksAreInfected = false;
+
+        @Gui.CollapsibleObject
+        public RandomisingBlock randomisingBlock = new RandomisingBlock();
+        
+        public static class RandomisingBlock {
+            @Gui.Tooltip
+            public int ticksBetweenPlacements = 20;
+            @Gui.Tooltip
+            public int totalPlacements = 64;
+            @Gui.Tooltip
+            public boolean scrambleBlockState = false;
+            @Gui.Tooltip
+            public boolean deWaterlog = true;
+            @Gui.Tooltip
+            public List<String> blockBlackList = Lists.newArrayList("gwwhit:infected_mass", "minecraft:air", "minecraft:cave_air", "gwwhit:randomising_block");
+        }
+    }
+    
+    public static class Packs {
+        @Gui.CollapsibleObject
+        public MoreOres moreOres = new MoreOres();
+    
+        public static class MoreOres {
+            @Gui.Tooltip
+            @Gui.RequiresRestart
+            public boolean generateInWorld = false;
+            @Gui.RequiresRestart
+            @Gui.Tooltip
+            @Gui.EnumHandler(option = Gui.EnumHandler.EnumDisplayOption.BUTTON)
+            public Tab tab = Tab.NONE;
+    
+            @SuppressWarnings("unused")
+            public enum Tab {
+                NONE,
+                MAIN,
+                SEPARATE
+            }
+        }
+    }
     
     public static class Misc {
         @Gui.Tooltip
@@ -101,8 +163,8 @@ public class ModConfig implements ConfigData {
         public WhatsAppWhistle whatsAppWhistle = new WhatsAppWhistle();
 
         public static class WhatsAppWhistle {
+            @Gui.Tooltip
             public boolean playWhatsAppWhistleOnChat = false;
-
             public float volume = 1f;
         }
     }
@@ -115,32 +177,32 @@ public class ModConfig implements ConfigData {
     
     public static class Rendering {
 
+        @SuppressWarnings("unused")
         public enum Shaders {
-            I_Hate_Cool_Features,
-            Notch,
-            Bumpy,
-            Blobs,
-            Pencil,
-            Deconverge,
-            Flip,
-            Invert,
+            I_HATE_COOL_FEATURES,
+            NOTCH,
+            BUMPY,
+            BLOBS,
+            PENCIL,
+            DECONVERGE,
+            FLIP,
+            INVERT,
             NTSC,
-            Outline,
-            Phosphor,
-            Sobel,
-            Bits,
-            Desaturate,
-            Blur,
-            Creeper,
-            Spider,
-            Wobble,
-            Green
+            OUTLINE,
+            PHOSPHOR,
+            SOBEL,
+            BITS,
+            DESATURATE,
+            BLUR,
+            CREEPER,
+            SPIDER,
+            WOBBLE,
+            GREEN
         }
       
-        @Gui.Tooltip(count = 2)
+        @Gui.Tooltip
         @Gui.CollapsibleObject
         public Matrices matrices = new Matrices();
-        @Gui.Tooltip
         @Gui.CollapsibleObject
         public Other other = new Other();
         
@@ -160,8 +222,9 @@ public class ModConfig implements ConfigData {
             public boolean dinnerboneEntities = false;
             @Gui.Tooltip
             public boolean unregisteredVersion = false;
-
-            public Shaders shader = Shaders.I_Hate_Cool_Features;
+            @Gui.EnumHandler(option = Gui.EnumHandler.EnumDisplayOption.BUTTON)
+            @Gui.Tooltip
+            public Shaders shader = Shaders.I_HATE_COOL_FEATURES;
         }
     }
 }

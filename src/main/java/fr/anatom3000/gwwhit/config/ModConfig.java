@@ -106,6 +106,10 @@ public final class ModConfig implements ConfigData {
     //Option classes
     
     public static class Blocks {
+
+        @Gui.Tooltip
+        public boolean stoneBlocksAreInfected = false;
+
         @Gui.CollapsibleObject
         public RandomisingBlock randomisingBlock = new RandomisingBlock();
         

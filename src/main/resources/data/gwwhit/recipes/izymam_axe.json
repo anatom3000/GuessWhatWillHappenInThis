@@ -1,1 +1,0 @@
-{"type": "minecraft:crafting_shaped", "pattern": [" MM", " SM", " S "], "key": {"M": {"item": "gwwhit:izymam_ingot"}, "S": {"item": "minecraft:stick"}}, "result": {"item": "gwwhit:izymam_axe", "count": 1}}

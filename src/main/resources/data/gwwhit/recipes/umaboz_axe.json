@@ -1,1 +1,0 @@
-{"type": "minecraft:crafting_shaped", "pattern": [" MM", " SM", " S "], "key": {"M": {"item": "gwwhit:umaboz_ingot"}, "S": {"item": "minecraft:stick"}}, "result": {"item": "gwwhit:umaboz_axe", "count": 1}}

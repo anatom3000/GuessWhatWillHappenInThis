@@ -1,1 +1,0 @@
-{"type": "minecraft:crafting_shaped", "pattern": [" MM", " SM", " S "], "key": {"M": {"item": "gwwhit:dytap"}, "S": {"item": "minecraft:stick"}}, "result": {"item": "gwwhit:dytap_axe", "count": 1}}

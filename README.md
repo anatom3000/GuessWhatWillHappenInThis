@@ -12,7 +12,7 @@ Fabric mod where anyone can PR anything, concerning or not (Unless it's too conc
 
 ## Dependencies
 
-This mod depends on Fabric API and Cloth Config
+This mod depends on Fabric API, Cloth Config and ARRP
 
 ## License
 

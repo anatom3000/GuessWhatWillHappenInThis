@@ -1,1 +1,0 @@
-{"type": "minecraft:crafting_shaped", "pattern": ["MM", "S ", "S "], "key": {"M": {"item": "gwwhit:renu"}, "S": {"item": "minecraft:stick"}}, "result": {"item": "gwwhit:renu_hoe", "count": 1}}

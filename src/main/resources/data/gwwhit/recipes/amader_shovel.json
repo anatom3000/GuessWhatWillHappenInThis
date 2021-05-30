@@ -1,1 +1,0 @@
-{"type": "minecraft:crafting_shaped", "pattern": ["M ", "S ", "S "], "key": {"M": {"item": "gwwhit:amader_ingot"}, "S": {"item": "minecraft:stick"}}, "result": {"item": "gwwhit:amader_shovel", "count": 1}}

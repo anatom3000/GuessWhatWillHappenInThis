@@ -11,12 +11,6 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
-
 	maven {
 		url "https://maven.terraformersmc.com/releases/"
 		content {
@@ -25,6 +19,9 @@ repositories {
 	}
 
 	maven { url "https://maven.shedaniel.me/" }
+	maven {
+		url "https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/"
+	}
 }
 
 dependencies {
@@ -47,6 +44,9 @@ dependencies {
 	modImplementation("com.terraformersmc:modmenu:1.16.9") {
 		transitive(false)
 	}
+
+	modImplementation "net.devtech:arrp:0.4.2"
+	modRuntime "me.shedaniel:RoughlyEnoughItems:5.12.235"
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.

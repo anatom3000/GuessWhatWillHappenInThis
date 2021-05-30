@@ -4,7 +4,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import fr.anatom3000.gwwhit.CustomItemGroups;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
 import fr.anatom3000.gwwhit.config.ModConfig;
@@ -12,6 +15,7 @@ import net.devtech.arrp.json.blockstate.JState;
 import net.devtech.arrp.json.loot.JCondition;
 import net.devtech.arrp.json.loot.JLootTable;
 import net.devtech.arrp.json.models.JModel;
+import net.devtech.arrp.json.recipe.*;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -44,6 +48,7 @@ import static fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod.MOD_ID;
 
 public class CustomOre {
     private static ItemGroup itemGroup;
+    private static final Item[] dyes = Registry.ITEM.stream().filter(s -> s instanceof DyeItem).toArray(Item[]::new);
     private final Dimension dimension;
 
     public enum Type {
@@ -81,6 +86,7 @@ public class CustomOre {
     private final Identifier oreId;
     private final Identifier blockBlockId;
     private final Identifier oreBlockId;
+    private final Map<ArmorType, ArmorItem> armorItems = new HashMap<>();
 
     public CustomOre(String name, Type type, boolean hasArmor, boolean hasTools, boolean hasSword, Dimension dimension) {
         this.dimension = dimension;
@@ -153,6 +159,7 @@ public class CustomOre {
             }
         }
 
+        //Generate ores
         RegistryKey<ConfiguredFeature<?, ?>> registryKey = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, oreId);
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, registryKey.getValue(), feature);
         BiomeModifications.addFeature(dimension == Dimension.END ? BiomeSelectors.foundInTheEnd()
@@ -161,6 +168,7 @@ public class CustomOre {
                 GenerationStep.Feature.UNDERGROUND_ORES,
                 registryKey);
 
+        //Loot tables
         lootTableSimple("block");
         if (type == Type.INGOT) {
             lootTableSimple("ore");
@@ -195,6 +203,113 @@ public class CustomOre {
                     )
             );
         }
+
+        //Recipes
+        if (hasArmor) {
+            addRecipe("helmet", JRecipe.shaped(
+                    JPattern.pattern("MMM", "M M"),
+                    JKeys.keys().key("M", JIngredient.ingredient().item(materialId.toString())),
+                    JResult.item(armorItems.get(ArmorType.HELMET))
+            ));
+            addRecipe("chestplate", JRecipe.shaped(
+                    JPattern.pattern("M M", "MMM", "MMM"),
+                    JKeys.keys().key("M", JIngredient.ingredient().item(materialId.toString())),
+                    JResult.item(armorItems.get(ArmorType.CHESTPLATE))
+            ));
+            addRecipe("leggings", JRecipe.shaped(
+                    JPattern.pattern("MMM", "M M", "M M"),
+                    JKeys.keys().key("M", JIngredient.ingredient().item(materialId.toString())),
+                    JResult.item(armorItems.get(ArmorType.LEGGINGS))
+            ));
+            addRecipe("boots", JRecipe.shaped(
+                    JPattern.pattern("M M", "M M"),
+                    JKeys.keys().key("M", JIngredient.ingredient().item(materialId.toString())),
+                    JResult.item(armorItems.get(ArmorType.BOOTS))
+            ));
+        }
+        if (hasTools) {
+            addRecipe("axe", JRecipe.shaped(
+                    JPattern.pattern("MM", "SM", "S "),
+                    JKeys.keys()
+                            .key("M", JIngredient.ingredient().item(materialId.toString()))
+                            .key("S", JIngredient.ingredient().item(Items.STICK)),
+                    JResult.result(String.format("%s:%s_axe", MOD_ID, name.toLowerCase()))
+            ));
+            addRecipe("hoe", JRecipe.shaped(
+                    JPattern.pattern("MM", "S ", "S "),
+                    JKeys.keys()
+                            .key("M", JIngredient.ingredient().item(materialId.toString()))
+                            .key("S", JIngredient.ingredient().item(Items.STICK)),
+                    JResult.result(String.format("%s:%s_hoe", MOD_ID, name.toLowerCase()))
+            ));
+            addRecipe("pickaxe", JRecipe.shaped(
+                    JPattern.pattern("MMM", " S ", " S "),
+                    JKeys.keys()
+                            .key("M", JIngredient.ingredient().item(materialId.toString()))
+                            .key("S", JIngredient.ingredient().item(Items.STICK)),
+                    JResult.result(String.format("%s:%s_pickaxe", MOD_ID, name.toLowerCase()))
+            ));
+            addRecipe("shovel", JRecipe.shaped(
+                    JPattern.pattern("M ", "S ", "S "),
+                    JKeys.keys()
+                            .key("M", JIngredient.ingredient().item(materialId.toString()))
+                            .key("S", JIngredient.ingredient().item(Items.STICK)),
+                    JResult.result(String.format("%s:%s_shovel", MOD_ID, name.toLowerCase()))
+            ));
+        }
+        if (hasSword) {
+            addRecipe("sword", JRecipe.shaped(
+                    JPattern.pattern("M ", "M ", "S "),
+                    JKeys.keys()
+                            .key("M", JIngredient.ingredient().item(materialId.toString()))
+                            .key("S", JIngredient.ingredient().item(Items.STICK)),
+                    JResult.result(String.format("%s:%s_sword", MOD_ID, name.toLowerCase()))
+            ));
+        }
+        addRecipe("ore_smelting", JRecipe.smelting(
+                JIngredient.ingredient().item(oreId.toString()),
+                JResult.item(material)
+        ).cookingTime(rnd.nextInt(400)).experience(rnd.nextFloat() * 5));
+        if (type == Type.INGOT) {
+            addRecipe("ore_blasting", JRecipe.blasting(
+                    JIngredient.ingredient().item(oreId.toString()),
+                    JResult.item(material)
+            ).cookingTime(rnd.nextInt(200)).experience(rnd.nextFloat()));
+        }
+        addRecipe("block", JRecipe.shaped(
+                JPattern.pattern("MMM", "MMM", "MMM"),
+                JKeys.keys().key("M", JIngredient.ingredient().item(materialId.toString())),
+                JResult.result(blockId.toString())
+        ));
+        addRecipe(type.toString(), JRecipe.shapeless(
+                JIngredients.ingredients().add(JIngredient.ingredient().item(blockId.toString())),
+                JResult.itemStack(material, 9)
+        ));
+        if (rnd.nextInt(10) == 0) {
+            addRecipe(type.toString(), JRecipe.shapeless(
+                    JIngredients.ingredients().add(JIngredient.ingredient().item(material)),
+                    JResult.itemStack(dyes[rnd.nextInt(dyes.length)], 1)
+            ));
+        }
+        if (rnd.nextInt(10) == 0) {
+            addRecipe("bucket", JRecipe.shaped(
+                    JPattern.pattern("M M", " M "),
+                    JKeys.keys().key("M", JIngredient.ingredient().item(materialId.toString())),
+                    JResult.item(rnd.nextInt(4) == 0 ? Items.BUCKET : rnd.nextInt(3) == 0 ? Items.WATER_BUCKET : rnd.nextInt(2) == 0 ? Items.LAVA_BUCKET : Items.MILK_BUCKET)
+            ));
+        }
+        if (rnd.nextInt(10) == 0) {
+            addRecipe(type.toString(), JRecipe.shapeless(
+                    JIngredients.ingredients()
+                            .add(JIngredient.ingredient().item(material))
+                            .add(JIngredient.ingredient().item(material)),
+                    JResult.itemStack(Items.FIRE_CHARGE, 1)
+            ));
+        }
+    }
+
+    private void addRecipe(String suffix, JRecipe recipe) {
+        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addRecipe(new Identifier(MOD_ID, String.format("%s_%s", name.toLowerCase(), suffix.toLowerCase())), recipe);
     }
 
     private void lootTableSimple(String suffix) {
@@ -287,17 +402,18 @@ public class CustomOre {
 
     private ToolMaterial getToolMaterial() {
         return new CustomToolMaterial(
-            (float)(rnd.nextDouble()*8.5D),
-            rnd.nextInt(2100),
-            rnd.nextInt(15),
-            rnd.nextInt(4)+1,
-            rnd.nextInt(20)+5,
-            material
+                (float) (rnd.nextDouble() * 8.5D),
+                rnd.nextInt(2100),
+                rnd.nextInt(15),
+                rnd.nextInt(4) + 1,
+                rnd.nextInt(20) + 5,
+                material
         );
     }
 
     private void createArmorItem(ArmorType type, ArmorMaterial material) {
         ArmorItem item = new ArmorItem(material, getEquipmentSlot(type), createItemSettings());
+        armorItems.put(type, item);
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_%s", name.toLowerCase(), type.toString().toLowerCase())), item);
     }
     
@@ -442,7 +558,7 @@ public class CustomOre {
 
     }
 
-    private final class CustomToolMaterial implements ToolMaterial {
+    private static final class CustomToolMaterial implements ToolMaterial {
 
         private final float attackDamage;
         private final int durability;

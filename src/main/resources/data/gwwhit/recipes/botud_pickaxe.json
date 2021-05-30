@@ -1,1 +1,0 @@
-{"type": "minecraft:crafting_shaped", "pattern": ["MMM", " S ", " S "], "key": {"M": {"item": "gwwhit:botud"}, "S": {"item": "minecraft:stick"}}, "result": {"item": "gwwhit:botud_pickaxe", "count": 1}}

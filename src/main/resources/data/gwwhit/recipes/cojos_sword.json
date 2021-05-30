@@ -1,1 +1,0 @@
-{"type": "minecraft:crafting_shaped", "pattern": ["M", "M", "S"], "key": {"M": {"item": "gwwhit:cojos"}, "S": {"item": "minecraft:stick"}}, "result": {"item": "gwwhit:cojos_sword", "count": 1}}

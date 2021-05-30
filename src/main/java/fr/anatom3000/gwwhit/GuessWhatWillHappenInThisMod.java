@@ -75,7 +75,6 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 		NewMaterials.INSTANCE.onInitialize();
 		registerLootTables();
 		registerEvents();
-		RRPCallback.EVENT.register(a -> a.add(RESOURCE_PACK));
 		LOGGER.info("[GWWHIT] You shouldn't have done this.");
 	}
 
@@ -111,6 +110,7 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 					}
 				}
 		);
+		RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
 	}
 
 }

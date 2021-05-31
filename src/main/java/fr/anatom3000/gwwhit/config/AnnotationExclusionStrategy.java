@@ -16,7 +16,7 @@ public class AnnotationExclusionStrategy implements ExclusionStrategy {
     
     @Override
     public boolean shouldSkipClass(Class<?> c) {
-        return c.isAnnotationPresent(Exclude.class);
+        return c.getAnnotation(Exclude.class) == null; 
     }
     
     @Retention(RetentionPolicy.RUNTIME)

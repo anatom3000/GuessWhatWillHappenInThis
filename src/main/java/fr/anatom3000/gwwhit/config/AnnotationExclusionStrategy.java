@@ -11,12 +11,12 @@ import java.lang.annotation.Target;
 public class AnnotationExclusionStrategy implements ExclusionStrategy {
     @Override
     public boolean shouldSkipField(FieldAttributes f) {
-        return f.getAnnotation(Exclude.class) == null;
+        return f.getAnnotation(Exclude.class) != null;
     }
     
     @Override
     public boolean shouldSkipClass(Class<?> c) {
-        return c.getAnnotation(Exclude.class) == null; 
+        return c.getAnnotation(Exclude.class) != null; 
     }
     
     @Retention(RetentionPolicy.RUNTIME)

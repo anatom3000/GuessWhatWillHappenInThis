@@ -1,29 +1,30 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "fr.anatom3000.gwwhit.mixin",
-  "compatibilityLevel": "JAVA_8",
-  "mixins": [
-    "ChatMessageC2SPacketMixin",
-    "LivingEntityAccessor",
-    "LivingEntityMixin",
-    "PlayerManagerMixin",
-    "TitleScreenMixin"
-  ],
-  "client": [
-    "ChatScreenMixin",
-    "ClientWorldMixin",
-    "Deadmau5FeatureRendererMixin",
-    "GameRendererMixin",
-    "KeyboardMixin",
-    "LanguageMixin",
-    "LivingEntityRendererMixin",
-    "MatrixStackMixin",
-    "MixinFrustum",
-    "PlayerEntityModelMixin",
-    "ChatHudMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+	"required": true,
+	"minVersion": "0.8",
+	"package": "fr.anatom3000.gwwhit.mixin",
+	"compatibilityLevel": "JAVA_8",
+	"mixins": [
+		"ChatMessageC2SPacketMixin",
+		"LivingEntityAccessor",
+		"LivingEntityMixin",
+		"PlayerManagerMixin",
+		"TitleScreenMixin"
+	],
+	"client": [
+		"ChatHudMixin",
+		"ChatScreenMixin",
+		"ClientWorldMixin",
+		"Deadmau5FeatureRendererMixin",
+		"GameRendererMixin",
+		"KeyboardMixin",
+		"LanguageMixin",
+		"LivingEntityRendererMixin",
+		"MatrixStackMixin",
+		"MixinFrustum",
+		"PlayerEntityModelMixin",
+		"SoundSystemMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
 }

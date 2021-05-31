@@ -6,7 +6,9 @@ import fr.anatom3000.gwwhit.registry.NewMaterials;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.api.SyntaxError;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -15,11 +17,14 @@ public class GuessWhatWillHappenInThisModClient implements ClientModInitializer 
 
     public static final Identifier WHISTLE_SOUND = new Identifier("gwwhit:whatsapp_whistle");
     public static final SoundEvent WHISTLE_SOUND_EVENT = new SoundEvent(WHISTLE_SOUND);
+    public static final Identifier MOJAAAANG_SOUND = new Identifier("gwwhit:mojaaaang");
+    public static final SoundEvent MOJAAAANG_SOUND_EVENT = new SoundEvent(MOJAAAANG_SOUND);
 
     @Override
     public void onInitializeClient() {
         NewMaterials.INSTANCE.onInitializeClient();
         Registry.register(Registry.SOUND_EVENT, WHISTLE_SOUND, WHISTLE_SOUND_EVENT);
+        Registry.register(Registry.SOUND_EVENT, MOJAAAANG_SOUND, MOJAAAANG_SOUND_EVENT);
 
         ClientPlayNetworking.registerGlobalReceiver(GuessWhatWillHappenInThisMod.CONFIG_SYNC_ID, (client, networkHandler, data, sender) -> {
             ModConfig config = null;

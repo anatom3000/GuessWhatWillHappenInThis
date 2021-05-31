@@ -23,6 +23,7 @@ public final class ModConfig implements ConfigData {
     private static ModConfig CURRENT_CONFIG = null;
     
     @Gui.Excluded
+    @AnnotationExclusionStrategy.Exclude //We make sure gson doesn't try to serialize this field since it's just a cache
     public ShaderEffect shader = null;
     
     private ModConfig() {}
@@ -37,6 +38,10 @@ public final class ModConfig implements ConfigData {
         if (config == null) config = getHolder().getConfig();
       
         CURRENT_CONFIG = config;
+    }
+    
+    public static void createBackup() {
+        CURRENT_CONFIG = new ModConfig();
     }
     
     public static ConfigHolder<ModConfig> getHolder() {

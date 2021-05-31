@@ -1,15 +1,15 @@
 package fr.anatom3000.gwwhit;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import fr.anatom3000.gwwhit.config.ModConfig;
+import fr.anatom3000.gwwhit.config.AnnotationExclusionStrategy;
 import fr.anatom3000.gwwhit.registry.BlockEntityRegistry;
 import fr.anatom3000.gwwhit.registry.BlockRegistry;
 import fr.anatom3000.gwwhit.registry.ItemRegistry;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Jankson;
 
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
@@ -39,7 +39,8 @@ import java.util.Random;
 
 
 public class GuessWhatWillHappenInThisMod implements ModInitializer {
-	public static final Gson GSON = new Gson();
+	//We use a custom ExclusionStrategy to make sure we don't serialize things that break
+	public static final Gson GSON = new GsonBuilder().setExclusionStrategies(new AnnotationExclusionStrategy()).create();
 
 	public static final String MOD_ID = "gwwhit";
 
@@ -66,8 +67,9 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		AutoConfig.register(ModConfig.class, GsonConfigSerializer::new);
+		AutoConfig.register(ModConfig.class, (definition, configClass) -> new GsonConfigSerializer<>(definition, configClass, GSON));
 
+		
 		ItemRegistry.register();
 		BlockRegistry.register();
 		BlockEntityRegistry.register();

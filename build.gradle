@@ -23,7 +23,7 @@ repositories {
 		url "https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/"
 	}
 }
-
+//https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -33,11 +33,11 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modApi("me.shedaniel.cloth:cloth-config-fabric:4.11.19") {
+	modApi("me.shedaniel.cloth:cloth-config-fabric:4.11.26") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 
-	modRuntime("me.shedaniel.cloth:cloth-config-fabric:4.11.19") {
+	modRuntime("me.shedaniel.cloth:cloth-config-fabric:4.11.26") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 
@@ -45,7 +45,7 @@ dependencies {
 		transitive(false)
 	}
 
-	modImplementation "net.devtech:arrp:0.4.2"
+	include (modImplementation("net.devtech:arrp:0.4.2"))
 	modRuntime "me.shedaniel:RoughlyEnoughItems:5.12.235"
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.

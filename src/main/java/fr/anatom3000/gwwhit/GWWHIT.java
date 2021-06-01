@@ -34,7 +34,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.lang.reflect.ParameterizedType;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -50,7 +49,7 @@ import java.util.stream.Collectors;
 */
 
 
-public class GuessWhatWillHappenInThisMod implements ModInitializer {
+public class GWWHIT implements ModInitializer {
 	//We use a custom ExclusionStrategy to make sure we don't serialize things that break
 	public static final Gson GSON = new GsonBuilder().setExclusionStrategies(new AnnotationExclusionStrategy()).create();
 
@@ -58,6 +57,7 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 	public static final Random RANDOM = new Random();
+	public static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
 
     public static Identifier getId(String path) {
 		return new Identifier(MOD_ID, path);
@@ -145,7 +145,6 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 		);
 		RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
 	}
-
 }
 
 

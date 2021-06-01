@@ -1,6 +1,6 @@
 package fr.anatom3000.gwwhit.registry;
 
-import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
+import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.block.entity.InfectedMassBlockEntity;
 import fr.anatom3000.gwwhit.block.entity.RandomisingBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
@@ -13,7 +13,7 @@ public class BlockEntityRegistry {
     public static final BlockEntityType<RandomisingBlockEntity> RANDOMISING_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(RandomisingBlockEntity::new, BlockRegistry.get("randomising_block")).build(null);
 
     public static void register() {
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, GuessWhatWillHappenInThisMod.getId("infected_mass"), INFECTED_MASS_BLOCK_ENTITY);
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, GuessWhatWillHappenInThisMod.getId("randomising_block"), RANDOMISING_BLOCK_ENTITY);
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, GWWHIT.getId("infected_mass"), INFECTED_MASS_BLOCK_ENTITY);
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, GWWHIT.getId("randomising_block"), RANDOMISING_BLOCK_ENTITY);
     }
 }

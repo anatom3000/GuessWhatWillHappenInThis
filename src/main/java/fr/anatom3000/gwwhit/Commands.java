@@ -24,7 +24,7 @@ public class Commands {
         });
         */
         
-        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal(GuessWhatWillHappenInThisMod.MOD_ID)
+        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal(GWWHIT.MOD_ID)
                 .requires(source -> source.hasPermissionLevel(2))
                 .then(CommandManager.literal("config")
                         .then(CommandManager.literal("reload")
@@ -33,7 +33,7 @@ public class Commands {
                                 configHolder.load();
                                 
                                 for (ServerPlayerEntity player : context.getSource().getMinecraftServer().getPlayerManager().getPlayerList()) {
-                                    ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.CONFIG_SYNC_ID, configHolder.getConfig().toPacketByteBuf());
+                                    ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, configHolder.getConfig().toPacketByteBuf());
                                 }
                                 return 1;
                             })

@@ -5,11 +5,11 @@ import net.minecraft.resource.ReloadableResourceManagerImpl;
 import net.minecraft.resource.ResourcePack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(ReloadableResourceManagerImpl.class)
 public class ReloadableResourceManagerImplMixin {
-    @ModifyArg(method = "beginMonitoredReload(L;L;L;L;)Lnet/minecraft/resource/ResourceReloadMonitor;", at = @At(value = "INVOKE", target = "Lnet/minecraft/resource/ReloadableResourceManagerImpl;addPack(Lnet/minecraft/resource/ResourcePack;)V"), index = 0)
+    @ModifyVariable(method = "addPack(Lnet/minecraft/resource/ResourcePack;)V", at = @At("HEAD"), argsOnly = true, ordinal = 0)
     private ResourcePack modifyPack(ResourcePack pack) {
         return new WrappedPack(pack);
     }

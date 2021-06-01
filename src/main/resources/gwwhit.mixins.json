@@ -12,6 +12,7 @@
     "TitleScreenMixin"
   ],
   "client": [
+    "ReloadableResourceManagerImplMixin",
     "ChatHudMixin",
     "ChatScreenMixin",
     "ClientWorldMixin",
@@ -27,5 +28,5 @@
   ],
   "injectors": {
     "defaultRequire": 1
-	}
+  }
 }

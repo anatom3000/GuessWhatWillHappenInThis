@@ -1,6 +1,6 @@
 package fr.anatom3000.gwwhit.registry;
 
-import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
+import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.block.InfectedMassBlock;
 import fr.anatom3000.gwwhit.block.RandomisingBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -24,7 +24,7 @@ public class BlockRegistry {
 
     public static void register() {
         for (Map.Entry<String, Block> block : BLOCKS.entrySet()) {
-            Registry.register(Registry.BLOCK, GuessWhatWillHappenInThisMod.getId(block.getKey()), block.getValue());
+            Registry.register(Registry.BLOCK, GWWHIT.getId(block.getKey()), block.getValue());
         }
     }
 

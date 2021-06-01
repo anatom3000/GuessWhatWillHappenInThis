@@ -1,7 +1,7 @@
 package fr.anatom3000.gwwhit.registry;
 
 import fr.anatom3000.gwwhit.CustomItemGroups;
-import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
+import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.item.BoosterItem;
 import fr.anatom3000.gwwhit.item.CosmicEraserItem;
 import fr.anatom3000.gwwhit.item.PortableBlackHoleItem;
@@ -36,7 +36,7 @@ public class ItemRegistry {
 
     public static void register() {
         for (Map.Entry<String, Item> item : ITEMS.entrySet()) {
-            Registry.register(Registry.ITEM, GuessWhatWillHappenInThisMod.getId(item.getKey()), item.getValue());
+            Registry.register(Registry.ITEM, GWWHIT.getId(item.getKey()), item.getValue());
         }
     }
 

@@ -29,10 +29,10 @@
       "fr.anatom3000.gwwhit.config.ModmenuIntegration"
     ],
     "main": [
-      "fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod"
+      "fr.anatom3000.gwwhit.GWWHIT"
     ],
     "client": [
-      "fr.anatom3000.gwwhit.GuessWhatWillHappenInThisModClient"
+      "fr.anatom3000.gwwhit.GWWHITClient"
     ]
   },
   "mixins": [

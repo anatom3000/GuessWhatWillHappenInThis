@@ -1,6 +1,6 @@
 package fr.anatom3000.gwwhit.util;
 
-import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
+import fr.anatom3000.gwwhit.GWWHIT;
 import net.minecraft.util.math.MathHelper;
 
 public class MathUtil {
@@ -24,7 +24,7 @@ public class MathUtil {
         if (percent <= 0) {
             return false;
         }
-        float roll = GuessWhatWillHappenInThisMod.RANDOM.nextFloat() * 100;
+        float roll = GWWHIT.RANDOM.nextFloat() * 100;
         return percent >= roll;
     }
 

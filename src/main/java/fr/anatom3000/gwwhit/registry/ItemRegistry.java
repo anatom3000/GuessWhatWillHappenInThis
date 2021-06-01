@@ -36,7 +36,7 @@ public class ItemRegistry {
 
     public static void register() {
         for (Map.Entry<String, Item> item : ITEMS.entrySet()) {
-            Registry.register(Registry.ITEM, GuessWhatWillHappenInThisMod.ID(item.getKey()), item.getValue());
+            Registry.register(Registry.ITEM, GuessWhatWillHappenInThisMod.getId(item.getKey()), item.getValue());
         }
     }
 

@@ -9,9 +9,11 @@ import java.util.Map;
 import java.util.Random;
 
 import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
+import fr.anatom3000.gwwhit.imixin.IFixedYOffset;
 import fr.anatom3000.gwwhit.config.ModConfig;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
 import net.devtech.arrp.json.blockstate.JState;
+import net.devtech.arrp.json.lang.JLang;
 import net.devtech.arrp.json.loot.JCondition;
 import net.devtech.arrp.json.loot.JLootTable;
 import net.devtech.arrp.json.models.JModel;
@@ -33,17 +35,20 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.heightprovider.UniformHeightProvider;
 
 import static fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod.MOD_ID;
 
@@ -113,30 +118,28 @@ public class CustomOre {
                                 : OreFeatureConfig.Rules.BASE_STONE_OVERWORLD,
                         ore.getDefaultState(),
                         rnd.nextInt(16) + 4
-                )).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(
-                        0,
-                        0,
-                        rnd.nextInt(128) + 32
-                )))
+                )).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(UniformHeightProvider.create(YOffset.getBottom(), ((IFixedYOffset)YOffset.fixed(0)).setPos(rnd.nextDouble())))))
                 .spreadHorizontally()
                 .repeat(rnd.nextInt(12) + 4);
     }
 
     public void onInitialize(NewMaterials.OreInitParam param) {
-        if (itemGroup == null && ModConfig.getLoadedConfig().packs.moreOres.tab == ModConfig.Packs.MoreOres.Tab.SEPARATE) itemGroup = FabricItemGroupBuilder.create(GuessWhatWillHappenInThisMod.ID("more_ores")).icon(() -> new ItemStack(block)).build();;
+        if (itemGroup == null && ModConfig.getLoadedConfig().packs.moreOres.tab == ModConfig.Packs.MoreOres.Tab.SEPARATE) itemGroup = FabricItemGroupBuilder.create(GuessWhatWillHappenInThisMod.getId("more_ores")).icon(() -> new ItemStack(block)).build();
         Registry.register(Registry.ITEM, materialId, material);
         if (rnd.nextDouble()<0.3D) FuelRegistry.INSTANCE.add(material, rnd.nextInt(1000));
         Registry.register(Registry.BLOCK, blockId, block);
         Registry.register(Registry.ITEM, blockId, new BlockItem(block, createItemSettings()));
         Registry.register(Registry.BLOCK, oreId, ore);
         Registry.register(Registry.ITEM, oreId, new BlockItem(ore, createItemSettings()));
-        RegistryKey<ConfiguredFeature<?, ?>> ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, oreId);
+        createTranslations("block", block.getTranslationKey(), param.lang);
+        createTranslations("ore", ore.getTranslationKey(), param.lang);
+        RegistryKey<ConfiguredFeature<?, ?>> ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, oreId);
         if (ModConfig.getLoadedConfig().packs.moreOres.generateInWorld) BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, ore);
         if (hasArmor) {
             ArmorMaterial material = getArmorMaterial();
             
             for (ArmorType t : ArmorType.values()) {
-                createArmorItem(t, material);
+                createArmorItem(t, material, param.lang);
             }
 
         }
@@ -145,24 +148,29 @@ public class CustomOre {
             if (hasSword) {
                 SwordItem swordItem = new CustomSword(material, rnd.nextInt(17), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_sword", name.toLowerCase())), swordItem);
+                createTranslations("sword", swordItem.getTranslationKey(), param.lang);
             }
             if (hasTools) {
                 PickaxeItem pickaxeItem = new CustomPickaxe(material, rnd.nextInt(8), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_pickaxe", name.toLowerCase())), pickaxeItem);
+                createTranslations("pickaxe", pickaxeItem.getTranslationKey(), param.lang);
 
                 ShovelItem shovelItem = new CustomShovel(material, (float) (rnd.nextDouble() * 8), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_shovel", name.toLowerCase())), shovelItem);
+                createTranslations("shovel", shovelItem.getTranslationKey(), param.lang);
 
                 AxeItem axeItem = new CustomAxe(material, (float) (rnd.nextDouble() * 8), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_axe", name.toLowerCase())), axeItem);
+                createTranslations("axe", axeItem.getTranslationKey(), param.lang);
 
                 HoeItem hoeItem = new CustomHoe(material, rnd.nextInt(8), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
                 Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_hoe", name.toLowerCase())), hoeItem);
+                createTranslations("hoe", hoeItem.getTranslationKey(), param.lang);
             }
         }
 
         //Generate ores
-        RegistryKey<ConfiguredFeature<?, ?>> registryKey = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN, oreId);
+        RegistryKey<ConfiguredFeature<?, ?>> registryKey = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, oreId);
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, registryKey.getValue(), feature);
         BiomeModifications.addFeature(dimension == Dimension.END ? BiomeSelectors.foundInTheEnd()
                 : dimension == Dimension.NETHER ? BiomeSelectors.foundInTheNether()
@@ -425,10 +433,18 @@ public class CustomOre {
         );
     }
 
-    private void createArmorItem(ArmorType type, ArmorMaterial material) {
+    private void createArmorItem(ArmorType type, ArmorMaterial material, Map<String, JLang> lang) {
         ArmorItem item = new ArmorItem(material, getEquipmentSlot(type), createItemSettings());
         armorItems.put(type, item);
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_%s", name.toLowerCase(), type.toString().toLowerCase())), item);
+        createTranslations(type.name().toLowerCase(), item.getTranslationKey(), lang);
+    }
+    
+    private void createTranslations(String key, String translationKey, Map<String, JLang> lang) {
+        for (Map.Entry<String, JLang> entry : lang.entrySet()) {
+            entry.getValue().entry(translationKey, String.format(GuessWhatWillHappenInThisMod.translations.get(entry.getKey())
+                    .get("template.gwwhit." + key), name));
+        }
     }
     
     private FabricItemSettings createItemSettings() {

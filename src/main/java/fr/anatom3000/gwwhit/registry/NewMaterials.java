@@ -1,10 +1,15 @@
 package fr.anatom3000.gwwhit.registry;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
 import fr.anatom3000.gwwhit.materials.CustomOre;
+import fr.anatom3000.gwwhit.materials.CustomOre.Dimension;
+import fr.anatom3000.gwwhit.materials.CustomOre.Type;
+import net.devtech.arrp.json.lang.JLang;
 import net.devtech.arrp.json.tags.JTag;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.DyeColor;
@@ -123,6 +128,10 @@ public class NewMaterials {
 
     public void onInitialize() {
         OreInitParam param = new OreInitParam();
+        for (String s : GuessWhatWillHappenInThisMod.translations.keySet()) {
+            param.lang.put(s, JLang.lang());
+        }
+
         for (CustomOre ore : ores) {
             try {
                 ore.onInitialize(param);
@@ -137,6 +146,9 @@ public class NewMaterials {
         GuessWhatWillHappenInThisMod.RESOURCE_PACK.addTag(new Identifier("fabric", "items/pickaxes"), param.pickaxes);
         GuessWhatWillHappenInThisMod.RESOURCE_PACK.addTag(new Identifier("fabric", "items/shovels"), param.shovels);
         GuessWhatWillHappenInThisMod.RESOURCE_PACK.addTag(new Identifier("fabric", "items/swords"), param.swords);
+        for (Map.Entry<String, JLang> entry : param.lang.entrySet()) {
+            GuessWhatWillHappenInThisMod.RESOURCE_PACK.addLang(GuessWhatWillHappenInThisMod.getId(entry.getKey()), entry.getValue());
+        }
     }
 
     public static class OreInitParam {
@@ -146,6 +158,7 @@ public class NewMaterials {
         public final JTag pickaxes = JTag.tag();
         public final JTag shovels = JTag.tag();
         public final JTag swords = JTag.tag();
+        public final Map<String, JLang> lang = new HashMap<>();
     }
 
     public void onInitializeClient() {

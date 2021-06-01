@@ -11,8 +11,7 @@ public class CheatCodes {
 	public static final String CHEAT6 = "COWSCOWSCOWS";
 	public static final String CHEAT7 = "HOWDOYOUTURNTHISON";
 	public static final String CHEAT8 = "NEEEERD";
-	public static final String CHALLENGE = "MOD THIS";
-	public static final String[] ALL_CHEATS = new String[]{"POWEROVERWHELMING", "PIGSONTHEWING", "FLASHAAAAA", "MOREDAKKA", "IDKFA", "COWSCOWSCOWS", "HOWDOYOUTURNTHISON", "NEEEERD"};
+	public static final String[] ALL_CHEATS = new String[]{CHEAT1, CHEAT2, CHEAT3, CHEAT4, CHEAT5, CHEAT6, CHEAT7, CHEAT8};
 	public static final int MAX_CHEAT_LEN;
 
 	static {

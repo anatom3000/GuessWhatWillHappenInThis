@@ -4,8 +4,8 @@ import fr.anatom3000.gwwhit.config.ModConfig;
 import fr.anatom3000.gwwhit.util.MathUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.math.Matrix4f;
+import net.minecraft.util.math.Vec3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,9 +24,9 @@ public abstract class MatrixStackMixin {
         }
         if (ModConfig.getLoadedConfig().rendering.matrices.spin) {
             increment = (increment + MinecraftClient.getInstance().getTickDelta() * 0.00001f) % 360;
-            entry.getModel().multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(increment));
-            entry.getModel().multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(increment));
-            entry.getModel().multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(increment));
+            entry.getModel().multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(increment));
+            entry.getModel().multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(increment));
+            entry.getModel().multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(increment));
         }
         entry.getModel().multiply(ModConfig.getLoadedConfig().rendering.matrices.matrixScale);
     }

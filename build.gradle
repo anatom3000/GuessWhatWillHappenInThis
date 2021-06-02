@@ -42,7 +42,7 @@ dependencies {
 	}
 
 	include modImplementation("net.devtech:arrp:0.4.3")
-	//modRuntime "me.shedaniel:RoughlyEnoughItems:5.12.235"
+	modRuntime "me.shedaniel:RoughlyEnoughItems-fabric:6.0.242-alpha"
 }
 
 processResources {

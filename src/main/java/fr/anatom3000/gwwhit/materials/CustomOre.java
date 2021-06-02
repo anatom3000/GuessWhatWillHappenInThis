@@ -126,6 +126,7 @@ public class CustomOre {
         if (itemGroup == null && ModConfig.getLoadedConfig().packs.moreOres.tab == ModConfig.Packs.MoreOres.Tab.SEPARATE) itemGroup = FabricItemGroupBuilder.create(GWWHIT.getId("more_ores")).icon(() -> new ItemStack(block)).build();
         Registry.register(Registry.ITEM, materialId, material);
         if (rnd.nextDouble()<0.3D) FuelRegistry.INSTANCE.add(material, rnd.nextInt(1000));
+        createTranslations(type.name(), material.getTranslationKey(), param.lang);
         Registry.register(Registry.BLOCK, blockId, block);
         Registry.register(Registry.ITEM, blockId, new BlockItem(block, createItemSettings()));
         Registry.register(Registry.BLOCK, oreId, ore);
@@ -442,7 +443,7 @@ public class CustomOre {
     private void createTranslations(String key, String translationKey, Map<String, JLang> lang) {
         for (Map.Entry<String, JLang> entry : lang.entrySet()) {
             entry.getValue().entry(translationKey, String.format(GWWHIT.translations.get(entry.getKey())
-                    .get("template.gwwhit." + key), name));
+                    .get("template.gwwhit." + key.toLowerCase()), name));
         }
     }
     

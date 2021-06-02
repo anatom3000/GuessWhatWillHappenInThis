@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.Collection;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -24,7 +25,7 @@ public class WrappedPack implements ResourcePack {
     @Override
     public InputStream open(ResourceType type, Identifier id) throws IOException {
         if (ModConfig.getLoadedConfig().misc.blyatSounds && id.getPath().endsWith(".ogg"))
-            return GWWHIT.CLASS_LOADER.getResourceAsStream("assets/gwwhit/sounds/blyat.ogg");
+            return Files.newInputStream(GWWHIT.ASSETS_ROOT.resolve("sounds/blyat.ogg"));
         return pack.open(type, id);
     }
 

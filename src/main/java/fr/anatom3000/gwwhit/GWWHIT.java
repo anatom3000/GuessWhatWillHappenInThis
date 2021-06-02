@@ -57,7 +57,7 @@ public class GWWHIT implements ModInitializer {
 
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 	public static final Random RANDOM = new Random();
-	public static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
+	public static final Path ASSETS_ROOT = FabricLoader.getInstance().getModContainer(MOD_ID).get().getPath("assets/gwwhit");
 
     public static Identifier getId(String path) {
 		return new Identifier(MOD_ID, path);
@@ -82,9 +82,8 @@ public class GWWHIT implements ModInitializer {
 	public void onInitialize() {
 		AutoConfig.register(ModConfig.class, (definition, configClass) -> new GsonConfigSerializer<>(definition, configClass, GSON));
 
-		Path langPath = FabricLoader.getInstance().getModContainer(MOD_ID).get().getPath("assets/gwwhit/lang");
 		try {
-			for (Path path : Files.list(langPath).collect(Collectors.toList())) {
+			for (Path path : Files.list(ASSETS_ROOT.resolve("lang")).collect(Collectors.toList())) {
 				String name = path.getFileName().toString();
 				name = name.substring(0, name.lastIndexOf('.'));
 				try (InputStream is = Files.newInputStream(path); InputStreamReader ir = new InputStreamReader(is)) {

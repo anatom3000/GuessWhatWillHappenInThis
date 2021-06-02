@@ -42,7 +42,7 @@
   "text.autoconfig.gwwhit.option.rendering.other.dinnerboneEntities": "Flip All Entities",
   "text.autoconfig.gwwhit.option.rendering.other.shader": "Shader",
   "text.autoconfig.gwwhit.option.blocks": "Blocks",
-  "text.autoconfig.gwwhit.option.blocks.stoneBlocksAreInfected": "Stone Blocks are infected",
+  "text.autoconfig.gwwhit.option.blocks.stoneBlocksAreInfected": "Infect Stone Blocks",
   "text.autoconfig.gwwhit.option.blocks.randomisingBlock": "Randomising Block",
   "text.autoconfig.gwwhit.option.blocks.randomisingBlock.ticksBetweenPlacements": "Ticks Between Placements",
   "text.autoconfig.gwwhit.option.blocks.randomisingBlock.totalPlacements": "Total Placements",
@@ -54,6 +54,7 @@
   "text.autoconfig.gwwhit.option.packs.moreOres.generateInWorld": "Generate In World",
   "text.autoconfig.gwwhit.option.packs.moreOres.tab": "Creative Tab",
 
+  "text.autoconfig.gwwhit.option.blocks.stoneBlocksAreInfected.@Tooltip": "makes all stone blocks infected",
   "text.autoconfig.gwwhit.option.drops.dreamLuck.@Tooltip[0]": "Increases the chance of ender pearls",
   "text.autoconfig.gwwhit.option.drops.dreamLuck.@Tooltip[1]": "from bartering and blaze rods from blazes.",
   "text.autoconfig.gwwhit.option.misc.killCulling.@Tooltip": "Decreases fps a lot.",

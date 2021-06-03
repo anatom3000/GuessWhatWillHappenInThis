@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "": [ 
+            { "model": "gwwhit:block/mushroom_grass" },
+            { "model": "gwwhit:block/mushroom_grass", "y": 90 },
+            { "model": "gwwhit:block/mushroom_grass", "y": 180 },
+            { "model": "gwwhit:block/mushroom_grass", "y": 270 }
+        ]
+    }
+}

@@ -52,9 +52,9 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 		return new Identifier(MOD_ID, path);
 	}
 
-	public static final Identifier LE_BLAZE_LOOT = new Identifier("minecraft", "entities/blaze");
-	public static final Identifier LE_BARTER_LOOT = new Identifier("minecraft", "gameplay/piglin_bartering");
-	public static final Identifier LE_NEW_BARTER_LOOT = ID("gameplay/new_piglin_barter");
+	private static final Identifier LE_BLAZE_LOOT = new Identifier("minecraft", "entities/blaze");
+	private static final Identifier LE_BARTER_LOOT = new Identifier("minecraft", "gameplay/piglin_bartering");
+	private static final Identifier LE_NEW_BARTER_LOOT = ID("gameplay/new_piglin_barter");
 
 	public static final Identifier CONFIG_SYNC_ID = ID("config_sync");
 
@@ -68,7 +68,6 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		AutoConfig.register(ModConfig.class, (definition, configClass) -> new GsonConfigSerializer<>(definition, configClass, GSON));
-
 		
 		ItemRegistry.register();
 		BlockRegistry.register();

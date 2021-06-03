@@ -1,6 +1,6 @@
 package fr.anatom3000.gwwhit.util;
 
-import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
+import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.config.ModConfig;
 
 import java.util.function.UnaryOperator;
@@ -11,7 +11,7 @@ public class OwoTransformer implements UnaryOperator<String> {
     public static final OwoTransformer TRANSFORMER_PREFIX = new OwoTransformer(true, false);
     public static final OwoTransformer TRANSFORMER_FULL = new OwoTransformer(true, true);
 
-    private static String[] prefixes = new String[] {
+    private static final String[] prefixes = new String[] {
             "<3 ",
             "0w0 ",
             "H-hewwo?? ",
@@ -22,7 +22,7 @@ public class OwoTransformer implements UnaryOperator<String> {
             "OwO ",
             "UwU "
     };
-    private static String[] suffixes = new String[] {
+    private static final String[] suffixes = new String[] {
             " ( ͡° ᴥ ͡°)",
             " (இωஇ )",
             " (๑•́ ₃ •̀๑)",
@@ -57,8 +57,8 @@ public class OwoTransformer implements UnaryOperator<String> {
             ", fwendo",
             "（＾ｖ＾）"
     };
-    private boolean prefix;
-    private boolean suffix;
+    private final boolean prefix;
+    private final boolean suffix;
 
 
     @Override
@@ -68,11 +68,11 @@ public class OwoTransformer implements UnaryOperator<String> {
         }
         String result = "";
         if (prefix) {
-            result += prefixes[GuessWhatWillHappenInThisMod.RANDOM.nextInt(prefixes.length)];
+            result += prefixes[GWWHIT.RANDOM.nextInt(prefixes.length)];
         }
         result += substitute(str);
         if (suffix) {
-            result += suffixes[GuessWhatWillHappenInThisMod.RANDOM.nextInt(suffixes.length)];
+            result += suffixes[GWWHIT.RANDOM.nextInt(suffixes.length)];
         }
         return result;
     }

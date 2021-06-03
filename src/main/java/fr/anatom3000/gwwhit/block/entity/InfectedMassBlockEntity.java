@@ -6,41 +6,40 @@ import fr.anatom3000.gwwhit.util.MathUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
-public class InfectedMassBlockEntity extends BlockEntity implements Tickable {
+public class InfectedMassBlockEntity extends BlockEntity {
     public static int removeTick = -1;
-    
+
     private int timer = -1;
 
-    public InfectedMassBlockEntity() {
-        super(BlockEntityRegistry.INFECTED_MASS_BLOCK_ENTITY);
+    public InfectedMassBlockEntity(BlockPos pos, BlockState state) {
+        super(BlockEntityRegistry.INFECTED_MASS_BLOCK_ENTITY, pos, state);
     }
 
-    @Override
-    public void tick() {
+    public static void tick(World world, BlockPos pos, BlockState state, InfectedMassBlockEntity be) {
         assert world != null;
         if (!world.isClient) {
             if (((ServerWorld) world).getServer().getTicks() == removeTick + 1)
                 world.breakBlock(pos, false);
-    
-            timer = (timer + 1) % 20;
-            if (timer != 0) {
+
+            be.timer = (be.timer + 1) % 20;
+            if (be.timer != 0) {
                 return;
             }
             if (MathUtil.getChance(75F)) {
                 return;
             }
             int completed = 0;
-    
-            completed = getCompleted(new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ()), completed);
-            completed = getCompleted(new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ()), completed);
-            completed = getCompleted(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()), completed);
-            completed = getCompleted(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ()), completed);
-            completed = getCompleted(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1), completed);
-            completed = getCompleted(new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1), completed);
-    
+
+            completed = be.getCompleted(new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ()), completed);
+            completed = be.getCompleted(new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ()), completed);
+            completed = be.getCompleted(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()), completed);
+            completed = be.getCompleted(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ()), completed);
+            completed = be.getCompleted(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1), completed);
+            completed = be.getCompleted(new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1), completed);
+
             if (completed == 6) {
                 world.setBlockState(pos, BlockRegistry.get("inert_infected_mass").getDefaultState());
             }

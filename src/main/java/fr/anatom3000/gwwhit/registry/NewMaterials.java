@@ -1,16 +1,19 @@
 package fr.anatom3000.gwwhit.registry;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
+import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.materials.CustomOre;
+import fr.anatom3000.gwwhit.materials.CustomOre.Dimension;
+import fr.anatom3000.gwwhit.materials.CustomOre.Type;
+import net.devtech.arrp.json.lang.JLang;
 import net.devtech.arrp.json.tags.JTag;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
-
-import static fr.anatom3000.gwwhit.materials.CustomOre.*;
 
 @SuppressWarnings("SpellCheckingInspection") //Because custom names
 public class NewMaterials {
@@ -123,6 +126,10 @@ public class NewMaterials {
 
     public void onInitialize() {
         OreInitParam param = new OreInitParam();
+        for (String s : GWWHIT.translations.keySet()) {
+            param.lang.put(s, JLang.lang());
+        }
+
         for (CustomOre ore : ores) {
             try {
                 ore.onInitialize(param);
@@ -131,12 +138,15 @@ public class NewMaterials {
             }
         }
 
-        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addTag(BlockTags.BEACON_BASE_BLOCKS.getId(), param.blocks);
-        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addTag(new Identifier("fabric", "items/axes"), param.axes);
-        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addTag(new Identifier("fabric", "items/hoes"), param.hoes);
-        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addTag(new Identifier("fabric", "items/pickaxes"), param.pickaxes);
-        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addTag(new Identifier("fabric", "items/shovels"), param.shovels);
-        GuessWhatWillHappenInThisMod.RESOURCE_PACK.addTag(new Identifier("fabric", "items/swords"), param.swords);
+        GWWHIT.RESOURCE_PACK.addTag(BlockTags.BEACON_BASE_BLOCKS.getId(), param.blocks);
+        GWWHIT.RESOURCE_PACK.addTag(new Identifier("fabric", "items/axes"), param.axes);
+        GWWHIT.RESOURCE_PACK.addTag(new Identifier("fabric", "items/hoes"), param.hoes);
+        GWWHIT.RESOURCE_PACK.addTag(new Identifier("fabric", "items/pickaxes"), param.pickaxes);
+        GWWHIT.RESOURCE_PACK.addTag(new Identifier("fabric", "items/shovels"), param.shovels);
+        GWWHIT.RESOURCE_PACK.addTag(new Identifier("fabric", "items/swords"), param.swords);
+        for (Map.Entry<String, JLang> entry : param.lang.entrySet()) {
+            GWWHIT.RESOURCE_PACK.addLang(GWWHIT.getId(entry.getKey()), entry.getValue());
+        }
     }
 
     public static class OreInitParam {
@@ -146,6 +156,7 @@ public class NewMaterials {
         public final JTag pickaxes = JTag.tag();
         public final JTag shovels = JTag.tag();
         public final JTag swords = JTag.tag();
+        public final Map<String, JLang> lang = new HashMap<>();
     }
 
     public void onInitializeClient() {

@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static fr.anatom3000.gwwhit.GuessWhatWillHappenInThisModClient.WHISTLE_SOUND_EVENT;
+import static fr.anatom3000.gwwhit.GWWHITClient.WHISTLE_SOUND_EVENT;
 
 @Mixin(ChatHud.class)
 public class ChatHudMixin {

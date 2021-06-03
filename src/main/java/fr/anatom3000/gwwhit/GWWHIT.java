@@ -2,16 +2,14 @@ package fr.anatom3000.gwwhit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import fr.anatom3000.gwwhit.config.ModConfig;
 import fr.anatom3000.gwwhit.config.AnnotationExclusionStrategy;
+import fr.anatom3000.gwwhit.config.ModConfig;
 import fr.anatom3000.gwwhit.registry.BlockEntityRegistry;
 import fr.anatom3000.gwwhit.registry.BlockRegistry;
 import fr.anatom3000.gwwhit.registry.ItemRegistry;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
@@ -57,6 +55,7 @@ public class GWWHIT implements ModInitializer {
 
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 	public static final Random RANDOM = new Random();
+	@SuppressWarnings("OptionalGetWithoutIsPresent") //It has to exist exists
 	public static final Path ASSETS_ROOT = FabricLoader.getInstance().getModContainer(MOD_ID).get().getPath("assets/gwwhit");
 
     public static Identifier getId(String path) {
@@ -71,7 +70,7 @@ public class GWWHIT implements ModInitializer {
 
 	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create(MOD_ID + ":data");
 	
-	public static Map<String, Map<String, String>> translations = new HashMap<>();
+	public static final Map<String, Map<String, String>> translations = new HashMap<>();
 
 	FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
 			.rolls(UniformLootNumberProvider.create(0, 1))
@@ -106,7 +105,8 @@ public class GWWHIT implements ModInitializer {
 		LOGGER.info("[GWWHIT] You shouldn't have done this.");
 	}
 	
-	private <T extends Object> T deserialize(Reader r, T current) {
+	@SuppressWarnings("unchecked") //Stupid IntelliJ
+	private <T> T deserialize(Reader r, T current) {
 		return GSON.fromJson(r, (Class<T>)current.getClass());
 	}
 
@@ -129,6 +129,7 @@ public class GWWHIT implements ModInitializer {
 						// AUTHOR: ENDERZOMBI102
 						if ( state.getMaterial() == Material.STONE ) {
 							SilverfishEntity silverfishEntity = EntityType.SILVERFISH.create(world);
+							//noinspection ConstantConditions
 							silverfishEntity.refreshPositionAndAngles(
 									(double)pos.getX() + 0.5D,
 									pos.getY(),

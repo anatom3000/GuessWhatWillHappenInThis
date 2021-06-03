@@ -1,7 +1,7 @@
 package fr.anatom3000.gwwhit.config;
 
 import com.google.common.collect.Lists;
-import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
+import fr.anatom3000.gwwhit.GWWHIT;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.ConfigHolder;
@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 import java.util.List;
 
-@Config(name = GuessWhatWillHappenInThisMod.MOD_ID)
+@Config(name = GWWHIT.MOD_ID)
 public final class ModConfig implements ConfigData {
     @Gui.Excluded
     private static ModConfig CURRENT_CONFIG = null;
@@ -39,17 +39,13 @@ public final class ModConfig implements ConfigData {
       
         CURRENT_CONFIG = config;
     }
-    
-    public static void createBackup() {
-        CURRENT_CONFIG = new ModConfig();
-    }
-    
+
     public static ConfigHolder<ModConfig> getHolder() {
         return AutoConfig.getConfigHolder(ModConfig.class);
     }
     
     public PacketByteBuf toPacketByteBuf() {
-        String config = GuessWhatWillHappenInThisMod.GSON.toJson(this);
+        String config = GWWHIT.GSON.toJson(this);
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeString(config);
         return buf;
@@ -65,31 +61,6 @@ public final class ModConfig implements ConfigData {
             this.shader = null;
         }
     }
-    
-    /**
-     * @deprecated Use {@link ModConfig#getLoadedConfig()}
-     */
-    @Deprecated
-    public static ModConfig getInstance() {
-        return getLoadedConfig();
-    }
-    
-    /**
-     * @deprecated Use {@link ModConfig#loadConfig(ModConfig)}
-     */
-    @Deprecated
-    public static void setInstance(@Nullable ModConfig config) {
-        loadConfig(config);
-    }
-    
-    /**
-     * @deprecated Use {@link ModConfig#toPacketByteBuf()}
-     */
-    @Deprecated
-    public PacketByteBuf getSyncable() {
-        return toPacketByteBuf();
-    }
-    
     
     //Config options
     
@@ -159,9 +130,10 @@ public final class ModConfig implements ConfigData {
         public boolean killCulling = false;
         @Gui.Tooltip
         public boolean owoifyer = false;
-
         @Gui.Tooltip( count = 2 )
         public boolean mojaaaangStartupSound = false;
+        @Gui.Tooltip
+        public boolean blyatSounds = false;
 
         @Gui.Tooltip
         @Gui.CollapsibleObject

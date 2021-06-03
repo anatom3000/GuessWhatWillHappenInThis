@@ -29,10 +29,10 @@
       "fr.anatom3000.gwwhit.config.ModmenuIntegration"
     ],
     "main": [
-      "fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod"
+      "fr.anatom3000.gwwhit.GWWHIT"
     ],
     "client": [
-      "fr.anatom3000.gwwhit.GuessWhatWillHappenInThisModClient"
+      "fr.anatom3000.gwwhit.GWWHITClient"
     ]
   },
   "mixins": [
@@ -42,7 +42,7 @@
   "depends": {
     "fabricloader": ">=0.7.4",
     "fabric": "*",
-    "minecraft": "1.16.x",
+    "minecraft": "1.17.x",
     "cloth-config2": ">=4.11.19"
   }
 }

@@ -6,5 +6,5 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
 public class CustomItemGroups {
-    public static final ItemGroup GWWHIT_GROUP = FabricItemGroupBuilder.create(GuessWhatWillHappenInThisMod.ID("gwwhit")).icon(() -> new ItemStack(ItemRegistry.get("portable_black_hole"))).build();
+    public static final ItemGroup GWWHIT_GROUP = FabricItemGroupBuilder.create(GWWHIT.getId("gwwhit")).icon(() -> new ItemStack(ItemRegistry.get("portable_black_hole"))).build();
 }

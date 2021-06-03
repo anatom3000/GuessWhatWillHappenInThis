@@ -3,17 +3,14 @@ package fr.anatom3000.gwwhit;
 import com.google.gson.JsonSyntaxException;
 import fr.anatom3000.gwwhit.config.ModConfig;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.api.SyntaxError;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-public class GuessWhatWillHappenInThisModClient implements ClientModInitializer {
+public class GWWHITClient implements ClientModInitializer {
 
     public static final Identifier WHISTLE_SOUND = new Identifier("gwwhit:whatsapp_whistle");
     public static final SoundEvent WHISTLE_SOUND_EVENT = new SoundEvent(WHISTLE_SOUND);
@@ -26,12 +23,12 @@ public class GuessWhatWillHappenInThisModClient implements ClientModInitializer 
         Registry.register(Registry.SOUND_EVENT, WHISTLE_SOUND, WHISTLE_SOUND_EVENT);
         Registry.register(Registry.SOUND_EVENT, MOJAAAANG_SOUND, MOJAAAANG_SOUND_EVENT);
 
-        ClientPlayNetworking.registerGlobalReceiver(GuessWhatWillHappenInThisMod.CONFIG_SYNC_ID, (client, networkHandler, data, sender) -> {
+        ClientPlayNetworking.registerGlobalReceiver(GWWHIT.CONFIG_SYNC_ID, (client, networkHandler, data, sender) -> {
             ModConfig config = null;
             try {
-                config = GuessWhatWillHappenInThisMod.GSON.fromJson(data.readString(), ModConfig.class);
+                config = GWWHIT.GSON.fromJson(data.readString(), ModConfig.class);
             } catch (JsonSyntaxException syntaxError) {
-                GuessWhatWillHappenInThisMod.LOGGER.warn("Failed to load synced config, falling back to local config!");
+                GWWHIT.LOGGER.warn("Failed to load synced config, falling back to local config!");
             }
     
             ModConfig finalConfig = config;

@@ -1,5 +1,7 @@
 package fr.anatom3000.gwwhit.util;
 
+import fr.anatom3000.gwwhit.GWWHIT;
+import fr.anatom3000.gwwhit.config.ModConfig;
 import net.minecraft.resource.ResourcePack;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.resource.metadata.ResourceMetadataReader;
@@ -8,24 +10,22 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.Collection;
 import java.util.Set;
 import java.util.function.Predicate;
 
-//Add config for this once it's fixed
 public class WrappedPack implements ResourcePack {
-    private ResourcePack pack;
+    private final ResourcePack pack;
     @Override
     public InputStream openRoot(String fileName) throws IOException {
-        if (fileName.endsWith(".ogg"))
-            return openBlyat();
         return pack.openRoot(fileName);
     }
 
     @Override
     public InputStream open(ResourceType type, Identifier id) throws IOException {
-        if (id.getPath().endsWith(".ogg"))
-            return openBlyat();
+        if (ModConfig.getLoadedConfig().misc.blyatSounds && id.getPath().endsWith(".ogg"))
+            return Files.newInputStream(GWWHIT.ASSETS_ROOT.resolve("sounds/blyat.ogg"));
         return pack.open(type, id);
     }
 
@@ -62,10 +62,5 @@ public class WrappedPack implements ResourcePack {
 
     public WrappedPack(ResourcePack pack) {
         this.pack = pack;
-    }
-
-    private static InputStream openBlyat() {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        return loader.getResourceAsStream("blyat.ogg");
     }
 }

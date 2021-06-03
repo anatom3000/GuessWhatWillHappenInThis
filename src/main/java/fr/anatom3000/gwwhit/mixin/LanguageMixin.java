@@ -1,6 +1,6 @@
 package fr.anatom3000.gwwhit.mixin;
 
-import fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod;
+import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.util.OwoTransformer;
 import fr.anatom3000.gwwhit.util.TransformingMap;
 import net.fabricmc.loader.api.FabricLoader;
@@ -30,7 +30,7 @@ public class LanguageMixin {
     @Inject(at = @At("HEAD"), method = "setInstance")
     private static void languageSetInstance(Language language, CallbackInfo ci) {
         if (FIELD == null) {
-            GuessWhatWillHappenInThisMod.LOGGER.warn("Could not set language map, field not found");
+            GWWHIT.LOGGER.warn("Could not set language map, field not found");
             return;
         }
         if (language instanceof TranslationStorage) {

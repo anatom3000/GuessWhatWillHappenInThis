@@ -37,7 +37,6 @@ public class GameRendererMixin {
 		if (!ModConfig.getLoadedConfig().rendering.other.unregisteredVersion) {
 			return;
 		}
-		GlStateManager.disableLighting();
 		int var1 = this.client.getWindow().getScaledWidth();
 		TextRenderer textRenderer = this.client.textRenderer;
 		MatrixStack stack = new MatrixStack();

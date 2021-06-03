@@ -379,17 +379,11 @@ public class CustomOre {
         if (hasSword) {
             generateToolModel("sword");
         }
-
+    
         switch (type) {
-            case GEM:
-                generateBasicItemModel("");
-                break;
-            case DUST:
-                generateBasicItemModel("_dust");
-                break;
-            case INGOT:
-                generateBasicItemModel("_ingot");
-                break;
+            case GEM -> generateBasicItemModel("");
+            case DUST -> generateBasicItemModel("_dust");
+            case INGOT -> generateBasicItemModel("_ingot");
         }
     }
 
@@ -442,7 +436,7 @@ public class CustomOre {
     
     private void createTranslations(String key, String translationKey, Map<String, JLang> lang) {
         for (Map.Entry<String, JLang> entry : lang.entrySet()) {
-            entry.getValue().entry(translationKey, String.format(GWWHIT.translations.get(entry.getKey())
+            entry.getValue().entry(translationKey, String.format(GWWHIT.TRANSLATIONS.get(entry.getKey())
                     .get("template.gwwhit." + key.toLowerCase()), name));
         }
     }
@@ -450,36 +444,20 @@ public class CustomOre {
     private FabricItemSettings createItemSettings() {
         FabricItemSettings settings = new FabricItemSettings();
         switch (ModConfig.getLoadedConfig().packs.moreOres.tab) {
-            case MAIN:
-                settings.group(CustomItemGroups.GWWHIT_GROUP);
-                break;
-            case SEPARATE:
-                settings.group(itemGroup);
-                break;
-            
+            case MAIN -> settings.group(CustomItemGroups.GWWHIT_GROUP);
+            case SEPARATE -> settings.group(itemGroup);
         }
         
         return settings;
     }
 
     private EquipmentSlot getEquipmentSlot(ArmorType type) {
-        switch (type) {
-            case HELMET:
-                return EquipmentSlot.HEAD;
-            
-            case CHESTPLATE:
-                return EquipmentSlot.CHEST;
-
-            case LEGGINGS:
-                return EquipmentSlot.LEGS;
-
-            case BOOTS:
-                return EquipmentSlot.FEET;
-                
-            default:
-                throw new IllegalStateException("No case for enum value " + type);
-                
-        }
+        return switch (type) {
+            case HELMET -> EquipmentSlot.HEAD;
+            case CHESTPLATE -> EquipmentSlot.CHEST;
+            case LEGGINGS -> EquipmentSlot.LEGS;
+            case BOOTS -> EquipmentSlot.FEET;
+        };
     }
 
     private static class CustomSword extends SwordItem {

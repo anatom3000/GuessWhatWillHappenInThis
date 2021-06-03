@@ -70,7 +70,7 @@ public class GWWHIT implements ModInitializer {
 
 	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create(MOD_ID + ":data");
 	
-	public static final Map<String, Map<String, String>> translations = new HashMap<>();
+	public static final Map<String, Map<String, String>> TRANSLATIONS = new HashMap<>();
 
 	FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
 			.rolls(UniformLootNumberProvider.create(0, 1))
@@ -86,7 +86,7 @@ public class GWWHIT implements ModInitializer {
 				String name = path.getFileName().toString();
 				name = name.substring(0, name.lastIndexOf('.'));
 				try (InputStream is = Files.newInputStream(path); InputStreamReader ir = new InputStreamReader(is)) {
-					translations.put(name, deserialize(ir, new HashMap<>()));
+					TRANSLATIONS.put(name, deserialize(ir, new HashMap<>()));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

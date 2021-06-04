@@ -9,7 +9,10 @@
     "LivingEntityAccessor",
     "LivingEntityMixin",
     "PlayerManagerMixin",
-    "TitleScreenMixin"
+    "TitleScreenMixin",
+    "ChunkGeneratorMixin",
+    "NoiseChunkGeneratorMixin",
+    "ChunkGeneratorSettingsMixin"
   ],
   "client": [
     "ReloadableResourceManagerImplMixin",

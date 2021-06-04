@@ -24,7 +24,10 @@ import net.minecraft.item.Items;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.biome.source.HorizontalVoronoiBiomeAccessType;
+import net.minecraft.world.dimension.DimensionType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,10 +35,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.OptionalLong;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -77,6 +82,14 @@ public class GWWHIT implements ModInitializer {
 			.with(ItemEntry.builder(Items.BLAZE_ROD))
 			.withCondition(RandomChanceLootCondition.builder(0.38f).build());
 
+
+	private static final DimensionType MODIFIED_OVERWORLD = DimensionType.create(OptionalLong.empty(), true, false, false, true, 1.0D, false, false, true, false, true,
+			-256,
+			256,
+			256,
+			HorizontalVoronoiBiomeAccessType.INSTANCE, BlockTags.INFINIBURN_OVERWORLD.getId(),
+			DimensionType.OVERWORLD_ID, 0.0F);
+
 	@Override
 	public void onInitialize() {
 		AutoConfig.register(ModConfig.class, (definition, configClass) -> new GsonConfigSerializer<>(definition, configClass, GSON));
@@ -102,6 +115,7 @@ public class GWWHIT implements ModInitializer {
 		NewMaterials.INSTANCE.onInitialize();
 		registerLootTables();
 		registerEvents();
+		ModifyWorldHeight();
 		LOGGER.info("[GWWHIT] You shouldn't have done this.");
 	}
 	
@@ -145,7 +159,34 @@ public class GWWHIT implements ModInitializer {
 		);
 		RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
 	}
+  
+	private static void ModifyWorldHeight() {
+		//OVERWORLD: 14
+		Field[] dimension_fields = DimensionType.class.getDeclaredFields();
+		for (int i = 0; i < dimension_fields.length; i++) {
+			try {
+				Resources.makeFieldAccessible(dimension_fields[i]);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			System.out.println(dimension_fields[i].getName() + ", " + i);
+		}
+		int overworld_num = 14;
+		Field overworld_field = dimension_fields[overworld_num];
 
+		try {
+			Resources.makeFieldAccessible(overworld_field);
+			overworld_field.set(null, MODIFIED_OVERWORLD);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		/*
+		 * OVERWORLD = create(OptionalLong.empty(), true, false, false, true, 1.0D, false, false, true, false, true, -64,
+				384, 384, HorizontalVoronoiBiomeAccessType.INSTANCE, BlockTags.INFINIBURN_OVERWORLD.getId(),
+				OVERWORLD_ID, 0.0F);
+		 */
+	}
 }
 
 

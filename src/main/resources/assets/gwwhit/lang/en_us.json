@@ -15,6 +15,9 @@
   "item.gwwhit.randomising_block": "Randomising Block",
   "block.gwwhit.infected_mass.tooltip": "WARNING: Can and will destroy your world and fps!",
   "block.gwwhit.inert_infected_mass": "Inert Infected Mass",
+  "block.gwwhit.mud": "Mud",
+  "block.gwwhit.mushroom_grass": "Mushroom Grass",
+
 
   "itemGroup.gwwhit.gwwhit": "GWWHIT: Misc",
   "itemGroup.gwwhit.more_ores": "GWWHIT: Ores",

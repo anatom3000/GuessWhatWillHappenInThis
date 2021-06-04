@@ -29,7 +29,7 @@ public class GWWHITClient implements ClientModInitializer {
             } catch (JsonSyntaxException syntaxError) {
                 GWWHIT.LOGGER.warn("Failed to load synced config, falling back to local config!");
             }
-    
+
             ModConfig finalConfig = config;
             client.execute(() -> {
                 ModConfig.loadConfig(finalConfig);

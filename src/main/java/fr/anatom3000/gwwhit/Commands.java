@@ -17,8 +17,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 public class Commands {
 
     private Commands() {}
-    
-    
+
+
     public static void register() {
         /*
         SuggestionProvider<ServerCommandSource> provider = SuggestionProviders.register(GuessWhatWillHappenInThisMod.ID("config_key"), (commandContext, suggestionsBuilder) -> {
@@ -28,7 +28,7 @@ public class Commands {
             return suggestionsBuilder.buildFuture();
         });
         */
-        
+
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal(GWWHIT.MOD_ID)
                 .requires(source -> source.hasPermissionLevel(2))
                 .then(CommandManager.literal("config")
@@ -82,7 +82,7 @@ public class Commands {
                         )
                 )
         ));
-        
+
         /*
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal(GuessWhatWillHappenInThisMod.MOD_ID)
                 .requires(source -> source.hasPermissionLevel(2))
@@ -97,7 +97,7 @@ public class Commands {
                                         if (config.needsReRender(option)) ServerPlayNetworking.send(player, GuessWhatWillHappenInThisMod.ID("reload_chunks"), new PacketByteBuf(Unpooled.buffer()));
                                         player.sendMessage(new LiteralText(config.getMsg(option)), false);
                                     }
-                                    
+
                                     return 1;
                                 })
                         )
@@ -125,7 +125,7 @@ public class Commands {
                                             OldConfig config = OldConfig.getLoadedConfig();
                                             boolean oldValue;
                                             ServerPlayerEntity player = context.getSource().getPlayer();
-    
+
                                             oldValue = config.getValue(option);
                                             config.setValue(option, value);
                                             if (player != null) {
@@ -172,13 +172,13 @@ public class Commands {
                                         }
                                         return enabledCount;
                                     }
-                                    
+
                                     if (player != null) {
                                         player.sendMessage(new LiteralText("§6[§eGWWHITM§6] §3" + option + " is set to " + value), false);
                                     }
                                     return value ? 1 : 0;
                                 })
-                                
+
                         )
                         .then(CommandManager.literal("*")
                                 .executes(context -> {

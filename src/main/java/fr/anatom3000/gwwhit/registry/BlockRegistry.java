@@ -19,7 +19,9 @@ public class BlockRegistry {
     private static final HashMap<String, Block> BLOCKS = new HashMap<>() {{
         put("infected_mass", new InfectedMassBlock(FabricBlockSettings.of(Material.SOIL, MapColor.PURPLE).strength(10, 4f).sounds(BlockSoundGroup.SOUL_SOIL)));
         put("inert_infected_mass", new Block(FabricBlockSettings.of(Material.SOIL, MapColor.PURPLE).strength(10, 4f).sounds(BlockSoundGroup.SOUL_SOIL)));
-        put("randomising_block", new RandomisingBlock(FabricBlockSettings.of(Material.STONE, MapColor.PURPLE).breakInstantly()));
+        put("randomising_block", new RandomisingBlock(FabricBlockSettings.of(Material.STONE, MapColor.PURPLE).breakInstantly().sounds(BlockSoundGroup.STONE)));
+        put("mushroom_grass", new Block(FabricBlockSettings.of(Material.SOIL).strength(1f).luminance(15)));
+        put("mud", new Block(FabricBlockSettings.of(Material.SOIL).strength(1f)));
     }};
 
     public static void register() {

@@ -14,6 +14,8 @@ Fabric mod where anyone can PR anything, concerning or not (Unless it's too conc
 
 This mod depends on Fabric API, Cloth Config and includes ARRP
 
+For colored lighting, you will need to install this mod https://modrinth.com/mod/colored-lights
+
 ## License
 
 This project is released under MIT license.

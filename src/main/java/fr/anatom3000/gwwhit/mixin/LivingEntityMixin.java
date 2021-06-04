@@ -41,7 +41,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Shadow protected abstract float getSoundVolume();
 
-    @Shadow protected abstract float getSoundPitch();
+    @Shadow public abstract float getSoundPitch();
 
     @Shadow public abstract void setAttacker(@Nullable LivingEntity attacker);
 

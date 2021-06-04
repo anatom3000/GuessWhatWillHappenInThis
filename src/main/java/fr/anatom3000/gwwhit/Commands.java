@@ -33,42 +33,42 @@ public class Commands {
                 .requires(source -> source.hasPermissionLevel(2))
                 .then(CommandManager.literal("config")
                         .then(CommandManager.literal("sync")
-                                .executes(context -> {
-                                    ConfigHolder<ModConfig> configHolder = ModConfig.getHolder();
-
-                                    for (ServerPlayerEntity player : context.getSource().getMinecraftServer().getPlayerManager().getPlayerList()) {
-                                        ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, configHolder.getConfig().toPacketByteBuf());
-                                    }
-                                    return 1;
-                                })
+                            .executes(context -> {
+                                ConfigHolder<ModConfig> configHolder = ModConfig.getHolder();
+                                
+                                for (ServerPlayerEntity player : context.getSource().getMinecraftServer().getPlayerManager().getPlayerList()) {
+                                    ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, configHolder.getConfig().toPacketByteBuf());
+                                }
+                                return 1;
+                            })
                                 .then(CommandManager.argument("targets", EntityArgumentType.players())
-                                        .executes(context -> {
-                                            ConfigHolder<ModConfig> configHolder = ModConfig.getHolder();
-
-                                            for (ServerPlayerEntity player : EntityArgumentType.getPlayers(context, "targets")) {
-                                                ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, configHolder.getConfig().toPacketByteBuf());
-                                            }
-                                            return 1;
-                                        })
+                                    .executes(context -> {
+                                        ConfigHolder<ModConfig> configHolder = ModConfig.getHolder();
+    
+                                        for (ServerPlayerEntity player : EntityArgumentType.getPlayers(context, "targets")) {
+                                            ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, configHolder.getConfig().toPacketByteBuf());
+                                        }
+                                        return 1;
+                                    })
                                 )
                         )
                         .then(CommandManager.literal("load")
-                                .executes(context -> {
-                                    ConfigHolder<ModConfig> configHolder = ModConfig.getHolder();
-                                    configHolder.load();
-                                    return 1;
-                                })
+                            .executes(context -> {
+                                ConfigHolder<ModConfig> configHolder = ModConfig.getHolder();
+                                configHolder.load();
+                                return 1;
+                            })
                         )
                         .then(CommandManager.literal("reload")
-                                .executes(context -> {
-                                    ConfigHolder<ModConfig> configHolder = ModConfig.getHolder();
-                                    configHolder.load();
-
-                                    for (ServerPlayerEntity player : context.getSource().getMinecraftServer().getPlayerManager().getPlayerList()) {
-                                        ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, configHolder.getConfig().toPacketByteBuf());
-                                    }
-                                    return 1;
-                                })
+                            .executes(context -> {
+                                ConfigHolder<ModConfig> configHolder = ModConfig.getHolder();
+                                configHolder.load();
+    
+                                for (ServerPlayerEntity player : context.getSource().getMinecraftServer().getPlayerManager().getPlayerList()) {
+                                    ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, configHolder.getConfig().toPacketByteBuf());
+                                }
+                                return 1;
+                            })
                         )
                 )
                 .then(CommandManager.literal("debug")

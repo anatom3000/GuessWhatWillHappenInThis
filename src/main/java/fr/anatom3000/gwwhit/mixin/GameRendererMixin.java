@@ -1,6 +1,5 @@
 package fr.anatom3000.gwwhit.mixin;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import fr.anatom3000.gwwhit.config.ModConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;

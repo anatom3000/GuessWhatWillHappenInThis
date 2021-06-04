@@ -3,7 +3,6 @@ package fr.anatom3000.gwwhit;
 import com.google.gson.JsonSyntaxException;
 import fr.anatom3000.gwwhit.config.ModConfig;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
-
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.sound.SoundEvent;
@@ -30,14 +29,13 @@ public class GWWHITClient implements ClientModInitializer {
             } catch (JsonSyntaxException syntaxError) {
                 GWWHIT.LOGGER.warn("Failed to load synced config, falling back to local config!");
             }
-    
+
             ModConfig finalConfig = config;
             client.execute(() -> {
                 ModConfig.loadConfig(finalConfig);
                 finalConfig.setShader();
                 client.worldRenderer.reload();
             });
-            
         });
     }
 }

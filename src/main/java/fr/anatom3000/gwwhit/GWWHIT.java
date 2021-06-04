@@ -72,7 +72,7 @@ public class GWWHIT implements ModInitializer {
 	
 	public static final Map<String, Map<String, String>> TRANSLATIONS = new HashMap<>();
 
-	FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
+	private static final FabricLootPoolBuilder POOL_BUILDER = FabricLootPoolBuilder.builder()
 			.rolls(UniformLootNumberProvider.create(0, 1))
 			.with(ItemEntry.builder(Items.BLAZE_ROD))
 			.withCondition(RandomChanceLootCondition.builder(0.38f).build());
@@ -114,7 +114,7 @@ public class GWWHIT implements ModInitializer {
 		LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
 			if (ModConfig.getLoadedConfig().drops.dreamLuck) {
 				if (LE_BLAZE_LOOT.equals(id)) {
-					supplier.withPool(poolBuilder.build());
+					supplier.withPool(POOL_BUILDER.build());
 				} else if (LE_BARTER_LOOT.equals(id)) {
 					setter.set(manager.getTable(LE_NEW_BARTER_LOOT));
 				}

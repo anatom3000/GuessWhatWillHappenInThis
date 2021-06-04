@@ -499,121 +499,96 @@ public class CustomOre {
         }
 
     }
-
-    private static class CustomArmorMaterial implements ArmorMaterial {
-
+    
+    private record CustomArmorMaterial(int durabilityMultiplier,
+                                       int enchantibility,
+                                       Item repairMaterial,
+                                       String name,
+                                       float knockbackResistance,
+                                       int protection,
+                                       float toughness) implements ArmorMaterial {
+    
         public static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
         public static final int[] PROTECTION_VALUES = new int[]{1, 2, 3, 1};
-
-        private final int durabilityMultiplier;
-        private final int enchantibility;
-        private final Item repairMaterial;
-        private final String name;
-        private final float knockbackResistance;
-        private final int protection;
-        private final float toughness;
-
-
-        public CustomArmorMaterial(int durabilityMultiplier, int enchantibility, Item repairMaterial, String name, float knockbackResistance, int protection, float toughness) {
-            this.durabilityMultiplier = durabilityMultiplier;
-            this.enchantibility = enchantibility;
-            this.repairMaterial = repairMaterial;
-            this.name = name;
-            this.knockbackResistance = knockbackResistance;
-            this.protection = protection;
-            this.toughness = toughness;
-        }
-
+    
         @Override
         public int getDurability(EquipmentSlot slot) {
-            return BASE_DURABILITY[slot.getEntitySlotId()]*durabilityMultiplier;
+            return BASE_DURABILITY[slot.getEntitySlotId()] * durabilityMultiplier;
         }
-
+    
         @Override
         public int getEnchantability() {
             return enchantibility;
         }
-
+    
         @Override
         public SoundEvent getEquipSound() {
             return SoundEvents.ITEM_ARMOR_EQUIP_GENERIC;
         }
-
+    
         @Override
         public float getKnockbackResistance() {
             return knockbackResistance;
         }
-
+    
         @Override
         public String getName() {
             return name;
         }
-
+    
         @Override
         public int getProtectionAmount(EquipmentSlot slot) {
-            return PROTECTION_VALUES[slot.getEntitySlotId()]*protection;
+            return PROTECTION_VALUES[slot.getEntitySlotId()] * protection;
         }
-
+    
         @Override
         public Ingredient getRepairIngredient() {
             return Ingredient.ofItems(repairMaterial);
         }
-
+    
         @Override
         public float getToughness() {
             return toughness;
         }
-
+    
     }
-
-    private static final class CustomToolMaterial implements ToolMaterial {
-
-        private final float attackDamage;
-        private final int durability;
-        private final int enchantibility;
-        private final int miningLevel;
-        private final float miningSpeedMultiplier;
-        private final Item repairMaterial;
-        
-        public CustomToolMaterial(float attackDamage, int durability, int enchantibility, int miningLevel,
-            float miningSpeedMultiplier, Item repairMaterial) {
-            this.attackDamage = attackDamage;
-            this.durability = durability;
-            this.enchantibility = enchantibility;
-            this.miningLevel = miningLevel;
-            this.miningSpeedMultiplier = miningSpeedMultiplier;
-            this.repairMaterial = repairMaterial;
-        }
-
+    
+    private record CustomToolMaterial(float attackDamage,
+                                      int durability,
+                                      int enchantibility,
+                                      int miningLevel,
+                                      float miningSpeedMultiplier,
+                                      Item repairMaterial) implements ToolMaterial {
+    
         @Override
         public float getAttackDamage() {
             return attackDamage;
         }
-
+    
         @Override
         public int getDurability() {
             return durability;
         }
-
+    
         @Override
         public int getEnchantability() {
             return enchantibility;
         }
-
+    
         @Override
         public int getMiningLevel() {
             return miningLevel;
         }
-
+    
         @Override
         public float getMiningSpeedMultiplier() {
             return miningSpeedMultiplier;
         }
-
+    
         @Override
         public Ingredient getRepairIngredient() {
             return Ingredient.ofItems(repairMaterial);
         }
-
+    
     }
 }

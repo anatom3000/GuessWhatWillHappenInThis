@@ -65,56 +65,56 @@ public final class ModConfig implements ConfigData {
     //Config options
     
     @Gui.CollapsibleObject
-    public Drops drops = new Drops();
+    public final Drops drops = new Drops();
     
     @Gui.CollapsibleObject
-    public Rendering rendering = new Rendering();
+    public final Rendering rendering = new Rendering();
     
     @Gui.CollapsibleObject
-    public Misc misc = new Misc();
+    public final Misc misc = new Misc();
     
     @Gui.CollapsibleObject
-    public Blocks blocks = new Blocks();
+    public final Blocks blocks = new Blocks();
     
     @Gui.CollapsibleObject
-    public Packs packs = new Packs();
+    public final Packs packs = new Packs();
     
     //Option classes
     
     public static class Blocks {
 
         @Gui.Tooltip
-        public boolean stoneBlocksAreInfected = false;
+        public final boolean stoneBlocksAreInfected = false;
 
         @Gui.CollapsibleObject
-        public RandomisingBlock randomisingBlock = new RandomisingBlock();
+        public final RandomisingBlock randomisingBlock = new RandomisingBlock();
         
         public static class RandomisingBlock {
             @Gui.Tooltip
-            public int ticksBetweenPlacements = 20;
+            public final int ticksBetweenPlacements = 20;
             @Gui.Tooltip
-            public int totalPlacements = 64;
+            public final int totalPlacements = 64;
             @Gui.Tooltip
-            public boolean scrambleBlockState = false;
+            public final boolean scrambleBlockState = false;
             @Gui.Tooltip
-            public boolean deWaterlog = true;
+            public final boolean deWaterlog = true;
             @Gui.Tooltip
-            public List<String> blockBlackList = Lists.newArrayList("gwwhit:infected_mass", "minecraft:air", "minecraft:cave_air", "gwwhit:randomising_block");
+            public final List<String> blockBlackList = Lists.newArrayList("gwwhit:infected_mass", "minecraft:air", "minecraft:cave_air", "gwwhit:randomising_block");
         }
     }
     
     public static class Packs {
         @Gui.CollapsibleObject
-        public MoreOres moreOres = new MoreOres();
+        public final MoreOres moreOres = new MoreOres();
     
         public static class MoreOres {
             @Gui.Tooltip
             @Gui.RequiresRestart
-            public boolean generateInWorld = false;
+            public final boolean generateInWorld = false;
             @Gui.RequiresRestart
             @Gui.Tooltip
             @Gui.EnumHandler(option = Gui.EnumHandler.EnumDisplayOption.BUTTON)
-            public Tab tab = Tab.NONE;
+            public final Tab tab = Tab.NONE;
     
             @SuppressWarnings("unused")
             public enum Tab {
@@ -127,29 +127,29 @@ public final class ModConfig implements ConfigData {
     
     public static class Misc {
         @Gui.Tooltip
-        public boolean killCulling = false;
+        public final boolean killCulling = false;
         @Gui.Tooltip
-        public boolean owoifyer = false;
+        public final boolean owoifyer = false;
         @Gui.Tooltip( count = 2 )
-        public boolean mojaaaangStartupSound = false;
+        public final boolean mojaaaangStartupSound = false;
         @Gui.Tooltip
-        public boolean blyatSounds = false;
+        public final boolean blyatSounds = false;
 
         @Gui.Tooltip
         @Gui.CollapsibleObject
-        public WhatsAppWhistle whatsAppWhistle = new WhatsAppWhistle();
+        public final WhatsAppWhistle whatsAppWhistle = new WhatsAppWhistle();
 
         public static class WhatsAppWhistle {
             @Gui.Tooltip
-            public boolean playWhatsAppWhistleOnChat = false;
-            public float volume = 1f;
+            public final boolean playWhatsAppWhistleOnChat = false;
+            public final float volume = 1f;
         }
     }
     
     public static class Drops {
         //public boolean randomizedDrops = false; //crashes
         @Gui.Tooltip(count = 2)
-        public boolean dreamLuck = false;
+        public final boolean dreamLuck = false;
     }
     
     public static class Rendering {
@@ -179,29 +179,29 @@ public final class ModConfig implements ConfigData {
       
         @Gui.Tooltip
         @Gui.CollapsibleObject
-        public Matrices matrices = new Matrices();
+        public final Matrices matrices = new Matrices();
         @Gui.CollapsibleObject
-        public Other other = new Other();
+        public final Other other = new Other();
         
         public static class Matrices {
             @Gui.Tooltip
-            public boolean smallBlocks = false;
+            public final boolean smallBlocks = false;
             @Gui.Tooltip
-            public boolean spin = false;
+            public final boolean spin = false;
             @Gui.Tooltip
-            public float matrixScale = 1;
+            public final float matrixScale = 1;
         }
         
         public static class Other {
             @Gui.Tooltip
-            public boolean deadmauEars = false;
+            public final boolean deadmauEars = false;
             @Gui.Tooltip
-            public boolean dinnerboneEntities = false;
+            public final boolean dinnerboneEntities = false;
             @Gui.Tooltip
-            public boolean unregisteredVersion = false;
+            public final boolean unregisteredVersion = false;
             @Gui.EnumHandler(option = Gui.EnumHandler.EnumDisplayOption.BUTTON)
             @Gui.Tooltip
-            public Shaders shader = Shaders.I_HATE_COOL_FEATURES;
+            public final Shaders shader = Shaders.I_HATE_COOL_FEATURES;
         }
     }
 }

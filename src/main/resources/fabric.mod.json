@@ -44,5 +44,9 @@
     "fabric": "*",
     "minecraft": "1.17.x",
     "cloth-config2": ">=4.11.19"
+  },
+
+  "suggests": {
+    "modmenu": "*"
   }
 }

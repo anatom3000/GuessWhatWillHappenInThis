@@ -379,17 +379,11 @@ public class CustomOre {
         if (hasSword) {
             generateToolModel("sword");
         }
-
+    
         switch (type) {
-            case GEM:
-                generateBasicItemModel("");
-                break;
-            case DUST:
-                generateBasicItemModel("_dust");
-                break;
-            case INGOT:
-                generateBasicItemModel("_ingot");
-                break;
+            case GEM -> generateBasicItemModel("");
+            case DUST -> generateBasicItemModel("_dust");
+            case INGOT -> generateBasicItemModel("_ingot");
         }
     }
 
@@ -442,7 +436,7 @@ public class CustomOre {
     
     private void createTranslations(String key, String translationKey, Map<String, JLang> lang) {
         for (Map.Entry<String, JLang> entry : lang.entrySet()) {
-            entry.getValue().entry(translationKey, String.format(GWWHIT.translations.get(entry.getKey())
+            entry.getValue().entry(translationKey, String.format(GWWHIT.TRANSLATIONS.get(entry.getKey())
                     .get("template.gwwhit." + key.toLowerCase()), name));
         }
     }
@@ -450,36 +444,20 @@ public class CustomOre {
     private FabricItemSettings createItemSettings() {
         FabricItemSettings settings = new FabricItemSettings();
         switch (ModConfig.getLoadedConfig().packs.moreOres.tab) {
-            case MAIN:
-                settings.group(CustomItemGroups.GWWHIT_GROUP);
-                break;
-            case SEPARATE:
-                settings.group(itemGroup);
-                break;
-            
+            case MAIN -> settings.group(CustomItemGroups.GWWHIT_GROUP);
+            case SEPARATE -> settings.group(itemGroup);
         }
         
         return settings;
     }
 
     private EquipmentSlot getEquipmentSlot(ArmorType type) {
-        switch (type) {
-            case HELMET:
-                return EquipmentSlot.HEAD;
-            
-            case CHESTPLATE:
-                return EquipmentSlot.CHEST;
-
-            case LEGGINGS:
-                return EquipmentSlot.LEGS;
-
-            case BOOTS:
-                return EquipmentSlot.FEET;
-                
-            default:
-                throw new IllegalStateException("No case for enum value " + type);
-                
-        }
+        return switch (type) {
+            case HELMET -> EquipmentSlot.HEAD;
+            case CHESTPLATE -> EquipmentSlot.CHEST;
+            case LEGGINGS -> EquipmentSlot.LEGS;
+            case BOOTS -> EquipmentSlot.FEET;
+        };
     }
 
     private static class CustomSword extends SwordItem {
@@ -521,121 +499,96 @@ public class CustomOre {
         }
 
     }
-
-    private static class CustomArmorMaterial implements ArmorMaterial {
-
+    
+    private record CustomArmorMaterial(int durabilityMultiplier,
+                                       int enchantibility,
+                                       Item repairMaterial,
+                                       String name,
+                                       float knockbackResistance,
+                                       int protection,
+                                       float toughness) implements ArmorMaterial {
+    
         public static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
         public static final int[] PROTECTION_VALUES = new int[]{1, 2, 3, 1};
-
-        private final int durabilityMultiplier;
-        private final int enchantibility;
-        private final Item repairMaterial;
-        private final String name;
-        private final float knockbackResistance;
-        private final int protection;
-        private final float toughness;
-
-
-        public CustomArmorMaterial(int durabilityMultiplier, int enchantibility, Item repairMaterial, String name, float knockbackResistance, int protection, float toughness) {
-            this.durabilityMultiplier = durabilityMultiplier;
-            this.enchantibility = enchantibility;
-            this.repairMaterial = repairMaterial;
-            this.name = name;
-            this.knockbackResistance = knockbackResistance;
-            this.protection = protection;
-            this.toughness = toughness;
-        }
-
+    
         @Override
         public int getDurability(EquipmentSlot slot) {
-            return BASE_DURABILITY[slot.getEntitySlotId()]*durabilityMultiplier;
+            return BASE_DURABILITY[slot.getEntitySlotId()] * durabilityMultiplier;
         }
-
+    
         @Override
         public int getEnchantability() {
             return enchantibility;
         }
-
+    
         @Override
         public SoundEvent getEquipSound() {
             return SoundEvents.ITEM_ARMOR_EQUIP_GENERIC;
         }
-
+    
         @Override
         public float getKnockbackResistance() {
             return knockbackResistance;
         }
-
+    
         @Override
         public String getName() {
             return name;
         }
-
+    
         @Override
         public int getProtectionAmount(EquipmentSlot slot) {
-            return PROTECTION_VALUES[slot.getEntitySlotId()]*protection;
+            return PROTECTION_VALUES[slot.getEntitySlotId()] * protection;
         }
-
+    
         @Override
         public Ingredient getRepairIngredient() {
             return Ingredient.ofItems(repairMaterial);
         }
-
+    
         @Override
         public float getToughness() {
             return toughness;
         }
-
+    
     }
-
-    private static final class CustomToolMaterial implements ToolMaterial {
-
-        private final float attackDamage;
-        private final int durability;
-        private final int enchantibility;
-        private final int miningLevel;
-        private final float miningSpeedMultiplier;
-        private final Item repairMaterial;
-        
-        public CustomToolMaterial(float attackDamage, int durability, int enchantibility, int miningLevel,
-            float miningSpeedMultiplier, Item repairMaterial) {
-            this.attackDamage = attackDamage;
-            this.durability = durability;
-            this.enchantibility = enchantibility;
-            this.miningLevel = miningLevel;
-            this.miningSpeedMultiplier = miningSpeedMultiplier;
-            this.repairMaterial = repairMaterial;
-        }
-
+    
+    private record CustomToolMaterial(float attackDamage,
+                                      int durability,
+                                      int enchantibility,
+                                      int miningLevel,
+                                      float miningSpeedMultiplier,
+                                      Item repairMaterial) implements ToolMaterial {
+    
         @Override
         public float getAttackDamage() {
             return attackDamage;
         }
-
+    
         @Override
         public int getDurability() {
             return durability;
         }
-
+    
         @Override
         public int getEnchantability() {
             return enchantibility;
         }
-
+    
         @Override
         public int getMiningLevel() {
             return miningLevel;
         }
-
+    
         @Override
         public float getMiningSpeedMultiplier() {
             return miningSpeedMultiplier;
         }
-
+    
         @Override
         public Ingredient getRepairIngredient() {
             return Ingredient.ofItems(repairMaterial);
         }
-
+    
     }
 }

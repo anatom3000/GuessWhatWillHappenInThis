@@ -126,7 +126,7 @@ public class NewMaterials {
 
     public void onInitialize() {
         OreInitParam param = new OreInitParam();
-        for (String s : GWWHIT.translations.keySet()) {
+        for (String s : GWWHIT.TRANSLATIONS.keySet()) {
             param.lang.put(s, JLang.lang());
         }
 

@@ -1,6 +1,5 @@
 package fr.anatom3000.gwwhit.block;
 
-import fr.anatom3000.gwwhit.block.entity.InfectedMassBlockEntity;
 import fr.anatom3000.gwwhit.block.entity.RandomisingBlockEntity;
 import fr.anatom3000.gwwhit.registry.BlockEntityRegistry;
 import net.minecraft.block.BlockRenderType;
@@ -10,7 +9,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 

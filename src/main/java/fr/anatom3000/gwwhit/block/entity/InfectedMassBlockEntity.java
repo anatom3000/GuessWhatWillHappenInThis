@@ -8,6 +8,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 public class InfectedMassBlockEntity extends BlockEntity {
@@ -51,7 +52,7 @@ public class InfectedMassBlockEntity extends BlockEntity {
     private int getCompleted(BlockPos newPos, int completed) {
         BlockState state;
         state = world.getBlockState(newPos);
-        if (ModConfig.getLoadedConfig().content.blocks.infectedMassBlock.spreadBlacklist.contains(state.getBlock())) {
+        if (ModConfig.getLoadedConfig().content.blocks.infectedMassBlock.spreadBlacklist.contains(Registry.BLOCK.getId(state.getBlock()).toString())) {
             return completed + 1;
         } else if (MathUtil.getChance(ModConfig.getLoadedConfig().content.blocks.infectedMassBlock.directionalSpreadChance)) {
             world.setBlockState(newPos, this.getCachedState());

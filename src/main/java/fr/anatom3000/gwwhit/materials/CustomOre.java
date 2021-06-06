@@ -123,7 +123,7 @@ public class CustomOre {
     }
 
     public void onInitialize(NewMaterials.OreInitParam param) {
-        if (itemGroup == null && ModConfig.getLoadedConfig().packs.moreOres.tab == ModConfig.Packs.MoreOres.Tab.SEPARATE) itemGroup = FabricItemGroupBuilder.create(GWWHIT.getId("more_ores")).icon(() -> new ItemStack(block)).build();
+        if (itemGroup == null && ModConfig.getLoadedConfig().content.moreOres.tab == ModConfig.Content.MoreOres.Tab.SEPARATE) itemGroup = FabricItemGroupBuilder.create(GWWHIT.getId("more_ores")).icon(() -> new ItemStack(block)).build();
         Registry.register(Registry.ITEM, materialId, material);
         if (rnd.nextDouble()<0.3D) FuelRegistry.INSTANCE.add(material, rnd.nextInt(1000));
         createTranslations(type.name(), material.getTranslationKey(), param.lang);
@@ -134,7 +134,7 @@ public class CustomOre {
         createTranslations("block", block.getTranslationKey(), param.lang);
         createTranslations("ore", ore.getTranslationKey(), param.lang);
         RegistryKey<ConfiguredFeature<?, ?>> ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, oreId);
-        if (ModConfig.getLoadedConfig().packs.moreOres.generateInWorld) BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, ore);
+        if (ModConfig.getLoadedConfig().content.moreOres.generateInWorld) BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, ore);
         if (hasArmor) {
             ArmorMaterial material = getArmorMaterial();
             
@@ -443,7 +443,7 @@ public class CustomOre {
     
     private FabricItemSettings createItemSettings() {
         FabricItemSettings settings = new FabricItemSettings();
-        switch (ModConfig.getLoadedConfig().packs.moreOres.tab) {
+        switch (ModConfig.getLoadedConfig().content.moreOres.tab) {
             case MAIN -> settings.group(CustomItemGroups.GWWHIT_GROUP);
             case SEPARATE -> settings.group(itemGroup);
         }

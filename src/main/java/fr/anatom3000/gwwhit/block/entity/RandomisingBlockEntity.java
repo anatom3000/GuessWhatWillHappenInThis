@@ -22,8 +22,8 @@ public class RandomisingBlockEntity extends BlockEntity {
     private static final Random RANDOM = new Random();
     public static int removeTick = -1;
     
-    private int usesRemaining = ModConfig.getLoadedConfig().blocks.randomisingBlock.totalPlacements;
-    private int cooldown = ModConfig.getLoadedConfig().blocks.randomisingBlock.ticksBetweenPlacements;
+    private int usesRemaining = ModConfig.getLoadedConfig().content.blocks.randomisingBlock.totalPlacements;
+    private int cooldown = ModConfig.getLoadedConfig().content.blocks.randomisingBlock.ticksBetweenPlacements;
     private BlockPos.Mutable placePos = new BlockPos.Mutable();
     
     public RandomisingBlockEntity(BlockPos pos, BlockState state) {
@@ -62,7 +62,7 @@ public class RandomisingBlockEntity extends BlockEntity {
             --be.cooldown;
             if (be.cooldown <= 0) {
                 --be.usesRemaining;
-                be.cooldown = ModConfig.getLoadedConfig().blocks.randomisingBlock.ticksBetweenPlacements;
+                be.cooldown = ModConfig.getLoadedConfig().content.blocks.randomisingBlock.ticksBetweenPlacements;
                 be.placePos.move(Direction.random(RANDOM));
                 if (be.placePos.equals(BlockPos.ORIGIN)) be.placePos.move(Direction.random(RANDOM));
 
@@ -75,20 +75,20 @@ public class RandomisingBlockEntity extends BlockEntity {
     }
     
     private BlockState getRandomState() {
-        List<String> blacklist = ModConfig.getLoadedConfig().blocks.randomisingBlock.blockBlackList;
+        List<String> blacklist = ModConfig.getLoadedConfig().content.blocks.randomisingBlock.blockBlacklist;
         List<Block> blocks = Registry.BLOCK.getIds().stream().filter(id -> !blacklist.contains(id.toString())).map(Registry.BLOCK::get).collect(Collectors.toList());
         
         BlockState state = blocks.get(RANDOM.nextInt(blocks.size())).getDefaultState();
         
         //scramble state
-        if (ModConfig.getLoadedConfig().blocks.randomisingBlock.scrambleBlockState) {
+        if (ModConfig.getLoadedConfig().content.blocks.randomisingBlock.scrambleBlockState) {
             for (Property<?> property : state.getProperties()) {
                 state = scrambleProperty(property, state);
             }
         }
         
         //remove water-logging
-        if (ModConfig.getLoadedConfig().blocks.randomisingBlock.deWaterlog && state.contains(Properties.WATERLOGGED))
+        if (ModConfig.getLoadedConfig().content.blocks.randomisingBlock.deWaterlog && state.contains(Properties.WATERLOGGED))
             state = state.with(Properties.WATERLOGGED, false);
         
         return state;

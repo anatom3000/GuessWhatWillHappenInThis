@@ -55,7 +55,6 @@ import java.util.stream.Collectors;
 public class GWWHIT implements ModInitializer {
 	//We use a custom ExclusionStrategy to make sure we don't serialize things that break
 	public static final Gson GSON = new GsonBuilder().setExclusionStrategies(new AnnotationExclusionStrategy()).create();
-			//.registerTypeAdapterFactory(new BlacklistTypeAdapterFactory()).create();
 
 	public static final String MOD_ID = "gwwhit";
 
@@ -63,11 +62,6 @@ public class GWWHIT implements ModInitializer {
 	public static final Random RANDOM = new Random();
 	@SuppressWarnings("OptionalGetWithoutIsPresent") //It has to exist exists
 	public static final Path ASSETS_ROOT = FabricLoader.getInstance().getModContainer(MOD_ID).get().getPath("assets/gwwhit");
-
-	static {
-		GsonBuilder builder = new GsonBuilder().setExclusionStrategies(new AnnotationExclusionStrategy());
-		
-	}
 	
     public static Identifier getId(String path) {
 		return new Identifier(MOD_ID, path);

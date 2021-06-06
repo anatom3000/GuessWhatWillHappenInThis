@@ -2,8 +2,8 @@ package fr.anatom3000.gwwhit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import fr.anatom3000.gwwhit.config.AnnotationExclusionStrategy;
-import fr.anatom3000.gwwhit.config.ModConfig;
+import com.google.gson.TypeAdapter;
+import fr.anatom3000.gwwhit.config.*;
 import fr.anatom3000.gwwhit.registry.BlockEntityRegistry;
 import fr.anatom3000.gwwhit.registry.BlockRegistry;
 import fr.anatom3000.gwwhit.registry.ItemRegistry;
@@ -62,7 +62,7 @@ public class GWWHIT implements ModInitializer {
 	public static final Random RANDOM = new Random();
 	@SuppressWarnings("OptionalGetWithoutIsPresent") //It has to exist exists
 	public static final Path ASSETS_ROOT = FabricLoader.getInstance().getModContainer(MOD_ID).get().getPath("assets/gwwhit");
-
+	
     public static Identifier getId(String path) {
 		return new Identifier(MOD_ID, path);
 	}
@@ -92,8 +92,8 @@ public class GWWHIT implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		AutoConfig.register(ModConfig.class, (definition, configClass) -> new GsonConfigSerializer<>(definition, configClass, GSON));
-
+		ConfigInitializer.initialize();
+		
 		try {
 			for (Path path : Files.list(ASSETS_ROOT.resolve("lang")).collect(Collectors.toList())) {
 				String name = path.getFileName().toString();
@@ -126,7 +126,7 @@ public class GWWHIT implements ModInitializer {
 
 	private void registerLootTables() {
 		LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
-			if (ModConfig.getLoadedConfig().drops.dreamLuck) {
+			if (ModConfig.getLoadedConfig().gameplay.drops.dreamLuck) {
 				if (LE_BLAZE_LOOT.equals(id)) {
 					supplier.withPool(POOL_BUILDER.build());
 				} else if (LE_BARTER_LOOT.equals(id)) {
@@ -139,7 +139,7 @@ public class GWWHIT implements ModInitializer {
 	private void registerEvents() {
 		PlayerBlockBreakEvents.AFTER.register(
 				(world, player, pos, state, blockEntity) -> {
-					if ( ModConfig.getLoadedConfig().blocks.stoneBlocksAreInfected) {
+					if ( ModConfig.getLoadedConfig().gameplay.stoneBlocksAreInfected) {
 						// AUTHOR: ENDERZOMBI102
 						if ( state.getMaterial() == Material.STONE ) {
 							SilverfishEntity silverfishEntity = EntityType.SILVERFISH.create(world);

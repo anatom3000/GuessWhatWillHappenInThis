@@ -54,7 +54,7 @@ public final class ModConfig implements ConfigData {
     //Suggestion: rename to onLoad when adding other features similar to this
     public void setShader() {
         MinecraftClient mc = MinecraftClient.getInstance();
-        Identifier shaderID = new Identifier(String.format("shaders/post/%s.json", ModConfig.getLoadedConfig().rendering.other.shader.toString().toLowerCase()));
+        Identifier shaderID = new Identifier(String.format("shaders/post/%s.json", ModConfig.getLoadedConfig().cosmetic.rendering.shader.toString().toLowerCase()));
         try {
             this.shader = new ShaderEffect(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), shaderID);
         } catch (IOException e) {
@@ -62,60 +62,60 @@ public final class ModConfig implements ConfigData {
         }
     }
     
+    /*
+        Tooltip policy: If it isn't self explanatory it's needed
+    */
+    
     //Config options
-    
     @Gui.CollapsibleObject
-    public final Drops drops = new Drops();
-    
+    public final Content content = new Content();
     @Gui.CollapsibleObject
-    public final Rendering rendering = new Rendering();
-    
+    public final Gameplay gameplay = new Gameplay();
     @Gui.CollapsibleObject
-    public final Misc misc = new Misc();
-    
-    @Gui.CollapsibleObject
-    public final Blocks blocks = new Blocks();
-    
-    @Gui.CollapsibleObject
-    public final Packs packs = new Packs();
+    public final Cosmetic cosmetic = new Cosmetic();
     
     //Option classes
     
-    public static class Blocks {
-
-        @Gui.Tooltip
-        public final boolean stoneBlocksAreInfected = false;
-
+    public static final class Content {
         @Gui.CollapsibleObject
-        public final RandomisingBlock randomisingBlock = new RandomisingBlock();
-        
-        public static class RandomisingBlock {
-            @Gui.Tooltip
-            public final int ticksBetweenPlacements = 20;
-            @Gui.Tooltip
-            public final int totalPlacements = 64;
-            @Gui.Tooltip
-            public final boolean scrambleBlockState = false;
-            @Gui.Tooltip
-            public final boolean deWaterlog = true;
-            @Gui.Tooltip
-            public final List<String> blockBlackList = Lists.newArrayList("gwwhit:infected_mass", "minecraft:air", "minecraft:cave_air", "gwwhit:randomising_block");
-        }
-    }
-    
-    public static class Packs {
+        public final Blocks blocks = new Blocks();
         @Gui.CollapsibleObject
         public final MoreOres moreOres = new MoreOres();
+        
+        public static final class Blocks {
+            @Gui.CollapsibleObject
+            public final RandomisingBlock randomisingBlock = new RandomisingBlock();
+            @Gui.CollapsibleObject
+            public final InfectedMassBlock infectedMassBlock = new InfectedMassBlock();
+        
+            public static final class RandomisingBlock {
+                public final int ticksBetweenPlacements = 20;
+                public final int totalPlacements = 64;
+                public final boolean scrambleBlockState = false;
+                @Gui.Tooltip
+                public final boolean deWaterlog = true;
+                @Gui.Tooltip
+                public final List<String> blockBlacklist = Lists.newArrayList("minecraft:air", "minecraft:cave_air", "minecraft:void_air", "gwwhit:infected_mass", "gwwhit:randomising_block");
+            }
+    
+            public static final class InfectedMassBlock {
+                public final int ticksBetweenSpread = 20;
+                @Gui.Tooltip
+                public final float globalSpreadChance = 75f;
+                @Gui.Tooltip
+                public final float directionalSpreadChance = 20f;
+                @Gui.Tooltip
+                public final List<String> spreadBlacklist = Lists.newArrayList("minecraft:air", "minecraft:cave_air", "minecraft:void_air", "gwwhit:infected_mass", "gwwhit:inert_infected_mass");
+            }
+        }
     
         public static class MoreOres {
-            @Gui.Tooltip
             @Gui.RequiresRestart
             public final boolean generateInWorld = false;
             @Gui.RequiresRestart
-            @Gui.Tooltip
             @Gui.EnumHandler(option = Gui.EnumHandler.EnumDisplayOption.BUTTON)
             public final Tab tab = Tab.NONE;
-    
+        
             @SuppressWarnings("unused")
             public enum Tab {
                 NONE,
@@ -125,83 +125,92 @@ public final class ModConfig implements ConfigData {
         }
     }
     
-    public static class Misc {
+    public static final class Gameplay {
+        @Gui.CollapsibleObject
+        public final Drops drops = new Drops();
+        
+        public final boolean stoneBlocksAreInfected = false;
         @Gui.Tooltip
         public final boolean killCulling = false;
+        
+        public static final class Drops {
+            //public boolean randomizedDrops = false; //crashes
+            @Gui.Tooltip(count = 2)
+            public final boolean dreamLuck = false;
+        }
+    }
+    
+    public static final class Cosmetic {
+        @Gui.CollapsibleObject
+        public final Rendering rendering = new Rendering();
+        @Gui.CollapsibleObject
+        public final Audio audio = new Audio();
         @Gui.Tooltip
         public final boolean owoifyer = false;
-        @Gui.Tooltip( count = 2 )
-        public final boolean mojaaaangStartupSound = false;
-        @Gui.Tooltip
-        public final boolean blyatSounds = false;
-
-        @Gui.Tooltip
-        @Gui.CollapsibleObject
-        public final WhatsAppWhistle whatsAppWhistle = new WhatsAppWhistle();
-
-        public static class WhatsAppWhistle {
-            @Gui.Tooltip
-            public final boolean playWhatsAppWhistleOnChat = false;
-            public final float volume = 1f;
-        }
-    }
-    
-    public static class Drops {
-        //public boolean randomizedDrops = false; //crashes
-        @Gui.Tooltip(count = 2)
-        public final boolean dreamLuck = false;
-    }
-    
-    public static class Rendering {
-
-        @SuppressWarnings("unused")
-        public enum Shaders {
-            I_HATE_COOL_FEATURES,
-            NOTCH,
-            BUMPY,
-            BLOBS,
-            PENCIL,
-            DECONVERGE,
-            FLIP,
-            INVERT,
-            NTSC,
-            OUTLINE,
-            PHOSPHOR,
-            SOBEL,
-            BITS,
-            DESATURATE,
-            BLUR,
-            CREEPER,
-            SPIDER,
-            WOBBLE,
-            GREEN
-        }
-      
-        @Gui.Tooltip
-        @Gui.CollapsibleObject
-        public final Matrices matrices = new Matrices();
-        @Gui.CollapsibleObject
-        public final Other other = new Other();
         
-        public static class Matrices {
-            @Gui.Tooltip
-            public final boolean smallBlocks = false;
-            @Gui.Tooltip
-            public final boolean spin = false;
-            @Gui.Tooltip
-            public final float matrixScale = 1;
-        }
-        
-        public static class Other {
-            @Gui.Tooltip
-            public final boolean deadmauEars = false;
-            @Gui.Tooltip
-            public final boolean dinnerboneEntities = false;
-            @Gui.Tooltip
+        public static final class Rendering {
+            @Gui.CollapsibleObject
+            public final World world = new World();
+            @Gui.CollapsibleObject
+            public final Entities entities = new Entities();
             public final boolean unregisteredVersion = false;
             @Gui.EnumHandler(option = Gui.EnumHandler.EnumDisplayOption.BUTTON)
+            public final Shaders shader = Shaders.NONE;
+    
+            @SuppressWarnings("unused")
+            public enum Shaders {
+                NONE,
+                NOTCH,
+                BUMPY,
+                BLOBS,
+                PENCIL,
+                DECONVERGE,
+                FLIP,
+                INVERT,
+                NTSC,
+                OUTLINE,
+                PHOSPHOR,
+                SOBEL,
+                BITS,
+                DESATURATE,
+                BLUR,
+                CREEPER,
+                SPIDER,
+                WOBBLE,
+                GREEN
+            }
+    
+            public static class World {
+                @Gui.Tooltip
+                public final boolean smallBlocks = false;
+                @Gui.Tooltip
+                public final boolean spin = false;
+                @Gui.Tooltip
+                public final float matrixScale = 1;
+            }
+        
+            public static class Entities {
+                @Gui.Tooltip
+                public final boolean deadmauEars = false;
+                @Gui.Tooltip
+                public final boolean dinnerboneEntities = false;
+            }
+        }
+        
+        public static final class Audio {
+            @Gui.Tooltip( count = 2 )
+            public final boolean mojaaaangStartupSound = false;
             @Gui.Tooltip
-            public final Shaders shader = Shaders.I_HATE_COOL_FEATURES;
+            public final boolean blyatSounds = false;
+            @Gui.Tooltip
+            @Gui.CollapsibleObject
+            public final WhatsAppWhistle whatsAppWhistle = new WhatsAppWhistle();
+    
+            public static class WhatsAppWhistle {
+                @Gui.Tooltip
+                public final boolean enabled = false;
+                public final float volume = 1f;
+            }
         }
     }
 }

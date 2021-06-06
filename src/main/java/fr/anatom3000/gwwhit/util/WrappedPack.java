@@ -24,7 +24,7 @@ public class WrappedPack implements ResourcePack {
 
     @Override
     public InputStream open(ResourceType type, Identifier id) throws IOException {
-        if (ModConfig.getLoadedConfig().misc.blyatSounds && id.getPath().endsWith(".ogg"))
+        if (ModConfig.getLoadedConfig().cosmetic.audio.blyatSounds && id.getPath().endsWith(".ogg"))
             return Files.newInputStream(GWWHIT.ASSETS_ROOT.resolve("sounds/blyat.ogg"));
         return pack.open(type, id);
     }

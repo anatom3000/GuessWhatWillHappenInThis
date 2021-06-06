@@ -1,5 +1,6 @@
 package fr.anatom3000.gwwhit.block.entity;
 
+import fr.anatom3000.gwwhit.config.ModConfig;
 import fr.anatom3000.gwwhit.registry.BlockEntityRegistry;
 import fr.anatom3000.gwwhit.registry.BlockRegistry;
 import fr.anatom3000.gwwhit.util.MathUtil;
@@ -7,6 +8,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 public class InfectedMassBlockEntity extends BlockEntity {
@@ -24,21 +26,22 @@ public class InfectedMassBlockEntity extends BlockEntity {
             if (((ServerWorld) world).getServer().getTicks() == removeTick + 1)
                 world.breakBlock(pos, false);
 
-            be.timer = (be.timer + 1) % 20;
+            be.timer = (be.timer + 1) % ModConfig.getLoadedConfig().content.blocks.infectedMassBlock.ticksBetweenSpread;
             if (be.timer != 0) {
                 return;
             }
-            if (MathUtil.getChance(75F)) {
+            if (MathUtil.getChance(ModConfig.getLoadedConfig().content.blocks.infectedMassBlock.globalSpreadChance)) {
                 return;
             }
             int completed = 0;
+            
 
-            completed = be.getCompleted(new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ()), completed);
-            completed = be.getCompleted(new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ()), completed);
-            completed = be.getCompleted(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()), completed);
-            completed = be.getCompleted(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ()), completed);
-            completed = be.getCompleted(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1), completed);
-            completed = be.getCompleted(new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1), completed);
+            completed = be.getCompleted(pos.north(), completed);
+            completed = be.getCompleted(pos.south(), completed);
+            completed = be.getCompleted(pos.up(), completed);
+            completed = be.getCompleted(pos.down(), completed);
+            completed = be.getCompleted(pos.east(), completed);
+            completed = be.getCompleted(pos.west(), completed);
 
             if (completed == 6) {
                 world.setBlockState(pos, BlockRegistry.get("inert_infected_mass").getDefaultState());
@@ -49,9 +52,9 @@ public class InfectedMassBlockEntity extends BlockEntity {
     private int getCompleted(BlockPos newPos, int completed) {
         BlockState state;
         state = world.getBlockState(newPos);
-        if (state.isAir() || state.getBlock() == BlockRegistry.get("infected_mass") || state.getBlock() == BlockRegistry.get("inert_infected_mass")) {
+        if (ModConfig.getLoadedConfig().content.blocks.infectedMassBlock.spreadBlacklist.contains(Registry.BLOCK.getId(state.getBlock()).toString())) {
             return completed + 1;
-        } else if (MathUtil.getChance(20F)) {
+        } else if (MathUtil.getChance(ModConfig.getLoadedConfig().content.blocks.infectedMassBlock.directionalSpreadChance)) {
             world.setBlockState(newPos, this.getCachedState());
         }
         return completed;

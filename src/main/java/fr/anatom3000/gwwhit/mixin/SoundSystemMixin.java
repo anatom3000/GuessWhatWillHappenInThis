@@ -16,7 +16,7 @@ public class SoundSystemMixin {
 
 	@Inject( method = "start", at = @At("TAIL") )
 	public void onStart(CallbackInfo ci) {
-		if ( ModConfig.getLoadedConfig().misc.mojaaaangStartupSound )
+		if ( ModConfig.getLoadedConfig().cosmetic.audio.mojaaaangStartupSound )
 		MinecraftClient.getInstance().getSoundManager().play(
 				PositionedSoundInstance.master(
 						MOJAAAANG_SOUND_EVENT,

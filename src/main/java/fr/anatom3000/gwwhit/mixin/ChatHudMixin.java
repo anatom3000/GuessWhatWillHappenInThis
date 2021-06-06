@@ -16,8 +16,8 @@ public class ChatHudMixin {
 
     @Inject(at = @At("HEAD"), method = "addMessage(Lnet/minecraft/text/Text;)V")
     private void gwwhit$playWhatsAppWhistleSound(CallbackInfo callbackInfo) {
-        ModConfig.Misc.WhatsAppWhistle whistle = ModConfig.getLoadedConfig().misc.whatsAppWhistle;
-        if (!whistle.playWhatsAppWhistleOnChat) {
+        ModConfig.Cosmetic.Audio.WhatsAppWhistle whistle = ModConfig.getLoadedConfig().cosmetic.audio.whatsAppWhistle;
+        if (!whistle.enabled) {
             return;
         }
         MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(WHISTLE_SOUND_EVENT, 1f, whistle.volume));

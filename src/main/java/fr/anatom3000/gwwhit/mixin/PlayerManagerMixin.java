@@ -1,7 +1,7 @@
 package fr.anatom3000.gwwhit.mixin;
 
 import fr.anatom3000.gwwhit.GWWHIT;
-import fr.anatom3000.gwwhit.config.ModConfig;
+import fr.anatom3000.gwwhit.config.ConfigLoader;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.server.PlayerManager;
@@ -15,6 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class PlayerManagerMixin {
     @Inject(method = "onPlayerConnect", at = @At("TAIL"))
     private void onPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo ci) {
-        ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID , ModConfig.getHolder().getConfig().toPacketByteBuf());
+        ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID , ConfigLoader.toPacketByteBuf());
     }
 }

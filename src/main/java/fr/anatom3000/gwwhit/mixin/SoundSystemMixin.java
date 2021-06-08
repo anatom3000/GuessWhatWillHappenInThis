@@ -1,6 +1,6 @@
 package fr.anatom3000.gwwhit.mixin;
 
-import fr.anatom3000.gwwhit.config.ModConfig;
+import fr.anatom3000.gwwhit.config.ConfigLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.sound.SoundSystem;
@@ -16,7 +16,7 @@ public class SoundSystemMixin {
 
 	@Inject( method = "start", at = @At("TAIL") )
 	public void onStart(CallbackInfo ci) {
-		if ( ModConfig.getLoadedConfig().cosmetic.audio.mojaaaangStartupSound )
+		if ( ConfigLoader.getLoadedConfig().cosmetic.audio.mojaaaangStartupSound )
 		MinecraftClient.getInstance().getSoundManager().play(
 				PositionedSoundInstance.master(
 						MOJAAAANG_SOUND_EVENT,

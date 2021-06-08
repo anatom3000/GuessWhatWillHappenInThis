@@ -77,8 +77,6 @@ public class GWWHIT implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ConfigInitializer.initialize();
-		
 		try {
 			for (Path path : Files.list(ASSETS_ROOT.resolve("lang")).collect(Collectors.toList())) {
 				String name = path.getFileName().toString();
@@ -110,7 +108,7 @@ public class GWWHIT implements ModInitializer {
 
 	private void registerLootTables() {
 		LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
-			if (ModConfig.getLoadedConfig().gameplay.drops.dreamLuck) {
+			if (ConfigLoader.getLoadedConfig().gameplay.drops.dreamLuck) {
 				if (LE_BLAZE_LOOT.equals(id)) {
 					supplier.withPool(POOL_BUILDER.build());
 				} else if (LE_BARTER_LOOT.equals(id)) {
@@ -123,7 +121,7 @@ public class GWWHIT implements ModInitializer {
 	private void registerEvents() {
 		PlayerBlockBreakEvents.AFTER.register(
 				(world, player, pos, state, blockEntity) -> {
-					if ( ModConfig.getLoadedConfig().gameplay.stoneBlocksAreInfected) {
+					if ( ConfigLoader.getLoadedConfig().gameplay.stoneBlocksAreInfected) {
 						// AUTHOR: ENDERZOMBI102
 						if ( state.getMaterial() == Material.STONE ) {
 							SilverfishEntity silverfishEntity = EntityType.SILVERFISH.create(world);

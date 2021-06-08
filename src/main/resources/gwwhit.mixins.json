@@ -13,8 +13,7 @@
     "LivingEntityMixin",
     "LootManagerMixin",
     "NoiseChunkGeneratorMixin",
-    "PlayerManagerMixin",
-    "TitleScreenMixin"
+    "PlayerManagerMixin"
   ],
   "client": [
     "ChatHudMixin",
@@ -29,7 +28,8 @@
     "MixinFrustum",
     "PlayerEntityModelMixin",
     "ReloadableResourceManagerImplMixin",
-    "SoundSystemMixin"
+    "SoundSystemMixin",
+    "TitleScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

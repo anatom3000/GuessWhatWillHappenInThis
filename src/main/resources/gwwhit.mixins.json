@@ -5,17 +5,18 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "ChatMessageC2SPacketMixin",
+    "ChunkGeneratorMixin",
+    "ChunkGeneratorSettingsMixin",
+    "DimensionTypeMixin",
     "FixedYOffsetMixin",
     "LivingEntityAccessor",
     "LivingEntityMixin",
-    "PlayerManagerMixin",
-    "TitleScreenMixin",
-    "ChunkGeneratorMixin",
+    "LootManagerMixin",
     "NoiseChunkGeneratorMixin",
-    "ChunkGeneratorSettingsMixin"
+    "PlayerManagerMixin",
+    "TitleScreenMixin"
   ],
   "client": [
-    "ReloadableResourceManagerImplMixin",
     "ChatHudMixin",
     "ChatScreenMixin",
     "ClientWorldMixin",
@@ -27,6 +28,7 @@
     "MatrixStackMixin",
     "MixinFrustum",
     "PlayerEntityModelMixin",
+    "ReloadableResourceManagerImplMixin",
     "SoundSystemMixin"
   ],
   "injectors": {

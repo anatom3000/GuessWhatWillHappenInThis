@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Config(name = GWWHIT.MOD_ID)
-public final class ModConfig implements ConfigData {
+public class ModConfig implements ConfigData {
     @Gui.Excluded
     private static ModConfig CURRENT_CONFIG = null;
     
@@ -68,53 +68,53 @@ public final class ModConfig implements ConfigData {
     
     //Config options
     @Gui.CollapsibleObject
-    public final Content content = new Content();
+    public Content content = new Content();
     @Gui.CollapsibleObject
-    public final Gameplay gameplay = new Gameplay();
+    public Gameplay gameplay = new Gameplay();
     @Gui.CollapsibleObject
-    public final Cosmetic cosmetic = new Cosmetic();
+    public Cosmetic cosmetic = new Cosmetic();
     
     //Option classes
     
-    public static final class Content {
+    public static class Content {
         @Gui.CollapsibleObject
-        public final Blocks blocks = new Blocks();
+        public Blocks blocks = new Blocks();
         @Gui.CollapsibleObject
-        public final MoreOres moreOres = new MoreOres();
+        public MoreOres moreOres = new MoreOres();
         
-        public static final class Blocks {
+        public static class Blocks {
             @Gui.CollapsibleObject
-            public final RandomisingBlock randomisingBlock = new RandomisingBlock();
+            public RandomisingBlock randomisingBlock = new RandomisingBlock();
             @Gui.CollapsibleObject
-            public final InfectedMassBlock infectedMassBlock = new InfectedMassBlock();
+            public InfectedMassBlock infectedMassBlock = new InfectedMassBlock();
         
-            public static final class RandomisingBlock {
-                public final int ticksBetweenPlacements = 20;
-                public final int totalPlacements = 64;
-                public final boolean scrambleBlockState = false;
+            public static class RandomisingBlock {
+                public int ticksBetweenPlacements = 20;
+                public int totalPlacements = 64;
+                public boolean scrambleBlockState = false;
                 @Gui.Tooltip
-                public final boolean deWaterlog = true;
+                public boolean deWaterlog = true;
                 @Gui.Tooltip
-                public final List<String> blockBlacklist = Lists.newArrayList("minecraft:air", "minecraft:cave_air", "minecraft:void_air", "gwwhit:infected_mass", "gwwhit:randomising_block");
+                public List<String> blockBlacklist = Lists.newArrayList("minecraft:air", "minecraft:cave_air", "minecraft:void_air", "gwwhit:infected_mass", "gwwhit:randomising_block");
             }
     
-            public static final class InfectedMassBlock {
-                public final int ticksBetweenSpread = 20;
+            public static class InfectedMassBlock {
+                public int ticksBetweenSpread = 20;
                 @Gui.Tooltip
-                public final float globalSpreadChance = 75f;
+                public float globalSpreadChance = 75f;
                 @Gui.Tooltip
-                public final float directionalSpreadChance = 20f;
+                public float directionalSpreadChance = 20f;
                 @Gui.Tooltip
-                public final List<String> spreadBlacklist = Lists.newArrayList("minecraft:air", "minecraft:cave_air", "minecraft:void_air", "gwwhit:infected_mass", "gwwhit:inert_infected_mass");
+                public List<String> spreadBlacklist = Lists.newArrayList("minecraft:air", "minecraft:cave_air", "minecraft:void_air", "gwwhit:infected_mass", "gwwhit:inert_infected_mass");
             }
         }
     
         public static class MoreOres {
             @Gui.RequiresRestart
-            public final boolean generateInWorld = false;
+            public boolean generateInWorld = false;
             @Gui.RequiresRestart
             @Gui.EnumHandler(option = Gui.EnumHandler.EnumDisplayOption.BUTTON)
-            public final Tab tab = Tab.NONE;
+            public Tab tab = Tab.NONE;
         
             @SuppressWarnings("unused")
             public enum Tab {
@@ -125,37 +125,37 @@ public final class ModConfig implements ConfigData {
         }
     }
     
-    public static final class Gameplay {
+    public static class Gameplay {
         @Gui.CollapsibleObject
-        public final Drops drops = new Drops();
+        public Drops drops = new Drops();
         
-        public final boolean stoneBlocksAreInfected = false;
+        public boolean stoneBlocksAreInfected = false;
         @Gui.Tooltip
-        public final boolean killCulling = false;
+        public boolean killCulling = false;
         
-        public static final class Drops {
-            //public boolean randomizedDrops = false; //crashes
+        public static class Drops {
+            public boolean randomizedDrops = false;
             @Gui.Tooltip(count = 2)
-            public final boolean dreamLuck = false;
+            public boolean dreamLuck = false;
         }
     }
     
-    public static final class Cosmetic {
+    public static class Cosmetic {
         @Gui.CollapsibleObject
-        public final Rendering rendering = new Rendering();
+        public Rendering rendering = new Rendering();
         @Gui.CollapsibleObject
-        public final Audio audio = new Audio();
+        public Audio audio = new Audio();
         @Gui.Tooltip
-        public final boolean owoifyer = false;
+        public boolean owoifyer = false;
         
-        public static final class Rendering {
+        public static class Rendering {
             @Gui.CollapsibleObject
-            public final World world = new World();
+            public World world = new World();
             @Gui.CollapsibleObject
-            public final Entities entities = new Entities();
-            public final boolean unregisteredVersion = false;
+            public Entities entities = new Entities();
+            public boolean unregisteredVersion = false;
             @Gui.EnumHandler(option = Gui.EnumHandler.EnumDisplayOption.BUTTON)
-            public final Shaders shader = Shaders.NONE;
+            public Shaders shader = Shaders.NONE;
     
             @SuppressWarnings("unused")
             public enum Shaders {
@@ -182,34 +182,34 @@ public final class ModConfig implements ConfigData {
     
             public static class World {
                 @Gui.Tooltip
-                public final boolean smallBlocks = false;
+                public boolean smallBlocks = false;
                 @Gui.Tooltip
-                public final boolean spin = false;
+                public boolean spin = false;
                 @Gui.Tooltip
-                public final float matrixScale = 1;
+                public float matrixScale = 1;
             }
         
             public static class Entities {
                 @Gui.Tooltip
-                public final boolean deadmauEars = false;
+                public boolean deadmauEars = false;
                 @Gui.Tooltip
-                public final boolean dinnerboneEntities = false;
+                public boolean dinnerboneEntities = false;
             }
         }
         
-        public static final class Audio {
+        public static class Audio {
             @Gui.Tooltip( count = 2 )
-            public final boolean mojaaaangStartupSound = false;
+            public boolean mojaaaangStartupSound = false;
             @Gui.Tooltip
-            public final boolean blyatSounds = false;
+            public boolean blyatSounds = false;
             @Gui.Tooltip
             @Gui.CollapsibleObject
-            public final WhatsAppWhistle whatsAppWhistle = new WhatsAppWhistle();
+            public WhatsAppWhistle whatsAppWhistle = new WhatsAppWhistle();
     
             public static class WhatsAppWhistle {
                 @Gui.Tooltip
-                public final boolean enabled = false;
-                public final float volume = 1f;
+                public boolean enabled = false;
+                public float volume = 1f;
             }
         }
     }

@@ -397,13 +397,13 @@ public class CustomOre {
                 rnd);
         TextureBuilder.generateMaterial(c, GWWHIT.getId("item/" + getItemId()), type, rnd);
         if (hasSword) {
-            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_sword"), "sword");
+            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_sword"), TextureBuilder.ToolType.SWORD, rnd);
         }
         if (hasTools) {
-            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_axe"), "axe");
-            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_pickaxe"), "pickaxe");
-            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_shovel"), "shovel");
-            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_hoe"), "hoe");
+            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_axe"), TextureBuilder.ToolType.AXE, rnd);
+            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_pickaxe"), TextureBuilder.ToolType.PICKAXE, rnd);
+            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_shovel"), TextureBuilder.ToolType.SHOVEL, rnd);
+            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_hoe"), TextureBuilder.ToolType.HOE, rnd);
         }
         if (hasArmor) {
             TextureBuilder.generateArmor(c, name.toLowerCase(), rnd);

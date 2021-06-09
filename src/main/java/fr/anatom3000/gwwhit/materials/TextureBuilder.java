@@ -13,8 +13,10 @@ import java.nio.file.Path;
 import java.util.Random;
 
 public class TextureBuilder {
-    //TODO generate tools/sword
-
+    public enum ToolType {
+        SWORD, SHOVEL, AXE, PICKAXE, HOE
+    }
+    
     public static void generateOre(int color, Identifier id, String baseBlock, Random rng) {
         try {
             retextureMerge(id,
@@ -62,10 +64,16 @@ public class TextureBuilder {
         }
     }
     
-    public static void generateTool(int color, Identifier id, String type) {
+    public static void generateTool(int color, Identifier id, ToolType type, Random rng) {
         try {
-            String n = "shovel".equals(type) ? "tool_base_shovel" : "tool_base";
-            retextureMerge(id, GWWHIT.ASSETS_ROOT.resolve("textures/item/" + n + ".png"), "textures/item/tool_" + type, color);
+            String n = type == ToolType.SHOVEL ? "tool_base_shovel" : "tool_base";
+            retextureMerge(id, GWWHIT.ASSETS_ROOT.resolve("textures/item/" + n + ".png"), "textures/item/tool_" + type.name().toLowerCase() + (rng.nextInt(switch (type) {
+                case SWORD -> 1;
+                case SHOVEL -> 1;
+                case AXE -> 1;
+                case PICKAXE -> 1;
+                case HOE -> 1;
+            }) + 1), color);
         } catch (IOException e) {
             e.printStackTrace();
         }

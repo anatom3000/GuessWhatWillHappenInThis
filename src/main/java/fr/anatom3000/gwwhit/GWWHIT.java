@@ -64,7 +64,7 @@ public class GWWHIT implements ModInitializer {
 
 	public static final Identifier CONFIG_SYNC_ID = getId("config_sync");
 
-	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create(MOD_ID + ":data");
+	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create(MOD_ID);
 	
 	public static final Map<String, Map<String, String>> TRANSLATIONS = new HashMap<>();
 

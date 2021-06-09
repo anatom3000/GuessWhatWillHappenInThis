@@ -68,7 +68,7 @@ public class CustomOre {
         END
     }
 
-    private enum ArmorType {
+    public enum ArmorType {
         HELMET,
         CHESTPLATE,
         LEGGINGS,
@@ -359,15 +359,15 @@ public class CustomOre {
         GWWHIT.RESOURCE_PACK.addBlockState(JState.state(JState.variant(JState.model(oreBlockId.toString()))), oreId);
 
         GWWHIT.RESOURCE_PACK.addModel(JModel.model().parent(blockBlockId.toString()),
-                new Identifier(MOD_ID, String.format("item/%s_block", name.toLowerCase())));
+                GWWHIT.getId(String.format("item/%s_block", name.toLowerCase())));
         GWWHIT.RESOURCE_PACK.addModel(JModel.model().parent(oreBlockId.toString()),
-                new Identifier(MOD_ID, String.format("item/%s_ore", name.toLowerCase())));
+                GWWHIT.getId(String.format("item/%s_ore", name.toLowerCase())));
         
         if (hasArmor) {
-            generateBasicItemModel("_helmet");
-            generateBasicItemModel("_chestplate");
-            generateBasicItemModel("_leggings");
-            generateBasicItemModel("_boots");
+            generateBasicItemModel("helmet");
+            generateBasicItemModel("chestplate");
+            generateBasicItemModel("leggings");
+            generateBasicItemModel("boots");
         }
 
         if (hasTools) {
@@ -380,29 +380,50 @@ public class CustomOre {
         if (hasSword) {
             generateToolModel("sword");
         }
-    
-        switch (type) {
-            case GEM -> generateBasicItemModel("");
-            case DUST -> generateBasicItemModel("_dust");
-            case INGOT -> generateBasicItemModel("_ingot");
+
+        generateBasicItemModel(type.name().toLowerCase());
+
+        int c = color.getSignColor();
+        TextureBuilder.generateOre(c,
+                GWWHIT.getId(String.format("block/%s_ore", name.toLowerCase())),
+                switch (dimension) {
+                    case OVERWORLD -> "stone";
+                    case NETHER -> "netherrack";
+                    case END -> "end_stone";
+                },
+                rnd);
+        TextureBuilder.generateOreBlock(c,
+                GWWHIT.getId(String.format("block/%s_block", name.toLowerCase())),
+                rnd);
+        TextureBuilder.generateMaterial(c, GWWHIT.getId("item/" + getItemId()), type, rnd);
+        if (hasSword) {
+            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_sword"), "sword");
+        }
+        if (hasTools) {
+            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_axe"), "axe");
+            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_pickaxe"), "pickaxe");
+            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_shovel"), "shovel");
+            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_hoe"), "hoe");
+        }
+        if (hasArmor) {
+            TextureBuilder.generateArmor(c, name.toLowerCase(), rnd);
         }
     }
 
     private void generateToolModel(String type) {
         GWWHIT.RESOURCE_PACK.addModel(JModel.model().parent("minecraft:item/handheld")
                         .textures(JModel.textures().layer0(String.format("gwwhit:item/%s_%s", name.toLowerCase(), type))),
-                new Identifier(MOD_ID, String.format("item/%s_%s", name.toLowerCase(), type)));
+                GWWHIT.getId(String.format("item/%s_%s", name.toLowerCase(), type)));
     }
 
     private void generateBasicItemModel(String type) {
         GWWHIT.RESOURCE_PACK.addModel(JModel.model().parent("minecraft:item/generated")
-                        .textures(JModel.textures().layer0(String.format("gwwhit:item/%s%s", name.toLowerCase(), type))),
-                new Identifier(MOD_ID, String.format("item/%s%s", name.toLowerCase(), type)));
+                        .textures(JModel.textures().layer0(String.format("gwwhit:item/%s_%s", name.toLowerCase(), type))),
+                GWWHIT.getId(String.format("item/%s_%s", name.toLowerCase(), type)));
     }
 
     private String getItemId() {
-        if (type == Type.GEM) return name.toLowerCase();
-        else return String.format("%s_%s", name.toLowerCase(), type.toString().toLowerCase());
+        return String.format("%s_%s", name.toLowerCase(), type.toString().toLowerCase());
     }
 
     private ArmorMaterial getArmorMaterial() {

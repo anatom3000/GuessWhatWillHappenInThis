@@ -1,6 +1,6 @@
 package fr.anatom3000.gwwhit.block.entity;
 
-import fr.anatom3000.gwwhit.config.ModConfig;
+import fr.anatom3000.gwwhit.config.ConfigLoader;
 import fr.anatom3000.gwwhit.registry.BlockEntityRegistry;
 import fr.anatom3000.gwwhit.registry.BlockRegistry;
 import fr.anatom3000.gwwhit.util.MathUtil;
@@ -26,11 +26,11 @@ public class InfectedMassBlockEntity extends BlockEntity {
             if (((ServerWorld) world).getServer().getTicks() == removeTick + 1)
                 world.breakBlock(pos, false);
 
-            be.timer = (be.timer + 1) % ModConfig.getLoadedConfig().content.blocks.infectedMassBlock.ticksBetweenSpread;
+            be.timer = (be.timer + 1) % ConfigLoader.getLoadedConfig().content.blocks.infectedMassBlock.ticksBetweenSpread;
             if (be.timer != 0) {
                 return;
             }
-            if (MathUtil.getChance(ModConfig.getLoadedConfig().content.blocks.infectedMassBlock.globalSpreadChance)) {
+            if (MathUtil.getChance(ConfigLoader.getLoadedConfig().content.blocks.infectedMassBlock.globalSpreadChance)) {
                 return;
             }
             int completed = 0;
@@ -52,9 +52,9 @@ public class InfectedMassBlockEntity extends BlockEntity {
     private int getCompleted(BlockPos newPos, int completed) {
         BlockState state;
         state = world.getBlockState(newPos);
-        if (ModConfig.getLoadedConfig().content.blocks.infectedMassBlock.spreadBlacklist.contains(Registry.BLOCK.getId(state.getBlock()).toString())) {
+        if (ConfigLoader.getLoadedConfig().content.blocks.infectedMassBlock.spreadBlacklist.contains(Registry.BLOCK.getId(state.getBlock()).toString())) {
             return completed + 1;
-        } else if (MathUtil.getChance(ModConfig.getLoadedConfig().content.blocks.infectedMassBlock.directionalSpreadChance)) {
+        } else if (MathUtil.getChance(ConfigLoader.getLoadedConfig().content.blocks.infectedMassBlock.directionalSpreadChance)) {
             world.setBlockState(newPos, this.getCachedState());
         }
         return completed;

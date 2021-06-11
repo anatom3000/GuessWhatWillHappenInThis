@@ -9,8 +9,9 @@ import java.util.Map;
 import java.util.Random;
 
 import fr.anatom3000.gwwhit.GWWHIT;
-import fr.anatom3000.gwwhit.imixin.IFixedYOffset;
 import fr.anatom3000.gwwhit.config.ModConfig;
+import fr.anatom3000.gwwhit.imixin.IFixedYOffset;
+import fr.anatom3000.gwwhit.config.ConfigLoader;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
 import net.devtech.arrp.json.blockstate.JState;
 import net.devtech.arrp.json.lang.JLang;
@@ -67,7 +68,7 @@ public class CustomOre {
         END
     }
 
-    private enum ArmorType {
+    public enum ArmorType {
         HELMET,
         CHESTPLATE,
         LEGGINGS,
@@ -123,7 +124,7 @@ public class CustomOre {
     }
 
     public void onInitialize(NewMaterials.OreInitParam param) {
-        if (itemGroup == null && ModConfig.getLoadedConfig().content.moreOres.tab == ModConfig.Content.MoreOres.Tab.SEPARATE) itemGroup = FabricItemGroupBuilder.create(GWWHIT.getId("more_ores")).icon(() -> new ItemStack(block)).build();
+        if (itemGroup == null && ConfigLoader.getLoadedConfig().content.moreOres.tab == ModConfig.Content.MoreOres.Tab.SEPARATE) itemGroup = FabricItemGroupBuilder.create(GWWHIT.getId("more_ores")).icon(() -> new ItemStack(block)).build();
         Registry.register(Registry.ITEM, materialId, material);
         if (rnd.nextDouble()<0.3D) FuelRegistry.INSTANCE.add(material, rnd.nextInt(1000));
         createTranslations(type.name(), material.getTranslationKey(), param.lang);
@@ -134,7 +135,7 @@ public class CustomOre {
         createTranslations("block", block.getTranslationKey(), param.lang);
         createTranslations("ore", ore.getTranslationKey(), param.lang);
         RegistryKey<ConfiguredFeature<?, ?>> ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, oreId);
-        if (ModConfig.getLoadedConfig().content.moreOres.generateInWorld) BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, ore);
+        if (ConfigLoader.getLoadedConfig().content.moreOres.generateInWorld) BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, ore);
         if (hasArmor) {
             ArmorMaterial material = getArmorMaterial();
             
@@ -358,15 +359,15 @@ public class CustomOre {
         GWWHIT.RESOURCE_PACK.addBlockState(JState.state(JState.variant(JState.model(oreBlockId.toString()))), oreId);
 
         GWWHIT.RESOURCE_PACK.addModel(JModel.model().parent(blockBlockId.toString()),
-                new Identifier(MOD_ID, String.format("item/%s_block", name.toLowerCase())));
+                GWWHIT.getId(String.format("item/%s_block", name.toLowerCase())));
         GWWHIT.RESOURCE_PACK.addModel(JModel.model().parent(oreBlockId.toString()),
-                new Identifier(MOD_ID, String.format("item/%s_ore", name.toLowerCase())));
+                GWWHIT.getId(String.format("item/%s_ore", name.toLowerCase())));
         
         if (hasArmor) {
-            generateBasicItemModel("_helmet");
-            generateBasicItemModel("_chestplate");
-            generateBasicItemModel("_leggings");
-            generateBasicItemModel("_boots");
+            generateBasicItemModel("helmet");
+            generateBasicItemModel("chestplate");
+            generateBasicItemModel("leggings");
+            generateBasicItemModel("boots");
         }
 
         if (hasTools) {
@@ -379,29 +380,50 @@ public class CustomOre {
         if (hasSword) {
             generateToolModel("sword");
         }
-    
-        switch (type) {
-            case GEM -> generateBasicItemModel("");
-            case DUST -> generateBasicItemModel("_dust");
-            case INGOT -> generateBasicItemModel("_ingot");
+
+        generateBasicItemModel(type.name().toLowerCase());
+
+        int c = color.getSignColor();
+        TextureBuilder.generateOre(c,
+                GWWHIT.getId(String.format("block/%s_ore", name.toLowerCase())),
+                switch (dimension) {
+                    case OVERWORLD -> "stone";
+                    case NETHER -> "netherrack";
+                    case END -> "end_stone";
+                },
+                rnd);
+        TextureBuilder.generateOreBlock(c,
+                GWWHIT.getId(String.format("block/%s_block", name.toLowerCase())),
+                rnd);
+        TextureBuilder.generateMaterial(c, GWWHIT.getId("item/" + getItemId()), type, rnd);
+        if (hasSword) {
+            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_sword"), TextureBuilder.ToolType.SWORD, rnd);
+        }
+        if (hasTools) {
+            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_axe"), TextureBuilder.ToolType.AXE, rnd);
+            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_pickaxe"), TextureBuilder.ToolType.PICKAXE, rnd);
+            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_shovel"), TextureBuilder.ToolType.SHOVEL, rnd);
+            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_hoe"), TextureBuilder.ToolType.HOE, rnd);
+        }
+        if (hasArmor) {
+            TextureBuilder.generateArmor(c, name.toLowerCase(), rnd);
         }
     }
 
     private void generateToolModel(String type) {
         GWWHIT.RESOURCE_PACK.addModel(JModel.model().parent("minecraft:item/handheld")
                         .textures(JModel.textures().layer0(String.format("gwwhit:item/%s_%s", name.toLowerCase(), type))),
-                new Identifier(MOD_ID, String.format("item/%s_%s", name.toLowerCase(), type)));
+                GWWHIT.getId(String.format("item/%s_%s", name.toLowerCase(), type)));
     }
 
     private void generateBasicItemModel(String type) {
         GWWHIT.RESOURCE_PACK.addModel(JModel.model().parent("minecraft:item/generated")
-                        .textures(JModel.textures().layer0(String.format("gwwhit:item/%s%s", name.toLowerCase(), type))),
-                new Identifier(MOD_ID, String.format("item/%s%s", name.toLowerCase(), type)));
+                        .textures(JModel.textures().layer0(String.format("gwwhit:item/%s_%s", name.toLowerCase(), type))),
+                GWWHIT.getId(String.format("item/%s_%s", name.toLowerCase(), type)));
     }
 
     private String getItemId() {
-        if (type == Type.GEM) return name.toLowerCase();
-        else return String.format("%s_%s", name.toLowerCase(), type.toString().toLowerCase());
+        return String.format("%s_%s", name.toLowerCase(), type.toString().toLowerCase());
     }
 
     private ArmorMaterial getArmorMaterial() {
@@ -443,7 +465,7 @@ public class CustomOre {
     
     private FabricItemSettings createItemSettings() {
         FabricItemSettings settings = new FabricItemSettings();
-        switch (ModConfig.getLoadedConfig().content.moreOres.tab) {
+        switch (ConfigLoader.getLoadedConfig().content.moreOres.tab) {
             case MAIN -> settings.group(CustomItemGroups.GWWHIT_GROUP);
             case SEPARATE -> settings.group(itemGroup);
         }

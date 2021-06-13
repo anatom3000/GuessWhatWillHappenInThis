@@ -40,6 +40,8 @@ dependencies {
 
 	include modImplementation("net.devtech:arrp:${project.arrp_version}")
 	modRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+
+	implementation "org.python:jython:$jython_version"
 }
 
 processResources {

@@ -1,6 +1,6 @@
 package fr.anatom3000.gwwhit.mixin;
 
-import fr.anatom3000.gwwhit.config.ConfigLoader;
+import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.imixin.IDimensionType;
 import net.minecraft.world.dimension.DimensionType;
 import org.spongepowered.asm.mixin.Final;
@@ -19,7 +19,7 @@ public class DimensionTypeMixin implements IDimensionType {
 
     @Inject(at = @At("TAIL"), method = "<clinit>")
     private static void tweakOverworld(CallbackInfo ci) {
-        if (ConfigLoader.getLoadedConfig().content.increaseWorldHeight) {
+        if (ConfigManager.getLoadedConfig().content.increaseWorldHeight) {
             ((IDimensionType)OVERWORLD).gwwhit$adjustMinimumY(-256);
         }
     }

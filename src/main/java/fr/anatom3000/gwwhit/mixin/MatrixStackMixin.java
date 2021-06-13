@@ -1,6 +1,6 @@
 package fr.anatom3000.gwwhit.mixin;
 
-import fr.anatom3000.gwwhit.config.ConfigLoader;
+import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.util.MathUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
@@ -19,16 +19,16 @@ public abstract class MatrixStackMixin {
 
     @Inject(method = "translate(DDD)V", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
     public void translate(double x, double y, double z, CallbackInfo ci, MatrixStack.Entry entry) {
-        if (ConfigLoader.getLoadedConfig().cosmetic.rendering.world.smallBlocks) {
+        if (ConfigManager.getLoadedConfig().cosmetic.rendering.world.smallBlocks) {
             entry.getModel().multiply(Matrix4f.translate(iv(x), iv(y), iv(z)));
         }
-        if (ConfigLoader.getLoadedConfig().cosmetic.rendering.world.spin) {
+        if (ConfigManager.getLoadedConfig().cosmetic.rendering.world.spin) {
             increment = (increment + MinecraftClient.getInstance().getTickDelta() * 0.00001f) % 360;
             entry.getModel().multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(increment));
             entry.getModel().multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(increment));
             entry.getModel().multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(increment));
         }
-        entry.getModel().multiply(ConfigLoader.getLoadedConfig().cosmetic.rendering.world.matrixScale);
+        entry.getModel().multiply(ConfigManager.getLoadedConfig().cosmetic.rendering.world.matrixScale);
     }
     
     private static float iv(double v) {

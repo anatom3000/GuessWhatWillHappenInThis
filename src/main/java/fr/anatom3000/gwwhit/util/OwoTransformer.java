@@ -1,7 +1,7 @@
 package fr.anatom3000.gwwhit.util;
 
 import fr.anatom3000.gwwhit.GWWHIT;
-import fr.anatom3000.gwwhit.config.ConfigLoader;
+import fr.anatom3000.gwwhit.config.ConfigManager;
 
 import java.util.function.UnaryOperator;
 
@@ -63,7 +63,7 @@ public class OwoTransformer implements UnaryOperator<String> {
 
     @Override
     public String apply(String str) {
-        if (!ConfigLoader.getLoadedConfig().cosmetic.owoifyer || str == null) {
+        if (!ConfigManager.getLoadedConfig().cosmetic.owoifyer || str == null) {
             return str;
         }
         String result = "";

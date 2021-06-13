@@ -1,7 +1,7 @@
 package fr.anatom3000.gwwhit.mixin;
 
 import fr.anatom3000.gwwhit.GWWHIT;
-import fr.anatom3000.gwwhit.config.ConfigLoader;
+import fr.anatom3000.gwwhit.config.ConfigManager;
 import net.minecraft.loot.LootManager;
 import net.minecraft.loot.LootTable;
 import net.minecraft.util.Identifier;
@@ -19,7 +19,7 @@ public class LootManagerMixin {
 
     @Inject(at = @At("HEAD"), method = "getTable(Lnet/minecraft/util/Identifier;)Lnet/minecraft/loot/LootTable;", cancellable = true)
     private void randomizeTable(Identifier id, CallbackInfoReturnable<LootTable> cir) {
-        if (ConfigLoader.getLoadedConfig().gameplay.drops.randomizedDrops && tables.containsKey(id)) {
+        if (ConfigManager.getLoadedConfig().gameplay.drops.randomizedDrops && tables.containsKey(id)) {
             cir.setReturnValue(tables.get(GWWHIT.TABLE_RANDOMIZER.apply(id, tables)));
         }
     }

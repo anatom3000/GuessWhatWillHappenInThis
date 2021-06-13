@@ -1,6 +1,6 @@
 package fr.anatom3000.gwwhit.block.entity;
 
-import fr.anatom3000.gwwhit.config.ConfigLoader;
+import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.registry.BlockEntityRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -22,8 +22,8 @@ public class RandomisingBlockEntity extends BlockEntity {
     private static final Random RANDOM = new Random();
     public static int removeTick = -1;
     
-    private int usesRemaining = ConfigLoader.getLoadedConfig().content.blocks.randomisingBlock.totalPlacements;
-    private int cooldown = ConfigLoader.getLoadedConfig().content.blocks.randomisingBlock.ticksBetweenPlacements;
+    private int usesRemaining = ConfigManager.getLoadedConfig().content.blocks.randomisingBlock.totalPlacements;
+    private int cooldown = ConfigManager.getLoadedConfig().content.blocks.randomisingBlock.ticksBetweenPlacements;
     private BlockPos.Mutable placePos = new BlockPos.Mutable();
     
     public RandomisingBlockEntity(BlockPos pos, BlockState state) {
@@ -62,7 +62,7 @@ public class RandomisingBlockEntity extends BlockEntity {
             --be.cooldown;
             if (be.cooldown <= 0) {
                 --be.usesRemaining;
-                be.cooldown = ConfigLoader.getLoadedConfig().content.blocks.randomisingBlock.ticksBetweenPlacements;
+                be.cooldown = ConfigManager.getLoadedConfig().content.blocks.randomisingBlock.ticksBetweenPlacements;
                 be.placePos.move(Direction.random(RANDOM));
                 if (be.placePos.equals(BlockPos.ORIGIN)) be.placePos.move(Direction.random(RANDOM));
 
@@ -75,20 +75,20 @@ public class RandomisingBlockEntity extends BlockEntity {
     }
     
     private BlockState getRandomState() {
-        List<String> blacklist = ConfigLoader.getLoadedConfig().content.blocks.randomisingBlock.blockBlacklist;
+        List<String> blacklist = ConfigManager.getLoadedConfig().content.blocks.randomisingBlock.blockBlacklist;
         List<Block> blocks = Registry.BLOCK.getIds().stream().filter(id -> !blacklist.contains(id.toString())).map(Registry.BLOCK::get).collect(Collectors.toList());
         
         BlockState state = blocks.get(RANDOM.nextInt(blocks.size())).getDefaultState();
         
         //scramble state
-        if (ConfigLoader.getLoadedConfig().content.blocks.randomisingBlock.scrambleBlockState) {
+        if (ConfigManager.getLoadedConfig().content.blocks.randomisingBlock.scrambleBlockState) {
             for (Property<?> property : state.getProperties()) {
                 state = scrambleProperty(property, state);
             }
         }
         
         //remove water-logging
-        if (ConfigLoader.getLoadedConfig().content.blocks.randomisingBlock.deWaterlog && state.contains(Properties.WATERLOGGED))
+        if (ConfigManager.getLoadedConfig().content.blocks.randomisingBlock.deWaterlog && state.contains(Properties.WATERLOGGED))
             state = state.with(Properties.WATERLOGGED, false);
         
         return state;

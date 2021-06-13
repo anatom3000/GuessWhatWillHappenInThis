@@ -3,10 +3,7 @@ package fr.anatom3000.gwwhit;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import fr.anatom3000.gwwhit.config.*;
-import fr.anatom3000.gwwhit.registry.BlockEntityRegistry;
-import fr.anatom3000.gwwhit.registry.BlockRegistry;
-import fr.anatom3000.gwwhit.registry.ItemRegistry;
-import fr.anatom3000.gwwhit.registry.NewMaterials;
+import fr.anatom3000.gwwhit.registry.*;
 import fr.anatom3000.gwwhit.util.TableRandomizer;
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
@@ -44,39 +41,47 @@ import java.util.stream.Collectors;
 
 
 public class GWWHIT implements ModInitializer {
-	//We use a custom ExclusionStrategy to make sure we don't serialize things that break
-	public static final Gson GSON = new GsonBuilder().setExclusionStrategies(new AnnotationExclusionStrategy()).create();
-
+	//Pure constants
 	public static final String MOD_ID = "gwwhit";
-
+	
+	//Instances of configurable utils
+	public static final Gson GSON = new GsonBuilder().setExclusionStrategies(new AnnotationExclusionStrategy()).create();
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 	public static final Random RANDOM = new Random();
-	@SuppressWarnings("OptionalGetWithoutIsPresent") //It has to exist exists
-	public static final Path ASSETS_ROOT = FabricLoader.getInstance().getModContainer(MOD_ID).get().getPath("assets/gwwhit");
-	
-    public static Identifier getId(String path) {
-		return new Identifier(MOD_ID, path);
-	}
-
-	private static final Identifier LE_BLAZE_LOOT = new Identifier("minecraft", "entities/blaze");
-	private static final Identifier LE_BARTER_LOOT = new Identifier("minecraft", "gameplay/piglin_bartering");
-	private static final Identifier LE_NEW_BARTER_LOOT = getId("gameplay/new_piglin_barter");
-
-	public static final Identifier CONFIG_SYNC_ID = getId("config_sync");
-
+	public static final TableRandomizer TABLE_RANDOMIZER = new TableRandomizer(RANDOM);
 	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create(MOD_ID);
 	
+	//Locations / Ids
+	@SuppressWarnings("OptionalGetWithoutIsPresent") //It has to exist exists
+	public static final Path ASSETS_ROOT = FabricLoader.getInstance().getModContainer(MOD_ID).get().getPath("assets/gwwhit");
+	public static final Identifier CONFIG_SYNC_ID = getId("config_sync");
+	
+	//Caches
 	public static final Map<String, Map<String, String>> TRANSLATIONS = new HashMap<>();
-
-	public static final TableRandomizer TABLE_RANDOMIZER = new TableRandomizer(RANDOM);
-
-	private static final FabricLootPoolBuilder POOL_BUILDER = FabricLootPoolBuilder.builder()
-			.rolls(UniformLootNumberProvider.create(0, 1))
-			.with(ItemEntry.builder(Items.BLAZE_ROD))
-			.withCondition(RandomChanceLootCondition.builder(0.38f).build());
-
+	
+	
+	public static Identifier getId(String path) {
+		return new Identifier(MOD_ID, path);
+	}
+	
 	@Override
 	public void onInitialize() {
+		cacheTranslations();
+		ItemRegistry.register();
+		BlockRegistry.register();
+		BlockEntityRegistry.register();
+		Commands.register();
+		NewMaterials.INSTANCE.onInitialize();
+		EventListeners.register();
+		LOGGER.info("[GWWHIT] You shouldn't have done this.");
+	}
+	
+	@SuppressWarnings("unchecked") //Stupid IntelliJ
+	private <T> T deserialize(Reader r, T current) {
+		return GSON.fromJson(r, (Class<T>)current.getClass());
+	}
+	
+	private void cacheTranslations() {
 		try {
 			for (Path path : Files.list(ASSETS_ROOT.resolve("lang")).collect(Collectors.toList())) {
 				String name = path.getFileName().toString();
@@ -90,57 +95,8 @@ public class GWWHIT implements ModInitializer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		ItemRegistry.register();
-		BlockRegistry.register();
-		BlockEntityRegistry.register();
-		Commands.register();
-		NewMaterials.INSTANCE.onInitialize();
-		registerLootTables();
-		registerEvents();
-		LOGGER.info("[GWWHIT] You shouldn't have done this.");
 	}
 	
-	@SuppressWarnings("unchecked") //Stupid IntelliJ
-	private <T> T deserialize(Reader r, T current) {
-		return GSON.fromJson(r, (Class<T>)current.getClass());
-	}
-
-	private void registerLootTables() {
-		LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
-			if (ConfigLoader.getLoadedConfig().gameplay.drops.dreamLuck) {
-				if (LE_BLAZE_LOOT.equals(id)) {
-					supplier.withPool(POOL_BUILDER.build());
-				} else if (LE_BARTER_LOOT.equals(id)) {
-					setter.set(manager.getTable(LE_NEW_BARTER_LOOT));
-				}
-			}
-		});
-	}
-
-	private void registerEvents() {
-		PlayerBlockBreakEvents.AFTER.register(
-				(world, player, pos, state, blockEntity) -> {
-					if ( ConfigLoader.getLoadedConfig().gameplay.stoneBlocksAreInfected) {
-						// AUTHOR: ENDERZOMBI102
-						if ( state.getMaterial() == Material.STONE ) {
-							SilverfishEntity silverfishEntity = EntityType.SILVERFISH.create(world);
-							//noinspection ConstantConditions
-							silverfishEntity.refreshPositionAndAngles(
-									(double)pos.getX() + 0.5D,
-									pos.getY(),
-									(double)pos.getZ() + 0.5D,
-									0.0F,
-									0.0F
-							);
-							world.spawnEntity(silverfishEntity);
-							silverfishEntity.playSpawnEffects();
-						}
-					}
-				}
-		);
-		RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
-	}
 }
 
 

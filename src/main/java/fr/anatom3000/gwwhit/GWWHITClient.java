@@ -2,7 +2,7 @@ package fr.anatom3000.gwwhit;
 
 import com.google.gson.JsonSyntaxException;
 import fr.anatom3000.gwwhit.config.ModConfig;
-import fr.anatom3000.gwwhit.config.ConfigLoader;
+import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -33,8 +33,8 @@ public class GWWHITClient implements ClientModInitializer {
 
             ModConfig finalConfig = config;
             client.execute(() -> {
-                ConfigLoader.loadConfig(finalConfig);
-                ConfigLoader.setShader();
+                ConfigManager.loadConfig(finalConfig);
+                ConfigManager.setShader();
                 client.worldRenderer.reload();
             });
         });

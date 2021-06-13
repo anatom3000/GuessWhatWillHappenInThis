@@ -9,6 +9,7 @@
     "ChunkGeneratorSettingsMixin",
     "DimensionTypeMixin",
     "FixedYOffsetMixin",
+    "ItemMixin",
     "LivingEntityAccessor",
     "LivingEntityMixin",
     "LootManagerMixin",

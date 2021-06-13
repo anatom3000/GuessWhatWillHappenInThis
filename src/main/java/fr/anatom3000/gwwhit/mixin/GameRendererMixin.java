@@ -1,6 +1,6 @@
 package fr.anatom3000.gwwhit.mixin;
 
-import fr.anatom3000.gwwhit.config.ConfigLoader;
+import fr.anatom3000.gwwhit.config.ConfigManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gl.ShaderEffect;
@@ -33,7 +33,7 @@ public class GameRendererMixin {
 
 	@Inject(at = @At("TAIL"), method = "render")
 	public void render (float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
-		if (!ConfigLoader.getLoadedConfig().cosmetic.rendering.unregisteredVersion) {
+		if (!ConfigManager.getLoadedConfig().cosmetic.rendering.unregisteredVersion) {
 			return;
 		}
 		int var1 = this.client.getWindow().getScaledWidth();
@@ -54,7 +54,7 @@ public class GameRendererMixin {
 
 	@Redirect(method = "render", at = @At(value = "FIELD", target = "Lnet/minecraft/client/render/GameRenderer;shader:Lnet/minecraft/client/gl/ShaderEffect;", ordinal = 0))
 	private ShaderEffect render_Shader(GameRenderer renderer, float tickDelta) {
-		ShaderEffect shader = ConfigLoader.shader;
+		ShaderEffect shader = ConfigManager.shader;
 
 		if (shader!=null) {
 			shader.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());

@@ -1,7 +1,7 @@
 package fr.anatom3000.gwwhit.util;
 
 import fr.anatom3000.gwwhit.GWWHIT;
-import fr.anatom3000.gwwhit.config.ConfigLoader;
+import fr.anatom3000.gwwhit.config.ConfigManager;
 import net.minecraft.resource.ResourcePack;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.resource.metadata.ResourceMetadataReader;
@@ -24,7 +24,7 @@ public class WrappedPack implements ResourcePack {
 
     @Override
     public InputStream open(ResourceType type, Identifier id) throws IOException {
-        if (ConfigLoader.getLoadedConfig().cosmetic.audio.blyatSounds && id.getPath().endsWith(".ogg"))
+        if (ConfigManager.getLoadedConfig().cosmetic.audio.blyatSounds && id.getPath().endsWith(".ogg"))
             return Files.newInputStream(GWWHIT.ASSETS_ROOT.resolve("sounds/blyat.ogg"));
         return pack.open(type, id);
     }

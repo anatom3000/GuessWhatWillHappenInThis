@@ -21,6 +21,7 @@
 
   "itemGroup.gwwhit.gwwhit": "GWWHIT: Misc",
   "itemGroup.gwwhit.more_ores": "GWWHIT: Ores",
+  "itemGroup.gwwhit.cursed": "GWWHIT: Cursed Items",
 
   "text.autoconfig.gwwhit.title": "Guess What Will Happen In This Mod",
   "text.autoconfig.gwwhit.option.content": "Content",
@@ -45,6 +46,10 @@
   "text.autoconfig.gwwhit.option.gameplay.drops.dreamLuck": "Dream Luck",
   "text.autoconfig.gwwhit.option.gameplay.drops.randomizedDrops": "Randomised Drops",
   "text.autoconfig.gwwhit.option.gameplay.stoneBlocksAreInfected": "All Stone Blocks are Infested",
+  "text.autoconfig.gwwhit.option.gameplay.items": "Items",
+  "text.autoconfig.gwwhit.option.gameplay.items.everythingIsEdible": "Everything is Edible",
+  "text.autoconfig.gwwhit.option.gameplay.items.hiddenItemsTab": "Hidden Items Creative Tab",
+  "text.autoconfig.gwwhit.option.gameplay.items.maxStackSize": "Max stack size",
   "text.autoconfig.gwwhit.option.gameplay.killCulling": "Kill Culling",
   "text.autoconfig.gwwhit.option.cosmetic": "Cosmetic",
   "text.autoconfig.gwwhit.option.cosmetic.owoifyer": "Owoifyer",
@@ -75,6 +80,7 @@
   "text.autoconfig.gwwhit.option.gameplay.drops.dreamLuck.@Tooltip[0]": "Make it easier to get pearls and blaze rods.",
   "text.autoconfig.gwwhit.option.gameplay.drops.dreamLuck.@Tooltip[1]": "\"It was an accident\" -Dream",
   "text.autoconfig.gwwhit.option.gameplay.drops.randomizedDrops.@Tooltip": "All block drops are randomized.",
+  "text.autoconfig.gwwhit.option.gameplay.items.hiddenItemsTab.@Tooltip": "Moves all items without creative tab to a custom one.",
   "text.autoconfig.gwwhit.option.gameplay.killCulling.@Tooltip": "Disables frustum culling. Causes a lot of lag.",
   "text.autoconfig.gwwhit.option.cosmetic.owoifyer.@Tooltip": "Owoifys all text in the game.",
   "text.autoconfig.gwwhit.option.cosmetic.rendering.world.smallBlocks.@Tooltip": "Makes the faces of blocks smaller.",

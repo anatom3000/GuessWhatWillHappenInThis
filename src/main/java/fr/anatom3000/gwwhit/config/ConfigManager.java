@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import fr.anatom3000.gwwhit.GWWHIT;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
-import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.MinecraftClient;
@@ -16,12 +15,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 
-public class ConfigLoader {
+public class ConfigManager {
     private static ModConfig CURRENT_CONFIG = null;
     public static ShaderEffect shader = null;
     private static final Gson GSON = new GsonBuilder().setExclusionStrategies(new AnnotationExclusionStrategy()).setPrettyPrinting().create();
     
-    private ConfigLoader() {}
+    private ConfigManager() {}
     
     public static ModConfig getLoadedConfig() {
         if (CURRENT_CONFIG == null) {
@@ -52,7 +51,7 @@ public class ConfigLoader {
     //Suggestion: rename to onLoad when adding other features similar to this
     public static void setShader() {
         MinecraftClient mc = MinecraftClient.getInstance();
-        Identifier shaderID = new Identifier(String.format("shaders/post/%s.json", ConfigLoader.getLoadedConfig().cosmetic.rendering.shader.toString().toLowerCase()));
+        Identifier shaderID = new Identifier(String.format("shaders/post/%s.json", ConfigManager.getLoadedConfig().cosmetic.rendering.shader.toString().toLowerCase()));
         try {
             shader = new ShaderEffect(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), shaderID);
         } catch (IOException e) {
@@ -63,11 +62,4 @@ public class ConfigLoader {
     public static void load() {
         getHolder().load();
     }
-    
-    /*
-        Tooltip policy: If it isn't self explanatory it's needed
-    */
-    
-    //Config options
-
 }

@@ -73,11 +73,24 @@ public class ModConfig implements ConfigData {
     public static class Gameplay {
         @ConfigEntry.Gui.CollapsibleObject
         public Drops drops = new Drops();
-
+        @ConfigEntry.Gui.CollapsibleObject
+        public Items items = new Items();
         public boolean stoneBlocksAreInfected = false;
         @ConfigEntry.Gui.Tooltip
         public boolean killCulling = false;
+        
 
+        public static class Items {
+            @ConfigEntry.Gui.RequiresRestart
+            public boolean everythingIsEdible = false;
+            @ConfigEntry.Gui.Tooltip
+            @ConfigEntry.Gui.RequiresRestart
+            public boolean hiddenItemsTab = false;
+            @ConfigEntry.Gui.RequiresRestart
+            @ConfigEntry.BoundedDiscrete(min = 1, max = 64)
+            public int maxStackSize = 64;
+        }
+        
         public static class Drops {
             public boolean randomizedDrops = false;
             @ConfigEntry.Gui.Tooltip(count = 2)

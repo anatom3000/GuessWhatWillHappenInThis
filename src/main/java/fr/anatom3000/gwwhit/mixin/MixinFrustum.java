@@ -1,6 +1,6 @@
 package fr.anatom3000.gwwhit.mixin;
 
-import fr.anatom3000.gwwhit.config.ConfigLoader;
+import fr.anatom3000.gwwhit.config.ConfigManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.Frustum;
@@ -15,7 +15,7 @@ public class MixinFrustum {
 
     @Inject(method = "isVisible(DDDDDD)Z", at = @At("HEAD"), cancellable = true)
     public void isVisible(double minX, double minY, double minZ, double maxX, double maxY, double maxZ, CallbackInfoReturnable<Boolean> cir) {
-        if (ConfigLoader.getLoadedConfig().gameplay.killCulling) {
+        if (ConfigManager.getLoadedConfig().gameplay.killCulling) {
             cir.setReturnValue(true);
             cir.cancel();
         }

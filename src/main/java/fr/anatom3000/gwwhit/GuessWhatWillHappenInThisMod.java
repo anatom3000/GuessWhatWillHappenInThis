@@ -61,15 +61,19 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create(MOD_ID + ":data");
 
 	FabricLootPoolBuilder poolBuilder = FabricLootPoolBuilder.builder()
-			.rolls(UniformLootTableRange.between(0,1))
-			.with(ItemEntry.builder(Items.BLAZE_ROD))
-			.withCondition(RandomChanceLootCondition.builder(0.38f).build());
+			.rolls( UniformLootTableRange.between(0,1) )
+			.with( ItemEntry.builder(Items.BLAZE_ROD) )
+			.withCondition( RandomChanceLootCondition.builder(0.38f).build() );
 
 	@Override
 	public void onInitialize() {
-		AutoConfig.register(ModConfig.class, (definition, configClass) -> new GsonConfigSerializer<>(definition, configClass, GSON));
+		AutoConfig.register(
+				ModConfig.class,
+				(definition, configClass) -> new GsonConfigSerializer<>(definition, configClass, GSON)
+		);
 
-		
+
+		Python.load();
 		ItemRegistry.register();
 		BlockRegistry.register();
 		BlockEntityRegistry.register();
@@ -81,12 +85,12 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 	}
 
 	private void registerLootTables() {
-		LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
-			if (ModConfig.getLoadedConfig().drops.dreamLuck) {
-				if (LE_BLAZE_LOOT.equals(id)) {
-					supplier.withPool(poolBuilder.build());
-				} else if (LE_BARTER_LOOT.equals(id)) {
-					setter.set(manager.getTable(LE_NEW_BARTER_LOOT));
+		LootTableLoadingCallback.EVENT.register( (resourceManager, manager, id, supplier, setter) -> {
+			if ( ModConfig.getLoadedConfig().drops.dreamLuck ) {
+				if ( LE_BLAZE_LOOT.equals(id) ) {
+					supplier.withPool( poolBuilder.build() );
+				} else if ( LE_BARTER_LOOT.equals(id) ) {
+					setter.set( manager.getTable(LE_NEW_BARTER_LOOT) );
 				}
 			}
 		});
@@ -112,7 +116,7 @@ public class GuessWhatWillHappenInThisMod implements ModInitializer {
 					}
 				}
 		);
-		RRPCallback.AFTER_VANILLA.register(a -> a.add(RESOURCE_PACK));
+		RRPCallback.AFTER_VANILLA.register( a -> a.add(RESOURCE_PACK) );
 	}
 
 }

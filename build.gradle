@@ -11,6 +11,12 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
+	// Add repositories to retrieve artifacts from in here.
+	// You should only use this when depending on other mods because
+	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
+	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
+	// for more information about repositories.
+
 	maven {
 		url "https://maven.terraformersmc.com/releases/"
 		content {
@@ -23,30 +29,38 @@ repositories {
 		url "https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/"
 	}
 }
-//https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/
+
 dependencies {
 	// To change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	minecraft "com.mojang:minecraft:$minecraft_version"
+	mappings "net.fabricmc:yarn:$yarn_mappings:v2"
+	modImplementation "net.fabricmc:fabric-loader:$loader_version"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:$fabric_version"
 
-	modApi("me.shedaniel.cloth:cloth-config-fabric:4.11.26") {
+	// mod deps
+
+	modApi("me.shedaniel.cloth:cloth-config-fabric:$clothconfig_version") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 
-	modRuntime("me.shedaniel.cloth:cloth-config-fabric:4.11.26") {
+	modRuntime("me.shedaniel.cloth:cloth-config-fabric:$clothconfig_version") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 
-	modImplementation("com.terraformersmc:modmenu:1.16.9") {
+	modImplementation("com.terraformersmc:modmenu:$modmenu_version") {
 		transitive(false)
 	}
 
-	include (modImplementation("net.devtech:arrp:0.4.2"))
-	modRuntime "me.shedaniel:RoughlyEnoughItems:5.12.235"
+	include ( modImplementation("net.devtech:arrp:$arrp_version") )
+
+	modRuntime "me.shedaniel:RoughlyEnoughItems:$rei_version"
+
+	// lib deps
+
+	// jython
+	implementation "org.python:jython:$jython_version"
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
@@ -72,7 +86,7 @@ tasks.withType(JavaCompile).configureEach {
 	// We'll use that if it's available, but otherwise we'll use the older option.
 	def targetVersion = 8
 	if (JavaVersion.current().isJava9Compatible()) {
-		 it.options.release = targetVersion
+		it.options.release = targetVersion
 	}
 }
 

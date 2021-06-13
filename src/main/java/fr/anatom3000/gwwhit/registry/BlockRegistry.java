@@ -31,4 +31,12 @@ public class BlockRegistry {
     public static Block get(String blockId) {
         return BLOCKS.getOrDefault(blockId, Blocks.AIR);
     }
+
+    /**
+     * @implNote this is here to be called from python
+     * @author ENDERZOMBI102
+     */
+    public static void put(String name, Block block) {
+        BLOCKS.put(name, block);
+    }
 }

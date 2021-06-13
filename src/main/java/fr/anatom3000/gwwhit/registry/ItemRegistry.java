@@ -8,6 +8,7 @@ import fr.anatom3000.gwwhit.item.PortableBlackHoleItem;
 import fr.anatom3000.gwwhit.item.TransdimensionalLensItem;
 import fr.anatom3000.gwwhit.materials.CustomArmorMaterials;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.BlockItem;
@@ -42,6 +43,14 @@ public class ItemRegistry {
 
     public static Item get(String itemId) {
         return ITEMS.getOrDefault(itemId, Items.AIR);
+    }
+
+    /**
+     * @implNote this is here to be called from python
+     * @author ENDERZOMBI102
+     */
+    public static void put(String name, Item item) {
+        ITEMS.put(name, item);
     }
 
 }

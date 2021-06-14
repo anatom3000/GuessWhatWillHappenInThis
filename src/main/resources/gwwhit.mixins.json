@@ -1,38 +1,39 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "fr.anatom3000.gwwhit.mixin",
-  "compatibilityLevel": "JAVA_8",
-  "mixins": [
-    "ChatMessageC2SPacketMixin",
-    "ChunkGeneratorMixin",
-    "ChunkGeneratorSettingsMixin",
-    "DimensionTypeMixin",
-    "FixedYOffsetMixin",
-    "ItemMixin",
-    "LivingEntityAccessor",
-    "LivingEntityMixin",
-    "LootManagerMixin",
-    "NoiseChunkGeneratorMixin",
-    "PlayerManagerMixin"
-  ],
-  "client": [
-    "ChatHudMixin",
-    "ChatScreenMixin",
-    "ClientWorldMixin",
-    "Deadmau5FeatureRendererMixin",
-    "GameRendererMixin",
-    "KeyboardMixin",
-    "LanguageMixin",
-    "LivingEntityRendererMixin",
-    "MatrixStackMixin",
-    "MixinFrustum",
-    "PlayerEntityModelMixin",
-    "ReloadableResourceManagerImplMixin",
-    "SoundSystemMixin",
-    "TitleScreenMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+	"required": true,
+	"minVersion": "0.8",
+	"package": "fr.anatom3000.gwwhit.mixin",
+	"compatibilityLevel": "JAVA_8",
+	"mixins": [
+		"AnimalEntityMixin",
+		"ChatMessageC2SPacketMixin",
+		"ChunkGeneratorMixin",
+		"ChunkGeneratorSettingsMixin",
+		"DimensionTypeMixin",
+		"FixedYOffsetMixin",
+		"ItemMixin",
+		"LivingEntityAccessor",
+		"LivingEntityMixin",
+		"LootManagerMixin",
+		"NoiseChunkGeneratorMixin",
+		"PlayerManagerMixin"
+	],
+	"client": [
+		"ChatHudMixin",
+		"ChatScreenMixin",
+		"ClientWorldMixin",
+		"Deadmau5FeatureRendererMixin",
+		"GameRendererMixin",
+		"KeyboardMixin",
+		"LanguageMixin",
+		"LivingEntityRendererMixin",
+		"MatrixStackMixin",
+		"MixinFrustum",
+		"PlayerEntityModelMixin",
+		"ReloadableResourceManagerImplMixin",
+		"SoundSystemMixin",
+		"TitleScreenMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
 }

@@ -79,6 +79,7 @@ public class ModConfig implements ConfigData {
         @ConfigEntry.Gui.CollapsibleObject
         public Items items = new Items();
         public boolean stoneBlocksAreInfected = false;
+        public boolean mobsUseCondoms = false;
         @ConfigEntry.Gui.Tooltip
         public boolean killCulling = false;
         

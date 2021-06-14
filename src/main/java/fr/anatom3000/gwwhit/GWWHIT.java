@@ -66,6 +66,7 @@ public class GWWHIT implements ModInitializer {
 	
 	@Override
 	public void onInitialize() {
+		Python.load();
 		cacheTranslations();
 		ItemRegistry.register();
 		BlockRegistry.register();

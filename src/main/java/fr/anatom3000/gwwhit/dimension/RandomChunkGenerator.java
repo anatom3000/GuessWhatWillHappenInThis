@@ -73,7 +73,6 @@ public class RandomChunkGenerator extends ChunkGenerator {
 
     @Override
     public CompletableFuture<Chunk> populateNoise(Executor executor, StructureAccessor accessor, Chunk chunk) {
-        List<Identifier> ids = Registry.BLOCK.getIds().stream().collect(Collectors.toList());
         BlockPos.Mutable posMutable = new BlockPos.Mutable();
         return CompletableFuture.supplyAsync(() -> {
             for (int x = 0; x < 16; ++x) {

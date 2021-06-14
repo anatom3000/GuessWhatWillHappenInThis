@@ -1,20 +1,14 @@
-print('SimpleBlock')
 from fr.anatom3000.gwwhit.block import SimpleBlock
-print('FabricBlockSettings')
+from net.fabricmc.fabric.api.item.v1 import FabricItemSettings
 from net.fabricmc.fabric.api.object.builder.v1.block import FabricBlockSettings
-print('PyUtils')
 from fr.anatom3000.gwwhit.util import PyUtils
-print('BlockRegistry')
-from fr.anatom3000.gwwhit.registry import BlockRegistry
-print('GuessWhatWillHappenInThisMod')
-from fr.anatom3000.gwwhit import GuessWhatWillHappenInThisMod
+from fr.anatom3000.gwwhit.registry import BlockRegistry, ItemRegistry
+from fr.anatom3000.gwwhit import GWWHIT, CustomItemGroups
+from fr.anatom3000.gwwhit.item import SimpleItem
 
-LOGGER = GuessWhatWillHappenInThisMod.LOGGER
+GWWHIT.LOGGER.info('[GWWHIT] Loading python stuff')
 
-
-LOGGER.info('[GWWHIT] Loading python stuff')
-
-
+# noinspection PyTypeChecker
 pyBlock = SimpleBlock(
 	FabricBlockSettings
 		.of( PyUtils.getMaterial('stone') )
@@ -23,7 +17,13 @@ pyBlock = SimpleBlock(
 		.luminance(10)
 )
 
-BlockRegistry.put('pyblock', pyBlock)
+BlockRegistry.put( 'pyblock', pyBlock )
+ItemRegistry.put(
+	'pyblock',
+	SimpleItem.fromBlock(
+		pyBlock,
+		FabricItemSettings().group(CustomItemGroups.GWWHIT_GROUP)
+	)
+)
 
-
-LOGGER.info('[GWWHIT] Python stuff loaded!')
+GWWHIT.LOGGER.info('[GWWHIT] Python stuff loaded!')

@@ -17,6 +17,8 @@
   "block.gwwhit.inert_infected_mass": "Inert Infected Mass",
   "block.gwwhit.mud": "Mud",
   "block.gwwhit.mushroom_grass": "Mushroom Grass",
+  "item.gwwhit.pyblock": "PyBlock",
+  "block.gwwhit.pyblock": "PyBlock",
 
 
   "itemGroup.gwwhit.gwwhit": "GWWHIT: Misc",

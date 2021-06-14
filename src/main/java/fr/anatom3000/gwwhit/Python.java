@@ -2,7 +2,6 @@ package fr.anatom3000.gwwhit;
 
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.commons.io.IOUtils;
-import org.python.core.JythonInitializer;
 import org.python.core.PySystemState;
 import org.python.util.PythonInterpreter;
 
@@ -12,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Properties;
 
-import static fr.anatom3000.gwwhit.GuessWhatWillHappenInThisMod.LOGGER;
+import static fr.anatom3000.gwwhit.GWWHIT.LOGGER;
 
 public class Python {
 
@@ -30,39 +29,25 @@ public class Python {
 		CODE = code;
 	}
 
+	@SuppressWarnings("OptionalGetWithoutIsPresent")
 	public static void load() {
 		LOGGER.info("[GWWHIT] initializing python system!");
-		Properties postProperties = new Properties();
-		postProperties.put( "python.home", FabricLoader.getInstance().getGameDir() );
+		Properties preProperties = System.getProperties(), postProperties = new Properties();
+		preProperties.put( "python.home", FabricLoader.getInstance().getGameDir().toString() );
+		preProperties.put(
+				"python.path",
+				FabricLoader.getInstance().getModContainer("gwwhit").get().getRootPath().toString() + "\\Lib"
+		);
 		PySystemState.initialize(
-				System.getProperties(),
+				preProperties,
 				postProperties,
-				new String[] {}
+				new String[] { "" }
 		);
 		LOGGER.info("[GWWHIT] Python Initialized!");
 		try ( PythonInterpreter python = new PythonInterpreter() ) {
 			python.setErr(System.err);
 			python.setOut(System.out);
 			python.exec(CODE);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void main(String[] argv) {
-		// TODO: TEST IF WITH ONLY THIS IT WORKS, IF NOT MOVE TO SOMETHING ELSE
-		Properties postProperties = new Properties();
-//		postProperties.put( "python.home", FabricLoader.getInstance().getGameDir() );
-		PySystemState.initialize(
-				System.getProperties(),
-				postProperties,
-				new String[] {}
-		);
-		System.out.println("initiaz");
-		try ( PythonInterpreter python = new PythonInterpreter() ) {
-			python.setErr(System.err);
-			python.setOut(System.out);
-			python.exec("print('finally!')");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

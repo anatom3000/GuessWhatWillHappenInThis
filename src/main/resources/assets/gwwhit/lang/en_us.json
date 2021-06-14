@@ -50,6 +50,8 @@
   "text.autoconfig.gwwhit.option.gameplay.items.everythingIsEdible": "Everything is Edible",
   "text.autoconfig.gwwhit.option.gameplay.items.hiddenItemsTab": "Hidden Items Creative Tab",
   "text.autoconfig.gwwhit.option.gameplay.items.maxStackSize": "Max stack size",
+  "text.autoconfig.gwwhit.option.gameplay.blocks": "Blocks",
+  "text.autoconfig.gwwhit.option.gameplay.blocks.defaultSlipperiness": "Default Slipperiness",
   "text.autoconfig.gwwhit.option.gameplay.killCulling": "Kill Culling",
   "text.autoconfig.gwwhit.option.cosmetic": "Cosmetic",
   "text.autoconfig.gwwhit.option.cosmetic.owoifyer": "Owoifyer",

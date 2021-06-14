@@ -17,6 +17,8 @@
   "block.gwwhit.inert_infected_mass": "Inert Infected Mass",
   "block.gwwhit.mud": "Mud",
   "block.gwwhit.mushroom_grass": "Mushroom Grass",
+  "item.gwwhit.pyblock": "PyBlock",
+  "block.gwwhit.pyblock": "PyBlock",
 
 
   "itemGroup.gwwhit.gwwhit": "GWWHIT: Misc",
@@ -26,6 +28,7 @@
   "text.autoconfig.gwwhit.title": "Guess What Will Happen In This Mod",
   "text.autoconfig.gwwhit.option.content": "Content",
   "text.autoconfig.gwwhit.option.content.increaseWorldHeight": "Increase world height",
+  "text.autoconfig.gwwhit.option.content.python": "Enable Python",
   "text.autoconfig.gwwhit.option.content.blocks": "Blocks",
   "text.autoconfig.gwwhit.option.content.blocks.randomisingBlock": "Randomising Block",
   "text.autoconfig.gwwhit.option.content.blocks.randomisingBlock.ticksBetweenPlacements": "Ticks Between Placements",
@@ -72,6 +75,7 @@
 
 
   "text.autoconfig.gwwhit.option.content.increaseWorldHeight.@Tooltip": "This will allow world to have deeper caves but causes older worlds to not be loadable.",
+  "text.autoconfig.gwwhit.option.content.python.@Tooltip": "Enable the python interpreter for content implemented in python.",
   "text.autoconfig.gwwhit.option.content.blocks.randomisingBlock.deWaterlog.@Tooltip": "Even if a blocks default state is waterlogged,the waterlogging will be removed.",
   "text.autoconfig.gwwhit.option.content.blocks.randomisingBlock.blockBlacklist.@Tooltip": "Blacklist for blocks it can place.",
   "text.autoconfig.gwwhit.option.content.blocks.infectedMassBlock.globalSpreadChance.@Tooltip": "The chance that the block will attempt spreading overall.",

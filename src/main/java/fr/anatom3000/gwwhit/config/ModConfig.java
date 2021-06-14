@@ -26,6 +26,9 @@ public class ModConfig implements ConfigData {
         public MoreOres moreOres = new MoreOres();
         @ConfigEntry.Gui.Tooltip
         public boolean increaseWorldHeight = false;
+        @ConfigEntry.Gui.Tooltip()
+        @ConfigEntry.Gui.RequiresRestart()
+        public boolean python = false;
 
         public static class Blocks {
             @ConfigEntry.Gui.CollapsibleObject

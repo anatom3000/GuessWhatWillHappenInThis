@@ -28,12 +28,7 @@ public class RandomChunkGenerator extends ChunkGenerator {
 
     private final Random random;
 
-    public static List<Block> whitelistedBlocks = Registry.BLOCK
-        .getIds()
-        .stream()
-        .map(Registry.BLOCK::get)
-        .filter(block -> block.getClass() == Block.class)
-        .collect(Collectors.toList());
+    public final List<Block> whitelistedBlocks;
 
     public static final Codec<RandomChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance
             .group(BiomeSource.CODEC.fieldOf("biome_source").forGetter((generator) -> generator.biomeSource))
@@ -42,11 +37,23 @@ public class RandomChunkGenerator extends ChunkGenerator {
     public RandomChunkGenerator(BiomeSource biomeSource) {
         super(biomeSource, new StructuresConfig(false));
         this.random = new Random();
+        this.whitelistedBlocks = Registry.BLOCK
+            .getIds()
+            .stream()
+            .map(Registry.BLOCK::get)
+            .filter(block -> block.getClass() == Block.class)
+            .collect(Collectors.toList());
     }
 
     public RandomChunkGenerator(BiomeSource biomeSource, long seed) {
         super(biomeSource, new StructuresConfig(false));
         this.random = new Random(seed);
+        this.whitelistedBlocks = Registry.BLOCK
+            .getIds()
+            .stream()
+            .map(Registry.BLOCK::get)
+            .filter(block -> block.getClass() == Block.class)
+            .collect(Collectors.toList());
     }
 
     @Override

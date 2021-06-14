@@ -1,5 +1,7 @@
 package fr.anatom3000.gwwhit;
 
+import fr.anatom3000.gwwhit.config.ConfigManager;
+import fr.anatom3000.gwwhit.config.ModConfig;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.commons.io.IOUtils;
 import org.python.core.PySystemState;
@@ -31,6 +33,7 @@ public class Python {
 
 	@SuppressWarnings("OptionalGetWithoutIsPresent")
 	public static void load() {
+		if (! ConfigManager.getLoadedConfig().content.python ) return;
 		LOGGER.info("[GWWHIT] initializing python system!");
 		Properties preProperties = System.getProperties(), postProperties = new Properties();
 		preProperties.put( "python.home", FabricLoader.getInstance().getGameDir().toString() );

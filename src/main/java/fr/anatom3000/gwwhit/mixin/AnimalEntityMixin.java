@@ -25,7 +25,7 @@ public abstract class AnimalEntityMixin extends PassiveEntity {
 	public void onBreed(ServerWorld world, AnimalEntity other, CallbackInfo ci) {
 		if ( ConfigManager.getLoadedConfig().gameplay.mobsUseCondoms ) {
 			// AUTHOR: ENDERZOMBI102
-			if ( world.random.nextDouble() < 0.2 ) {
+			if ( world.random.nextDouble() < 0.4 ) {
 				world.spawnEntity(
 						new ItemEntity(
 								world,

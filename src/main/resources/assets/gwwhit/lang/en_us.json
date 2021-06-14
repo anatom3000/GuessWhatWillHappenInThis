@@ -17,8 +17,10 @@
   "block.gwwhit.inert_infected_mass": "Inert Infected Mass",
   "block.gwwhit.mud": "Mud",
   "block.gwwhit.mushroom_grass": "Mushroom Grass",
+
   "item.gwwhit.pyblock": "PyBlock",
   "block.gwwhit.pyblock": "PyBlock",
+  "item.gwwhit.condom": "Used Condom",
 
 
   "itemGroup.gwwhit.gwwhit": "GWWHIT: Misc",

@@ -39,7 +39,7 @@ public class Python {
 		preProperties.put( "python.home", FabricLoader.getInstance().getGameDir().toString() );
 		preProperties.put(
 				"python.path",
-				FabricLoader.getInstance().getModContainer("gwwhit").get().getRootPath().toString() + "\\Lib"
+				FabricLoader.getInstance().getModContainer("gwwhit").get().getRootPath().toString() + "\\StdLib"
 		);
 		PySystemState.initialize(
 				preProperties,

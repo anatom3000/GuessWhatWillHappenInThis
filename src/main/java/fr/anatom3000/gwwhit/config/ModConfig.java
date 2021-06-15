@@ -8,6 +8,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 @Config(name = GWWHIT.MOD_ID)
 public class ModConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
@@ -84,7 +85,6 @@ public class ModConfig implements ConfigData {
         public boolean stoneBlocksAreInfected = false;
         @ConfigEntry.Gui.Tooltip
         public boolean killCulling = false;
-        
 
         public static class Items {
             @ConfigEntry.Gui.RequiresRestart
@@ -95,6 +95,8 @@ public class ModConfig implements ConfigData {
             @ConfigEntry.Gui.RequiresRestart
             @ConfigEntry.BoundedDiscrete(min = 1, max = 64)
             public int maxStackSize = 64;
+            @ConfigEntry.Gui.Tooltip
+            public boolean noHardcodedItemCooldown = false;
         }
         
         public static class Drops {

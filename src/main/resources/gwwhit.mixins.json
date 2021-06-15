@@ -27,6 +27,7 @@
     "LanguageMixin",
     "LivingEntityRendererMixin",
     "MatrixStackMixin",
+    "MinecraftClientMixin",
     "MixinFrustum",
     "PlayerEntityModelMixin",
     "ReloadableResourceManagerImplMixin",

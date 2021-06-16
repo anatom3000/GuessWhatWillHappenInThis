@@ -3,23 +3,15 @@ package fr.anatom3000.gwwhit;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import fr.anatom3000.gwwhit.config.*;
+import fr.anatom3000.gwwhit.dimension.RandomChunkGenerator;
 import fr.anatom3000.gwwhit.registry.*;
 import fr.anatom3000.gwwhit.util.TableRandomizer;
-import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
-import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
-import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.Material;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.SilverfishEntity;
-import net.minecraft.item.Items;
-import net.minecraft.loot.condition.RandomChanceLootCondition;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -58,8 +50,7 @@ public class GWWHIT implements ModInitializer {
 	
 	//Caches
 	public static final Map<String, Map<String, String>> TRANSLATIONS = new HashMap<>();
-	
-	
+
 	public static Identifier getId(String path) {
 		return new Identifier(MOD_ID, path);
 	}
@@ -68,6 +59,7 @@ public class GWWHIT implements ModInitializer {
 	public void onInitialize() {
 		Python.load();
 		cacheTranslations();
+		Registry.register(Registry.CHUNK_GENERATOR, new Identifier("gwwhit", "random"), RandomChunkGenerator.CODEC);
 		ItemRegistry.register();
 		BlockRegistry.register();
 		BlockEntityRegistry.register();

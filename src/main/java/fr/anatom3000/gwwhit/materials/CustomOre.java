@@ -21,7 +21,6 @@ import net.devtech.arrp.json.models.JModel;
 import net.devtech.arrp.json.recipe.*;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
@@ -124,8 +123,6 @@ public class CustomOre {
     }
 
     public void onInitialize(NewMaterials.OreInitParam param) {
-        if (itemGroup == null && ConfigManager.getLoadedConfig().content.moreOres.tab == ModConfig.Content.MoreOres.Tab.SEPARATE) itemGroup = FabricItemGroupBuilder.create(GWWHIT.getId("more_ores")).icon(() -> new ItemStack(block)).build();
-        
         Registry.register(Registry.ITEM, materialId, material);
         if (rnd.nextDouble()<0.3D) FuelRegistry.INSTANCE.add(material, rnd.nextInt(1000));
         createTranslations(type.name(), material.getTranslationKey(), param.lang);

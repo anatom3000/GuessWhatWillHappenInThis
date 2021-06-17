@@ -21,7 +21,7 @@ public abstract class AnimalEntityMixin extends PassiveEntity {
 
 	@Inject( method = "breed", at = @At("HEAD"), cancellable = true )
 	public void onBreed(ServerWorld world, AnimalEntity other, CallbackInfo ci) {
-		if ( ConfigManager.getLoadedConfig().gameplay.mobsUseCondoms ) {
+		if ( ConfigManager.getLoadedConfig().gameplay.mobsMayExplode ) {
 			// AUTHOR: ENDERZOMBI102
 			if ( world.random.nextDouble() < 0.2 ) {
 				world.createExplosion(

@@ -21,7 +21,9 @@ public class ChatHudMixin {
         if (!whistle.enabled) {
             return;
         }
-        MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(WHISTLE_SOUND_EVENT, 1f, whistle.volume));
+        MinecraftClient.getInstance().getSoundManager().play(
+                PositionedSoundInstance.master(WHISTLE_SOUND_EVENT, 1f, whistle.volume)
+        );
     }
 
 }

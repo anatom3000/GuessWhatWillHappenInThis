@@ -8,6 +8,7 @@ import fr.anatom3000.gwwhit.item.PortableBlackHoleItem;
 import fr.anatom3000.gwwhit.item.TransdimensionalLensItem;
 import fr.anatom3000.gwwhit.materials.CustomArmorMaterials;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.BlockItem;
@@ -21,7 +22,7 @@ import java.util.Map;
 
 public class ItemRegistry {
 
-    private static final HashMap<String, Item> ITEMS = new HashMap<>() {{
+    private static final HashMap<String, Item> ITEMS = new HashMap<String, Item>() {{
         put("portable_black_hole", new PortableBlackHoleItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP).maxCount(1)));
         put("booster", new BoosterItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP).maxCount(1)));
         put("transdimensional_lens", new TransdimensionalLensItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP).maxCount(1)));
@@ -35,7 +36,8 @@ public class ItemRegistry {
         put("randomising_block", new BlockItem(BlockRegistry.get("randomising_block"), new FabricItemSettings().group(CustomItemGroups.GWWHIT_GROUP)));
         put("mud", new BlockItem(BlockRegistry.get("mud"), new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP)));
         put("mushroom_grass", new BlockItem(BlockRegistry.get("mushroom_grass"), new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP)));
-   }};
+		put("condom", new Item( new FabricItemSettings().group( CustomItemGroups.GWWHIT_GROUP ).rarity(Rarity.EPIC) ) ); // ENDER
+    }};
 
     public static void register() {
         for (Map.Entry<String, Item> item : ITEMS.entrySet()) {

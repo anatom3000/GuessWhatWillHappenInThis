@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class ItemRegistry {
 
-    private static final HashMap<String, Item> ITEMS = new HashMap<>() {{
+    private static final HashMap<String, Item> ITEMS = new HashMap<String, Item>() {{
         put("portable_black_hole", new PortableBlackHoleItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP).maxCount(1)));
         put("booster", new BoosterItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP).maxCount(1)));
         put("transdimensional_lens", new TransdimensionalLensItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP).maxCount(1)));

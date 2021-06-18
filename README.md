@@ -16,6 +16,16 @@ This mod depends on Fabric API, Cloth Config and includes ARRP
 
 For colored lighting, you will need to install this mod https://modrinth.com/mod/colored-lights
 
+## Before contributing
+
+Before contributing, please see the following below first:
+
+<details><summary>Project Details</summary>
+
+![Important](https://i.giphy.com/media/Ju7l5y9osyymQ/giphy.webp)
+
+</details>
+
 ## License
 
 This project is released under MIT license.

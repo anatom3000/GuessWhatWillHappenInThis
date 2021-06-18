@@ -1,7 +1,7 @@
 
 # Guess What Will Happen In This
 
-Fabric mod where anyone can PR anything, concerning or not (Unless it's too concerning). I'll merge everything as soon as it works.
+Fabric mod where anyone can PR anything, concerning or not (no NSFW content). I'll merge everything as soon as it works.
 
 ## How can I ~~fuck up~~ contribute to this project ?
 

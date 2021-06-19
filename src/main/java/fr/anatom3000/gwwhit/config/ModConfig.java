@@ -83,10 +83,11 @@ public class ModConfig implements ConfigData {
         public Blocks blocks = new Blocks();
         
         public boolean stoneBlocksAreInfected = false;
+        public boolean mobsMayExplode = false;
         @ConfigEntry.Gui.Tooltip
         public boolean killCulling = false;
 
-        public static class Items {
+		public static class Items {
             @ConfigEntry.Gui.RequiresRestart
             public boolean everythingIsEdible = false;
             @ConfigEntry.Gui.Tooltip

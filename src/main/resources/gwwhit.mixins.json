@@ -4,6 +4,7 @@
   "package": "fr.anatom3000.gwwhit.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "AnimalEntityMixin",
     "AbstractBlockSettingsMixin",
     "ChatMessageC2SPacketMixin",
     "ChunkGeneratorMixin",

@@ -18,6 +18,7 @@
   "block.gwwhit.inert_infected_mass": "Inert Infected Mass",
   "block.gwwhit.mud": "Mud",
   "block.gwwhit.mushroom_grass": "Mushroom Grass",
+
   "item.gwwhit.pyblock": "PyBlock",
   "block.gwwhit.pyblock": "PyBlock",
 
@@ -54,6 +55,7 @@
   "text.autoconfig.gwwhit.option.gameplay.items.everythingIsEdible": "Everything is Edible",
   "text.autoconfig.gwwhit.option.gameplay.items.hiddenItemsTab": "Hidden Items Creative Tab",
   "text.autoconfig.gwwhit.option.gameplay.items.maxStackSize": "Max stack size",
+  "text.autoconfig.gwwhit.option.gameplay.mobsExplode": "Mobs may Explode When Mating",
   "text.autoconfig.gwwhit.option.gameplay.items.noHardcodedItemCooldown": "No 4-tick Item Use Cooldown",
   "text.autoconfig.gwwhit.option.gameplay.blocks": "Blocks",
   "text.autoconfig.gwwhit.option.gameplay.blocks.defaultSlipperiness": "Default Slipperiness",

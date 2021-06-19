@@ -57,6 +57,6 @@ public class EventListeners {
                 }
         );
     
-        RRPCallback.AFTER_VANILLA.register(a -> a.add(GWWHIT.RESOURCE_PACK));
+        RRPCallback.AFTER_VANILLA.register( a -> a.add(GWWHIT.RESOURCE_PACK) );
     }
 }

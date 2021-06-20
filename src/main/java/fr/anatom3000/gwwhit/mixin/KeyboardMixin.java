@@ -34,62 +34,62 @@ import java.util.Random;
 @Mixin(Keyboard.class)
 public class KeyboardMixin {
 
-	private final Random random = new Random();
-	@Shadow
-	@Final
-	private MinecraftClient client;
-	private String CURRENT_STRING = "";
+    private final Random random = new Random();
+    @Shadow
+    @Final
+    private MinecraftClient client;
+    private String CURRENT_STRING = "";
 
-	@Inject(at = @At("HEAD"), method = "onChar")
-	public void onChar (long window, int i, int j, CallbackInfo ci) {
-		if (window == this.client.getWindow().getHandle() && this.client.player != null) {
-			if (!InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 67) || !InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 292)) {
-				this.CURRENT_STRING += Character.toUpperCase((char) i);
-			}
-			if (this.CURRENT_STRING.length() > CheatCodes.MAX_CHEAT_LEN) {
-				this.CURRENT_STRING = this.CURRENT_STRING.substring(this.CURRENT_STRING.length() - CheatCodes.MAX_CHEAT_LEN);
-			}
+    @Inject(at = @At("HEAD"), method = "onChar")
+    public void onChar (long window, int i, int j, CallbackInfo ci) {
+        if (window == this.client.getWindow().getHandle() && this.client.player != null) {
+            if (!InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 67) || !InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 292)) {
+                this.CURRENT_STRING += Character.toUpperCase((char) i);
+            }
+            if (this.CURRENT_STRING.length() > CheatCodes.MAX_CHEAT_LEN) {
+                this.CURRENT_STRING = this.CURRENT_STRING.substring(this.CURRENT_STRING.length() - CheatCodes.MAX_CHEAT_LEN);
+            }
 
-			MinecraftServer server = this.client.getServer();
-			GameProfile profile = this.client.player != null ? this.client.player.getGameProfile() : null;
-			if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT6)) {
-				this.client.player.sendChatMessage("There is no cow level");
-			} else if (server != null && profile != null) {
-				ServerPlayerEntity player = server.getPlayerManager().getPlayer(profile.getId());
-				if (player != null) {
-					PlayerAbilities abilities = player.getAbilities();
-					if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT5)) {
-						// TODO: RESTORE
-						this.client.player.sendChatMessage("Got all keys!");
-					} else if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT4)) {
-						ItemStack var2 = new ItemStack(Items.CROSSBOW);
-						EnchantmentHelper.set(ImmutableMap.of(Enchantments.MULTISHOT, 12), var2);
+            MinecraftServer server = this.client.getServer();
+            GameProfile profile = this.client.player != null ? this.client.player.getGameProfile() : null;
+            if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT6)) {
+                this.client.player.sendChatMessage("There is no cow level");
+            } else if (server != null && profile != null) {
+                ServerPlayerEntity player = server.getPlayerManager().getPlayer(profile.getId());
+                if (player != null) {
+                    PlayerAbilities abilities = player.getAbilities();
+                    if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT5)) {
+                        // TODO: RESTORE
+                        this.client.player.sendChatMessage("Got all keys!");
+                    } else if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT4)) {
+                        ItemStack var2 = new ItemStack(Items.CROSSBOW);
+                        EnchantmentHelper.set(ImmutableMap.of(Enchantments.MULTISHOT, 12), var2);
 
-						PlayerInventory inv = player.getInventory();
-						inv.insertStack(var2);
-						inv.insertStack(EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_SWORD), 30, true));
-						inv.insertStack(EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_AXE), 30, true));
-						inv.insertStack(EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_PICKAXE), 30, true));
-						inv.insertStack(EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_HOE), 30, true));
-						inv.insertStack(EnchantmentHelper.enchant(this.random, new ItemStack(Items.SHEARS), 30, true));
-						inv.insertStack(EnchantmentHelper.enchant(this.random, new ItemStack(Items.BOW), 30, true));
-						inv.insertStack(new ItemStack(Items.ARROW, 64));
-						player.equipStack(EquipmentSlot.HEAD, EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_HELMET), 30, true));
-						player.equipStack(EquipmentSlot.CHEST, EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_CHESTPLATE), 30, true));
-						player.equipStack(EquipmentSlot.LEGS, EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_LEGGINGS), 30, true));
-						player.equipStack(EquipmentSlot.FEET, EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_BOOTS), 30, true));
-						player.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-						this.client.player.sendChatMessage("Got all equipment!");
-					} else if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT2)) {
-						abilities.allowFlying = !abilities.allowFlying;
-						player.sendAbilitiesUpdate();
-						this.client.player.sendChatMessage("FLYING=VERY YES");
-					} else if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT1)) {
-						abilities.invulnerable = !abilities.invulnerable;
-						player.sendAbilitiesUpdate();
-						this.client.player.sendChatMessage("Nothing can stop you!");
-					} else if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT3)) {
-						player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 1200, 20));
+                        PlayerInventory inv = player.getInventory();
+                        inv.insertStack(var2);
+                        inv.insertStack(EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_SWORD), 30, true));
+                        inv.insertStack(EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_AXE), 30, true));
+                        inv.insertStack(EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_PICKAXE), 30, true));
+                        inv.insertStack(EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_HOE), 30, true));
+                        inv.insertStack(EnchantmentHelper.enchant(this.random, new ItemStack(Items.SHEARS), 30, true));
+                        inv.insertStack(EnchantmentHelper.enchant(this.random, new ItemStack(Items.BOW), 30, true));
+                        inv.insertStack(new ItemStack(Items.ARROW, 64));
+                        player.equipStack(EquipmentSlot.HEAD, EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_HELMET), 30, true));
+                        player.equipStack(EquipmentSlot.CHEST, EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_CHESTPLATE), 30, true));
+                        player.equipStack(EquipmentSlot.LEGS, EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_LEGGINGS), 30, true));
+                        player.equipStack(EquipmentSlot.FEET, EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_BOOTS), 30, true));
+                        player.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
+                        this.client.player.sendChatMessage("Got all equipment!");
+                    } else if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT2)) {
+                        abilities.allowFlying = !abilities.allowFlying;
+                        player.sendAbilitiesUpdate();
+                        this.client.player.sendChatMessage("FLYING=VERY YES");
+                    } else if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT1)) {
+                        abilities.invulnerable = !abilities.invulnerable;
+                        player.sendAbilitiesUpdate();
+                        this.client.player.sendChatMessage("Nothing can stop you!");
+                    } else if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT3)) {
+    					player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 1200, 20));
 						player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 1200, 20));
 						player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 1200, 20));
 						this.client.player.sendChatMessage("Gordon's ALIVE!");

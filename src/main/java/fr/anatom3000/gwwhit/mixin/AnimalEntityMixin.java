@@ -15,25 +15,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(AnimalEntity.class)
 public abstract class AnimalEntityMixin extends PassiveEntity {
 
-	protected AnimalEntityMixin(EntityType<? extends PassiveEntity> entityType, World world) {
-		super(entityType, world);
-	}
+    protected AnimalEntityMixin(EntityType<? extends PassiveEntity> entityType, World world) {
+        super(entityType, world);
+    }
 
-	@Inject( method = "breed", at = @At("HEAD"), cancellable = true )
-	public void onBreed(ServerWorld world, AnimalEntity other, CallbackInfo ci) {
-		if ( ConfigManager.getLoadedConfig().gameplay.mobsMayExplode ) {
-			// AUTHOR: ENDERZOMBI102
-			if ( world.random.nextDouble() < 0.2 ) {
-				world.createExplosion(
-						this,
-						this.getX(),
-						this.getY(),
-						this.getZ(),
-						10,
-						Explosion.DestructionType.NONE
-				);
-				ci.cancel();
-			}
-		}
-	}
+    @Inject( method = "breed", at = @At("HEAD"), cancellable = true )
+    public void onBreed(ServerWorld world, AnimalEntity other, CallbackInfo ci) {
+        if ( ConfigManager.getLoadedConfig().gameplay.mobsMayExplode ) {
+            // AUTHOR: ENDERZOMBI102
+            if ( world.random.nextDouble() < 0.2 ) {
+                world.createExplosion(
+                        this,
+                        this.getX(),
+                        this.getY(),
+                        this.getZ(),
+                        10,
+                        Explosion.DestructionType.NONE
+                );
+                ci.cancel();
+            }
+        }
+    }
 }

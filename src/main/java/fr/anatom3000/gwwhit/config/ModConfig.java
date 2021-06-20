@@ -84,7 +84,7 @@ public class ModConfig implements ConfigData {
         @ConfigEntry.Gui.Tooltip
         public boolean killCulling = false;
 
-		public static class Items {
+        public static class Items {
             @ConfigEntry.Gui.RequiresRestart
             public boolean everythingIsEdible = false;
             @ConfigEntry.Gui.Tooltip

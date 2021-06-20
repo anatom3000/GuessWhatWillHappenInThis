@@ -15,8 +15,7 @@
     "LivingEntityMixin",
     "LootManagerMixin",
     "NoiseChunkGeneratorMixin",
-    "PlayerManagerMixin",
-    "TranslationStorageAccessor"
+    "PlayerManagerMixin"
   ],
   "client": [
     "ChatHudMixin",
@@ -32,7 +31,8 @@
     "PlayerEntityModelMixin",
     "ReloadableResourceManagerImplMixin",
     "SoundSystemMixin",
-    "TitleScreenMixin"
+    "TitleScreenMixin",
+    "TranslationStorageAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -11,12 +11,14 @@ import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class WrappedPack implements ResourcePack {
-    private final ResourcePack pack;
+import static fr.anatom3000.gwwhit.config.ModConfig.Cosmetic.Audio.SoundReplacement;
+
+public record WrappedPack(ResourcePack pack) implements ResourcePack {
     @Override
     public InputStream openRoot(String fileName) throws IOException {
         return pack.openRoot(fileName);
@@ -24,13 +26,22 @@ public class WrappedPack implements ResourcePack {
 
     @Override
     public InputStream open(ResourceType type, Identifier id) throws IOException {
-        if (ConfigManager.getLoadedConfig().cosmetic.audio.blyatSounds && id.getPath().endsWith(".ogg"))
-            return Files.newInputStream(GWWHIT.ASSETS_ROOT.resolve("sounds/blyat.ogg"));
+        if (id.getPath().endsWith(".ogg")) {
+            GWWHIT.LOGGER.info(id.getPath());
+            SoundReplacement r = ConfigManager.getLoadedConfig().cosmetic.audio.soundReplacement;
+            if (r != SoundReplacement.None) {
+                Path p = GWWHIT.ASSETS_ROOT.resolve("sounds/" + r.name().toLowerCase() + ".ogg");
+                GWWHIT.LOGGER.info(p.toString());
+                GWWHIT.LOGGER.info(Files.exists(p));
+                return Files.newInputStream(p);
+            } else
+                GWWHIT.LOGGER.info(r);
+        }
         return pack.open(type, id);
     }
 
     @Override
-    public Collection<Identifier> findResources(ResourceType type, String namespace, String prefix, int maxDepth, Predicate<java.lang.String> pathFilter) {
+    public Collection<Identifier> findResources(ResourceType type, String namespace, String prefix, int maxDepth, Predicate<String> pathFilter) {
         return pack.findResources(type, namespace, prefix, maxDepth, pathFilter);
     }
 
@@ -58,9 +69,5 @@ public class WrappedPack implements ResourcePack {
     @Override
     public void close() {
         pack.close();
-    }
-
-    public WrappedPack(ResourcePack pack) {
-        this.pack = pack;
     }
 }

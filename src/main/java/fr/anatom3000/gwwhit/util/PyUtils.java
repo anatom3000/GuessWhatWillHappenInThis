@@ -1,11 +1,9 @@
 package fr.anatom3000.gwwhit.util;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Material;
 import net.minecraft.util.Identifier;
 
 public final class PyUtils {
-
 	public static Material getMaterial(String name) {
 		switch (name) {
 			case "stone":
@@ -26,7 +24,4 @@ public final class PyUtils {
 	public static Identifier makeIdentifier(String namespace, String path) {
 		return new Identifier(namespace, path);
 	}
-
-
-
 }

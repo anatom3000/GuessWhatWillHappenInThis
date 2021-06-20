@@ -162,18 +162,26 @@ public class ModConfig implements ConfigData {
         }
 
         public static class Audio {
-            @ConfigEntry.Gui.Tooltip( count = 2 )
+            @ConfigEntry.Gui.Tooltip
             public boolean mojaaaangStartupSound = false;
             @ConfigEntry.Gui.Tooltip
-            public boolean blyatSounds = false;
+            @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
+            public SoundReplacement soundReplacement = SoundReplacement.None;
             @ConfigEntry.Gui.Tooltip
             @ConfigEntry.Gui.CollapsibleObject
             public WhatsAppWhistle whatsAppWhistle = new WhatsAppWhistle();
 
             public static class WhatsAppWhistle {
-                @ConfigEntry.Gui.Tooltip
                 public boolean enabled = false;
                 public float volume = 1f;
+            }
+
+            public enum SoundReplacement {
+                None,
+                Blyat,
+                Mojaaaang,
+                UwU,
+                Whatsapp_Whistle
             }
         }
     }

@@ -45,7 +45,7 @@ dependencies {
 	include modImplementation("net.devtech:arrp:$arrp_version")
 	modRuntime "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
 
-	modImplementation "com.enderzombi102:JythonMC:$jythonmc_version"
+	include modImplementation("com.enderzombi102:JythonMC:$jythonmc_version")
 }
 
 processResources {

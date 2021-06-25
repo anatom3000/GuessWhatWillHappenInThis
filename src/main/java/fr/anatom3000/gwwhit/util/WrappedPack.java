@@ -11,7 +11,6 @@ import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -27,15 +26,9 @@ public record WrappedPack(ResourcePack pack) implements ResourcePack {
     @Override
     public InputStream open(ResourceType type, Identifier id) throws IOException {
         if (id.getPath().endsWith(".ogg")) {
-            GWWHIT.LOGGER.info(id.getPath());
             SoundReplacement r = ConfigManager.getLoadedConfig().cosmetic.audio.soundReplacement;
-            if (r != SoundReplacement.None) {
-                Path p = GWWHIT.ASSETS_ROOT.resolve("sounds/" + r.name().toLowerCase() + ".ogg");
-                GWWHIT.LOGGER.info(p.toString());
-                GWWHIT.LOGGER.info(Files.exists(p));
-                return Files.newInputStream(p);
-            } else
-                GWWHIT.LOGGER.info(r);
+            if (r != SoundReplacement.None)
+                return Files.newInputStream(GWWHIT.ASSETS_ROOT.resolve("sounds/" + r.name().toLowerCase() + ".ogg"));
         }
         return pack.open(type, id);
     }

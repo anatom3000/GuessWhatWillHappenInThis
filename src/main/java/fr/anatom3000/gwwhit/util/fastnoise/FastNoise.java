@@ -29,171 +29,171 @@
 package fr.anatom3000.gwwhit.util.fastnoise;
 
 public class FastNoise {
-	public enum NoiseType {Value, ValueFractal, Perlin, PerlinFractal, Simplex, SimplexFractal, Cellular, WhiteNoise, Cubic, CubicFractal}
-	public enum Interp {Linear, Hermite, Quintic}
-	public enum FractalType {FBM, Billow, RigidMulti}
-	public enum CellularDistanceFunction {Euclidean, Manhattan, Natural}
-	public enum CellularReturnType {CellValue, NoiseLookup, Distance, Distance2, Distance2Add, Distance2Sub, Distance2Mul, Distance2Div}
+    public enum NoiseType {Value, ValueFractal, Perlin, PerlinFractal, Simplex, SimplexFractal, Cellular, WhiteNoise, Cubic, CubicFractal}
+    public enum Interp {Linear, Hermite, Quintic}
+    public enum FractalType {FBM, Billow, RigidMulti}
+    public enum CellularDistanceFunction {Euclidean, Manhattan, Natural}
+    public enum CellularReturnType {CellValue, NoiseLookup, Distance, Distance2, Distance2Add, Distance2Sub, Distance2Mul, Distance2Div}
 
-	private int m_seed = 1337;
-	private float m_frequency = (float) 0.01;
-	private Interp m_interp = Interp.Quintic;
-	private NoiseType m_noiseType = NoiseType.Simplex;
+    private int m_seed = 1337;
+    private float m_frequency = (float) 0.01;
+    private Interp m_interp = Interp.Quintic;
+    private NoiseType m_noiseType = NoiseType.Simplex;
 
-	private int m_octaves = 3;
-	private float m_lacunarity = (float) 2.0;
-	private float m_gain = (float) 0.5;
-	private FractalType m_fractalType = FractalType.FBM;
+    private int m_octaves = 3;
+    private float m_lacunarity = (float) 2.0;
+    private float m_gain = (float) 0.5;
+    private FractalType m_fractalType = FractalType.FBM;
 
-	private float m_fractalBounding;
+    private float m_fractalBounding;
 
-	private CellularDistanceFunction m_cellularDistanceFunction = CellularDistanceFunction.Euclidean;
-	private CellularReturnType m_cellularReturnType = CellularReturnType.CellValue;
-	private FastNoise m_cellularNoiseLookup = null;
+    private CellularDistanceFunction m_cellularDistanceFunction = CellularDistanceFunction.Euclidean;
+    private CellularReturnType m_cellularReturnType = CellularReturnType.CellValue;
+    private FastNoise m_cellularNoiseLookup = null;
 
-	private float m_gradientPerturbAmp = (float) (1.0 / 0.45);
+    private float m_gradientPerturbAmp = (float) (1.0 / 0.45);
 
-	public FastNoise() {
-		this(1337);
-	}
+    public FastNoise() {
+        this(1337);
+    }
 
-	public FastNoise(int seed) {
-		m_seed = seed;
-		CalculateFractalBounding();
-	}
+    public FastNoise(int seed) {
+        m_seed = seed;
+        CalculateFractalBounding();
+    }
 
-	// Returns a 0 float/double
-	public static float GetDecimalType() {
-		return 0;
-	}
+    // Returns a 0 float/double
+    public static float GetDecimalType() {
+        return 0;
+    }
 
-	// Returns the seed used by this object
-	public int GetSeed() {
-		return m_seed;
-	}
+    // Returns the seed used by this object
+    public int GetSeed() {
+        return m_seed;
+    }
 
-	// Sets seed used for all noise types
-	// Default: 1337
-	public void SetSeed(int seed) {
-		m_seed = seed;
-	}
+    // Sets seed used for all noise types
+    // Default: 1337
+    public void SetSeed(int seed) {
+        m_seed = seed;
+    }
 
-	// Sets frequency for all noise types
-	// Default: 0.01
-	public void SetFrequency(float frequency) {
-		m_frequency = frequency;
-	}
+    // Sets frequency for all noise types
+    // Default: 0.01
+    public void SetFrequency(float frequency) {
+        m_frequency = frequency;
+    }
 
-	// Changes the interpolation method used to smooth between noise values
-	// Possible interpolation methods (lowest to highest quality) :
-	// - Linear
-	// - Hermite
-	// - Quintic
-	// Used in Value, Gradient Noise and Position Perturbing
-	// Default: Quintic
-	public void SetInterp(Interp interp) {
-		m_interp = interp;
-	}
+    // Changes the interpolation method used to smooth between noise values
+    // Possible interpolation methods (lowest to highest quality) :
+    // - Linear
+    // - Hermite
+    // - Quintic
+    // Used in Value, Gradient Noise and Position Perturbing
+    // Default: Quintic
+    public void SetInterp(Interp interp) {
+        m_interp = interp;
+    }
 
-	// Sets noise return type of GetNoise(...)
-	// Default: Simplex
-	public void SetNoiseType(NoiseType noiseType) {
-		m_noiseType = noiseType;
-	}
+    // Sets noise return type of GetNoise(...)
+    // Default: Simplex
+    public void SetNoiseType(NoiseType noiseType) {
+        m_noiseType = noiseType;
+    }
 
-	// Sets octave count for all fractal noise types
-	// Default: 3
-	public void SetFractalOctaves(int octaves) {
-		m_octaves = octaves;
-		CalculateFractalBounding();
-	}
+    // Sets octave count for all fractal noise types
+    // Default: 3
+    public void SetFractalOctaves(int octaves) {
+        m_octaves = octaves;
+        CalculateFractalBounding();
+    }
 
-	// Sets octave lacunarity for all fractal noise types
-	// Default: 2.0
-	public void SetFractalLacunarity(float lacunarity) {
-		m_lacunarity = lacunarity;
-	}
+    // Sets octave lacunarity for all fractal noise types
+    // Default: 2.0
+    public void SetFractalLacunarity(float lacunarity) {
+        m_lacunarity = lacunarity;
+    }
 
-	// Sets octave gain for all fractal noise types
-	// Default: 0.5
-	public void SetFractalGain(float gain) {
-		m_gain = gain;
-		CalculateFractalBounding();
-	}
+    // Sets octave gain for all fractal noise types
+    // Default: 0.5
+    public void SetFractalGain(float gain) {
+        m_gain = gain;
+        CalculateFractalBounding();
+    }
 
-	// Sets method for combining octaves in all fractal noise types
-	// Default: FBM
-	public void SetFractalType(FractalType fractalType) {
-		m_fractalType = fractalType;
-	}
+    // Sets method for combining octaves in all fractal noise types
+    // Default: FBM
+    public void SetFractalType(FractalType fractalType) {
+        m_fractalType = fractalType;
+    }
 
-	// Sets return type from cellular noise calculations
-	// Note: NoiseLookup requires another FastNoise object be set with SetCellularNoiseLookup() to function
-	// Default: CellValue
-	public void SetCellularDistanceFunction(CellularDistanceFunction cellularDistanceFunction) {
-		m_cellularDistanceFunction = cellularDistanceFunction;
-	}
+    // Sets return type from cellular noise calculations
+    // Note: NoiseLookup requires another FastNoise object be set with SetCellularNoiseLookup() to function
+    // Default: CellValue
+    public void SetCellularDistanceFunction(CellularDistanceFunction cellularDistanceFunction) {
+        m_cellularDistanceFunction = cellularDistanceFunction;
+    }
 
-	// Sets distance function used in cellular noise calculations
-	// Default: Euclidean
-	public void SetCellularReturnType(CellularReturnType cellularReturnType) {
-		m_cellularReturnType = cellularReturnType;
-	}
+    // Sets distance function used in cellular noise calculations
+    // Default: Euclidean
+    public void SetCellularReturnType(CellularReturnType cellularReturnType) {
+        m_cellularReturnType = cellularReturnType;
+    }
 
-	// Noise used to calculate a cell value if cellular return type is NoiseLookup
-	// The lookup value is acquired through GetNoise() so ensure you SetNoiseType() on the noise lookup, value, gradient or simplex is recommended
-	public void SetCellularNoiseLookup(FastNoise noise) {
-		m_cellularNoiseLookup = noise;
-	}
+    // Noise used to calculate a cell value if cellular return type is NoiseLookup
+    // The lookup value is acquired through GetNoise() so ensure you SetNoiseType() on the noise lookup, value, gradient or simplex is recommended
+    public void SetCellularNoiseLookup(FastNoise noise) {
+        m_cellularNoiseLookup = noise;
+    }
 
-	// Sets the maximum perturb distance from original location when using GradientPerturb{Fractal}(...)
-	// Default: 1.0
-	public void SetGradientPerturbAmp(float gradientPerturbAmp) {
-		m_gradientPerturbAmp = gradientPerturbAmp / (float) 0.45;
-	}
+    // Sets the maximum perturb distance from original location when using GradientPerturb{Fractal}(...)
+    // Default: 1.0
+    public void SetGradientPerturbAmp(float gradientPerturbAmp) {
+        m_gradientPerturbAmp = gradientPerturbAmp / (float) 0.45;
+    }
 
-	private static class Float2 {
-		public final float x, y;
+    private static class Float2 {
+        public final float x, y;
 
-		public Float2(float x, float y) {
-			this.x = x;
-			this.y = y;
-		}
-	}
+        public Float2(float x, float y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
 
-	private static class Float3 {
-		public final float x, y, z;
+    private static class Float3 {
+        public final float x, y, z;
 
-		public Float3(float x, float y, float z) {
-			this.x = x;
-			this.y = y;
-			this.z = z;
-		}
-	}
+        public Float3(float x, float y, float z) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+    }
 
-	private static final Float2[] GRAD_2D = {
-		new Float2(-1, -1), new Float2(1, -1), new Float2(-1, 1), new Float2(1, 1),
-		new Float2(0, -1), new Float2(-1, 0), new Float2(0, 1), new Float2(1, 0),
-	};
+    private static final Float2[] GRAD_2D = {
+        new Float2(-1, -1), new Float2(1, -1), new Float2(-1, 1), new Float2(1, 1),
+        new Float2(0, -1), new Float2(-1, 0), new Float2(0, 1), new Float2(1, 0),
+    };
 
-	private static final Float3[] GRAD_3D = {
-		new Float3(1, 1, 0), new Float3(-1, 1, 0), new Float3(1, -1, 0), new Float3(-1, -1, 0),
-		new Float3(1, 0, 1), new Float3(-1, 0, 1), new Float3(1, 0, -1), new Float3(-1, 0, -1),
-		new Float3(0, 1, 1), new Float3(0, -1, 1), new Float3(0, 1, -1), new Float3(0, -1, -1),
-		new Float3(1, 1, 0), new Float3(0, -1, 1), new Float3(-1, 1, 0), new Float3(0, -1, -1),
-	};
+    private static final Float3[] GRAD_3D = {
+        new Float3(1, 1, 0), new Float3(-1, 1, 0), new Float3(1, -1, 0), new Float3(-1, -1, 0),
+        new Float3(1, 0, 1), new Float3(-1, 0, 1), new Float3(1, 0, -1), new Float3(-1, 0, -1),
+        new Float3(0, 1, 1), new Float3(0, -1, 1), new Float3(0, 1, -1), new Float3(0, -1, -1),
+        new Float3(1, 1, 0), new Float3(0, -1, 1), new Float3(-1, 1, 0), new Float3(0, -1, -1),
+    };
 
-	private static final Float2[] CELL_2D =
-		{
-			new Float2(-0.4313539279f, 0.1281943404f), new Float2(-0.1733316799f, 0.415278375f), new Float2(-0.2821957395f, -0.3505218461f), new Float2(-0.2806473808f, 0.3517627718f), new Float2(0.3125508975f, -0.3237467165f), new Float2(0.3383018443f, -0.2967353402f), new Float2(-0.4393982022f, -0.09710417025f), new Float2(-0.4460443703f, -0.05953502905f),
-			new Float2(-0.302223039f, 0.3334085102f), new Float2(-0.212681052f, -0.3965687458f), new Float2(-0.2991156529f, 0.3361990872f), new Float2(0.2293323691f, 0.3871778202f), new Float2(0.4475439151f, -0.04695150755f), new Float2(0.1777518f, 0.41340573f), new Float2(0.1688522499f, -0.4171197882f), new Float2(-0.0976597166f, 0.4392750616f),
-			new Float2(0.08450188373f, 0.4419948321f), new Float2(-0.4098760448f, -0.1857461384f), new Float2(0.3476585782f, -0.2857157906f), new Float2(-0.3350670039f, -0.30038326f), new Float2(0.2298190031f, -0.3868891648f), new Float2(-0.01069924099f, 0.449872789f), new Float2(-0.4460141246f, -0.05976119672f), new Float2(0.3650293864f, 0.2631606867f),
-			new Float2(-0.349479423f, 0.2834856838f), new Float2(-0.4122720642f, 0.1803655873f), new Float2(-0.267327811f, 0.3619887311f), new Float2(0.322124041f, -0.3142230135f), new Float2(0.2880445931f, -0.3457315612f), new Float2(0.3892170926f, -0.2258540565f), new Float2(0.4492085018f, -0.02667811596f), new Float2(-0.4497724772f, 0.01430799601f),
-			new Float2(0.1278175387f, -0.4314657307f), new Float2(-0.03572100503f, 0.4485799926f), new Float2(-0.4297407068f, -0.1335025276f), new Float2(-0.3217817723f, 0.3145735065f), new Float2(-0.3057158873f, 0.3302087162f), new Float2(-0.414503978f, 0.1751754899f), new Float2(-0.3738139881f, 0.2505256519f), new Float2(0.2236891408f, -0.3904653228f),
-			new Float2(0.002967775577f, -0.4499902136f), new Float2(0.1747128327f, -0.4146991995f), new Float2(-0.4423772489f, -0.08247647938f), new Float2(-0.2763960987f, -0.355112935f), new Float2(-0.4019385906f, -0.2023496216f), new Float2(0.3871414161f, -0.2293938184f), new Float2(-0.430008727f, 0.1326367019f), new Float2(-0.03037574274f, -0.4489736231f),
-			new Float2(-0.3486181573f, 0.2845441624f), new Float2(0.04553517144f, -0.4476902368f), new Float2(-0.0375802926f, 0.4484280562f), new Float2(0.3266408905f, 0.3095250049f), new Float2(0.06540017593f, -0.4452222108f), new Float2(0.03409025829f, 0.448706869f), new Float2(-0.4449193635f, 0.06742966669f), new Float2(-0.4255936157f, -0.1461850686f),
-			new Float2(0.449917292f, 0.008627302568f), new Float2(0.05242606404f, 0.4469356864f), new Float2(-0.4495305179f, -0.02055026661f), new Float2(-0.1204775703f, 0.4335725488f), new Float2(-0.341986385f, -0.2924813028f), new Float2(0.3865320182f, 0.2304191809f), new Float2(0.04506097811f, -0.447738214f), new Float2(-0.06283465979f, 0.4455915232f),
-			new Float2(0.3932600341f, -0.2187385324f), new Float2(0.4472261803f, -0.04988730975f), new Float2(0.3753571011f, -0.2482076684f), new Float2(-0.273662295f, 0.357223947f), new Float2(0.1700461538f, 0.4166344988f), new Float2(0.4102692229f, 0.1848760794f), new Float2(0.323227187f, -0.3130881435f), new Float2(-0.2882310238f, -0.3455761521f),
+    private static final Float2[] CELL_2D =
+        {
+            new Float2(-0.4313539279f, 0.1281943404f), new Float2(-0.1733316799f, 0.415278375f), new Float2(-0.2821957395f, -0.3505218461f), new Float2(-0.2806473808f, 0.3517627718f), new Float2(0.3125508975f, -0.3237467165f), new Float2(0.3383018443f, -0.2967353402f), new Float2(-0.4393982022f, -0.09710417025f), new Float2(-0.4460443703f, -0.05953502905f),
+            new Float2(-0.302223039f, 0.3334085102f), new Float2(-0.212681052f, -0.3965687458f), new Float2(-0.2991156529f, 0.3361990872f), new Float2(0.2293323691f, 0.3871778202f), new Float2(0.4475439151f, -0.04695150755f), new Float2(0.1777518f, 0.41340573f), new Float2(0.1688522499f, -0.4171197882f), new Float2(-0.0976597166f, 0.4392750616f),
+            new Float2(0.08450188373f, 0.4419948321f), new Float2(-0.4098760448f, -0.1857461384f), new Float2(0.3476585782f, -0.2857157906f), new Float2(-0.3350670039f, -0.30038326f), new Float2(0.2298190031f, -0.3868891648f), new Float2(-0.01069924099f, 0.449872789f), new Float2(-0.4460141246f, -0.05976119672f), new Float2(0.3650293864f, 0.2631606867f),
+            new Float2(-0.349479423f, 0.2834856838f), new Float2(-0.4122720642f, 0.1803655873f), new Float2(-0.267327811f, 0.3619887311f), new Float2(0.322124041f, -0.3142230135f), new Float2(0.2880445931f, -0.3457315612f), new Float2(0.3892170926f, -0.2258540565f), new Float2(0.4492085018f, -0.02667811596f), new Float2(-0.4497724772f, 0.01430799601f),
+            new Float2(0.1278175387f, -0.4314657307f), new Float2(-0.03572100503f, 0.4485799926f), new Float2(-0.4297407068f, -0.1335025276f), new Float2(-0.3217817723f, 0.3145735065f), new Float2(-0.3057158873f, 0.3302087162f), new Float2(-0.414503978f, 0.1751754899f), new Float2(-0.3738139881f, 0.2505256519f), new Float2(0.2236891408f, -0.3904653228f),
+            new Float2(0.002967775577f, -0.4499902136f), new Float2(0.1747128327f, -0.4146991995f), new Float2(-0.4423772489f, -0.08247647938f), new Float2(-0.2763960987f, -0.355112935f), new Float2(-0.4019385906f, -0.2023496216f), new Float2(0.3871414161f, -0.2293938184f), new Float2(-0.430008727f, 0.1326367019f), new Float2(-0.03037574274f, -0.4489736231f),
+            new Float2(-0.3486181573f, 0.2845441624f), new Float2(0.04553517144f, -0.4476902368f), new Float2(-0.0375802926f, 0.4484280562f), new Float2(0.3266408905f, 0.3095250049f), new Float2(0.06540017593f, -0.4452222108f), new Float2(0.03409025829f, 0.448706869f), new Float2(-0.4449193635f, 0.06742966669f), new Float2(-0.4255936157f, -0.1461850686f),
+            new Float2(0.449917292f, 0.008627302568f), new Float2(0.05242606404f, 0.4469356864f), new Float2(-0.4495305179f, -0.02055026661f), new Float2(-0.1204775703f, 0.4335725488f), new Float2(-0.341986385f, -0.2924813028f), new Float2(0.3865320182f, 0.2304191809f), new Float2(0.04506097811f, -0.447738214f), new Float2(-0.06283465979f, 0.4455915232f),
+    		new Float2(0.3932600341f, -0.2187385324f), new Float2(0.4472261803f, -0.04988730975f), new Float2(0.3753571011f, -0.2482076684f), new Float2(-0.273662295f, 0.357223947f), new Float2(0.1700461538f, 0.4166344988f), new Float2(0.4102692229f, 0.1848760794f), new Float2(0.323227187f, -0.3130881435f), new Float2(-0.2882310238f, -0.3455761521f),
 			new Float2(0.2050972664f, 0.4005435199f), new Float2(0.4414085979f, -0.08751256895f), new Float2(-0.1684700334f, 0.4172743077f), new Float2(-0.003978032396f, 0.4499824166f), new Float2(-0.2055133639f, 0.4003301853f), new Float2(-0.006095674897f, -0.4499587123f), new Float2(-0.1196228124f, -0.4338091548f), new Float2(0.3901528491f, -0.2242337048f),
 			new Float2(0.01723531752f, 0.4496698165f), new Float2(-0.3015070339f, 0.3340561458f), new Float2(-0.01514262423f, -0.4497451511f), new Float2(-0.4142574071f, -0.1757577897f), new Float2(-0.1916377265f, -0.4071547394f), new Float2(0.3749248747f, 0.2488600778f), new Float2(-0.2237774255f, 0.3904147331f), new Float2(-0.4166343106f, -0.1700466149f),
 			new Float2(0.3619171625f, 0.267424695f), new Float2(0.1891126846f, -0.4083336779f), new Float2(-0.3127425077f, 0.323561623f), new Float2(-0.3281807787f, 0.307891826f), new Float2(-0.2294806661f, 0.3870899429f), new Float2(-0.3445266136f, 0.2894847362f), new Float2(-0.4167095422f, -0.1698621719f), new Float2(-0.257890321f, -0.3687717212f),

@@ -7,12 +7,12 @@ import net.minecraft.block.Block;
 
 public class SimpleItem extends Item {
 
-	public SimpleItem(FabricItemSettings settings) {
-		super(settings);
-	}
+    public SimpleItem(FabricItemSettings settings) {
+        super(settings);
+    }
 
-	public static BlockItem fromBlock(Block block, FabricItemSettings settings) {
-		return new BlockItem(block, settings);
-	}
+    public static BlockItem fromBlock(Block block, FabricItemSettings settings) {
+        return new BlockItem(block, settings);
+    }
 
 }

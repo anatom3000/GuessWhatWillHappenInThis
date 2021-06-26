@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "AnimalEntityMixin",
-    "AbstractBlockSettingsMixin",
     "ChatMessageC2SPacketMixin",
     "ChunkGeneratorMixin",
     "ChunkGeneratorSettingsMixin",
@@ -28,12 +27,12 @@
     "LanguageMixin",
     "LivingEntityRendererMixin",
     "MatrixStackMixin",
-    "MinecraftClientMixin",
     "MixinFrustum",
     "PlayerEntityModelMixin",
     "ReloadableResourceManagerImplMixin",
     "SoundSystemMixin",
-    "TitleScreenMixin"
+    "TitleScreenMixin",
+    "TranslationStorageAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

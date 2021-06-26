@@ -17,6 +17,7 @@ import java.util.Map;
 
 public class ItemRegistry {
 
+    @SuppressWarnings("Convert2Diamond") //Stupid IntelliJ
     private static final HashMap<String, Item> ITEMS = new HashMap<String, Item>() {{
         put("portable_black_hole", new PortableBlackHoleItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP).maxCount(1)));
         put("booster", new BoosterItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP).maxCount(1)));

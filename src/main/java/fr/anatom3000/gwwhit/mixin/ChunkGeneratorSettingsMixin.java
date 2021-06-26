@@ -36,15 +36,9 @@ public class ChunkGeneratorSettingsMixin {
                     false, false, false, false);
             
             info.setReturnValue(settings);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (InstantiationException | IllegalArgumentException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
-        
+    
     }
 }

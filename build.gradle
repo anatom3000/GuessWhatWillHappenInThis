@@ -1,6 +1,10 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+
 plugins {
 	id 'fabric-loom' version '0.8-SNAPSHOT'
 	id 'maven-publish'
+	id 'application'
+	id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
 archivesBaseName = project.archives_base_name
@@ -23,6 +27,7 @@ repositories {
 	maven {
 		url 'https://storage.googleapis.com/devan-maven/'
 	}
+	mavenCentral()
 }
 
 dependencies {
@@ -46,6 +51,10 @@ dependencies {
 	modRuntime "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
 
 	modImplementation "com.enderzombi102:JythonMC:$jythonmc_version"
+}
+
+application {
+	mainClassName = "fr.anatom3000.gwwhit.updater.ModUpdater"
 }
 
 processResources {
@@ -79,9 +88,27 @@ java {
 
 jar {
 	from('LICENSE') {
-		rename { "${it}_${project.archivesBaseName}"}
+		rename {"${it}_${project.archivesBaseName}"}
+	}
+	manifest {
+		attributes "Main-Class": "fr.anatom3000.gwwhit.updater.ModUpdater"
 	}
 }
+
+shadowJar {
+	dependencies {
+		include(dependency("com.google.code.gson:gson"))
+	}
+
+	relocate "com.google.json.framework", "fr.anatom3000.gwwhit.updater.json"
+}
+
+task relocateShadowJar(type: ConfigureShadowRelocation) {
+	target = tasks.shadowJar
+	prefix = "fr.anatom3000.gwwhit.shadow"
+
+}
+tasks.shadowJar.dependsOn tasks.relocateShadowJar
 
 // configure the maven publication
 publishing {

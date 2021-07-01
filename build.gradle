@@ -54,7 +54,7 @@ dependencies {
 }
 
 application {
-	mainClassName = "fr.anatom3000.gwwhit.updater.ModUpdater"
+	mainClassName = "fr.anatom3000.gwwhit.commandline.CommandLine"
 }
 
 processResources {
@@ -90,17 +90,14 @@ jar {
 	from('LICENSE') {
 		rename {"${it}_${project.archivesBaseName}"}
 	}
-	manifest {
-		attributes "Main-Class": "fr.anatom3000.gwwhit.updater.ModUpdater"
-	}
+
+	manifest.attributes.put("Main-Class", "fr.anatom3000.gwwhit.commandline.CommandLine")
 }
 
 shadowJar {
 	dependencies {
 		include(dependency("com.google.code.gson:gson"))
 	}
-
-	relocate "com.google.json.framework", "fr.anatom3000.gwwhit.updater.json"
 }
 
 task relocateShadowJar(type: ConfigureShadowRelocation) {

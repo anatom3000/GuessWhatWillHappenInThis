@@ -1,4 +1,4 @@
-package fr.anatom3000.gwwhit.updater;
+package fr.anatom3000.gwwhit.commandline;
 
 import com.google.gson.JsonObject;
 import org.jetbrains.annotations.NotNull;
@@ -69,6 +69,10 @@ public record VersionData(Type type, VersionNumber number, String url, String fi
             }
             
             return this.parts.length - that.parts.length;
+        }
+        
+        public String toString() {
+            return String.join("." ,Arrays.stream(parts).mapToObj(Integer::toString).toArray(String[]::new));
         }
     }
 }

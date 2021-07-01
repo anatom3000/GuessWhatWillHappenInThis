@@ -1,7 +1,6 @@
-package fr.anatom3000.gwwhit.updater;
+package fr.anatom3000.gwwhit.commandline;
 
 import com.google.gson.*;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -22,6 +21,7 @@ import java.util.jar.JarFile;
 public class ModUpdater {
     private static final URL VERSIONS_URL;
     private static final Path MOD_FOLDER = Path.of("").toAbsolutePath();
+    private static final Scanner IN = new Scanner(new InputStreamReader(System.in));
     public static final Gson GSON = new GsonBuilder().create();
     private static final String MOD_ID = "gwwhit"; //We can't load the main file since mc isn't active
     private static String[] args;
@@ -38,11 +38,33 @@ public class ModUpdater {
     }
     
     public static void main(String[] args) {
-        new ModUpdater().update();
         ModUpdater.args = args;
+        try {
+            new ModUpdater().update();
+        } catch (Throwable e) {
+            System.out.println("An error occurred");
+            if (Util.contains(args, "--debug")) {
+                e.printStackTrace();
+            } else {
+                System.out.println("Use --debug for more info");
+            }
+        }
     }
     
     private void update() {
+        if (!Util.contains(args, "--force")) {
+            System.out.println("If a malicious actor has accessed the mods page the jar could be compromised.");
+            switch (prompt("Are you sure you want to download the latest jar? Y/N: ").toLowerCase()) {
+                case "y", "yes":
+                    break;
+                default:
+                    System.out.println("Invalid input. Exiting...");
+                case "n", "no":
+                    return;
+            }
+        }
+        
+        
         System.out.println("Searching for newer versions...");
         VersionData versionData;
         try {
@@ -66,11 +88,11 @@ public class ModUpdater {
             return;
         }
         
-        if (!contains(args, "--force") && versionData.number().compareTo(data.b()) > 0) {
+        if (!Util.contains(args, "--always") && versionData.number().compareTo(data.b()) < 0) {
             System.out.println("No newer versions found!");
             return;
         }
-        System.out.println("Found newer version " + versionData.number() + "!");
+        System.out.println("Found newer version " + versionData.number() + "! Current: " + data.b);
         
         System.out.println("Downloading " + versionData.filename() + "...");
         try (ReadableByteChannel readableByteChannel = Channels.newChannel(versionData.createURL().openStream())) {
@@ -121,6 +143,8 @@ public class ModUpdater {
             }
         }
         
+        if (gwwhit == null || number == null) throw new IllegalStateException("Can't find jar!");
+        
         return new Pair<>(gwwhit, number);
     }
     
@@ -154,13 +178,9 @@ public class ModUpdater {
         return data.get(data.size() - 1);
     }
     
-    @SuppressWarnings("SameParameterValue")
-    private <T> boolean contains(T[] array, @NotNull T object) {
-        if (array == null) return false;
-        for (T value : array) {
-            if (object.equals(value)) return true;
-        }
-        return false;
+    private String prompt(String message) {
+        System.out.print(message);
+        return IN.nextLine();
     }
     
     private record Pair<A, B>(A a, B b) {}

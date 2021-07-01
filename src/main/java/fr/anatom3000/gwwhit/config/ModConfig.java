@@ -79,6 +79,9 @@ public class ModConfig implements ConfigData {
         public Drops drops = new Drops();
         @ConfigEntry.Gui.CollapsibleObject
         public Items items = new Items();
+        @ConfigEntry.Gui.CollapsibleObject
+        public Blocks blocks = new Blocks();
+        
         public boolean stoneBlocksAreInfected = false;
         public boolean mobsMayExplode = false;
         @ConfigEntry.Gui.Tooltip
@@ -101,6 +104,12 @@ public class ModConfig implements ConfigData {
             public boolean randomizedDrops = false;
             @ConfigEntry.Gui.Tooltip(count = 2)
             public boolean dreamLuck = false;
+        }
+        
+        public static class Blocks {
+            @ConfigEntry.Gui.RequiresRestart
+            @ConfigEntry.BoundedDiscrete(max = 1)
+            public float defaultSlipperiness = 0.6F;
         }
     }
 

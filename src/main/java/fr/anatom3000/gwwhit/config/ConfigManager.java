@@ -25,6 +25,7 @@ public class ConfigManager {
     public static ModConfig getLoadedConfig() {
         if (CURRENT_CONFIG == null) {
             AutoConfig.register(ModConfig.class, (definition, configClass) -> new GsonConfigSerializer<>(definition, configClass, GSON));
+            GWWHIT.LOGGER.info("Gwwhit config registered!");
             CURRENT_CONFIG = getHolder().getConfig();
         }
         

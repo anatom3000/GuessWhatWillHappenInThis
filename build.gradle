@@ -1,6 +1,10 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+
 plugins {
 	id 'fabric-loom' version '0.9-SNAPSHOT'
 	id 'maven-publish'
+	id 'application'
+	id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
 archivesBaseName = project.archives_base_name
@@ -23,6 +27,7 @@ repositories {
 	maven {
 		url 'https://storage.googleapis.com/devan-maven/'
 	}
+	mavenCentral()
 }
 
 dependencies {
@@ -34,7 +39,7 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:$fabric_version"
 
-	modRuntime modApi("me.shedaniel.cloth:cloth-config-fabric:$cloth_version") {
+	modRuntime modApi("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
 		exclude(group: 'net.fabricmc.fabric-api')
 	}
 
@@ -46,6 +51,10 @@ dependencies {
 	modRuntime "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
 
 	include modImplementation("com.enderzombi102:JythonMC:$jythonmc_version")
+}
+
+application {
+	mainClassName = "fr.anatom3000.gwwhit.commandline.CommandLine"
 }
 
 processResources {
@@ -79,9 +88,24 @@ java {
 
 jar {
 	from('LICENSE') {
-		rename { "${it}_${project.archivesBaseName}"}
+		rename {"${it}_${project.archivesBaseName}"}
+	}
+
+	manifest.attributes.put("Main-Class", "fr.anatom3000.gwwhit.commandline.CommandLine")
+}
+
+shadowJar {
+	dependencies {
+		include(dependency("com.google.code.gson:gson"))
 	}
 }
+
+task relocateShadowJar(type: ConfigureShadowRelocation) {
+	target = tasks.shadowJar
+	prefix = "fr.anatom3000.gwwhit.shadow"
+
+}
+tasks.shadowJar.dependsOn tasks.relocateShadowJar
 
 // configure the maven publication
 publishing {

@@ -15,6 +15,7 @@
 		"LivingEntityMixin",
 		"LootManagerMixin",
 		"NoiseChunkGeneratorMixin",
+		"OptionsMenuMixin",
 		"PlayerManagerMixin"
 	],
 	"client": [

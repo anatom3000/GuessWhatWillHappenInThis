@@ -52,76 +52,19 @@ public class KeyboardMixin {
 
 			MinecraftServer server = this.client.getServer();
 			GameProfile profile = this.client.player != null ? this.client.player.getGameProfile() : null;
-			if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT6)) {
-				this.client.player.sendChatMessage("There is no cow level");
-			} else if (server != null && profile != null) {
-				ServerPlayerEntity player = server.getPlayerManager().getPlayer(profile.getId());
-				if (player != null) {
-					PlayerAbilities abilities = player.getAbilities();
-					if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT5)) {
-						// TODO: RESTORE
-						this.client.player.sendChatMessage("Got all keys!");
-					} else if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT4)) {
-						ItemStack var2 = new ItemStack(Items.CROSSBOW);
-						EnchantmentHelper.set(ImmutableMap.of(Enchantments.MULTISHOT, 12), var2);
 
-						PlayerInventory inv = player.getInventory();
-						inv.insertStack(var2);
-						inv.insertStack(EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_SWORD), 30, true));
-						inv.insertStack(EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_AXE), 30, true));
-						inv.insertStack(EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_PICKAXE), 30, true));
-						inv.insertStack(EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_HOE), 30, true));
-						inv.insertStack(EnchantmentHelper.enchant(this.random, new ItemStack(Items.SHEARS), 30, true));
-						inv.insertStack(EnchantmentHelper.enchant(this.random, new ItemStack(Items.BOW), 30, true));
-						inv.insertStack(new ItemStack(Items.ARROW, 64));
-						player.equipStack(EquipmentSlot.HEAD, EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_HELMET), 30, true));
-						player.equipStack(EquipmentSlot.CHEST, EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_CHESTPLATE), 30, true));
-						player.equipStack(EquipmentSlot.LEGS, EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_LEGGINGS), 30, true));
-						player.equipStack(EquipmentSlot.FEET, EnchantmentHelper.enchant(this.random, new ItemStack(Items.NETHERITE_BOOTS), 30, true));
-						player.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-						this.client.player.sendChatMessage("Got all equipment!");
-					} else if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT2)) {
-						abilities.allowFlying = !abilities.allowFlying;
-						player.sendAbilitiesUpdate();
-						this.client.player.sendChatMessage("FLYING=VERY YES");
-					} else if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT1)) {
-						abilities.invulnerable = !abilities.invulnerable;
-						player.sendAbilitiesUpdate();
-						this.client.player.sendChatMessage("Nothing can stop you!");
-					} else if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT3)) {
-						player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 1200, 20));
-						player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 1200, 20));
-						player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 1200, 20));
-						this.client.player.sendChatMessage("Gordon's ALIVE!");
-					} else if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT7)) {
-						Vec3d playerPos = player.getPos();
-						Vec3d vector = new Vec3d(playerPos.x + (double) (this.random.nextFloat() * 3.0F), playerPos.y, playerPos.z + (double) (this.random.nextFloat() * 3.0F));
-						HorseEntity horse = EntityType.HORSE.create(player.world);
-						horse.setPosition(vector.x, vector.y, vector.z);
-						horse.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(200.0D);
-						horse.getAttributeInstance(EntityAttributes.HORSE_JUMP_STRENGTH).setBaseValue(3.0D);
-						horse.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(3.0D);
-						horse.setTame(true);
-						horse.setTemper(0);
-						horse.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.DIAMOND_HORSE_ARMOR));
-						//horse.equipStack(EquipmentSlot.fromTypeIndex(EquipmentSlot.Type.ARMOR, 400), new ItemStack(Items.SADDLE));
-						horse.saddle(null);
-						player.world.spawnEntity(horse);
-						this.client.player.sendChatMessage("VROOM!");
-					} else if (this.CURRENT_STRING.endsWith(CheatCodes.CHEAT8)) {
-						CreeperEntity creeper = null;
-						for (int var3 = 0; var3 < 5; var3++) {
-							CreeperEntity newCreeper = EntityType.CREEPER.create(player.world);
-							newCreeper.setPosition(player.getX() + 0.5D, player.getY() + 0.5D, player.getZ() + 0.5D);
-							player.world.spawnEntity(newCreeper);
-							if (creeper != null)
-								creeper.startRiding(newCreeper, true);
-							creeper = newCreeper;
-						}
-						this.client.player.sendChatMessage("Special creeper has been spawned nearby!");
-					}
+			ServerPlayerEntity player = server != null && profile != null ?
+							server.getPlayerManager().getPlayer( profile.getId() ) :
+							null;
+			PlayerAbilities abilities = player != null ? player.getAbilities() : null;
+
+			for ( CheatCodes.CheatCode cheatCode : CheatCodes.CHEAT_CODES ) {
+				if ( this.CURRENT_STRING.endsWith( cheatCode.code ) ){
+					if ( cheatCode.needsPlayer() && player == null) continue;
+					cheatCode.onExecute(player, abilities);
 				}
 			}
+
 		}
 	}
 }

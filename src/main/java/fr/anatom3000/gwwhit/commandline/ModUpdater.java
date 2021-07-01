@@ -142,9 +142,6 @@ public class ModUpdater {
                 e.printStackTrace();
             }
         }
-        
-        if (gwwhit == null || number == null) throw new IllegalStateException("Can't find jar!");
-        
         return new Pair<>(gwwhit, number);
     }
     

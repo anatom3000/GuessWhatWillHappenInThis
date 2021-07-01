@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Random;
 
 import fr.anatom3000.gwwhit.GWWHIT;
-import fr.anatom3000.gwwhit.config.ModConfig;
 import fr.anatom3000.gwwhit.imixin.IFixedYOffset;
 import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
@@ -52,7 +51,6 @@ import net.minecraft.world.gen.heightprovider.UniformHeightProvider;
 import static fr.anatom3000.gwwhit.GWWHIT.MOD_ID;
 
 public class CustomOre {
-    private static ItemGroup itemGroup;
     private final Dimension dimension;
 
     public enum Type {

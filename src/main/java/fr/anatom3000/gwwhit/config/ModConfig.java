@@ -30,6 +30,9 @@ public class ModConfig implements ConfigData {
         @ConfigEntry.Gui.Tooltip()
         @ConfigEntry.Gui.RequiresRestart()
         public boolean python = false;
+        @ConfigEntry.Gui.Tooltip()
+        @ConfigEntry.Gui.RequiresRestart()
+        public boolean scripting = false;
 
         public static class Blocks {
             @ConfigEntry.Gui.CollapsibleObject

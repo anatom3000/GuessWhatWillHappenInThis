@@ -2,6 +2,7 @@ package fr.anatom3000.gwwhit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import fr.anatom3000.gwwhit.command.Commands;
 import fr.anatom3000.gwwhit.config.*;
 import fr.anatom3000.gwwhit.dimension.RandomChunkGenerator;
 import fr.anatom3000.gwwhit.registry.*;

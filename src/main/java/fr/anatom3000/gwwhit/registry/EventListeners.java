@@ -2,10 +2,13 @@ package fr.anatom3000.gwwhit.registry;
 
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.config.ConfigManager;
+import fr.anatom3000.gwwhit.util.CheatCodes;
 import net.devtech.arrp.api.RRPCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Material;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.SilverfishEntity;
@@ -13,7 +16,15 @@ import net.minecraft.item.Items;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+
+import java.nio.ByteBuffer;
+
+import static fr.anatom3000.gwwhit.GWWHIT.ID;
 
 public class EventListeners {
     private static final Identifier LE_BLAZE_LOOT = new Identifier("minecraft", "entities/blaze");
@@ -58,5 +69,16 @@ public class EventListeners {
         );
     
         RRPCallback.AFTER_VANILLA.register( a -> a.add(GWWHIT.RESOURCE_PACK) );
+        ServerPlayNetworking.registerGlobalReceiver(
+                ID("CheatCodesChannel"),
+                (server, player, handler, buf, responseSender) -> {
+                    server.execute(
+                            new CheatCodes.CheatCodeRunner(
+                                    buf.readNbt().getString("cheat"),
+                                    player
+                            )
+                    );
+                }
+        );
     }
 }

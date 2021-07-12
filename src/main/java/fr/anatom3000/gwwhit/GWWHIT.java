@@ -89,6 +89,10 @@ public class GWWHIT implements ModInitializer {
 			e.printStackTrace();
 		}
 	}
+
+	public static Identifier ID(String path) {
+		return new Identifier(MOD_ID, path);
+	}
 	
 }
 

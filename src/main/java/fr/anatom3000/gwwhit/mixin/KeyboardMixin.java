@@ -2,10 +2,14 @@ package fr.anatom3000.gwwhit.mixin;
 
 import com.mojang.authlib.GameProfile;
 import fr.anatom3000.gwwhit.util.CheatCodes;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.Keyboard;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.player.PlayerAbilities;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Final;
@@ -14,6 +18,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import static fr.anatom3000.gwwhit.GWWHIT.ID;
 
 @Mixin(Keyboard.class)
 public class KeyboardMixin {
@@ -37,17 +43,29 @@ public class KeyboardMixin {
 			}
 
 			MinecraftServer server = this.client.getServer();
-			GameProfile profile = this.client.player != null ? this.client.player.getGameProfile() : null;
 
-			ServerPlayerEntity player = server != null && profile != null ?
-							server.getPlayerManager().getPlayer( profile.getId() ) :
-							null;
-			PlayerAbilities abilities = player != null ? player.getAbilities() : null;
-
+			// search the cheat code
 			for ( CheatCodes.CheatCode cheatCode : CheatCodes.CHEAT_CODES ) {
 				if ( this.CURRENT_STRING.endsWith( cheatCode.code ) ) {
-					if ( cheatCode.needsPlayer() && player == null ) continue;
-					cheatCode.onExecute(player, abilities);
+					// code found
+					if ( server == null ) {
+						// we're connected to a server, send a packet
+						PacketByteBuf buf = PacketByteBufs.create();
+						NbtCompound nbt = new NbtCompound();
+						nbt.putString( "cheat", cheatCode.code );
+						buf.writeNbt( nbt );
+						ClientPlayNetworking.send( ID("CheatCodesChannel"), buf );
+					} else {
+						// we're connected to the integrated server, do it directly
+						try {
+							ServerPlayerEntity player = server.getPlayerManager().getPlayer(
+									this.client.player.getGameProfile().getId()
+							);
+							assert player != null;
+							cheatCode.onExecute( player, player.getAbilities() );
+						} catch (AssertionError ignored) { }
+					}
+
 				}
 			}
 

@@ -1,6 +1,8 @@
 package fr.anatom3000.gwwhit.util;
 
 import com.google.common.collect.ImmutableMap;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -15,6 +17,9 @@ import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -256,5 +261,23 @@ public class CheatCodes {
 		 * @param abilities the player's abilities.
 		 */
 		public abstract void onExecute( @Nullable ServerPlayerEntity player, @Nullable PlayerAbilities abilities );
+	}
+
+	public static final class CheatCodeRunner implements Runnable {
+		private final String code;
+		private final ServerPlayerEntity player;
+
+		public CheatCodeRunner(String code, ServerPlayerEntity player) {
+			this.code = code;
+			this.player = player;
+		}
+
+		@Override
+		public void run() {
+			for ( CheatCode cheat : CHEAT_CODES ) {
+				if ( cheat.code.equals(code) )
+					cheat.onExecute( player, player.getAbilities() );
+			}
+		}
 	}
 }

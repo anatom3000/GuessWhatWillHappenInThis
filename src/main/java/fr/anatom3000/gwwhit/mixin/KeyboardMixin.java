@@ -54,7 +54,7 @@ public class KeyboardMixin {
 						NbtCompound nbt = new NbtCompound();
 						nbt.putString( "cheat", cheatCode.code );
 						buf.writeNbt( nbt );
-						ClientPlayNetworking.send( ID("CheatCodesChannel"), buf );
+						ClientPlayNetworking.send( ID("cheat_codes_channel"), buf );
 					} else {
 						// we're connected to the integrated server, do it directly
 						try {

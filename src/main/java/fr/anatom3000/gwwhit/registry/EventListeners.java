@@ -25,6 +25,7 @@ import net.minecraft.util.Identifier;
 import java.nio.ByteBuffer;
 
 import static fr.anatom3000.gwwhit.GWWHIT.ID;
+import static fr.anatom3000.gwwhit.GWWHIT.getId;
 
 public class EventListeners {
 	private static final Identifier LE_BLAZE_LOOT = new Identifier("minecraft", "entities/blaze");
@@ -70,7 +71,7 @@ public class EventListeners {
 
 		RRPCallback.AFTER_VANILLA.register( a -> a.add(GWWHIT.RESOURCE_PACK) );
 		ServerPlayNetworking.registerGlobalReceiver(
-				ID("cheat_codes_channel"),
+				getId("cheat_codes_channel"),
 				(server, player, handler, buf, responseSender) -> {
 					server.execute(
 							new CheatCodes.CheatCodeRunner(

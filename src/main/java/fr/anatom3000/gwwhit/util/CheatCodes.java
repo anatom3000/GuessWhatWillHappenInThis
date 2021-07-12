@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -149,6 +150,6 @@ public class CheatCodes {
 		 * @param player the player instance in the integrated server.
 		 * @param abilities the player's abilities.
 		 */
-		public abstract void onExecute( ServerPlayerEntity player, PlayerAbilities abilities );
+		public abstract void onExecute( @Nullable ServerPlayerEntity player, @Nullable PlayerAbilities abilities );
 	}
 }

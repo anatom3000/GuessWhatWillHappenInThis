@@ -161,8 +161,6 @@ public class CheatCodes {
 			}
 		});
 		add(new CheatCode("COWSCOWSCOWS") {  // cheat 6
-			@Override public boolean needsPlayer() { return false; }
-
 			@Override
 			public void onExecute(ServerPlayerEntity player, PlayerAbilities abilities) {
 				client.player.sendChatMessage("There is no cow level");
@@ -251,13 +249,8 @@ public class CheatCodes {
 		}
 
 		/**
-		 * Override this if you don't need the player/abilities
-		 */
-		public boolean needsPlayer() { return true; }
-
-		/**
-		 * Contrary to what it may seem, this runs on the client.
-		 * @param player the player instance in the integrated server.
+		 * This function will run on the logical server
+		 * @param player the player instance.
 		 * @param abilities the player's abilities.
 		 */
 		public abstract void onExecute( @Nullable ServerPlayerEntity player, @Nullable PlayerAbilities abilities );

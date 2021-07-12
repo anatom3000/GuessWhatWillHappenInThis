@@ -79,12 +79,15 @@ public class ModConfig implements ConfigData {
         public Drops drops = new Drops();
         @ConfigEntry.Gui.CollapsibleObject
         public Items items = new Items();
+        @ConfigEntry.Gui.CollapsibleObject
+        public Blocks blocks = new Blocks();
+        
         public boolean stoneBlocksAreInfected = false;
         public boolean mobsMayExplode = false;
         @ConfigEntry.Gui.Tooltip
         public boolean killCulling = false;
 
-		public static class Items {
+        public static class Items {
             @ConfigEntry.Gui.RequiresRestart
             public boolean everythingIsEdible = false;
             @ConfigEntry.Gui.Tooltip
@@ -101,6 +104,12 @@ public class ModConfig implements ConfigData {
             public boolean randomizedDrops = false;
             @ConfigEntry.Gui.Tooltip(count = 2)
             public boolean dreamLuck = false;
+        }
+        
+        public static class Blocks {
+            @ConfigEntry.Gui.RequiresRestart
+            @ConfigEntry.BoundedDiscrete(max = 1)
+            public float defaultSlipperiness = 0.6F;
         }
     }
 
@@ -162,18 +171,26 @@ public class ModConfig implements ConfigData {
         }
 
         public static class Audio {
-            @ConfigEntry.Gui.Tooltip( count = 2 )
+            @ConfigEntry.Gui.Tooltip
             public boolean mojaaaangStartupSound = false;
             @ConfigEntry.Gui.Tooltip
-            public boolean blyatSounds = false;
+            @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
+            public SoundReplacement soundReplacement = SoundReplacement.None;
             @ConfigEntry.Gui.Tooltip
             @ConfigEntry.Gui.CollapsibleObject
             public WhatsAppWhistle whatsAppWhistle = new WhatsAppWhistle();
 
             public static class WhatsAppWhistle {
-                @ConfigEntry.Gui.Tooltip
                 public boolean enabled = false;
                 public float volume = 1f;
+            }
+
+            public enum SoundReplacement {
+                None,
+                Blyat,
+                Mojaaaang,
+                UwU,
+                Whatsapp_Whistle
             }
         }
     }

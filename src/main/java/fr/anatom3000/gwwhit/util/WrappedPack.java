@@ -15,8 +15,9 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class WrappedPack implements ResourcePack {
-    private final ResourcePack pack;
+import static fr.anatom3000.gwwhit.config.ModConfig.Cosmetic.Audio.SoundReplacement;
+
+public record WrappedPack(ResourcePack pack) implements ResourcePack {
     @Override
     public InputStream openRoot(String fileName) throws IOException {
         return pack.openRoot(fileName);
@@ -24,13 +25,16 @@ public class WrappedPack implements ResourcePack {
 
     @Override
     public InputStream open(ResourceType type, Identifier id) throws IOException {
-        if (ConfigManager.getLoadedConfig().cosmetic.audio.blyatSounds && id.getPath().endsWith(".ogg"))
-            return Files.newInputStream(GWWHIT.ASSETS_ROOT.resolve("sounds/blyat.ogg"));
+        if (id.getPath().endsWith(".ogg")) {
+            SoundReplacement r = ConfigManager.getLoadedConfig().cosmetic.audio.soundReplacement;
+            if (r != SoundReplacement.None)
+                return Files.newInputStream(GWWHIT.ASSETS_ROOT.resolve("sounds/" + r.name().toLowerCase() + ".ogg"));
+        }
         return pack.open(type, id);
     }
 
     @Override
-    public Collection<Identifier> findResources(ResourceType type, String namespace, String prefix, int maxDepth, Predicate<java.lang.String> pathFilter) {
+    public Collection<Identifier> findResources(ResourceType type, String namespace, String prefix, int maxDepth, Predicate<String> pathFilter) {
         return pack.findResources(type, namespace, prefix, maxDepth, pathFilter);
     }
 
@@ -58,9 +62,5 @@ public class WrappedPack implements ResourcePack {
     @Override
     public void close() {
         pack.close();
-    }
-
-    public WrappedPack(ResourcePack pack) {
-        this.pack = pack;
     }
 }

@@ -4,6 +4,7 @@
 	"package": "fr.anatom3000.gwwhit.mixin",
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
+		"AbstractBlockSettingsMixin",
 		"AnimalEntityMixin",
 		"ChatMessageC2SPacketMixin",
 		"ChunkGeneratorMixin",
@@ -14,6 +15,7 @@
 		"LivingEntityAccessor",
 		"LivingEntityMixin",
 		"LootManagerMixin",
+		"MinecraftClientMixin",
 		"NoiseChunkGeneratorMixin",
 		"PlayerManagerMixin"
 	],
@@ -31,7 +33,8 @@
 		"PlayerEntityModelMixin",
 		"ReloadableResourceManagerImplMixin",
 		"SoundSystemMixin",
-		"TitleScreenMixin"
+		"TitleScreenMixin",
+		"TranslationStorageAccessor"
 	],
 	"injectors": {
 		"defaultRequire": 1

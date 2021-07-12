@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static fr.anatom3000.gwwhit.GWWHIT.ID;
+import static fr.anatom3000.gwwhit.GWWHIT.getId;
 
 @Mixin(Keyboard.class)
 public class KeyboardMixin {
@@ -54,7 +54,7 @@ public class KeyboardMixin {
 						NbtCompound nbt = new NbtCompound();
 						nbt.putString( "cheat", cheatCode.code );
 						buf.writeNbt( nbt );
-						ClientPlayNetworking.send( ID("cheat_codes_channel"), buf );
+						ClientPlayNetworking.send( getId("cheat_codes_channel"), buf );
 					} else {
 						// we're connected to the integrated server, do it directly
 						try {

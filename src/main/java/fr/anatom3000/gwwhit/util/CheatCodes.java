@@ -16,7 +16,11 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -195,6 +199,32 @@ public class CheatCodes {
 					creeper = newCreeper;
 				}
 				client.player.sendChatMessage("Special creeper has been spawned nearby!");
+			}
+		});
+		add(new CheatCode("LOOKMUMIMFLYING") {
+			@Override
+			public void onExecute(ServerPlayerEntity player, @Nullable PlayerAbilities abilities) {
+				player.setNoGravity(! player.hasNoGravity() );
+				client.player.sendChatMessage("U R JESUS??");
+			}
+		});
+		add(new CheatCode("LIKANOTHAWORLD") {
+			@Override
+			public void onExecute(ServerPlayerEntity player, @Nullable PlayerAbilities abilities) {
+				ServerWorld world = player.getServer().getWorld(
+						RegistryKey.of(
+								Registry.WORLD_KEY,
+								new Identifier( "minecraft", "nether")
+						)
+				);
+				double x = world.getSpawnPos().getX(), y = world.getSpawnPos().getY(), z = world.getSpawnPos().getZ();
+				player.teleport(
+						world,
+						x, y, z,
+						player.getYaw(),
+						player.getPitch()
+				);
+				client.player.sendChatMessage("U R GOING TO BRAZIL!");
 			}
 		});
 	}};

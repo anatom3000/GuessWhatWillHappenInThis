@@ -11,7 +11,7 @@ classes/
 
 # idea
 
-.idea/
+.idea
 *.iml
 *.ipr
 *.iws
@@ -30,4 +30,5 @@ bin/
 
 # fabric
 
-run/
+run
+runs

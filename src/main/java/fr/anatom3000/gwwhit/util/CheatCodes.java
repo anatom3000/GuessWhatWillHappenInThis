@@ -22,6 +22,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static fr.anatom3000.gwwhit.util.Utilities.insertMany;
+
 public class CheatCodes {
 
 	public static int MAX_CHEAT_LEN = 0;
@@ -55,23 +57,90 @@ public class CheatCodes {
 		add(new CheatCode("MOREDAKKA") {  // cheat 4
 			@Override
 			public void onExecute(ServerPlayerEntity player, PlayerAbilities abilities) {
-				ItemStack var2 = new ItemStack(Items.CROSSBOW);
-				EnchantmentHelper.set(ImmutableMap.of(Enchantments.MULTISHOT, 12), var2);
+				ItemStack crossbow = new ItemStack(Items.CROSSBOW);
+				EnchantmentHelper.set(ImmutableMap.of(Enchantments.MULTISHOT, 12), crossbow);
 
-				PlayerInventory inv = player.getInventory();
-				inv.insertStack(var2);
-				inv.insertStack(EnchantmentHelper.enchant(random, new ItemStack(Items.NETHERITE_SWORD), 30, true));
-				inv.insertStack(EnchantmentHelper.enchant(random, new ItemStack(Items.NETHERITE_AXE), 30, true));
-				inv.insertStack(EnchantmentHelper.enchant(random, new ItemStack(Items.NETHERITE_PICKAXE), 30, true));
-				inv.insertStack(EnchantmentHelper.enchant(random, new ItemStack(Items.NETHERITE_HOE), 30, true));
-				inv.insertStack(EnchantmentHelper.enchant(random, new ItemStack(Items.SHEARS), 30, true));
-				inv.insertStack(EnchantmentHelper.enchant(random, new ItemStack(Items.BOW), 30, true));
-				inv.insertStack(new ItemStack(Items.ARROW, 64));
-				player.equipStack(EquipmentSlot.HEAD, EnchantmentHelper.enchant(random, new ItemStack(Items.NETHERITE_HELMET), 30, true));
-				player.equipStack(EquipmentSlot.CHEST, EnchantmentHelper.enchant(random, new ItemStack(Items.NETHERITE_CHESTPLATE), 30, true));
-				player.equipStack(EquipmentSlot.LEGS, EnchantmentHelper.enchant(random, new ItemStack(Items.NETHERITE_LEGGINGS), 30, true));
-				player.equipStack(EquipmentSlot.FEET, EnchantmentHelper.enchant(random, new ItemStack(Items.NETHERITE_BOOTS), 30, true));
-				player.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
+				insertMany(
+						player.getInventory(),
+						crossbow,
+						EnchantmentHelper.enchant(
+								random,
+								new ItemStack(Items.NETHERITE_SWORD),
+								30,
+								true
+						),
+						EnchantmentHelper.enchant(
+								random,
+								new ItemStack(Items.NETHERITE_AXE),
+								30,
+								true
+						),
+						EnchantmentHelper.enchant(
+								random,
+								new ItemStack(Items.NETHERITE_PICKAXE),
+								30,
+								true
+						),
+						EnchantmentHelper.enchant(
+								random,
+								new ItemStack(Items.NETHERITE_HOE),
+								30,
+								true
+						),
+						EnchantmentHelper.enchant(
+								random,
+								new ItemStack(Items.SHEARS),
+								30,
+								true
+						),
+						EnchantmentHelper.enchant(
+								random,
+								new ItemStack(Items.BOW),
+								30,
+								true
+						),
+						new ItemStack( Items.ARROW, 64 )
+				);
+				player.equipStack(
+						EquipmentSlot.HEAD,
+						EnchantmentHelper.enchant(
+								random,
+								new ItemStack(Items.NETHERITE_HELMET),
+								30,
+								true
+						)
+				);
+				player.equipStack(
+						EquipmentSlot.CHEST,
+						EnchantmentHelper.enchant(
+								random,
+								new ItemStack(Items.NETHERITE_CHESTPLATE),
+								30,
+								true
+						)
+				);
+				player.equipStack(
+						EquipmentSlot.LEGS,
+						EnchantmentHelper.enchant(
+								random,
+								new ItemStack(Items.NETHERITE_LEGGINGS),
+								30,
+								true
+						)
+				);
+				player.equipStack(
+						EquipmentSlot.FEET,
+						EnchantmentHelper.enchant(
+								random,
+								new ItemStack(Items.NETHERITE_BOOTS),
+								30,
+								true
+						)
+				);
+				player.equipStack(
+						EquipmentSlot.OFFHAND,
+						new ItemStack(Items.SHIELD)
+				);
 				client.player.sendChatMessage("Got all equipment!");
 			}
 		});
@@ -83,8 +152,7 @@ public class CheatCodes {
 			}
 		});
 		add(new CheatCode("COWSCOWSCOWS") {  // cheat 6
-			@Override
-			public boolean needsPlayer() { return false; }
+			@Override public boolean needsPlayer() { return false; }
 
 			@Override
 			public void onExecute(ServerPlayerEntity player, PlayerAbilities abilities) {
@@ -95,7 +163,11 @@ public class CheatCodes {
 			@Override
 			public void onExecute(ServerPlayerEntity player, PlayerAbilities abilities) {
 				Vec3d playerPos = player.getPos();
-				Vec3d vector = new Vec3d(playerPos.x + (double) (random.nextFloat() * 3.0F), playerPos.y, playerPos.z + (double) (random.nextFloat() * 3.0F));
+				Vec3d vector = new Vec3d(
+						playerPos.x + (double) (random.nextFloat() * 3.0F),
+						playerPos.y,
+						playerPos.z + (double) (random.nextFloat() * 3.0F)
+				);
 				HorseEntity horse = EntityType.HORSE.create(player.world);
 				horse.setPosition(vector.x, vector.y, vector.z);
 				horse.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(200.0D);
@@ -134,10 +206,13 @@ public class CheatCodes {
 
 		public String code;
 
+		/**
+		 * This constructor sets the maximum cheat length
+		 * @param code The code your cheat will be activated by.
+		 */
 		public CheatCode(String code) {
 			this.code = code;
-			if ( MAX_CHEAT_LEN < code.length() )
-				MAX_CHEAT_LEN = code.length();
+			MAX_CHEAT_LEN = MAX_CHEAT_LEN < code.length() ? MAX_CHEAT_LEN = code.length() : MAX_CHEAT_LEN;
 		}
 
 		/**

@@ -16,7 +16,7 @@ public class RandomisingBlock extends BlockWithEntity {
     public RandomisingBlock(Settings settings) {
         super(settings);
     }
-    
+
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;

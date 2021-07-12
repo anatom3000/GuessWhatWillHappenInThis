@@ -14,8 +14,11 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(MatrixStack.class)
 public abstract class MatrixStackMixin {
-
     private static float increment = 0;
+
+    private static float iv(double v) {
+        return MathUtil.boxedInvert((float) v, -0.1f, 0.1f);
+    }
 
     @Inject(method = "translate(DDD)V", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
     public void translate(double x, double y, double z, CallbackInfo ci, MatrixStack.Entry entry) {
@@ -30,9 +33,4 @@ public abstract class MatrixStackMixin {
         }
         entry.getModel().multiply(ConfigManager.getLoadedConfig().cosmetic.rendering.world.matrixScale);
     }
-    
-    private static float iv(double v) {
-        return MathUtil.BoxedInvert((float)v, -0.1f, 0.1f);
-    }
-
 }

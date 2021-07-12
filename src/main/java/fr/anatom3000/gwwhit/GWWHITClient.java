@@ -1,8 +1,8 @@
 package fr.anatom3000.gwwhit;
 
 import com.google.gson.JsonSyntaxException;
-import fr.anatom3000.gwwhit.config.ModConfig;
 import fr.anatom3000.gwwhit.config.ConfigManager;
+import fr.anatom3000.gwwhit.config.ModConfig;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -11,7 +11,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class GWWHITClient implements ClientModInitializer {
-
     public static final Identifier WHISTLE_SOUND = new Identifier("gwwhit:whatsapp_whistle");
     public static final SoundEvent WHISTLE_SOUND_EVENT = new SoundEvent(WHISTLE_SOUND);
     public static final Identifier MOJAAAANG_SOUND = new Identifier("gwwhit:mojaaaang");

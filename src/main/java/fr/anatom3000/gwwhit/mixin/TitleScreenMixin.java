@@ -10,10 +10,10 @@ public class TitleScreenMixin {
     @ModifyConstant(method = "render(Lnet/minecraft/client/util/math/MatrixStack;IIF)V", constant = {@Constant(intValue = 98), @Constant(intValue = 88)})
     public int repositionEdition(int old) {
         int i = old;
-        
+
         if (old == 98) i += 30;
         if (old == 88) i -= 15;
-        
+
         return i;
     }
 }

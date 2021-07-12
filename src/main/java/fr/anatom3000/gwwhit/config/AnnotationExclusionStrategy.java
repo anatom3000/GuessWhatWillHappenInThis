@@ -13,15 +13,14 @@ public class AnnotationExclusionStrategy implements ExclusionStrategy {
     public boolean shouldSkipField(FieldAttributes f) {
         return f.getAnnotation(Exclude.class) != null;
     }
-    
+
     @Override
     public boolean shouldSkipClass(Class<?> c) {
-        return c.getAnnotation(Exclude.class) != null; 
+        return c.getAnnotation(Exclude.class) != null;
     }
-    
+
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.FIELD, ElementType.TYPE})
     public @interface Exclude {
-    
     }
 }

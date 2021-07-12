@@ -17,27 +17,10 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class PortableBlackHoleItem extends Item {
+    private static final HashMap<ItemStack, ConcurrentSet<BlockPos>> STORAGE = new HashMap<>();
 
     public PortableBlackHoleItem(Settings settings) {
         super(settings);
-    }
-    private static final HashMap<ItemStack, ConcurrentSet<BlockPos>> STORAGE = new HashMap<>();
-
-    @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        if (context.getPlayer() != null) {
-            context.getPlayer().setCurrentHand(context.getHand());
-        }
-        BlockPos startPos = context.getBlockPos();
-        new Thread(() -> storeBlocks(context.getWorld(), startPos, 8, context.getStack())).start();
-        return ActionResult.CONSUME;
-    }
-
-    @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-        player.setCurrentHand(hand);
-        breakStoredBlocks(world, player.getStackInHand(hand));
-        return TypedActionResult.consume(player.getStackInHand(hand));
     }
 
     private static void breakStoredBlocks(World world, ItemStack stack) {
@@ -54,11 +37,6 @@ public class PortableBlackHoleItem extends Item {
             }
             STORAGE.get(stack).remove(pos);
         }
-    }
-
-    @Override
-    public int getMaxUseTime(ItemStack stack) {
-        return 1;
     }
 
     private static void storeBlocks(World world, BlockPos pos, int distance, ItemStack stack) {
@@ -80,4 +58,25 @@ public class PortableBlackHoleItem extends Item {
         }
     }
 
+    @Override
+    public ActionResult useOnBlock(ItemUsageContext context) {
+        if (context.getPlayer() != null) {
+            context.getPlayer().setCurrentHand(context.getHand());
+        }
+        BlockPos startPos = context.getBlockPos();
+        new Thread(() -> storeBlocks(context.getWorld(), startPos, 8, context.getStack())).start();
+        return ActionResult.CONSUME;
+    }
+
+    @Override
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+        player.setCurrentHand(hand);
+        breakStoredBlocks(world, player.getStackInHand(hand));
+        return TypedActionResult.consume(player.getStackInHand(hand));
+    }
+
+    @Override
+    public int getMaxUseTime(ItemStack stack) {
+        return 1;
+    }
 }

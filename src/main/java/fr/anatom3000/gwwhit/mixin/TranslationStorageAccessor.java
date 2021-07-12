@@ -9,10 +9,10 @@ import java.util.Map;
 
 @Mixin(TranslationStorage.class)
 public interface TranslationStorageAccessor {
+    @Accessor("translations")
+    Map<String, String> getTranslations();
+
     @Mutable
     @Accessor("translations")
     void setTranslations(Map<String, String> translations);
-
-    @Accessor("translations")
-    Map<String, String> getTranslations();
 }

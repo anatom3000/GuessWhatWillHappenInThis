@@ -21,35 +21,13 @@ import java.util.stream.Collectors;
 public class RandomisingBlockEntity extends BlockEntity {
     private static final Random RANDOM = new Random();
     public static int removeTick = -1;
-    
+
     private int usesRemaining = ConfigManager.getLoadedConfig().content.blocks.randomisingBlock.totalPlacements;
     private int cooldown = ConfigManager.getLoadedConfig().content.blocks.randomisingBlock.ticksBetweenPlacements;
     private BlockPos.Mutable placePos = new BlockPos.Mutable();
-    
+
     public RandomisingBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.RANDOMISING_BLOCK_ENTITY, pos, state);
-    }
-    
-    
-    @Override
-    public void readNbt(NbtCompound tag) {
-        super.readNbt(tag);
-        usesRemaining = tag.getInt("usesRemaining");
-        cooldown = tag.getInt("cooldown");
-        NbtCompound posTag = tag.getCompound("placePos");
-        placePos = new BlockPos.Mutable(posTag.getInt("x"), posTag.getInt("y"), posTag.getInt("z"));
-    }
-    
-    @Override
-    public NbtCompound writeNbt(NbtCompound tag) {
-        tag.putInt("usesRemaining", usesRemaining);
-        tag.putInt("cooldown", cooldown);
-        NbtCompound posTag = new NbtCompound();
-        posTag.putInt("x", placePos.getX());
-        posTag.putInt("y", placePos.getY());
-        posTag.putInt("z", placePos.getZ());
-        tag.put("placePos", posTag);
-        return super.writeNbt(tag);
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, RandomisingBlockEntity be) {
@@ -73,27 +51,48 @@ public class RandomisingBlockEntity extends BlockEntity {
             }
         }
     }
-    
+
+    @Override
+    public void readNbt(NbtCompound tag) {
+        super.readNbt(tag);
+        usesRemaining = tag.getInt("usesRemaining");
+        cooldown = tag.getInt("cooldown");
+        NbtCompound posTag = tag.getCompound("placePos");
+        placePos = new BlockPos.Mutable(posTag.getInt("x"), posTag.getInt("y"), posTag.getInt("z"));
+    }
+
+    @Override
+    public NbtCompound writeNbt(NbtCompound tag) {
+        tag.putInt("usesRemaining", usesRemaining);
+        tag.putInt("cooldown", cooldown);
+        NbtCompound posTag = new NbtCompound();
+        posTag.putInt("x", placePos.getX());
+        posTag.putInt("y", placePos.getY());
+        posTag.putInt("z", placePos.getZ());
+        tag.put("placePos", posTag);
+        return super.writeNbt(tag);
+    }
+
     private BlockState getRandomState() {
         List<String> blacklist = ConfigManager.getLoadedConfig().content.blocks.randomisingBlock.blockBlacklist;
         List<Block> blocks = Registry.BLOCK.getIds().stream().filter(id -> !blacklist.contains(id.toString())).map(Registry.BLOCK::get).collect(Collectors.toList());
-        
+
         BlockState state = blocks.get(RANDOM.nextInt(blocks.size())).getDefaultState();
-        
+
         //scramble state
         if (ConfigManager.getLoadedConfig().content.blocks.randomisingBlock.scrambleBlockState) {
             for (Property<?> property : state.getProperties()) {
                 state = scrambleProperty(property, state);
             }
         }
-        
+
         //remove water-logging
         if (ConfigManager.getLoadedConfig().content.blocks.randomisingBlock.deWaterlog && state.contains(Properties.WATERLOGGED))
             state = state.with(Properties.WATERLOGGED, false);
-        
+
         return state;
     }
-    
+
     @SuppressWarnings("unchecked")
     private <T extends Comparable<T>> BlockState scrambleProperty(Property<T> property, BlockState state) {
         //get possible values

@@ -13,14 +13,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(DimensionType.class)
 public class DimensionTypeMixin implements IDimensionType {
-    @Shadow @Final protected static DimensionType OVERWORLD;
+    @Shadow
+    @Final
+    protected static DimensionType OVERWORLD;
 
-    @Mutable @Shadow @Final private int minimumY;
+    @Mutable
+    @Shadow
+    @Final
+    private int minimumY;
 
     @Inject(at = @At("TAIL"), method = "<clinit>")
     private static void tweakOverworld(CallbackInfo ci) {
         if (ConfigManager.getLoadedConfig().content.increaseWorldHeight) {
-            ((IDimensionType)OVERWORLD).gwwhit$adjustMinimumY(-256);
+            ((IDimensionType) OVERWORLD).gwwhit$adjustMinimumY(-256);
         }
     }
 

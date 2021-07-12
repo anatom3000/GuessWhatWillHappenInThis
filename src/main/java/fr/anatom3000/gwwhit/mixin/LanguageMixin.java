@@ -14,7 +14,7 @@ public class LanguageMixin {
     @Inject(at = @At("HEAD"), method = "setInstance")
     private static void languageSetInstance(Language language, CallbackInfo ci) {
         if (language instanceof TranslationStorage t) {
-            TranslationStorageAccessor ta = (TranslationStorageAccessor)t;
+            TranslationStorageAccessor ta = (TranslationStorageAccessor) t;
             ta.setTranslations(new TransformingMap<>(ta.getTranslations(), OwoTransformer.TRANSFORMER_SIMPLE));
         }
     }

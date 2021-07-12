@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(targets = {"net.minecraft.world.gen.YOffset$Fixed"})
 public class FixedYOffsetMixin implements IFixedYOffset {
     private Double ggwhit$pos = null;
-    
+
     @Inject(method = "getY(Lnet/minecraft/world/gen/HeightContext;)I", at = @At("HEAD"), cancellable = true)
     void adjustY(HeightContext context, CallbackInfoReturnable<Integer> res) {
         if (ggwhit$pos != null)

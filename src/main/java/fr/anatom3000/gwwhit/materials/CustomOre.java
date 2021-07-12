@@ -3,14 +3,9 @@ package fr.anatom3000.gwwhit.materials;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import fr.anatom3000.gwwhit.CustomItemGroups;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
 import fr.anatom3000.gwwhit.GWWHIT;
-import fr.anatom3000.gwwhit.imixin.IFixedYOffset;
 import fr.anatom3000.gwwhit.config.ConfigManager;
+import fr.anatom3000.gwwhit.imixin.IFixedYOffset;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
 import net.devtech.arrp.json.blockstate.JState;
 import net.devtech.arrp.json.lang.JLang;
@@ -48,30 +43,13 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.heightprovider.UniformHeightProvider;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
 import static fr.anatom3000.gwwhit.GWWHIT.MOD_ID;
 
 public class CustomOre {
-    private final Dimension dimension;
-
-    public enum Type {
-        GEM,
-        DUST,
-        INGOT
-    }
-    
-    public enum Dimension {
-        OVERWORLD,
-        NETHER,
-        END
-    }
-
-    public enum ArmorType {
-        HELMET,
-        CHESTPLATE,
-        LEGGINGS,
-        BOOTS
-    }
-
     public final Item material;
     public final Block ore;
     public final Block block;
@@ -79,7 +57,7 @@ public class CustomOre {
     public final boolean hasArmor;
     public final boolean hasTools;
     public final boolean hasSword;
-    
+    private final Dimension dimension;
     private final Random rnd;
     private final Type type;
     private final String name;
@@ -90,11 +68,10 @@ public class CustomOre {
     private final Identifier oreBlockId;
     private final DyeColor color;
     private final Map<ArmorType, ArmorItem> armorItems = new HashMap<>();
-
     public CustomOre(String name, Type type, boolean hasArmor, boolean hasTools, boolean hasSword, Dimension dimension, DyeColor color) {
         this.dimension = dimension;
         this.color = color;
-        this.rnd = new Random(name.hashCode()^type.hashCode());
+        this.rnd = new Random(name.hashCode() ^ type.hashCode());
         this.type = type;
         this.hasArmor = hasArmor;
         this.hasTools = hasTools;
@@ -106,8 +83,8 @@ public class CustomOre {
         blockBlockId = new Identifier(MOD_ID, String.format("block/%s_block", name.toLowerCase()));
         oreBlockId = new Identifier(MOD_ID, String.format("block/%s_ore", name.toLowerCase()));
         this.material = new Item(createItemSettings());
-        this.ore = new Block(FabricBlockSettings.of(Material.STONE).strength((float)(rnd.nextDouble()*5), (float)(rnd.nextDouble()*5)).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, rnd.nextInt(3)));
-        this.block = new Block(FabricBlockSettings.of(Material.STONE).strength((float)(rnd.nextDouble()*5), (float)(rnd.nextDouble()*5)).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, rnd.nextInt(3)));
+        this.ore = new Block(FabricBlockSettings.of(Material.STONE).strength((float) (rnd.nextDouble() * 5), (float) (rnd.nextDouble() * 5)).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, rnd.nextInt(3)));
+        this.block = new Block(FabricBlockSettings.of(Material.STONE).strength((float) (rnd.nextDouble() * 5), (float) (rnd.nextDouble() * 5)).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, rnd.nextInt(3)));
         this.feature = Feature.ORE
                 .configure(new OreFeatureConfig(
                         dimension == Dimension.END ? new BlockMatchRuleTest(Blocks.END_STONE)
@@ -115,14 +92,14 @@ public class CustomOre {
                                 : OreFeatureConfig.Rules.BASE_STONE_OVERWORLD,
                         ore.getDefaultState(),
                         rnd.nextInt(16) + 4
-                )).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(UniformHeightProvider.create(YOffset.getBottom(), ((IFixedYOffset)YOffset.fixed(0)).setPos(rnd.nextDouble())))))
+                )).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(UniformHeightProvider.create(YOffset.getBottom(), ((IFixedYOffset) YOffset.fixed(0)).setPos(rnd.nextDouble())))))
                 .spreadHorizontally()
                 .repeat(rnd.nextInt(12) + 4);
     }
 
     public void onInitialize(NewMaterials.OreInitParam param) {
         Registry.register(Registry.ITEM, materialId, material);
-        if (rnd.nextDouble()<0.3D) FuelRegistry.INSTANCE.add(material, rnd.nextInt(1000));
+        if (rnd.nextDouble() < 0.3D) FuelRegistry.INSTANCE.add(material, rnd.nextInt(1000));
         createTranslations(type.name(), material.getTranslationKey(), param.lang);
         Registry.register(Registry.BLOCK, blockId, block);
         Registry.register(Registry.ITEM, blockId, new BlockItem(block, createItemSettings()));
@@ -131,10 +108,11 @@ public class CustomOre {
         createTranslations("block", block.getTranslationKey(), param.lang);
         createTranslations("ore", ore.getTranslationKey(), param.lang);
         RegistryKey<ConfiguredFeature<?, ?>> ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, oreId);
-        if (ConfigManager.getLoadedConfig().content.moreOres.generateInWorld) BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, ore);
+        if (ConfigManager.getLoadedConfig().content.moreOres.generateInWorld)
+            BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, ore);
         if (hasArmor) {
             ArmorMaterial material = getArmorMaterial();
-            
+
             for (ArmorType t : ArmorType.values()) {
                 createArmorItem(t, material, param.lang);
             }
@@ -170,8 +148,8 @@ public class CustomOre {
         RegistryKey<ConfiguredFeature<?, ?>> registryKey = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, oreId);
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, registryKey.getValue(), feature);
         BiomeModifications.addFeature(dimension == Dimension.END ? BiomeSelectors.foundInTheEnd()
-                : dimension == Dimension.NETHER ? BiomeSelectors.foundInTheNether()
-                : BiomeSelectors.foundInOverworld(),
+                        : dimension == Dimension.NETHER ? BiomeSelectors.foundInTheNether()
+                        : BiomeSelectors.foundInOverworld(),
                 GenerationStep.Feature.UNDERGROUND_ORES,
                 registryKey);
 
@@ -358,7 +336,7 @@ public class CustomOre {
                 GWWHIT.getId(String.format("item/%s_block", name.toLowerCase())));
         GWWHIT.RESOURCE_PACK.addModel(JModel.model().parent(oreBlockId.toString()),
                 GWWHIT.getId(String.format("item/%s_ore", name.toLowerCase())));
-        
+
         if (hasArmor) {
             generateBasicItemModel("helmet");
             generateBasicItemModel("chestplate");
@@ -424,13 +402,13 @@ public class CustomOre {
 
     private ArmorMaterial getArmorMaterial() {
         return new CustomArmorMaterial(
-            rnd.nextInt(175-4)+4,
-            rnd.nextInt(20)+5,
-            material,
-            name.toLowerCase(),
-            (int)rnd.nextDouble()*3,
-            1,
-            (int)rnd.nextDouble()*5
+                rnd.nextInt(175 - 4) + 4,
+                rnd.nextInt(20) + 5,
+                material,
+                name.toLowerCase(),
+                (int) rnd.nextDouble() * 3,
+                1,
+                (int) rnd.nextDouble() * 5
         );
     }
 
@@ -451,19 +429,19 @@ public class CustomOre {
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_%s", name.toLowerCase(), type.toString().toLowerCase())), item);
         createTranslations(type.name().toLowerCase(), item.getTranslationKey(), lang);
     }
-    
+
     private void createTranslations(String key, String translationKey, Map<String, JLang> lang) {
         for (Map.Entry<String, JLang> entry : lang.entrySet()) {
             entry.getValue().entry(translationKey, String.format(GWWHIT.TRANSLATIONS.get(entry.getKey())
                     .get("template.gwwhit." + key.toLowerCase()), name));
         }
     }
-    
+
     private FabricItemSettings createItemSettings() {
         //This ItemGroup links to the one set by the config
         return new FabricItemSettings().group(CustomItemGroups.MORE_ORES_GROUP);
     }
-    
+
     private EquipmentSlot getEquipmentSlot(ArmorType type) {
         return switch (type) {
             case HELMET -> EquipmentSlot.HEAD;
@@ -473,46 +451,55 @@ public class CustomOre {
         };
     }
 
-    private static class CustomSword extends SwordItem {
+    public enum Type {
+        GEM,
+        DUST,
+        INGOT
+    }
 
+    public enum Dimension {
+        OVERWORLD,
+        NETHER,
+        END
+    }
+
+    public enum ArmorType {
+        HELMET,
+        CHESTPLATE,
+        LEGGINGS,
+        BOOTS
+    }
+
+    private static class CustomSword extends SwordItem {
         public CustomSword(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
             super(toolMaterial, attackDamage, attackSpeed, settings);
         }
-
     }
 
     private static class CustomPickaxe extends PickaxeItem {
-
         public CustomPickaxe(ToolMaterial material, int attackDamage, float attackSpeed, Settings settings) {
             super(material, attackDamage, attackSpeed, settings);
         }
-        
     }
 
     private static class CustomShovel extends ShovelItem {
-
         public CustomShovel(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
             super(material, attackDamage, attackSpeed, settings);
         }
-        
     }
 
     private static class CustomAxe extends AxeItem {
-
         public CustomAxe(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
             super(material, attackDamage, attackSpeed, settings);
         }
-
     }
 
     private static class CustomHoe extends HoeItem {
-
         public CustomHoe(ToolMaterial material, int attackDamage, float attackSpeed, Settings settings) {
             super(material, attackDamage, attackSpeed, settings);
         }
-
     }
-    
+
     private record CustomArmorMaterial(int durabilityMultiplier,
                                        int enchantibility,
                                        Item repairMaterial,
@@ -520,88 +507,86 @@ public class CustomOre {
                                        float knockbackResistance,
                                        int protection,
                                        float toughness) implements ArmorMaterial {
-    
+
         public static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
         public static final int[] PROTECTION_VALUES = new int[]{1, 2, 3, 1};
-    
+
         @Override
         public int getDurability(EquipmentSlot slot) {
             return BASE_DURABILITY[slot.getEntitySlotId()] * durabilityMultiplier;
         }
-    
+
         @Override
         public int getEnchantability() {
             return enchantibility;
         }
-    
+
         @Override
         public SoundEvent getEquipSound() {
             return SoundEvents.ITEM_ARMOR_EQUIP_GENERIC;
         }
-    
+
         @Override
         public float getKnockbackResistance() {
             return knockbackResistance;
         }
-    
+
         @Override
         public String getName() {
             return name;
         }
-    
+
         @Override
         public int getProtectionAmount(EquipmentSlot slot) {
             return PROTECTION_VALUES[slot.getEntitySlotId()] * protection;
         }
-    
+
         @Override
         public Ingredient getRepairIngredient() {
             return Ingredient.ofItems(repairMaterial);
         }
-    
+
         @Override
         public float getToughness() {
             return toughness;
         }
-    
     }
-    
+
     private record CustomToolMaterial(float attackDamage,
                                       int durability,
                                       int enchantibility,
                                       int miningLevel,
                                       float miningSpeedMultiplier,
                                       Item repairMaterial) implements ToolMaterial {
-    
+
         @Override
         public float getAttackDamage() {
             return attackDamage;
         }
-    
+
         @Override
         public int getDurability() {
             return durability;
         }
-    
+
         @Override
         public int getEnchantability() {
             return enchantibility;
         }
-    
+
         @Override
         public int getMiningLevel() {
             return miningLevel;
         }
-    
+
         @Override
         public float getMiningSpeedMultiplier() {
             return miningSpeedMultiplier;
         }
-    
+
         @Override
         public Ingredient getRepairIngredient() {
             return Ingredient.ofItems(repairMaterial);
         }
-    
     }
 }

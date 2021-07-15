@@ -11,13 +11,13 @@ GWWHIT.LOGGER.info('[GWWHIT] Loading python stuff')
 # noinspection PyTypeChecker
 pyBlock = SimpleBlock(
 	FabricBlockSettings
-		.of( PyUtils.getMaterial('stone') )
+		.of(PyUtils.getMaterial('stone'))
 		.collidable(False)
-		.drops( PyUtils.makeIdentifier('minecraft', 'stone') )
+		.drops(PyUtils.makeIdentifier('minecraft', 'stone'))
 		.luminance(10)
 )
 
-BlockRegistry.put( 'pyblock', pyBlock )
+BlockRegistry.put('pyblock', pyBlock)
 ItemRegistry.put(
 	'pyblock',
 	SimpleItem.fromBlock(

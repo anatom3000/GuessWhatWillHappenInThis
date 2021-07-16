@@ -1,21 +1,24 @@
 
 # Guess What Will Happen In This
 
-Fabric mod where anyone can PR anything, concerning or not (no NSFW content). I'll merge everything as soon as it works.
+Fabwic mod whewe anyonye c-can PW a-anything, concewnying ow (・ω・) nyot (nyo NSFW content). I'ww mewge evewything *looks at you* as soon as i-it wowks.
 
-## How can I ~~fuck up~~ contribute to this project ?
+## How c-can I ~~fuck up~~ contwibute t-to this pwoject *blushes* ?
 
-1) Create what you want : you can do ANYTHING , adding blocks, items, whatever you want, mess with mixins, break vanilla mecanics, add dependencies, PR entire projects, as soon as it doesn't break other contributions and that it doesn't include any kind of virus, keylogger or backdoor. Game hacks are fine, system hacks are not.
-2) If possible, make it configurable. Not everyone wants to have a completly messed up rendering or a "concern" block that generates everywhere
-3) If you've added a dependency, please add it in the "dependencies" section
+1) Cweate what you w-want : you c-can do ANYTHING , adding bwocks, items, whatevew you want, mess with mixins, bweak vanyiwwa mecanyics, add dependencies, PR entiwe pwojects, as loong as i-it d-doesn't bweak othew contwibutions *screeches* and that i-it d-doesn't incwude any OwO kind of viwus, *whispers to self* keywoggew ow backdowwr. game *notices buldge* hacks awe finye, system hacks awe nyot.
+
+2) If possibwe, make i-it configuwabwe. Nyot evewyonye wants t-to have a compwetwy messed up wendewing ow (・ω・) a "concewn" *twerks* bwock that genyewates evewywhewe
+
+3) If you've a-a-added a dependency, pwease add i-it in the x3 "dependencies" section
+ 
+ *runs away*
 
 
-## Dependencies
+## Depeuwundencies
 
-This mod depends on Fabric API, Cloth Config and includes ARRP
+This mod depends on Fabwic API, Cwoth Config and incwudes *sees bulge* A-ARRP
+Fow cowowed wighting, >w< you wiww nyeed t-to instaww this mod https://modrinth.com/mod/colored-lights
 
-For colored lighting, you will need to install this mod https://modrinth.com/mod/colored-lights
+## Loiwcense
 
-## License
-
-This project is released under MIT license.
+This pwoject *blushes* is weweased undew MIT wicense :3

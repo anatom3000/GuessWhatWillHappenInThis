@@ -1,3 +1,4 @@
+//Anyone know how to disable this error? The package does exist, but intellij can't find it.
 import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
 
 plugins {
@@ -72,7 +73,7 @@ tasks.withType(JavaCompile).configureEach {
 	// If Javadoc is generated, this must be specified in that task too.
 	it.options.encoding = 'UTF-8'
 
-	it.options.release = 16
+	it.options.release.set(16)
 }
 
 java {

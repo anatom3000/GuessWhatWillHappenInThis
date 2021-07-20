@@ -14,7 +14,8 @@ group = project.maven_group
 
 repositories {
 	maven {
-		url 'https://maven.terraformersmc.com/releases/'
+		// https://maven.terraformersmc.com/releases/
+		url 'https://maven.kotlindiscord.com/repository/terraformers/'
 		content {
 			includeGroup 'com.terraformersmc'
 		}

@@ -120,7 +120,7 @@ public class Python {
                             Script[] scripts = new Script[array.size()];
                             
                             for (int i = 0; i < array.size(); i++) {
-                                scripts[i] = new Script(array.get(i).getAsString());
+                                scripts[i] = new Script(array.get(i).getAsString().replace('/', '\\'));
                             }
                             
                             SCRIPT_GROUPS.put(new Script(name), scripts);

@@ -1,7 +1,7 @@
 package fr.anatom3000.gwwhit.mixin;
 
-import fr.anatom3000.gwwhit.config.ModConfig;
 import fr.anatom3000.gwwhit.config.ConfigManager;
+import fr.anatom3000.gwwhit.config.ModConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.sound.PositionedSoundInstance;
@@ -25,5 +25,4 @@ public class ChatHudMixin {
                 PositionedSoundInstance.master(WHISTLE_SOUND_EVENT, 1f, whistle.volume)
         );
     }
-
 }

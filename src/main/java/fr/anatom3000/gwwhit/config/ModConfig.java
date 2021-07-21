@@ -126,6 +126,8 @@ public class ModConfig implements ConfigData {
         public Audio audio = new Audio();
         @ConfigEntry.Gui.Tooltip
         public boolean owoifyer = false;
+        @ConfigEntry.Gui.Tooltip
+        public boolean rainbowConsole = false;
 
         public static class Rendering {
             @ConfigEntry.Gui.CollapsibleObject

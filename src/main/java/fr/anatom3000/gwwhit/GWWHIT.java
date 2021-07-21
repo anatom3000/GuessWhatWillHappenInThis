@@ -89,5 +89,4 @@ public class GWWHIT implements ModInitializer {
             e.printStackTrace();
         }
     }
-    
 }

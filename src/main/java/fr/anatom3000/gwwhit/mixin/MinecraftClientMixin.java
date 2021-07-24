@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MinecraftClient.class)
 @Environment(EnvType.CLIENT)
 public class MinecraftClientMixin {
-
-    @Shadow private int itemUseCooldown;
+    @Shadow
+    private int itemUseCooldown;
 
     @Inject(method = "doItemUse", at = @At("RETURN"))
     public void doItemUse(CallbackInfo ci) {
@@ -22,5 +22,4 @@ public class MinecraftClientMixin {
             itemUseCooldown = 0;
         }
     }
-
 }

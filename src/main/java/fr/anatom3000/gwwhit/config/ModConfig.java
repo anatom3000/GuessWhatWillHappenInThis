@@ -81,7 +81,7 @@ public class ModConfig implements ConfigData {
         public Items items = new Items();
         @ConfigEntry.Gui.CollapsibleObject
         public Blocks blocks = new Blocks();
-        
+
         public boolean stoneBlocksAreInfected = false;
         public boolean mobsMayExplode = false;
         @ConfigEntry.Gui.Tooltip
@@ -99,13 +99,13 @@ public class ModConfig implements ConfigData {
             @ConfigEntry.Gui.Tooltip
             public boolean noHardcodedItemCooldown = false;
         }
-        
+
         public static class Drops {
             public boolean randomizedDrops = false;
             @ConfigEntry.Gui.Tooltip(count = 2)
             public boolean dreamLuck = false;
         }
-        
+
         public static class Blocks {
             @ConfigEntry.Gui.RequiresRestart
             @ConfigEntry.BoundedDiscrete(max = 1)
@@ -180,17 +180,17 @@ public class ModConfig implements ConfigData {
             @ConfigEntry.Gui.CollapsibleObject
             public WhatsAppWhistle whatsAppWhistle = new WhatsAppWhistle();
 
-            public static class WhatsAppWhistle {
-                public boolean enabled = false;
-                public float volume = 1f;
-            }
-
             public enum SoundReplacement {
                 None,
                 Blyat,
                 Mojaaaang,
                 UwU,
                 Whatsapp_Whistle
+            }
+
+            public static class WhatsAppWhistle {
+                public boolean enabled = false;
+                public float volume = 1f;
             }
         }
     }

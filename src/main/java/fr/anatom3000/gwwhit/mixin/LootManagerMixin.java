@@ -15,7 +15,8 @@ import java.util.Map;
 
 @Mixin(LootManager.class)
 public class LootManagerMixin {
-    @Shadow private Map<Identifier, LootTable> tables;
+    @Shadow
+    private Map<Identifier, LootTable> tables;
 
     @Inject(at = @At("HEAD"), method = "getTable(Lnet/minecraft/util/Identifier;)Lnet/minecraft/loot/LootTable;", cancellable = true)
     private void randomizeTable(Identifier id, CallbackInfoReturnable<LootTable> cir) {

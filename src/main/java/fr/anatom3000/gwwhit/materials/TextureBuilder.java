@@ -13,10 +13,6 @@ import java.nio.file.Path;
 import java.util.Random;
 
 public class TextureBuilder {
-    public enum ToolType {
-        SWORD, SHOVEL, AXE, PICKAXE, HOE
-    }
-    
     public static void generateOre(int color, Identifier id, String baseBlock, Random rng) {
         try {
             retextureMerge(id,
@@ -35,7 +31,7 @@ public class TextureBuilder {
             e.printStackTrace();
         }
     }
-    
+
     public static void generateArmor(int color, String name, Random rng) {
         try {
             int t = rng.nextInt(2) + 1;
@@ -51,10 +47,10 @@ public class TextureBuilder {
             e.printStackTrace();
         }
     }
-    
+
     public static void generateMaterial(int color, Identifier id, CustomOre.Type type, Random rng) {
         try {
-            simpleRetexture(id, "textures/item/" + type.name().toLowerCase() + (rng.nextInt(switch(type) {
+            simpleRetexture(id, "textures/item/" + type.name().toLowerCase() + (rng.nextInt(switch (type) {
                 case GEM -> 8;
                 case DUST -> 4;
                 case INGOT -> 1;
@@ -63,7 +59,7 @@ public class TextureBuilder {
             e.printStackTrace();
         }
     }
-    
+
     public static void generateTool(int color, Identifier id, ToolType type, Random rng) {
         try {
             String n = type == ToolType.SHOVEL ? "tool_base_shovel" : "tool_base";
@@ -94,7 +90,7 @@ public class TextureBuilder {
         InputStream base = Files.newInputStream(GWWHIT.ASSETS_ROOT.resolve(origin + ".png"));
         GWWHIT.RESOURCE_PACK.addRecoloredImage(id, base, i -> tint(i, tint));
     }
-    
+
     private static int layer(int base, int layer) {
         int al = getAlpha(layer);
         int r = (getRed(base) * (255 - al) + getRed(layer) * al) / 255;
@@ -103,7 +99,7 @@ public class TextureBuilder {
         int a = getAlpha(base) | al;
         return combine(r, g, b, a);
     }
-    
+
     private static int tint(int col, int tint) {
         int r = (getRed(col) + getRed(tint)) / 2;
         int g = (getGreen(col) + getGreen(tint)) / 2;
@@ -115,16 +111,24 @@ public class TextureBuilder {
     private static int getRed(int col) {
         return (col >> 16) & 0xFF;
     }
+
     private static int getGreen(int col) {
         return (col >> 8) & 0xFF;
     }
+
     private static int getBlue(int col) {
         return (col) & 0xFF;
     }
+
     private static int getAlpha(int col) {
         return (col >> 24) & 0xff;
     }
+
     private static int combine(int r, int g, int b, int a) {
         return (a << 24) | (r << 16) | (g << 8) | b;
+    }
+
+    public enum ToolType {
+        SWORD, SHOVEL, AXE, PICKAXE, HOE
     }
 }

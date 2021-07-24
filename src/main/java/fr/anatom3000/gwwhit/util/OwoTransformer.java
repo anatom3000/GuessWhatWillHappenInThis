@@ -11,7 +11,7 @@ public class OwoTransformer implements UnaryOperator<String> {
     public static final OwoTransformer TRANSFORMER_PREFIX = new OwoTransformer(true, false);
     public static final OwoTransformer TRANSFORMER_FULL = new OwoTransformer(true, true);
 
-    private static final String[] prefixes = new String[] {
+    private static final String[] prefixes = new String[]{
             "<3 ",
             "0w0 ",
             "H-hewwo?? ",
@@ -22,7 +22,8 @@ public class OwoTransformer implements UnaryOperator<String> {
             "OwO ",
             "UwU "
     };
-    private static final String[] suffixes = new String[] {
+
+    private static final String[] suffixes = new String[]{
             " ( ͡° ᴥ ͡°)",
             " (இωஇ )",
             " (๑•́ ₃ •̀๑)",
@@ -57,24 +58,13 @@ public class OwoTransformer implements UnaryOperator<String> {
             ", fwendo",
             "（＾ｖ＾）"
     };
+
     private final boolean prefix;
     private final boolean suffix;
 
-
-    @Override
-    public String apply(String str) {
-        if (!ConfigManager.getLoadedConfig().cosmetic.owoifyer || str == null) {
-            return str;
-        }
-        String result = "";
-        if (prefix) {
-            result += prefixes[GWWHIT.RANDOM.nextInt(prefixes.length)];
-        }
-        result += substitute(str);
-        if (suffix) {
-            result += suffixes[GWWHIT.RANDOM.nextInt(suffixes.length)];
-        }
-        return result;
+    private OwoTransformer(boolean prefix, boolean suffix) {
+        this.prefix = prefix;
+        this.suffix = suffix;
     }
 
     private static String substitute(String text) {
@@ -94,8 +84,19 @@ public class OwoTransformer implements UnaryOperator<String> {
                 .replaceAll("The ", "Da ");
     }
 
-    private OwoTransformer(boolean prefix, boolean suffix) {
-        this.prefix = prefix;
-        this.suffix = suffix;
+    @Override
+    public String apply(String str) {
+        if (!ConfigManager.getLoadedConfig().cosmetic.owoifyer || str == null) {
+            return str;
+        }
+        String result = "";
+        if (prefix) {
+            result += prefixes[GWWHIT.RANDOM.nextInt(prefixes.length)];
+        }
+        result += substitute(str);
+        if (suffix) {
+            result += suffixes[GWWHIT.RANDOM.nextInt(suffixes.length)];
+        }
+        return result;
     }
 }

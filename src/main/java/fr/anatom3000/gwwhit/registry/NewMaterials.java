@@ -1,10 +1,5 @@
 package fr.anatom3000.gwwhit.registry;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.materials.CustomOre;
 import fr.anatom3000.gwwhit.materials.CustomOre.Dimension;
@@ -14,6 +9,11 @@ import net.devtech.arrp.json.tags.JTag;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("SpellCheckingInspection") //Because custom names
 public class NewMaterials {
@@ -149,16 +149,6 @@ public class NewMaterials {
         }
     }
 
-    public static class OreInitParam {
-        public final JTag blocks = JTag.tag();
-        public final JTag axes = JTag.tag();
-        public final JTag hoes = JTag.tag();
-        public final JTag pickaxes = JTag.tag();
-        public final JTag shovels = JTag.tag();
-        public final JTag swords = JTag.tag();
-        public final Map<String, JLang> lang = new HashMap<>();
-    }
-
     public void onInitializeClient() {
         for (CustomOre ore : ores) {
             try {
@@ -167,5 +157,15 @@ public class NewMaterials {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public static class OreInitParam {
+        public final JTag blocks = JTag.tag();
+        public final JTag axes = JTag.tag();
+        public final JTag hoes = JTag.tag();
+        public final JTag pickaxes = JTag.tag();
+        public final JTag shovels = JTag.tag();
+        public final JTag swords = JTag.tag();
+        public final Map<String, JLang> lang = new HashMap<>();
     }
 }

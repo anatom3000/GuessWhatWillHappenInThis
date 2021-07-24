@@ -129,6 +129,8 @@ public class ModConfig implements ConfigData {
             public boolean unregisteredVersion = false;
             @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
             public Shaders shader = Shaders.NONE;
+            @ConfigEntry.Gui.Tooltip
+            public boolean itemUseRomanNumerals;
 
             @SuppressWarnings("unused")
             public enum Shaders {

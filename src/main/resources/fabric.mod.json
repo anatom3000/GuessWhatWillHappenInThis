@@ -46,7 +46,7 @@
     "fabric": "*",
     "minecraft": "1.17.x",
     "cloth-config2": ">=4.11.19",
-    "jythonmc": ">=1.0.0"
+    "jythonmc": ">=1.0.1"
   },
 
   "suggests": {

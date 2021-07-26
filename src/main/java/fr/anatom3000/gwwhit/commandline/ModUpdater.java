@@ -43,6 +43,17 @@ public class ModUpdater {
     public static void main(String[] args) {
         ModUpdater.args = args;
         try {
+            if (!CommandLine.contains(args, "--force")) {
+                System.out.println("If a malicious actor has accessed the mods page the jar could be compromised.");
+                switch (prompt("Are you sure you want to download the latest jar? Y/N: ").toLowerCase()) {
+                    case "y", "yes":
+                        break;
+                    default:
+                        System.out.println("Invalid input. Exiting...");
+                    case "n", "no":
+                        return;
+                }
+            }
             new ModUpdater().update();
         } catch (Throwable e) {
             System.out.println("An error occurred");
@@ -55,19 +66,6 @@ public class ModUpdater {
     }
 
     private void update() {
-        if (!CommandLine.contains(args, "--force")) {
-            System.out.println("If a malicious actor has accessed the mods page the jar could be compromised.");
-            switch (prompt("Are you sure you want to download the latest jar? Y/N: ").toLowerCase()) {
-                case "y", "yes":
-                    break;
-                default:
-                    System.out.println("Invalid input. Exiting...");
-                case "n", "no":
-                    return;
-            }
-        }
-
-
         System.out.println("Searching for newer versions...");
         VersionData versionData;
         try {
@@ -145,9 +143,6 @@ public class ModUpdater {
                 e.printStackTrace();
             }
         }
-
-        if (gwwhit == null || number == null) throw new IllegalStateException("Can't find jar!");
-
         return new Pair<>(gwwhit, number);
     }
 
@@ -182,7 +177,7 @@ public class ModUpdater {
         return data.get(data.size() - 1);
     }
 
-    private String prompt(String message) {
+    private static String prompt(String message) {
         System.out.print(message);
         return IN.nextLine();
     }

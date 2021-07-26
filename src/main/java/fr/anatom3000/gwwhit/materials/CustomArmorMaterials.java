@@ -4,6 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -14,7 +15,8 @@ import java.util.function.Supplier;
 public enum CustomArmorMaterials implements ArmorMaterial {
 
     SHOCK_RESISTANT_MATERIAL("shock_resistant_material", 0, new int[]{2, 0, 0, 0}, 0, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, 0.0F, () -> Ingredient.EMPTY),
-    HASTY_MATERIAL("hasty_material", 20, new int[]{1, 0, 0, 0}, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.EMPTY);
+    HASTY_MATERIAL("hasty_material", 20, new int[]{1, 0, 0, 0}, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.EMPTY),
+    DIRT("dirt", 3, new int[]{1, 1, 2, 1}, 5, SoundEvents.BLOCK_GRAVEL_PLACE, 0.0f, 0.01f, () -> Ingredient.ofItems(Items.DIRT));
 
     private static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
     private final String name;

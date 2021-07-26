@@ -30,6 +30,9 @@ public class ModConfig implements ConfigData {
         @ConfigEntry.Gui.Tooltip()
         @ConfigEntry.Gui.RequiresRestart()
         public boolean python = false;
+        @ConfigEntry.Gui.Tooltip()
+        @ConfigEntry.Gui.RequiresRestart()
+        public boolean scripting = false;
 
         public static class Blocks {
             @ConfigEntry.Gui.CollapsibleObject
@@ -110,6 +113,9 @@ public class ModConfig implements ConfigData {
             @ConfigEntry.Gui.RequiresRestart
             @ConfigEntry.BoundedDiscrete(max = 1)
             public float defaultSlipperiness = 0.6F;
+            public boolean everythingBurns = false;
+            @ConfigEntry.Gui.RequiresRestart
+            public boolean replaceEverything = false;
         }
     }
 
@@ -120,6 +126,8 @@ public class ModConfig implements ConfigData {
         public Audio audio = new Audio();
         @ConfigEntry.Gui.Tooltip
         public boolean owoifyer = false;
+        @ConfigEntry.Gui.Tooltip
+        public boolean rainbowConsole = false;
 
         public static class Rendering {
             @ConfigEntry.Gui.CollapsibleObject

@@ -2,6 +2,7 @@ package fr.anatom3000.gwwhit.commandline;
 
 import com.google.gson.JsonObject;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -60,7 +61,8 @@ public record VersionData(Type type, VersionNumber number, String url,
         }
 
         @Override
-        public int compareTo(@NotNull VersionNumber that) {
+        public int compareTo(@Nullable VersionNumber that) {
+            that = new VersionNumber(new int[0]);
             int sharedLength = Math.min(this.parts.length, that.parts.length);
 
             for (int i = 0; i < sharedLength; i++) {

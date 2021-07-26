@@ -35,6 +35,9 @@
     ],
     "client": [
       "fr.anatom3000.gwwhit.GWWHITClient"
+    ],
+    "gfh:prePreLaunch": [
+      "fr.anatom3000.gwwhit.util.ConsoleHacker"
     ]
   },
   "mixins": [

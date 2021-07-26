@@ -11,7 +11,8 @@ group = project.maven_group
 
 repositories {
 	maven {
-		url 'https://maven.terraformersmc.com/releases/'
+		// https://maven.terraformersmc.com/releases/
+		url 'https://maven.kotlindiscord.com/repository/terraformers/'
 		content {
 			includeGroup 'com.terraformersmc'
 		}
@@ -24,6 +25,9 @@ repositories {
 	}
 	maven {
 		url 'https://storage.googleapis.com/devan-maven/'
+	}
+	maven {
+		url = 'https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/'
 	}
 	mavenCentral()
 }
@@ -41,14 +45,21 @@ dependencies {
 		exclude(group: 'net.fabricmc.fabric-api')
 	}
 
+	modImplementation group: 'net.devtech', name: 'grossfabrichacks', version: '6.1'
+
 	modImplementation("com.terraformersmc:modmenu:$modmenu_version") {
 		transitive(false)
 	}
 
 	include modImplementation("net.devtech:arrp:$arrp_version")
-	modRuntime "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
+	//modRuntime "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
 
 	include modImplementation("com.enderzombi102:JythonMC:$jythonmc_version")
+
+	//Fixes bug in shadow
+	implementation('org.vafer:jdependency:2.7.0') {
+		exclude group: 'org.ow2.asm'
+	}
 }
 
 application {
@@ -70,7 +81,7 @@ tasks.withType(JavaCompile).configureEach {
 	// If Javadoc is generated, this must be specified in that task too.
 	it.options.encoding = 'UTF-8'
 
-	it.options.release = 16
+	it.options.release.set(16)
 }
 
 java {
@@ -96,6 +107,9 @@ shadowJar {
 	dependencies {
 		include(dependency("com.google.code.gson:gson"))
 	}
+
+	//Currently broken. Should be fixed in a future shadow release
+	//minimize()
 }
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation

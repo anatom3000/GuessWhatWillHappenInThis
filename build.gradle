@@ -55,6 +55,11 @@ dependencies {
 	//modRuntime "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
 
 	include modImplementation("com.enderzombi102:JythonMC:$jythonmc_version")
+
+	//Fixes bug in shadow
+	implementation('org.vafer:jdependency:2.7.0') {
+		exclude group: 'org.ow2.asm'
+	}
 }
 
 application {
@@ -102,6 +107,9 @@ shadowJar {
 	dependencies {
 		include(dependency("com.google.code.gson:gson"))
 	}
+
+	//Currently broken. Should be fixed in a future shadow release
+	//minimize()
 }
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation

@@ -22,6 +22,9 @@
   "item.gwwhit.pyblock": "PyBlock",
   "block.gwwhit.pyblock": "PyBlock",
 
+  "gui.gwwhit.config": "Config",
+  "gui.gwwhit.mainscreen.hello": "Hello",
+  "gui.gwwhit.something": "More features!",
 
   "itemGroup.gwwhit.gwwhit": "GWWHIT: Misc",
   "itemGroup.gwwhit.more_ores": "GWWHIT: Ores",

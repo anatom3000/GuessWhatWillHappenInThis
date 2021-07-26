@@ -10,6 +10,11 @@ import me.shedaniel.autoconfig.ConfigHolder;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.command.argument.ItemStackArgument;
+import net.minecraft.command.argument.ItemStackArgumentType;
+import net.minecraft.entity.Entity;
+import net.minecraft.inventory.StackReference;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
@@ -80,6 +85,26 @@ public class Commands {
                                             }
                                         })
                                 )
+                        )
+                )
+                .then(CommandManager.literal("fillinv")
+                        .then(CommandManager.argument("item", ItemStackArgumentType.itemStack())
+                                .executes(context -> {
+                                    ItemStackArgument item = ItemStackArgumentType.getItemStackArgument(context, "item");
+                                    ItemStack stack = item.createStack(item.getItem().getMaxCount(), false);
+                                    ServerPlayerEntity player = context.getSource().getPlayer();
+                                    if (player == null) return 0;
+
+                                    for (int i = 0; i < player.getInventory().size(); i++) {
+                                        player.getInventory().setStack(i, stack.copy());
+                                    }
+
+                                    for (int i = 0; i < player.getEnderChestInventory().size(); i++) {
+                                        player.getEnderChestInventory().setStack(i, stack.copy());
+                                    }
+
+                                    return 1;
+                                })
                         )
                 )
         ));

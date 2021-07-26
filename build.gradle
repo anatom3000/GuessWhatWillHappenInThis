@@ -1,6 +1,3 @@
-//Anyone know how to disable this error? The package does exist, but intellij can't find it.
-import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
-
 plugins {
 	id 'fabric-loom' version '0.9-SNAPSHOT'
 	id 'maven-publish'
@@ -107,6 +104,7 @@ shadowJar {
 	}
 }
 
+import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
 task relocateShadowJar(type: ConfigureShadowRelocation) {
 	target = tasks.shadowJar
 	prefix = "fr.anatom3000.gwwhit.shadow"

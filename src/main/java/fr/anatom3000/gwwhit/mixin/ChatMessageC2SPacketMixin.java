@@ -12,7 +12,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ChatMessageC2SPacket.class)
 public class ChatMessageC2SPacketMixin {
-    @Mutable @Final @Shadow private String chatMessage;
+    @Mutable
+    @Final
+    @Shadow
+    private String chatMessage;
 
     @Inject(at = @At("RETURN"), method = "<init>(Ljava/lang/String;)V")
     public void init(String chatMessage, CallbackInfo info) {

@@ -1,30 +1,23 @@
 package fr.anatom3000.gwwhit.mixin;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
+import net.minecraft.block.Blocks;
+import net.minecraft.world.gen.chunk.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
-import net.minecraft.world.gen.chunk.GenerationShapeConfig;
-import net.minecraft.world.gen.chunk.NoiseSamplingConfig;
-import net.minecraft.world.gen.chunk.SlideConfig;
-import net.minecraft.world.gen.chunk.StructuresConfig;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 @Mixin(ChunkGeneratorSettings.class)
 public class ChunkGeneratorSettingsMixin {
-    
     @Inject(at = @At("HEAD"), method = "createSurfaceSettings", cancellable = true)
     private static void createSurfaceSettings(StructuresConfig structuresConfig, boolean amplified, CallbackInfoReturnable<ChunkGeneratorSettings> info) {
-        
         Constructor<?> construct = ChunkGeneratorSettings.class.getDeclaredConstructors()[0];
-        
+
         construct.setAccessible(true);
-        
+
         ChunkGeneratorSettings settings;
         try {
             settings = (ChunkGeneratorSettings) construct.newInstance(structuresConfig,
@@ -34,11 +27,10 @@ public class ChunkGeneratorSettingsMixin {
                             amplified),
                     Blocks.STONE.getDefaultState(), Blocks.WATER.getDefaultState(), -2147483648, -255, 63, 40, false, false,
                     false, false, false, false);
-            
+
             info.setReturnValue(settings);
         } catch (InstantiationException | IllegalArgumentException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
-    
     }
 }

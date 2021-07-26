@@ -17,7 +17,7 @@ public class ChatScreenMixin {
     @Inject(at = @At("RETURN"), method = "keyPressed(III)Z")
     private void modifyScreen(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> info) {
         if (chatField != null && !chatField.getText().startsWith("/")) {
-            chatField.setText( OwoTransformer.TRANSFORMER_SIMPLE.apply( chatField.getText() ) );
+            chatField.setText(OwoTransformer.TRANSFORMER_SIMPLE.apply(chatField.getText()));
         }
     }
 }

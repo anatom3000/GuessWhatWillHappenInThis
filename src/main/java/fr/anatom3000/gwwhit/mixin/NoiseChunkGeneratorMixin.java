@@ -1,17 +1,15 @@
 package fr.anatom3000.gwwhit.mixin;
 
+import net.minecraft.world.HeightLimitView;
+import net.minecraft.world.Heightmap.Type;
+import net.minecraft.world.gen.chunk.NoiseChunkGenerator;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import net.minecraft.world.HeightLimitView;
-import net.minecraft.world.Heightmap.Type;
-import net.minecraft.world.gen.chunk.NoiseChunkGenerator;
-
 @Mixin(NoiseChunkGenerator.class)
 public class NoiseChunkGeneratorMixin {
-    
     @Inject(at = @At("HEAD"), method = "getHeight", cancellable = true)
     public void getHeight(int x, int z, Type heightmap, HeightLimitView world, CallbackInfoReturnable<Integer> info) {
 //        int h = info.getReturnValue();

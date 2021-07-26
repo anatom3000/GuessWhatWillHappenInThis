@@ -28,26 +28,39 @@ import java.util.UUID;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
-    
+    private static final UUID DASHING_SPEED_BOOST_ID = UUID.fromString("130b4542-4a89-5046-9e87-acbb7577a76b");
+    private static final EntityAttributeModifier DASHING_SPEED_BOOST = new EntityAttributeModifier(DASHING_SPEED_BOOST_ID, "Dashing speed boost", 0.25D, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
+    private int dashTicks = 0;
+
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
     }
-    
-    @Shadow public abstract ItemStack getEquippedStack(EquipmentSlot slot);
 
-    @Shadow public abstract void onDeath(DamageSource source);
+    @Shadow
+    public abstract ItemStack getEquippedStack(EquipmentSlot slot);
 
-    @Shadow @Nullable protected abstract SoundEvent getDeathSound();
+    @Shadow
+    public abstract void onDeath(DamageSource source);
 
-    @Shadow protected abstract float getSoundVolume();
+    @Shadow
+    @Nullable
+    protected abstract SoundEvent getDeathSound();
 
-    @Shadow public abstract float getSoundPitch();
+    @Shadow
+    protected abstract float getSoundVolume();
 
-    @Shadow public abstract void setAttacker(@Nullable LivingEntity attacker);
+    @Shadow
+    public abstract float getSoundPitch();
 
-    @Shadow protected abstract void applyDamage(DamageSource source, float amount);
+    @Shadow
+    public abstract void setAttacker(@Nullable LivingEntity attacker);
 
-    @Shadow @Nullable public abstract EntityAttributeInstance getAttributeInstance(EntityAttribute attribute);
+    @Shadow
+    protected abstract void applyDamage(DamageSource source, float amount);
+
+    @Shadow
+    @Nullable
+    public abstract EntityAttributeInstance getAttributeInstance(EntityAttribute attribute);
 
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
     public void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
@@ -62,10 +75,10 @@ public abstract class LivingEntityMixin extends Entity {
             applyDamage(source, Float.MAX_VALUE);
             setAttacker((LivingEntity) source.getAttacker());
             if (attacker instanceof PlayerEntity) {
-                ((LivingEntityAccessor)this).setAttackingPlayer((PlayerEntity) attacker);
-                ((LivingEntityAccessor)this).setPlayerHitTimer(100);
+                ((LivingEntityAccessor) this).setAttackingPlayer((PlayerEntity) attacker);
+                ((LivingEntityAccessor) this).setPlayerHitTimer(100);
             }
-            ((LivingEntityAccessor)this).setLastDamageTaken(Float.MAX_VALUE);
+            ((LivingEntityAccessor) this).setLastDamageTaken(Float.MAX_VALUE);
             this.world.sendEntityStatus(this, (byte) 2);
             SoundEvent soundEvent = getDeathSound();
             if (soundEvent != null) {
@@ -74,15 +87,13 @@ public abstract class LivingEntityMixin extends Entity {
             onDeath(source);
 
             if (attacker instanceof ServerPlayerEntity) {
-                Criteria.PLAYER_HURT_ENTITY.trigger((ServerPlayerEntity)attacker, this, source, 0, Float.MAX_VALUE, false);
+                Criteria.PLAYER_HURT_ENTITY.trigger((ServerPlayerEntity) attacker, this, source, 0, Float.MAX_VALUE, false);
             }
 
             cir.setReturnValue(true);
             cir.cancel();
         }
     }
-
-    private int dashTicks = 0;
 
     @Inject(method = "tickMovement", at = @At("TAIL"))
     public void tickMovement(CallbackInfo ci) {
@@ -104,8 +115,4 @@ public abstract class LivingEntityMixin extends Entity {
             entityAttributeInstance.addTemporaryModifier(DASHING_SPEED_BOOST);
         }
     }
-
-    private static final UUID DASHING_SPEED_BOOST_ID = UUID.fromString("130b4542-4a89-5046-9e87-acbb7577a76b");
-    private static final EntityAttributeModifier DASHING_SPEED_BOOST = new EntityAttributeModifier(DASHING_SPEED_BOOST_ID, "Dashing speed boost", 0.25D, EntityAttributeModifier.Operation.MULTIPLY_TOTAL);
-
 }

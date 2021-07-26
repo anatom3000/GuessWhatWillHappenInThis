@@ -4,20 +4,20 @@ import fr.anatom3000.gwwhit.GWWHIT;
 import net.minecraft.util.math.MathHelper;
 
 public class MathUtil {
-    public static double BoxedInvert(double min, double max, double value) {
+    public static double boxedInvert(double min, double max, double value) {
         return max - value + min;
     }
 
-    public static double BoxedInvert(double value) {
-        return BoxedInvert(MathHelper.floor(value), MathHelper.ceil(value), value);
+    public static double boxedInvert(double value) {
+        return boxedInvert(MathHelper.floor(value), MathHelper.ceil(value), value);
     }
 
-    public static float BoxedInvert(float min, float max, float value) {
+    public static float boxedInvert(float min, float max, float value) {
         return max - value + min;
     }
 
-    public static float BoxedInvert(float value) {
-        return BoxedInvert(MathHelper.floor(value), MathHelper.ceil(value), value);
+    public static float boxedInvert(float value) {
+        return boxedInvert(MathHelper.floor(value), MathHelper.ceil(value), value);
     }
 
     public static boolean getChance(float percent) {
@@ -27,5 +27,4 @@ public class MathUtil {
         float roll = GWWHIT.RANDOM.nextFloat() * 100;
         return percent >= roll;
     }
-
 }

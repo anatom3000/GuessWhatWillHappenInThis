@@ -9,8 +9,9 @@ import java.util.Map;
 import java.util.Random;
 
 public class TableRandomizer extends CachingTransformer<Identifier, Map<Identifier, LootTable>> {
-    private static boolean tablesCached = false;
     private static final List<Identifier> TABLES_CURRENT = new ArrayList<>();
+    private static boolean tablesCached = false;
+
     public TableRandomizer(Random rng) {
         super((val, param) -> {
             if (!tablesCached) {

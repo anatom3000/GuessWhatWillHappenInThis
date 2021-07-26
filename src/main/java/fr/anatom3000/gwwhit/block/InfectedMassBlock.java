@@ -30,7 +30,7 @@ public class InfectedMassBlock extends BlockWithEntity {
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
     }
-    
+
     @Override
     public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
         tooltip.add(new TranslatableText("block.gwwhit.infected_mass.tooltip").formatted(Formatting.RED, Formatting.BOLD));

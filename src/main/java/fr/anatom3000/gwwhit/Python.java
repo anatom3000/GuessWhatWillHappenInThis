@@ -27,8 +27,7 @@ public class Python {
     private static final Map<Script, Script[]> SCRIPT_GROUPS = new HashMap<>();
 
     static {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        try (InputStream stream = loader.getResourceAsStream("init.py")) {
+        try (InputStream stream = Python.class.getClassLoader().getResourceAsStream("init.py")) {
             CODE = IOUtils.toString(
                     Objects.requireNonNull(stream),
                     StandardCharsets.UTF_8

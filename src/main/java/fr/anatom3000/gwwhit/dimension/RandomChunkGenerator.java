@@ -1,14 +1,7 @@
 package fr.anatom3000.gwwhit.dimension;
 
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.stream.Collectors;
-
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -23,36 +16,39 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.StructuresConfig;
 import net.minecraft.world.gen.chunk.VerticalBlockSample;
 
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.stream.Collectors;
+
 public class RandomChunkGenerator extends ChunkGenerator {
-
-    private final Random random;
-
-    public final List<Block> whitelistedBlocks;
-
     public static final Codec<RandomChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance
             .group(BiomeSource.CODEC.fieldOf("biome_source").forGetter((generator) -> generator.biomeSource))
             .apply(instance, instance.stable(RandomChunkGenerator::new)));
+    public final List<Block> whitelistedBlocks;
+    private final Random random;
 
     public RandomChunkGenerator(BiomeSource biomeSource) {
         super(biomeSource, new StructuresConfig(false));
         this.random = new Random();
         this.whitelistedBlocks = Registry.BLOCK
-            .getIds()
-            .stream()
-            .map(Registry.BLOCK::get)
-            .filter(block -> block.getClass() == Block.class)
-            .collect(Collectors.toList());
+                .getIds()
+                .stream()
+                .map(Registry.BLOCK::get)
+                .filter(block -> block.getClass() == Block.class)
+                .collect(Collectors.toList());
     }
 
     public RandomChunkGenerator(BiomeSource biomeSource, long seed) {
         super(biomeSource, new StructuresConfig(false));
         this.random = new Random(seed);
         this.whitelistedBlocks = Registry.BLOCK
-            .getIds()
-            .stream()
-            .map(Registry.BLOCK::get)
-            .filter(block -> block.getClass() == Block.class)
-            .collect(Collectors.toList());
+                .getIds()
+                .stream()
+                .map(Registry.BLOCK::get)
+                .filter(block -> block.getClass() == Block.class)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -97,5 +93,4 @@ public class RandomChunkGenerator extends ChunkGenerator {
     public VerticalBlockSample getColumnSample(int x, int z, HeightLimitView heightLimitView) {
         return new VerticalBlockSample(0, new BlockState[0]);
     }
-
 }

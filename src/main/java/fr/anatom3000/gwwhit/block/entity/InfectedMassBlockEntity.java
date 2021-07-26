@@ -34,7 +34,6 @@ public class InfectedMassBlockEntity extends BlockEntity {
                 return;
             }
             int completed = 0;
-            
 
             completed = be.getCompleted(pos.north(), completed);
             completed = be.getCompleted(pos.south(), completed);
@@ -59,5 +58,4 @@ public class InfectedMassBlockEntity extends BlockEntity {
         }
         return completed;
     }
-
 }

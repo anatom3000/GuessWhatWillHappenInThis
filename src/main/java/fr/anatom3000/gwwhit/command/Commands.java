@@ -15,46 +15,45 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 
 public class Commands {
-
-    private Commands() {}
-
+    private Commands() {
+    }
 
     public static void register() {
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal(GWWHIT.MOD_ID)
                 .requires(source -> source.hasPermissionLevel(2))
                 .then(CommandManager.literal("config")
                         .then(CommandManager.literal("sync")
-                            .executes(context -> {
-                                for (ServerPlayerEntity player : context.getSource().getMinecraftServer().getPlayerManager().getPlayerList()) {
-                                    ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, ConfigManager.toPacketByteBuf());
-                                }
-                                return 1;
-                            })
+                                .executes(context -> {
+                                    for (ServerPlayerEntity player : context.getSource().getMinecraftServer().getPlayerManager().getPlayerList()) {
+                                        ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, ConfigManager.toPacketByteBuf());
+                                    }
+                                    return 1;
+                                })
                                 .then(CommandManager.argument("targets", EntityArgumentType.players())
-                                    .executes(context -> {
-                                        for (ServerPlayerEntity player : EntityArgumentType.getPlayers(context, "targets")) {
-                                            ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, ConfigManager.toPacketByteBuf());
-                                        }
-                                        return 1;
-                                    })
+                                        .executes(context -> {
+                                            for (ServerPlayerEntity player : EntityArgumentType.getPlayers(context, "targets")) {
+                                                ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, ConfigManager.toPacketByteBuf());
+                                            }
+                                            return 1;
+                                        })
                                 )
                         )
                         .then(CommandManager.literal("load")
-                            .executes(context -> {
-                                ConfigHolder<ModConfig> configHolder = ConfigManager.getHolder();
-                                configHolder.load();
-                                return 1;
-                            })
+                                .executes(context -> {
+                                    ConfigHolder<ModConfig> configHolder = ConfigManager.getHolder();
+                                    configHolder.load();
+                                    return 1;
+                                })
                         )
                         .then(CommandManager.literal("reload")
-                            .executes(context -> {
-                                ConfigManager.load();
-    
-                                for (ServerPlayerEntity player : context.getSource().getMinecraftServer().getPlayerManager().getPlayerList()) {
-                                    ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, ConfigManager.toPacketByteBuf());
-                                }
-                                return 1;
-                            })
+                                .executes(context -> {
+                                    ConfigManager.load();
+
+                                    for (ServerPlayerEntity player : context.getSource().getMinecraftServer().getPlayerManager().getPlayerList()) {
+                                        ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, ConfigManager.toPacketByteBuf());
+                                    }
+                                    return 1;
+                                })
                         )
                 )
                 .then(CommandManager.literal("debug")
@@ -85,7 +84,7 @@ public class Commands {
                 )
         ));
     }
-    
+
     private static String createErrorMessage(Throwable e, int indentation) {
         StringBuilder sb = new StringBuilder();
         sb.append("  ".repeat(indentation));

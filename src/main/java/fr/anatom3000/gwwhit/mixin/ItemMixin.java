@@ -23,11 +23,19 @@ public class ItemMixin {
             .saturationModifier(1)
             .hunger(-5)
             .build();
-    
-    @Mutable @Final @Shadow private int maxCount;
-    @Mutable @Final @Shadow private FoodComponent foodComponent;
-    @Mutable @Final @Shadow protected ItemGroup group;
-    
+    @Mutable
+    @Final
+    @Shadow
+    protected ItemGroup group;
+    @Mutable
+    @Final
+    @Shadow
+    private int maxCount;
+    @Mutable
+    @Final
+    @Shadow
+    private FoodComponent foodComponent;
+
     @Inject(method = "<init>", at = @At("TAIL"))
     private void onInit(Item.Settings settings, CallbackInfo ci) {
         maxCount = Math.min(ConfigManager.getLoadedConfig().gameplay.items.maxStackSize, maxCount);

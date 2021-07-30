@@ -64,14 +64,12 @@ public class EventListeners {
         RRPCallback.AFTER_VANILLA.register(a -> a.add(GWWHIT.RESOURCE_PACK));
         ServerPlayNetworking.registerGlobalReceiver(
                 getId("cheat_codes_channel"),
-                (server, player, handler, buf, responseSender) -> {
-                    server.execute(
-                            new CheatCodes.CheatCodeRunner(
-                                    buf.readNbt().getString("cheat"),
-                                    player
-                            )
-                    );
-                }
+                (server, player, handler, buf, responseSender) -> server.execute(
+                        new CheatCodes.CheatCodeRunner(
+                                buf.readNbt().getString("cheat"),
+                                player
+                        )
+                )
         );
     }
 }

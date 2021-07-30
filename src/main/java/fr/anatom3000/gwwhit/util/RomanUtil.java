@@ -1,7 +1,5 @@
 package fr.anatom3000.gwwhit.util;
 
-import fr.anatom3000.gwwhit.config.ConfigManager;
-
 import java.util.TreeMap;
 
 public class RomanUtil {

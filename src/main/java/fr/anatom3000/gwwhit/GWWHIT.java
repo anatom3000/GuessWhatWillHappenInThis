@@ -2,8 +2,8 @@ package fr.anatom3000.gwwhit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import fr.anatom3000.gwwhit.config.AnnotationExclusionStrategy;
 import fr.anatom3000.gwwhit.command.Commands;
+import fr.anatom3000.gwwhit.config.AnnotationExclusionStrategy;
 import fr.anatom3000.gwwhit.dimension.RandomChunkGenerator;
 import fr.anatom3000.gwwhit.registry.*;
 import fr.anatom3000.gwwhit.util.TableRandomizer;
@@ -46,7 +46,7 @@ public class GWWHIT implements ModInitializer {
     public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create(MOD_ID);
 
     //Locations / Ids
-    @SuppressWarnings("OptionalGetWithoutIsPresent") //It has to exist exists
+    @SuppressWarnings("OptionalGetWithoutIsPresent") //It has to exist
     public static final Path ASSETS_ROOT = FabricLoader.getInstance().getModContainer(MOD_ID).get().getPath("assets/gwwhit");
     public static final Identifier CONFIG_SYNC_ID = getId("config_sync");
 
@@ -68,7 +68,7 @@ public class GWWHIT implements ModInitializer {
         Commands.register();
         NewMaterials.INSTANCE.onInitialize();
         EventListeners.register();
-        LOGGER.info("[GWWHIT] You shouldn't have done this.");
+        LOGGER.info("[GWWHIT] You shouldn't have done this. (Loading done)");
     }
 
     @SuppressWarnings("unchecked") //Stupid IntelliJ

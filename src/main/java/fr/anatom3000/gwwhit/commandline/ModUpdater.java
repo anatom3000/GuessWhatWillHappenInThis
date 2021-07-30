@@ -1,6 +1,7 @@
 package fr.anatom3000.gwwhit.commandline;
 
 import com.google.gson.*;
+import fr.anatom3000.gwwhit.util.SafeUtils;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -16,29 +17,18 @@ import java.util.Scanner;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-/* IMPORTANT: This is run in a command line context, where we don't have minecraft or it's libs!
-   Try avoiding the use of libs (eg. use System.out instead of a LOGGER)
+/* IMPORTANT: This is run in a command line context, where we don't have minecraft, and it's libs!
+   Try avoiding the use of libs (e.g. use System.out instead of a LOGGER)
    We are using the gradle shadow plugin to include gson in the mod
    We must also make sure we don't access a class that uses any mc libs since that will fail to load
 */
 public class ModUpdater {
     public static final Gson GSON = new GsonBuilder().create();
-    private static final URL VERSIONS_URL;
+    private static final URL VERSIONS_URL = SafeUtils.doSafely(() -> new URL("https://api.modrinth.com/api/v1/mod/mUOQM1cd/version"));
     private static final Path MOD_FOLDER = Path.of("").toAbsolutePath();
     private static final Scanner IN = new Scanner(new InputStreamReader(System.in));
     private static final String MOD_ID = "gwwhit"; //We can't load the main file since mc isn't active
     private static String[] args;
-
-    static {
-        URL url;
-        try {
-            url = new URL("https://api.modrinth.com/api/v1/mod/mUOQM1cd/version");
-        } catch (MalformedURLException e) {
-            throw new IllegalStateException("Internal url is invalid!", e);
-        }
-        VERSIONS_URL = url;
-
-    }
 
     public static void main(String[] args) {
         ModUpdater.args = args;

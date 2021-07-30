@@ -23,24 +23,24 @@
 		"PlayerManagerMixin"
 	],
 	"client": [
-		"ChatHudMixin",
-		"ChatScreenMixin",
-		"ClientWorldMixin",
-		"Deadmau5FeatureRendererMixin",
-		"GameRendererMixin",
-		"KeyboardMixin",
-		"LanguageMixin",
-		"LivingEntityRendererMixin",
-		"MatrixStackMixin",
-		"MixinFrustum",
-		"PlayerEntityModelMixin",
-		"ReloadableResourceManagerImplMixin",
-		"SoundSystemMixin",
-		"TitleScreenMixin",
-		"TranslationStorageAccessor",
-		"ItemRendererMixin",
-		"MinecraftClientMixin"
-	],
+      "ChatHudMixin",
+      "ChatScreenMixin",
+      "ClientWorldMixin",
+      "Deadmau5FeatureRendererMixin",
+      "GameRendererMixin",
+      "ItemRendererMixin",
+      "KeyboardMixin",
+      "LanguageMixin",
+      "LivingEntityRendererMixin",
+      "MatrixStackMixin",
+      "MinecraftClientMixin",
+      "MixinFrustum",
+      "PlayerEntityModelMixin",
+      "ReloadableResourceManagerImplMixin",
+      "SoundSystemMixin",
+      "TitleScreenMixin",
+      "TranslationStorageAccessor"
+    ],
 	"injectors": {
 		"defaultRequire": 1
 	}

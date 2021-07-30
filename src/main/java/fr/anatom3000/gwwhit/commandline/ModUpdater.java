@@ -4,7 +4,6 @@ import com.google.gson.*;
 import fr.anatom3000.gwwhit.util.SafeUtils;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;

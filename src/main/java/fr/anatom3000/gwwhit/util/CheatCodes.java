@@ -234,7 +234,7 @@ public class CheatCodes {
         protected static final Random random = new Random();
         protected static final MinecraftClient client = MinecraftClient.getInstance();
 
-        public String code;
+        public final String code;
 
         /**
          * This constructor sets the maximum cheat length
@@ -243,7 +243,7 @@ public class CheatCodes {
          */
         public CheatCode(String code) {
             this.code = code;
-            MAX_CHEAT_LEN = MAX_CHEAT_LEN < code.length() ? MAX_CHEAT_LEN = code.length() : MAX_CHEAT_LEN;
+            MAX_CHEAT_LEN = Math.max(MAX_CHEAT_LEN, code.length());
         }
 
         /**

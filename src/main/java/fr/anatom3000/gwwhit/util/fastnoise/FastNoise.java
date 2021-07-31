@@ -328,7 +328,7 @@ public class FastNoise {
     }
 
     // Changes the interpolation method used to smooth between noise values
-    // Possible interpolation methods (lowest to highest quality) :
+    // Possible interpolation methods (lowest to the highest quality) :
     // - Linear
     // - Hermite
     // - Quintic

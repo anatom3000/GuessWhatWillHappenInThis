@@ -108,7 +108,7 @@ public class CustomOre {
         createTranslations("block", block.getTranslationKey(), param.lang);
         createTranslations("ore", ore.getTranslationKey(), param.lang);
         RegistryKey<ConfiguredFeature<?, ?>> ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, oreId);
-        if (ConfigManager.getLoadedConfig().content.moreOres.generateInWorld)
+        if (ConfigManager.getLoadedConfig().moreOres.generateInWorld)
             BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, ore);
         if (hasArmor) {
             ArmorMaterial material = getArmorMaterial();

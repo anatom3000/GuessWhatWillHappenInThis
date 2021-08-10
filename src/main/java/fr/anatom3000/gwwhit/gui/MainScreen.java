@@ -1,8 +1,9 @@
 package fr.anatom3000.gwwhit.gui;
 
-import fr.anatom3000.gwwhit.config.ModConfig;
+import fr.anatom3000.gwwhit.config.data.MainConfig;
 import fr.anatom3000.gwwhit.util.SafeUtils;
 import me.shedaniel.autoconfig.AutoConfig;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -25,17 +26,9 @@ public class MainScreen extends Screen {
 
     @Override
     protected void init() {
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 155, this.height / 6 + 48 - 6, 150, 20, new TranslatableText("gui.gwwhit.config"), (button) -> {
-            this.client.openScreen(AutoConfig.getConfigScreen(ModConfig.class, this).get());
-        }));
-        this.addDrawableChild(new ButtonWidget(this.width / 2 + 5, this.height / 6 + 48 - 6, 150, 20, new TranslatableText("gui.gwwhit.something"), (button) -> {
-            Util.getOperatingSystem().open(GITHUB);
-        }));
-
-
-        addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height / 6 + 168, 200, 20, ScreenTexts.DONE, (button) -> {
-            client.openScreen(this.parent);
-        }));
+        addDrawableChild(new ButtonWidget(this.width / 2 - 155, this.height / 6 + 48 - 6, 150, 20, new TranslatableText("gui.gwwhit.config"), (button) -> this.client.openScreen(AutoConfig.getConfigScreen(MainConfig.class, this).get())));
+        addDrawableChild(new ButtonWidget(this.width / 2 + 5, this.height / 6 + 48 - 6, 150, 20, new TranslatableText("gui.gwwhit.reload"), (button) -> MinecraftClient.getInstance().reloadResources()));
+        addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height / 6 + 168, 200, 20, ScreenTexts.DONE, (button) -> client.openScreen(this.parent)));
     }
 
     @Override

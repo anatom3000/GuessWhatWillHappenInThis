@@ -2,7 +2,7 @@ package fr.anatom3000.gwwhit;
 
 import com.google.gson.JsonSyntaxException;
 import fr.anatom3000.gwwhit.config.ConfigManager;
-import fr.anatom3000.gwwhit.config.ModConfig;
+import fr.anatom3000.gwwhit.config.data.MainConfig;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -23,14 +23,16 @@ public class GWWHITClient implements ClientModInitializer {
         Registry.register(Registry.SOUND_EVENT, MOJAAAANG_SOUND, MOJAAAANG_SOUND_EVENT);
 
         ClientPlayNetworking.registerGlobalReceiver(GWWHIT.CONFIG_SYNC_ID, (client, networkHandler, data, sender) -> {
-            ModConfig config = null;
+            MainConfig config = null;
             try {
-                config = GWWHIT.GSON.fromJson(data.readString(), ModConfig.class);
-            } catch (JsonSyntaxException syntaxError) {
-                GWWHIT.LOGGER.warn("Failed to load synced config, falling back to local config!");
+                if (GWWHIT.MOD_VERSION.equals(data.readString()))
+                    config = GWWHIT.GSON.fromJson(data.readString(), MainConfig.class);
+            } catch (JsonSyntaxException e) {
+                GWWHIT.LOGGER.error("Can't parse config!", e);
             }
+            if (config == null) GWWHIT.LOGGER.warn("Failed to load synced config, falling back to local config!");
 
-            ModConfig finalConfig = config;
+            MainConfig finalConfig = config;
             client.execute(() -> {
                 ConfigManager.loadConfig(finalConfig);
                 ConfigManager.setShader();

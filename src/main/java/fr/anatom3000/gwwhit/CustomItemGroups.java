@@ -22,7 +22,7 @@ public class CustomItemGroups {
             CURSED_GROUP = null;
         }
 
-        MORE_ORES_GROUP = switch (ConfigManager.getLoadedConfig().content.moreOres.tab) {
+        MORE_ORES_GROUP = switch (ConfigManager.getLoadedConfig().moreOres.tab) {
             case NONE -> null;
             case MAIN -> GWWHIT_GROUP;
             case SEPARATE -> FabricItemGroupBuilder.create(GWWHIT.getId("more_ores")).icon(() -> new ItemStack(NewMaterials.INSTANCE.ores.get(0).block)).build();

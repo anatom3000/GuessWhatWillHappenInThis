@@ -49,6 +49,7 @@ public class GWWHIT implements ModInitializer {
     @SuppressWarnings("OptionalGetWithoutIsPresent") //It has to exist
     public static final Path ASSETS_ROOT = FabricLoader.getInstance().getModContainer(MOD_ID).get().getPath("assets/gwwhit");
     public static final Identifier CONFIG_SYNC_ID = getId("config_sync");
+    public static final String MOD_VERSION = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
 
     //Caches
     public static final Map<String, Map<String, String>> TRANSLATIONS = new HashMap<>();

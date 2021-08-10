@@ -26,11 +26,11 @@ public class InfectedMassBlockEntity extends BlockEntity {
             if (((ServerWorld) world).getServer().getTicks() == removeTick + 1)
                 world.breakBlock(pos, false);
 
-            be.timer = (be.timer + 1) % ConfigManager.getLoadedConfig().content.blocks.infectedMassBlock.ticksBetweenSpread;
+            be.timer = (be.timer + 1) % ConfigManager.getLoadedConfig().blocks.infectedMassBlock.ticksBetweenSpread;
             if (be.timer != 0) {
                 return;
             }
-            if (MathUtil.getChance(ConfigManager.getLoadedConfig().content.blocks.infectedMassBlock.globalSpreadChance)) {
+            if (MathUtil.getChance(ConfigManager.getLoadedConfig().blocks.infectedMassBlock.globalSpreadChance)) {
                 return;
             }
             int completed = 0;
@@ -51,9 +51,9 @@ public class InfectedMassBlockEntity extends BlockEntity {
     private int getCompleted(BlockPos newPos, int completed) {
         BlockState state;
         state = world.getBlockState(newPos);
-        if (ConfigManager.getLoadedConfig().content.blocks.infectedMassBlock.spreadBlacklist.contains(Registry.BLOCK.getId(state.getBlock()).toString())) {
+        if (ConfigManager.getLoadedConfig().blocks.infectedMassBlock.spreadBlacklist.contains(Registry.BLOCK.getId(state.getBlock()).toString())) {
             return completed + 1;
-        } else if (MathUtil.getChance(ConfigManager.getLoadedConfig().content.blocks.infectedMassBlock.directionalSpreadChance)) {
+        } else if (MathUtil.getChance(ConfigManager.getLoadedConfig().blocks.infectedMassBlock.directionalSpreadChance)) {
             world.setBlockState(newPos, this.getCachedState());
         }
         return completed;

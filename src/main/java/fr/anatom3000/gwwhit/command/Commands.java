@@ -5,7 +5,7 @@ import fr.anatom3000.gwwhit.Python;
 import fr.anatom3000.gwwhit.block.entity.InfectedMassBlockEntity;
 import fr.anatom3000.gwwhit.block.entity.RandomisingBlockEntity;
 import fr.anatom3000.gwwhit.config.ConfigManager;
-import fr.anatom3000.gwwhit.config.ModConfig;
+import fr.anatom3000.gwwhit.config.data.MainConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -43,7 +43,7 @@ public class Commands {
                         )
                         .then(CommandManager.literal("load")
                                 .executes(context -> {
-                                    ConfigHolder<ModConfig> configHolder = ConfigManager.getHolder();
+                                    ConfigHolder<MainConfig> configHolder = ConfigManager.getHolder();
                                     configHolder.load();
                                     return 1;
                                 })
@@ -70,7 +70,7 @@ public class Commands {
                         )
                 )
                 .then(CommandManager.literal("python")
-                        .requires(source -> ConfigManager.getLoadedConfig().content.scripting)
+                        .requires(source -> ConfigManager.getLoadedConfig().misc.scripting)
                         .then(CommandManager.literal("execute")
                                 .then(CommandManager.argument("script", new ScriptArgumentType())
                                         .executes(context -> {

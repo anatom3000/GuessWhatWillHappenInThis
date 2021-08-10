@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import static fr.anatom3000.gwwhit.config.ModConfig.Cosmetic.Audio.SoundReplacement;
+import static fr.anatom3000.gwwhit.config.data.AudioConfig.SoundReplacement;
 
 public record WrappedPack(ResourcePack pack) implements ResourcePack {
     @Override
@@ -26,7 +26,7 @@ public record WrappedPack(ResourcePack pack) implements ResourcePack {
     @Override
     public InputStream open(ResourceType type, Identifier id) throws IOException {
         if (id.getPath().endsWith(".ogg")) {
-            SoundReplacement r = ConfigManager.getLoadedConfig().cosmetic.audio.soundReplacement;
+            SoundReplacement r = ConfigManager.getLoadedConfig().audio.soundReplacement;
             if (r != SoundReplacement.None)
                 return Files.newInputStream(GWWHIT.ASSETS_ROOT.resolve("sounds/" + r.name().toLowerCase() + ".ogg"));
         }

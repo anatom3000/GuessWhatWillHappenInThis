@@ -3,6 +3,7 @@ package fr.anatom3000.gwwhit;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParseException;
 import fr.anatom3000.gwwhit.config.ConfigManager;
+import fr.anatom3000.gwwhit.config.data.MiscConfig;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.commons.io.IOUtils;
 import org.python.core.PyCode;
@@ -38,10 +39,12 @@ public class Python {
     }
 
     public static void load() {
-        if (!(ConfigManager.getLoadedConfig().content.python || ConfigManager.getLoadedConfig().content.scripting)) return;
+        MiscConfig config = ConfigManager.getLoadedConfig().misc;
+
+        if (!(config.python || config.scripting)) return;
         try (PythonInterpreter python = createInterpreter()) {
-            if (ConfigManager.getLoadedConfig().content.python) python.exec(CODE);
-            if (ConfigManager.getLoadedConfig().content.scripting) {
+            if (config.python) python.exec(CODE);
+            if (config.scripting) {
                 parseScripts(python);
                 if (SCRIPT_GROUPS.containsKey(new Script("init.json"))) {
                     try {
@@ -55,16 +58,16 @@ public class Python {
             GWWHIT.LOGGER.error("Error while executing scripts!", e);
         }
     }
-    
+
     public static List<Script> getKeys() {
         List<Script> list = new ArrayList<>();
-        
+
         list.addAll(SCRIPT_GROUPS.keySet());
         list.addAll(SCRIPTS.keySet());
-        
+
         return list;
     }
-    
+
     public static void execute(Script script) throws RuntimeException {
         if (script.id().endsWith(".json")) {
             RuntimeException problem = null;
@@ -94,7 +97,7 @@ public class Python {
             throw new RuntimeException(script.id() + " isn't a script or script group");
         }
     }
-    
+
     private static PythonInterpreter createInterpreter() {
         PythonInterpreter python = new PythonInterpreter();
         python.setErr(System.err);
@@ -102,12 +105,12 @@ public class Python {
         python.setIn(System.in);
         return python;
     }
-    
+
     private static void parseScripts(PythonInterpreter python) {
         Path scriptsPath = FabricLoader.getInstance().getGameDir().resolve("gwwhit/scripts");
         if (!scriptsPath.toFile().exists()) return;
         Map<String, Exception> problems = new HashMap<>();
-        
+
         try (Stream<Path> files = Files.walk(scriptsPath)) {
             files.forEach(path -> {
                 File file = path.toFile();
@@ -117,13 +120,13 @@ public class Python {
                         try {
                             JsonArray array = GWWHIT.GSON.fromJson(new FileReader(file), JsonArray.class);
                             Script[] scripts = new Script[array.size()];
-                            
+
                             for (int i = 0; i < array.size(); i++) {
                                 scripts[i] = new Script(array.get(i).getAsString().replace('/', '\\'));
                             }
-                            
+
                             SCRIPT_GROUPS.put(new Script(name), scripts);
-                            
+
                         } catch (JsonParseException e) {
                             throw new RuntimeException("Expected .json file to be valid!", e);
                         }
@@ -138,12 +141,12 @@ public class Python {
         } catch (IOException e) {
             problems.put("root folder", e);
         }
-        
+
         if (!problems.isEmpty()) GWWHIT.LOGGER.error("Error(s) happened while loading scripts!");
         for (Map.Entry<String, Exception> entry : problems.entrySet()) {
             GWWHIT.LOGGER.error("Error loading file " + entry.getKey(), entry.getValue());
         }
     }
-    
+
     public static record Script(String id) {}
 }

@@ -21,7 +21,7 @@ public class ItemRendererMixin {
 			at = @At(value = "INVOKE", target = "Ljava/lang/String;valueOf(I)Ljava/lang/String;")
 	)
 	private String render(int i) {
-		if ( ConfigManager.getLoadedConfig().cosmetic.rendering.itemUseRomanNumerals ) {
+		if ( ConfigManager.getLoadedConfig().rendering.itemUseRomanNumerals ) {
 			return RomanUtil.toRoman(i);
 		}
 		return String.valueOf(i);
@@ -32,7 +32,7 @@ public class ItemRendererMixin {
 			at = @At (value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;getWidth(Ljava/lang/String;)I")
 	)
 	private int width(TextRenderer renderer, String text) {
-		if ( ConfigManager.getLoadedConfig().cosmetic.rendering.itemUseRomanNumerals ) {
+		if ( ConfigManager.getLoadedConfig().rendering.itemUseRomanNumerals ) {
 			return (int) ( renderer.getWidth(text) * RomanUtil.getScale(text) );
 		}
 		return renderer.getWidth(text);
@@ -44,7 +44,7 @@ public class ItemRendererMixin {
 			locals = LocalCapture.CAPTURE_FAILHARD
 	)
 	private void rescaleText(TextRenderer fontRenderer, ItemStack stack, int x, int y, String amountText, CallbackInfo ci, MatrixStack matrixStack, String string) {
-		if ( ConfigManager.getLoadedConfig().cosmetic.rendering.itemUseRomanNumerals ) {
+		if ( ConfigManager.getLoadedConfig().rendering.itemUseRomanNumerals ) {
 			float f = RomanUtil.getScale(string);
 			if (f != 1f) {
 				matrixStack.translate(x * (1 - f), y * (1 - f) + (1 - f) * 16, 0);

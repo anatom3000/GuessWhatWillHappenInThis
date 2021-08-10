@@ -31,7 +31,7 @@ public class EventListeners {
 
     public static void register() {
         LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
-            if (ConfigManager.getLoadedConfig().gameplay.drops.dreamLuck) {
+            if (ConfigManager.getLoadedConfig().gameplay.dreamLuck) {
                 if (LE_BLAZE_LOOT.equals(id)) {
                     supplier.withPool(POOL_BUILDER.build());
                 } else if (LE_BARTER_LOOT.equals(id)) {

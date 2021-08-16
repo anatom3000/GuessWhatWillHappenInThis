@@ -1,6 +1,7 @@
 package fr.anatom3000.gwwhit;
 
 import fr.anatom3000.gwwhit.config.ConfigManager;
+import fr.anatom3000.gwwhit.util.Utilities;
 import org.apache.commons.io.IOUtils;
 import org.python.util.PythonInterpreter;
 
@@ -12,11 +13,12 @@ import java.util.Objects;
 /**
  * @author ENDERZOMBI102
  */
-public class Python {
+public final class Python {
     private static String CODE = "";
+    private Python() {}
 
     static {
-        try (InputStream stream = Python.class.getClassLoader().getResourceAsStream("init.py")) {
+        try (InputStream stream = Utilities.getResource("init.py")) {
             CODE = IOUtils.toString(
                     Objects.requireNonNull(stream),
                     StandardCharsets.UTF_8

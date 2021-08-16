@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static fr.anatom3000.gwwhit.util.Utilities.insertMany;
+import static fr.anatom3000.gwwhit.util.McUtilities.insertMany;
 
 public class CheatCodes {
 

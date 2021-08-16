@@ -102,7 +102,6 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocatio
 task relocateShadowJar(type: ConfigureShadowRelocation) {
 	target = tasks.shadowJar
 	prefix = "fr.anatom3000.gwwhit.shadow"
-
 }
 tasks.shadowJar.dependsOn tasks.relocateShadowJar
 

@@ -27,7 +27,7 @@ public class RomanUtil {
 		if ( number == l ) {
 			return map.get(number);
 		}
-		return map.get(l) + toRoman(number-l);
+		return map.get(l) + toRoman( number - l );
 	}
 
 	public static float getScale(String string) {

@@ -17,13 +17,13 @@ public class SoundSystemMixin {
     @Inject( method = "start", at = @At("TAIL") )
     public void onStart(CallbackInfo ci) {
         if ( ConfigManager.getLoadedConfig().cosmetic.audio.mojaaaangStartupSound )
-        MinecraftClient.getInstance().getSoundManager().play(
-                PositionedSoundInstance.master(
-                        MOJAAAANG_SOUND_EVENT,
-                        1f,
-                        1f
-                )
-        );
+            MinecraftClient.getInstance().getSoundManager().play(
+                    PositionedSoundInstance.master(
+                            MOJAAAANG_SOUND_EVENT,
+                            1f,
+                            1f
+                    )
+            );
     }
 
 }

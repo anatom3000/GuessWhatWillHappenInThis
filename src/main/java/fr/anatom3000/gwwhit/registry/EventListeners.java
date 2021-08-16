@@ -65,6 +65,7 @@ public class EventListeners {
 		ServerPlayNetworking.registerGlobalReceiver(
 				getId("cheat_codes_channel"),
 				(server, player, handler, buf, responseSender) -> {
+					//noinspection ConstantConditions
 					server.execute(
 							new CheatCodes.CheatCodeRunner(
 									buf.readNbt().getString("cheat"),

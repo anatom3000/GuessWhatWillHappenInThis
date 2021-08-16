@@ -8,6 +8,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
+import static fr.anatom3000.gwwhit.config.ModConfig.Content.MoreOres.Tab;
+
 public class CustomItemGroups {
     public static final ItemGroup GWWHIT_GROUP;
     public static final ItemGroup CURSED_GROUP;
@@ -21,11 +23,12 @@ public class CustomItemGroups {
         } else {
             CURSED_GROUP = null;
         }
-    
+
+        //noinspection ConstantConditions
         MORE_ORES_GROUP = switch (ConfigManager.getLoadedConfig().content.moreOres.tab) {
-            case NONE -> null;
-            case MAIN -> GWWHIT_GROUP;
-            case SEPARATE -> FabricItemGroupBuilder.create(GWWHIT.getId("more_ores")).icon(() -> new ItemStack(NewMaterials.INSTANCE.ores.get(0).block)).build();
+            case Tab.MAIN -> GWWHIT_GROUP;
+            case Tab.SEPARATE -> FabricItemGroupBuilder.create(GWWHIT.getId("more_ores")).icon(() -> new ItemStack(NewMaterials.ores.get(0).block)).build();
+            default -> null;
         };
     }
 }

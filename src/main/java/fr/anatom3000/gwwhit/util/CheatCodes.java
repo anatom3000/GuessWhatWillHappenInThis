@@ -2,6 +2,7 @@ package fr.anatom3000.gwwhit.util;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
@@ -16,17 +17,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+import static fr.anatom3000.gwwhit.GWWHITClient.ROCK_SOUND_EVENT;
 import static fr.anatom3000.gwwhit.util.McUtilities.insertMany;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class CheatCodes {
 
 	public static int MAX_CHEAT_LEN = 0;
@@ -34,32 +39,32 @@ public class CheatCodes {
 	public static final ArrayList<CheatCode> CHEAT_CODES = new ArrayList<>() {{
 		add(new CheatCode("POWEROVERWHELMING") {  // cheat 1
 			@Override
-			public void onExecute(ServerPlayerEntity player, PlayerAbilities abilities) {
+			public void onExecute(ServerPlayerEntity player, @NotNull PlayerAbilities abilities) {
 				abilities.invulnerable = !abilities.invulnerable;
 				player.sendAbilitiesUpdate();
-				client.player.sendChatMessage("Nothing can stop you!");
+				player.sendMessage( Text.of("Nothing can stop you!"), false );
 			}
 		});
 		add(new CheatCode("PIGSONTHEWING") {  // cheat 2
 			@Override
-			public void onExecute(ServerPlayerEntity player, PlayerAbilities abilities) {
+			public void onExecute(ServerPlayerEntity player, @NotNull PlayerAbilities abilities) {
 				abilities.allowFlying = !abilities.allowFlying;
 				player.sendAbilitiesUpdate();
-				client.player.sendChatMessage("FLYING=VERY YES");
+				player.sendMessage( Text.of("FLYING=VERY YES"), false );
 			}
 		});
 		add(new CheatCode("FLASHAAAAA") {  // cheat 3
 			@Override
-			public void onExecute(ServerPlayerEntity player, PlayerAbilities abilities) {
+			public void onExecute(ServerPlayerEntity player, @NotNull PlayerAbilities abilities) {
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 1200, 20));
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 1200, 20));
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 1200, 20));
-				client.player.sendChatMessage("Gordon's ALIVE!");
+				player.sendMessage( Text.of("Gordon's ALIVE!"), false );
 			}
 		});
 		add(new CheatCode("MOREDAKKA") {  // cheat 4
 			@Override
-			public void onExecute(ServerPlayerEntity player, PlayerAbilities abilities) {
+			public void onExecute(ServerPlayerEntity player, @NotNull PlayerAbilities abilities) {
 				ItemStack crossbow = new ItemStack(Items.CROSSBOW);
 				EnchantmentHelper.set(ImmutableMap.of(Enchantments.MULTISHOT, 12), crossbow);
 
@@ -144,25 +149,26 @@ public class CheatCodes {
 						EquipmentSlot.OFFHAND,
 						new ItemStack(Items.SHIELD)
 				);
-				client.player.sendChatMessage("Got all equipment!");
+				player.sendMessage( Text.of("Got all equipment!"), false );
 			}
 		});
 		add(new CheatCode("IDKFA") {  // cheat 5
 			@Override
-			public void onExecute(ServerPlayerEntity player, PlayerAbilities abilities) {
+			public void onExecute(ServerPlayerEntity player, @NotNull PlayerAbilities abilities) {
 				// TODO: RESTORE
-				client.player.sendChatMessage("Got all keys!");
+				player.sendMessage( Text.of("Got all keys!"), false );
 			}
 		});
 		add(new CheatCode("COWSCOWSCOWS") {  // cheat 6
 			@Override
-			public void onExecute(ServerPlayerEntity player, PlayerAbilities abilities) {
-				client.player.sendChatMessage("There is no cow level");
+			public void onExecute(ServerPlayerEntity player, @NotNull PlayerAbilities abilities) {
+				player.sendMessage( Text.of("There is no cow level"), false );
 			}
 		});
 		add(new CheatCode("HOWDOYOUTURNTHISON") {  // cheat 7
 			@Override
-			public void onExecute(ServerPlayerEntity player, PlayerAbilities abilities) {
+			@SuppressWarnings("ConstantConditions")
+			public void onExecute(ServerPlayerEntity player, @NotNull PlayerAbilities abilities) {
 				Vec3d playerPos = player.getPos();
 				Vec3d vector = new Vec3d(
 						playerPos.x + (double) (random.nextFloat() * 3.0F),
@@ -180,12 +186,13 @@ public class CheatCodes {
 				//horse.equipStack(EquipmentSlot.fromTypeIndex(EquipmentSlot.Type.ARMOR, 400), new ItemStack(Items.SADDLE));
 				horse.saddle(null);
 				player.world.spawnEntity(horse);
-				client.player.sendChatMessage("VROOM!");
+				player.sendMessage( Text.of("VROOM!"), false );
 			}
 		});
 		add(new CheatCode("NEEEERD") {  // cheat 8
 			@Override
-			public void onExecute(ServerPlayerEntity player, PlayerAbilities abilities) {
+			@SuppressWarnings("ConstantConditions")
+			public void onExecute(ServerPlayerEntity player, @NotNull PlayerAbilities abilities) {
 				CreeperEntity creeper = null;
 				for (int var3 = 0; var3 < 5; var3++) {
 					CreeperEntity newCreeper = EntityType.CREEPER.create(player.world);
@@ -195,19 +202,20 @@ public class CheatCodes {
 						creeper.startRiding(newCreeper, true);
 					creeper = newCreeper;
 				}
-				client.player.sendChatMessage("Special creeper has been spawned nearby!");
+				player.sendMessage( Text.of("Special creeper has been spawned nearby!"), false );
 			}
 		});
 		add(new CheatCode("LOOKMUMIMFLYING") {
 			@Override
-			public void onExecute(ServerPlayerEntity player, @Nullable PlayerAbilities abilities) {
+			public void onExecute(ServerPlayerEntity player, @NotNull PlayerAbilities abilities) {
 				player.setNoGravity(! player.hasNoGravity() );
-				client.player.sendChatMessage("U R JESUS??");
+				player.sendMessage( Text.of("U R JESUS??"), false );
 			}
 		});
 		add(new CheatCode("LIKANOTHAWORLD") {
 			@Override
-			public void onExecute(ServerPlayerEntity player, @Nullable PlayerAbilities abilities) {
+			@SuppressWarnings("ConstantConditions")
+			public void onExecute(ServerPlayerEntity player, @NotNull PlayerAbilities abilities) {
 				ServerWorld world = player.getServer().getWorld(
 						RegistryKey.of(
 								Registry.WORLD_KEY,
@@ -221,7 +229,22 @@ public class CheatCodes {
 						player.getYaw(),
 						player.getPitch()
 				);
-				client.player.sendChatMessage("U R GOING TO BRAZIL!");
+				player.sendMessage( Text.of("U R GOING TO BRAZIL!"), false );
+			}
+		});
+		add(new CheatCode("WEWILLUJOE") {
+			{
+				runOnClient = true;
+			}
+			@Override
+			public void onExecute(@Nullable ServerPlayerEntity player, @NotNull PlayerAbilities abilities) {
+				MinecraftClient.getInstance().getSoundManager().play(
+						PositionedSoundInstance.master(
+								ROCK_SOUND_EVENT,
+								1f,
+								1f
+						)
+				);
 			}
 		});
 	}};
@@ -229,9 +252,13 @@ public class CheatCodes {
 	public static abstract class CheatCode {
 
 		protected static final Random random = new Random();
-		protected static final MinecraftClient client = MinecraftClient.getInstance();
-
-		public String code;
+		public final String code;
+		/**
+		 * Set this to true if you want this cheat to run on the client instead of the server
+		 * By doing thing, if the user is connected to a server the cheat will not get the player entity,
+		 * only the client-avaliable abilities object.
+		 */
+		public boolean runOnClient = false;
 
 		/**
 		 * This constructor sets the maximum cheat length
@@ -239,7 +266,7 @@ public class CheatCodes {
 		 */
 		public CheatCode(String code) {
 			this.code = code;
-			MAX_CHEAT_LEN = MAX_CHEAT_LEN < code.length() ? MAX_CHEAT_LEN = code.length() : MAX_CHEAT_LEN;
+			MAX_CHEAT_LEN = Math.max( MAX_CHEAT_LEN, code.length() );
 		}
 
 		/**
@@ -247,9 +274,10 @@ public class CheatCodes {
 		 * @param player the player instance.
 		 * @param abilities the player's abilities.
 		 */
-		public abstract void onExecute( @Nullable ServerPlayerEntity player, @Nullable PlayerAbilities abilities );
+		public abstract void onExecute( @Nullable ServerPlayerEntity player, @NotNull PlayerAbilities abilities );
 	}
 
+	@SuppressWarnings("ClassCanBeRecord")
 	public static final class CheatCodeRunner implements Runnable {
 		private final String code;
 		private final ServerPlayerEntity player;

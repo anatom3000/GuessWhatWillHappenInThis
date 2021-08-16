@@ -2,7 +2,7 @@ package fr.anatom3000.gwwhit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import fr.anatom3000.gwwhit.config.*;
+import fr.anatom3000.gwwhit.config.AnnotationExclusionStrategy;
 import fr.anatom3000.gwwhit.dimension.RandomChunkGenerator;
 import fr.anatom3000.gwwhit.registry.*;
 import fr.anatom3000.gwwhit.util.TableRandomizer;
@@ -20,7 +20,9 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 /*  IMPORTANT NOTICE:
@@ -63,7 +65,7 @@ public class GWWHIT implements ModInitializer {
         BlockRegistry.register();
         BlockEntityRegistry.register();
         Commands.register();
-        NewMaterials.INSTANCE.onInitialize();
+        NewMaterials.onInitialize();
         EventListeners.register();
         LOGGER.info("[GWWHIT] You shouldn't have done this.");
     }

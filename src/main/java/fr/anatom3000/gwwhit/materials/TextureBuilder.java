@@ -12,6 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Random;
 
+import static fr.anatom3000.gwwhit.materials.CustomOre.Type;
+
 public class TextureBuilder {
     public enum ToolType {
         SWORD, SHOVEL, AXE, PICKAXE, HOE
@@ -41,12 +43,22 @@ public class TextureBuilder {
             int t = rng.nextInt(2) + 1;
             for (CustomOre.ArmorType type : CustomOre.ArmorType.values()) {
                 String tn = type.name().toLowerCase();
-                simpleRetexture(GWWHIT.getId("item/" + name + "_" + tn), "textures/item/" + tn + t, color);
+                simpleRetexture(
+                        GWWHIT.getId("item/" + name + "_" + tn),
+                        "textures/item/" + tn + t,
+                        color
+                );
             }
-            simpleRetexture(new Identifier("minecraft", "models/armor/" + name + "_layer_1"),
-                    "textures/misc/layer_1" + t, color);
-            simpleRetexture(new Identifier("minecraft", "models/armor/" + name + "_layer_2"),
-                    "textures/misc/layer_2" + t, color);
+            simpleRetexture(
+                    new Identifier("minecraft", "models/armor/" + name + "_layer_1"),
+                    "textures/misc/layer_1" + t,
+                    color
+            );
+            simpleRetexture(
+                    new Identifier("minecraft", "models/armor/" + name + "_layer_2"),
+                    "textures/misc/layer_2" + t,
+                    color
+            );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -54,11 +66,19 @@ public class TextureBuilder {
     
     public static void generateMaterial(int color, Identifier id, CustomOre.Type type, Random rng) {
         try {
-            simpleRetexture(id, "textures/item/" + type.name().toLowerCase() + (rng.nextInt(switch(type) {
-                case GEM -> 8;
-                case DUST -> 4;
-                case INGOT -> 1;
-            }) + 1), color);
+            simpleRetexture(
+                    id,
+                    "textures/item/" + type.name().toLowerCase() + (
+                            rng.nextInt(
+                                    switch(type) {
+                                        case Type.GEM -> 8;
+                                        case Type.DUST -> 4;
+                                        default -> 1;
+                                    }
+                            ) + 1
+                    ),
+                    color
+            );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -67,9 +87,23 @@ public class TextureBuilder {
     public static void generateTool(int color, Identifier id, ToolType type, Random rng) {
         try {
             String n = type == ToolType.SHOVEL ? "tool_base_shovel" : "tool_base";
-            retextureMerge(id, GWWHIT.ASSETS_ROOT.resolve("textures/item/" + n + ".png"), "textures/item/tool_" + type.name().toLowerCase() + (rng.nextInt(switch (type) {
-                case SWORD, SHOVEL, AXE, PICKAXE, HOE -> 1;
-            }) + 1), color);
+            retextureMerge(
+                    id,
+                    GWWHIT.ASSETS_ROOT.resolve("textures/item/" + n + ".png"),
+                    "textures/item/tool_" + type.name().toLowerCase() + (
+                            rng.nextInt(
+                                    switch (type) {
+                                        case ToolType.SWORD,
+                                                ToolType.SHOVEL,
+                                                ToolType.AXE,
+                                                ToolType.PICKAXE,
+                                                ToolType.HOE -> 1;
+                                        default -> 1;
+                                    }
+                            ) + 1
+                    ),
+                    color
+            );
         } catch (IOException e) {
             e.printStackTrace();
         }

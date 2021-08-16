@@ -20,7 +20,7 @@ public class DimensionTypeMixin implements IDimensionType {
     @Inject(at = @At("TAIL"), method = "<clinit>")
     private static void tweakOverworld(CallbackInfo ci) {
         if (ConfigManager.getLoadedConfig().content.increaseWorldHeight) {
-            ((IDimensionType)OVERWORLD).gwwhit$adjustMinimumY(-256);
+            ( (IDimensionType) OVERWORLD ).gwwhit$adjustMinimumY(-256);
         }
     }
 

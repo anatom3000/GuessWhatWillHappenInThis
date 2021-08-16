@@ -46,7 +46,8 @@ public class PortableBlackHoleItem extends Item {
         }
         ArrayList<BlockPos> positions = new ArrayList<>(STORAGE.get(stack));
         Collections.shuffle(positions);
-        for (int i = 0; i < positions.size() && i < 256; ++i) {
+        int size = Math.min( positions.size(), 256 );
+        for (int i = 0; i < size; ++i) {
             BlockPos pos = positions.get(i);
             if (!world.getBlockState(pos).isAir()) {
                 world.removeBlock(positions.get(i), false);

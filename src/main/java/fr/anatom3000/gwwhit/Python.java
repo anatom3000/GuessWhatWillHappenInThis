@@ -29,7 +29,7 @@ public class Python {
     private static final Map<Script, Script[]> SCRIPT_GROUPS = new HashMap<>();
 
     static {
-        try (InputStream stream = Utilities.getResource("init.py")) {
+        try (InputStream stream = Utilities.getResource("/init.py")) {
             CODE = IOUtils.toString(
                     Objects.requireNonNull(stream),
                     StandardCharsets.UTF_8

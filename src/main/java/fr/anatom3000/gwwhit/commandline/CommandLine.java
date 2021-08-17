@@ -21,12 +21,14 @@ public class CommandLine {
         put("cyan", "\u001B[36m");
         put("white", "\u001B[37m");
     }};
+    private static String[] arguments;
     public static boolean debugMode;
 
     public static void main(String[] args) {
-        debugMode = Utilities.contains(args, "--debug");
+        arguments = args;
+        debugMode = CommandLine.hasArgument("--debug");
         try {
-            ModUpdater.main(args);
+            ModUpdater.main();
         } catch (Throwable e) {
             CommandLine.println("<clr:red>Something went while loading! Did you use the correct jar?");
             if ( debugMode )
@@ -34,15 +36,8 @@ public class CommandLine {
         }
     }
 
-    private static String replaceColors(@NotNull String str) {
-        boolean appendReset = false;
-        for (Map.Entry<String, String> entry : COLORS.entrySet() ) {
-            if ( str.contains( "<clr:" + entry.getKey() + ">" ) ) {
-                appendReset = true;
-                str = str.replaceAll("<clr:" + entry.getKey() + ">", entry.getValue() );
-            }
-        }
-        return appendReset ? str + COLORS.get("reset") : str;
+    public static boolean hasArgument(@NotNull String arg) {
+        return Utilities.contains(arguments, arg);
     }
 
     public static void print(@NotNull String str) {
@@ -56,5 +51,16 @@ public class CommandLine {
     public static String prompt(@NotNull String message) {
         CommandLine.print(message);
         return IN.nextLine();
+    }
+
+    private static String replaceColors(@NotNull String str) {
+        boolean appendReset = false;
+        for (Map.Entry<String, String> entry : COLORS.entrySet() ) {
+            if ( str.contains( "<clr:" + entry.getKey() + ">" ) ) {
+                appendReset = true;
+                str = str.replaceAll("<clr:" + entry.getKey() + ">", entry.getValue() );
+            }
+        }
+        return appendReset ? str + COLORS.get("reset") : str;
     }
 }

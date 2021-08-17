@@ -22,14 +22,14 @@ import java.util.jar.JarFile;
 */
 public class ModUpdater {
     public static final Gson GSON = new GsonBuilder().create();
-    private static final URL VERSIONS_URL = SafeUtils.doSafely(() -> new URL("https://api.modrinth.com/api/v1/mod/mUOQM1cd/version"));
+    private static final URL VERSIONS_URL = SafeUtils.doSafely(
+            () -> new URL("https://api.modrinth.com/api/v1/mod/mUOQM1cd/version")
+    );
     private static final Path MOD_FOLDER = Path.of("").toAbsolutePath();
-    private static String[] args;
 
-    public static void main(String[] args) {
-        ModUpdater.args = args;
+    public static void main() {
         try {
-            if (!Utilities.contains(args, "--force")) {
+            if (! CommandLine.hasArgument("--force")) {
                 CommandLine.println("If a malicious actor has accessed the mods page the jar could be compromised.");
                 switch (CommandLine.prompt("Are you sure you want to download the latest jar? Y/N: ").toLowerCase()) {
                     case "y", "yes":
@@ -43,10 +43,10 @@ public class ModUpdater {
             new ModUpdater().update();
         } catch (Throwable e) {
             CommandLine.println("<clr:red>An error occurred");
-            if (Utilities.contains(args, "--debug")) {
+            if (CommandLine.debugMode) {
                 e.printStackTrace();
             } else {
-                CommandLine.println("Use --debug for more info");
+                CommandLine.println("<clr:red>Use --debug for more info");
             }
         }
     }
@@ -75,7 +75,7 @@ public class ModUpdater {
             return;
         }
 
-        if (!Utilities.contains(args, "--always") && versionData.number().compareTo(data.b()) < 0) {
+        if (! CommandLine.hasArgument("--always") && versionData.number().compareTo(data.b()) < 0) {
             CommandLine.println("<clr:green>No newer versions found!");
             return;
         }

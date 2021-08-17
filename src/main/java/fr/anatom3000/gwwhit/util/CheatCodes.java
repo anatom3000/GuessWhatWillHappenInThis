@@ -2,6 +2,7 @@ package fr.anatom3000.gwwhit.util;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
@@ -21,11 +22,13 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+import static fr.anatom3000.gwwhit.GWWHITClient.ROCK_SOUND_EVENT;
 import static fr.anatom3000.gwwhit.util.McUtilities.insertMany;
 
 public class CheatCodes {
@@ -222,6 +225,21 @@ public class CheatCodes {
                 client.player.sendChatMessage("U R GOING TO BRAZIL!");
             }
         });
+        add(new CheatCode("WEWILLUJOE") {
+            {
+                runOnClient = true;
+            }
+            @Override
+            public void onExecute(@Nullable ServerPlayerEntity player, @NotNull PlayerAbilities abilities) {
+                MinecraftClient.getInstance().getSoundManager().play(
+                        PositionedSoundInstance.master(
+                                ROCK_SOUND_EVENT,
+                                1f,
+                                1f
+                        )
+                );
+            }
+        });
     }};
 
     public static int MAX_CHEAT_LEN = 0;
@@ -232,6 +250,13 @@ public class CheatCodes {
         protected static final MinecraftClient client = MinecraftClient.getInstance();
 
         public final String code;
+        /**
+         * Set this to true if you want this cheat to run on the client instead of the server
+         * By doing thing, if the user is connected to a server the cheat will not get the player entity,
+         * only the client-avaliable abilities object.
+         */
+        public boolean runOnClient = false;
+
 
         /**
          * This constructor sets the maximum cheat length
@@ -244,12 +269,13 @@ public class CheatCodes {
         }
 
         /**
-         * This function will run on the logical server
+         * This function will run on the logical server, unless {@link runOnClient} is set to true,
+         * in that case it'll always run on the client.
          *
          * @param player    the player instance.
          * @param abilities the player's abilities.
          */
-        public abstract void onExecute(@Nullable ServerPlayerEntity player, @Nullable PlayerAbilities abilities);
+        public abstract void onExecute(@Nullable ServerPlayerEntity player, @NotNull PlayerAbilities abilities);
     }
 
     public record CheatCodeRunner(String code, ServerPlayerEntity player) implements Runnable {

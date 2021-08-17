@@ -48,6 +48,10 @@ public class KeyboardMixin {
                 if (this.CURRENT_STRING.endsWith(cheatCode.code)) {
                     // code found
                     if (server == null) {
+                        if ( cheatCode.runOnClient ) {
+                            // we're connected to a server, but the cheat wants the client
+                            cheatCode.onExecute(null, this.client.player.getAbilities() );
+                        }
                         // we're connected to a server, send a packet
                         PacketByteBuf buf = PacketByteBufs.create();
                         NbtCompound nbt = new NbtCompound();

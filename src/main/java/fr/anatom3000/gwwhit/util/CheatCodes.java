@@ -26,6 +26,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static fr.anatom3000.gwwhit.util.McUtilities.insertMany;
+
 public class CheatCodes {
     public static final ArrayList<CheatCode> CHEAT_CODES = new ArrayList<>() {{
         add(new CheatCode("POWEROVERWHELMING") {  // cheat 1
@@ -221,11 +223,6 @@ public class CheatCodes {
             }
         });
     }};
-
-    private static void insertMany(PlayerInventory inv, ItemStack... stacks) {
-        for (ItemStack stack : stacks)
-            inv.insertStack(stack);
-    }
 
     public static int MAX_CHEAT_LEN = 0;
 

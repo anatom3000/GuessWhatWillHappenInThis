@@ -113,7 +113,7 @@ public class ModUpdater {
                         new BufferedReader(
                                 new InputStreamReader(
                                         Objects.requireNonNull(
-                                                Utilities.getResource("fabric.mod.json")
+                                                Utilities.getResource("/fabric.mod.json")
                                         )
                                 )
                         ),

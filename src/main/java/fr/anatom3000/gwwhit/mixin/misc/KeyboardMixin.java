@@ -10,6 +10,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -25,6 +26,7 @@ public class KeyboardMixin {
     @Final
     private MinecraftClient client;
     private String CURRENT_STRING = "";
+    private static final Identifier CHEAT_CHANNEL_ID = getId("cheat_codes_channel");
 
     @Inject(at = @At("HEAD"), method = "onChar")
     public void onChar(long window, int i, int j, CallbackInfo ci) {
@@ -46,12 +48,16 @@ public class KeyboardMixin {
                 if (this.CURRENT_STRING.endsWith(cheatCode.code)) {
                     // code found
                     if (server == null) {
+                        if ( cheatCode.runOnClient ) {
+                            // we're connected to a server, but the cheat wants the client
+                            cheatCode.onExecute(null, this.client.player.getAbilities() );
+                        }
                         // we're connected to a server, send a packet
                         PacketByteBuf buf = PacketByteBufs.create();
                         NbtCompound nbt = new NbtCompound();
                         nbt.putString("cheat", cheatCode.code);
                         buf.writeNbt(nbt);
-                        ClientPlayNetworking.send(getId("cheat_codes_channel"), buf);
+                        ClientPlayNetworking.send( CHEAT_CHANNEL_ID, buf );
                     } else {
                         // we're connected to the integrated server, do it directly
                         try {

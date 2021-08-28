@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonParseException;
 import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.config.data.MiscConfig;
+import fr.anatom3000.gwwhit.util.Utilities;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.commons.io.IOUtils;
 import org.python.core.PyCode;
@@ -28,7 +29,7 @@ public class Python {
     private static final Map<Script, Script[]> SCRIPT_GROUPS = new HashMap<>();
 
     static {
-        try (InputStream stream = Python.class.getClassLoader().getResourceAsStream("init.py")) {
+        try (InputStream stream = Utilities.getResource("/init.py")) {
             CODE = IOUtils.toString(
                     Objects.requireNonNull(stream),
                     StandardCharsets.UTF_8

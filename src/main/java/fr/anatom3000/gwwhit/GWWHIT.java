@@ -67,7 +67,7 @@ public class GWWHIT implements ModInitializer {
         BlockRegistry.register();
         BlockEntityRegistry.register();
         Commands.register();
-        NewMaterials.INSTANCE.onInitialize();
+        NewMaterials.onInitialize();
         EventListeners.register();
         LOGGER.info("[GWWHIT] You shouldn't have done this. (Loading done)");
     }

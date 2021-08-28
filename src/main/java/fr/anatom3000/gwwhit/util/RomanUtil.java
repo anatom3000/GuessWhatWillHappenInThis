@@ -25,11 +25,12 @@ public class RomanUtil {
 		if ( number == l ) {
 			return map.get(number);
 		}
-		return map.get(l) + toRoman(number-l);
+		return map.get(l) + toRoman( number - l );
 	}
 
 	public static float getScale(String string) {
-		if (string.length() > 5) return .45f;
+		if (string.length() > 5)
+		    return .45f;
 		else if (string.length() > 3) {
 			return .5f;
 		} else if (string.length() == 3) {

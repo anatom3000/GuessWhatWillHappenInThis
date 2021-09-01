@@ -30,6 +30,8 @@ bin/
 
 # fabric
 
+.mixin.out/
+.jython_cache/
 run
 runs
 logs/

@@ -15,10 +15,13 @@ import java.util.Random;
 public class TextureBuilder {
     public static void generateOre(int color, Identifier id, String baseBlock, Random rng) {
         try {
-            retextureMerge(id,
+            retextureMerge(
+                    id,
                     FabricLoader.getInstance().getModContainer("minecraft").orElseThrow()
                         .getPath("assets/minecraft/textures/block/" + baseBlock + ".png"),
-                    "textures/block/ore" + (rng.nextInt(18) + 1), color);
+                    "textures/block/ore" + (rng.nextInt(18) + 1),
+                    color
+            );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,10 +42,16 @@ public class TextureBuilder {
                 String tn = type.name().toLowerCase();
                 simpleRetexture(GWWHIT.getId("item/" + name + "_" + tn), "textures/item/" + tn + t, color);
             }
-            simpleRetexture(new Identifier("minecraft", "models/armor/" + name + "_layer_1"),
-                    "textures/misc/layer_1" + t, color);
-            simpleRetexture(new Identifier("minecraft", "models/armor/" + name + "_layer_2"),
-                    "textures/misc/layer_2" + t, color);
+            simpleRetexture(
+                    new Identifier("minecraft", "models/armor/" + name + "_layer_1"),
+                    "textures/misc/layer_1" + t,
+                    color
+            );
+            simpleRetexture(
+                    new Identifier("minecraft", "models/armor/" + name + "_layer_2"),
+                    "textures/misc/layer_2" + t,
+                    color
+            );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,9 +72,18 @@ public class TextureBuilder {
     public static void generateTool(int color, Identifier id, ToolType type, Random rng) {
         try {
             String n = type == ToolType.SHOVEL ? "tool_base_shovel" : "tool_base";
-            retextureMerge(id, GWWHIT.ASSETS_ROOT.resolve("textures/item/" + n + ".png"), "textures/item/tool_" + type.name().toLowerCase() + (rng.nextInt(switch (type) {
-                case SWORD, SHOVEL, AXE, PICKAXE, HOE -> 1;
-            }) + 1), color);
+            retextureMerge(
+                    id,
+                    GWWHIT.ASSETS_ROOT.resolve("textures/item/" + n + ".png"),
+                    "textures/item/tool_" + type.name().toLowerCase() + (
+                            rng.nextInt(
+                                    switch (type) {
+                                        case SWORD, SHOVEL, AXE, PICKAXE, HOE -> 1;
+                                    }
+                            ) + 1
+                    ),
+                    color
+            );
         } catch (IOException e) {
             e.printStackTrace();
         }

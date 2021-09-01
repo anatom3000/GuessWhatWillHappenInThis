@@ -83,23 +83,49 @@ public class CustomOre {
         blockBlockId = new Identifier(MOD_ID, String.format("block/%s_block", name.toLowerCase()));
         oreBlockId = new Identifier(MOD_ID, String.format("block/%s_ore", name.toLowerCase()));
         this.material = new Item(createItemSettings());
-        this.ore = new Block(FabricBlockSettings.of(Material.STONE).strength((float) (rnd.nextDouble() * 5), (float) (rnd.nextDouble() * 5)).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, rnd.nextInt(3)));
-        this.block = new Block(FabricBlockSettings.of(Material.STONE).strength((float) (rnd.nextDouble() * 5), (float) (rnd.nextDouble() * 5)).sounds(BlockSoundGroup.STONE).requiresTool().breakByTool(FabricToolTags.PICKAXES, rnd.nextInt(3)));
+        this.ore = new Block(
+                FabricBlockSettings.of(Material.STONE)
+                        .strength((float) (rnd.nextDouble() * 5), (float) (rnd.nextDouble() * 5))
+                        .sounds(BlockSoundGroup.STONE)
+                        .requiresTool()
+                        .breakByTool(FabricToolTags.PICKAXES, rnd.nextInt(3))
+        );
+        this.block = new Block(
+                FabricBlockSettings.of(Material.STONE)
+                        .strength((float) (rnd.nextDouble() * 5), (float) (rnd.nextDouble() * 5))
+                        .sounds(BlockSoundGroup.STONE)
+                        .requiresTool()
+                        .breakByTool(FabricToolTags.PICKAXES, rnd.nextInt(3))
+        );
         this.feature = Feature.ORE
-                .configure(new OreFeatureConfig(
-                        dimension == Dimension.END ? new BlockMatchRuleTest(Blocks.END_STONE)
-                                : dimension == Dimension.NETHER ? OreFeatureConfig.Rules.BASE_STONE_NETHER
-                                : OreFeatureConfig.Rules.BASE_STONE_OVERWORLD,
-                        ore.getDefaultState(),
-                        rnd.nextInt(16) + 4
-                )).decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(UniformHeightProvider.create(YOffset.getBottom(), ((IFixedYOffset) YOffset.fixed(0)).setPos(rnd.nextDouble())))))
+                .configure(
+                        new OreFeatureConfig(
+                            switch (dimension) {
+                                case END -> new BlockMatchRuleTest(Blocks.END_STONE);
+                                case NETHER -> OreFeatureConfig.Rules.BASE_STONE_NETHER;
+                                case OVERWORLD -> OreFeatureConfig.Rules.BASE_STONE_OVERWORLD;
+                            },
+                            ore.getDefaultState(),
+                            rnd.nextInt(16) + 4
+                        )
+                ).decorate(
+                        Decorator.RANGE.configure(
+                                new RangeDecoratorConfig(
+                                        UniformHeightProvider.create(
+                                                YOffset.getBottom(),
+                                                ((IFixedYOffset) YOffset.fixed(0)).setPos(rnd.nextDouble())
+                                        )
+                                )
+                        )
+                )
                 .spreadHorizontally()
                 .repeat(rnd.nextInt(12) + 4);
     }
 
     public void onInitialize(NewMaterials.OreInitParam param) {
         Registry.register(Registry.ITEM, materialId, material);
-        if (rnd.nextDouble() < 0.3D) FuelRegistry.INSTANCE.add(material, rnd.nextInt(1000));
+        if (rnd.nextDouble() < 0.3D)
+            FuelRegistry.INSTANCE.add(material, rnd.nextInt(1000));
         createTranslations(type.name(), material.getTranslationKey(), param.lang);
         Registry.register(Registry.BLOCK, blockId, block);
         Registry.register(Registry.ITEM, blockId, new BlockItem(block, createItemSettings()));
@@ -121,25 +147,69 @@ public class CustomOre {
         if (hasTools || hasSword) {
             ToolMaterial material = getToolMaterial();
             if (hasSword) {
-                SwordItem swordItem = new CustomSword(material, rnd.nextInt(17), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
-                Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_sword", name.toLowerCase())), swordItem);
+                SwordItem swordItem = new CustomSword(
+                        material,
+                        rnd.nextInt(17), (float) (rnd.nextDouble() * 3 - 1.0D),
+                        createItemSettings()
+                );
+                Registry.register(
+                        Registry.ITEM,
+                        new Identifier(MOD_ID, String.format("%s_sword", name.toLowerCase())),
+                        swordItem
+                );
                 createTranslations("sword", swordItem.getTranslationKey(), param.lang);
             }
             if (hasTools) {
-                PickaxeItem pickaxeItem = new CustomPickaxe(material, rnd.nextInt(8), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
-                Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_pickaxe", name.toLowerCase())), pickaxeItem);
+                PickaxeItem pickaxeItem = new CustomPickaxe(
+                        material,
+                        rnd.nextInt(8),
+                        (float) (rnd.nextDouble() * 3 - 1.0D),
+                        createItemSettings()
+                );
+                Registry.register(
+                        Registry.ITEM,
+                        new Identifier(MOD_ID, String.format("%s_pickaxe", name.toLowerCase())),
+                        pickaxeItem
+                );
                 createTranslations("pickaxe", pickaxeItem.getTranslationKey(), param.lang);
 
-                ShovelItem shovelItem = new CustomShovel(material, (float) (rnd.nextDouble() * 8), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
-                Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_shovel", name.toLowerCase())), shovelItem);
+                ShovelItem shovelItem = new CustomShovel(
+                        material,
+                        (float) (rnd.nextDouble() * 8),
+                        (float) (rnd.nextDouble() * 3 - 1.0D),
+                        createItemSettings()
+                );
+                Registry.register(
+                        Registry.ITEM,
+                        new Identifier(MOD_ID, String.format("%s_shovel", name.toLowerCase())),
+                        shovelItem
+                );
                 createTranslations("shovel", shovelItem.getTranslationKey(), param.lang);
 
-                AxeItem axeItem = new CustomAxe(material, (float) (rnd.nextDouble() * 8), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
-                Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_axe", name.toLowerCase())), axeItem);
+                AxeItem axeItem = new CustomAxe(
+                        material,
+                        (float) (rnd.nextDouble() * 8),
+                        (float) (rnd.nextDouble() * 3 - 1.0D),
+                        createItemSettings()
+                );
+                Registry.register(
+                        Registry.ITEM,
+                        new Identifier(MOD_ID, String.format("%s_axe", name.toLowerCase())),
+                        axeItem
+                );
                 createTranslations("axe", axeItem.getTranslationKey(), param.lang);
 
-                HoeItem hoeItem = new CustomHoe(material, rnd.nextInt(8), (float) (rnd.nextDouble() * 3 - 1.0D), createItemSettings());
-                Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_hoe", name.toLowerCase())), hoeItem);
+                HoeItem hoeItem = new CustomHoe(
+                        material,
+                        rnd.nextInt(8),
+                        (float) (rnd.nextDouble() * 3 - 1.0D),
+                        createItemSettings()
+                );
+                Registry.register(
+                        Registry.ITEM,
+                        new Identifier(MOD_ID, String.format("%s_hoe", name.toLowerCase())),
+                        hoeItem
+                );
                 createTranslations("hoe", hoeItem.getTranslationKey(), param.lang);
             }
         }
@@ -147,11 +217,15 @@ public class CustomOre {
         //Generate ores
         RegistryKey<ConfiguredFeature<?, ?>> registryKey = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, oreId);
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, registryKey.getValue(), feature);
-        BiomeModifications.addFeature(dimension == Dimension.END ? BiomeSelectors.foundInTheEnd()
-                        : dimension == Dimension.NETHER ? BiomeSelectors.foundInTheNether()
-                        : BiomeSelectors.foundInOverworld(),
+        BiomeModifications.addFeature(
+                switch (dimension) {
+                    case END -> BiomeSelectors.foundInTheEnd();
+                    case NETHER -> BiomeSelectors.foundInTheNether();
+                    case OVERWORLD -> BiomeSelectors.foundInOverworld();
+                },
                 GenerationStep.Feature.UNDERGROUND_ORES,
-                registryKey);
+                registryKey
+        );
 
         //Loot tables
         lootTableSimple("block");
@@ -159,11 +233,18 @@ public class CustomOre {
             lootTableSimple("ore");
         } else {
             JsonParser jp = new JsonParser();
-            JsonElement predicate = jp.parse("{\"enchantments\": [{\"enchantment\": \"minecraft:silk_touch\", \"levels\": {\"min\": 1}}]}");
+            JsonElement predicate = jp.parse(
+                    "{\"enchantments\": [{\"enchantment\": \"minecraft:silk_touch\", \"levels\": {\"min\": 1}}]}"
+            );
             double base = rnd.nextDouble() + 1;
-            JsonElement count = jp.parse(String.format("{\"min\": %s, \"max\": %s, \"type\": \"minecraft:uniform\"}", base, base + rnd.nextDouble() * 2));
+            JsonElement count = jp.parse(
+                    String.format("{\"min\": %s, \"max\": %s, \"type\": \"minecraft:uniform\"}",
+                    base,
+                    base + rnd.nextDouble() * 2)
+            );
             JsonElement enchantmentParameters = jp.parse("{\"bonusMultiplier\": 1}");
-            GWWHIT.RESOURCE_PACK.addLootTable(new Identifier(MOD_ID, String.format("blocks/%s_ore", name.toLowerCase())),
+            GWWHIT.RESOURCE_PACK.addLootTable(
+                    new Identifier( MOD_ID, String.format( "blocks/%s_ore", name.toLowerCase() ) ),
                     JLootTable.loot("minecraft:block").pool(JLootTable.pool().rolls(1)
                             .entry(JLootTable.entry().type("minecraft:alternatives")
                                     .child(JLootTable.entry()
@@ -306,11 +387,15 @@ public class CustomOre {
     }
 
     private void addRecipe(String suffix, JRecipe recipe) {
-        GWWHIT.RESOURCE_PACK.addRecipe(new Identifier(MOD_ID, String.format("%s_%s", name.toLowerCase(), suffix.toLowerCase())), recipe);
+        GWWHIT.RESOURCE_PACK.addRecipe(
+                new Identifier( MOD_ID, String.format( "%s_%s", name.toLowerCase(), suffix.toLowerCase() ) ),
+                recipe
+        );
     }
 
     private void lootTableSimple(String suffix) {
-        GWWHIT.RESOURCE_PACK.addLootTable(new Identifier(MOD_ID, String.format("blocks/%s_%s", name.toLowerCase(), suffix)),
+        GWWHIT.RESOURCE_PACK.addLootTable(
+                new Identifier( MOD_ID, String.format("blocks/%s_%s", name.toLowerCase(), suffix) ),
                 JLootTable.loot("minecraft:block").pool(JLootTable.pool().rolls(1)
                         .entry(JLootTable.entry().type("minecraft:item").name(String.format("%s:%s_%s", MOD_ID, name.toLowerCase(), suffix)))
                         .condition(new JCondition("minecraft:survives_explosion"))
@@ -319,15 +404,19 @@ public class CustomOre {
     }
 
     public void onInitializeClient() {
-        GWWHIT.RESOURCE_PACK.addModel(JModel.model()
+        GWWHIT.RESOURCE_PACK.addModel(
+                JModel.model()
                         .parent("minecraft:block/cube_all")
                         .textures(JModel.textures().var("all", blockBlockId.toString())),
-                blockBlockId);
+                blockBlockId
+        );
 
-        GWWHIT.RESOURCE_PACK.addModel(JModel.model()
+        GWWHIT.RESOURCE_PACK.addModel(
+                JModel.model()
                         .parent("minecraft:block/cube_all")
                         .textures(JModel.textures().var("all", oreBlockId.toString())),
-                oreBlockId);
+                oreBlockId
+        );
 
         GWWHIT.RESOURCE_PACK.addBlockState(JState.state(JState.variant(JState.model(blockBlockId.toString()))), blockId);
         GWWHIT.RESOURCE_PACK.addBlockState(JState.state(JState.variant(JState.model(oreBlockId.toString()))), oreId);
@@ -367,17 +456,42 @@ public class CustomOre {
                 },
                 rnd);
         TextureBuilder.generateOreBlock(c,
-                GWWHIT.getId(String.format("block/%s_block", name.toLowerCase())),
+                GWWHIT.getId( String.format("block/%s_block", name.toLowerCase()) ),
                 rnd);
         TextureBuilder.generateMaterial(c, GWWHIT.getId("item/" + getItemId()), type, rnd);
         if (hasSword) {
-            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_sword"), TextureBuilder.ToolType.SWORD, rnd);
+            TextureBuilder.generateTool(
+                    c,
+                    GWWHIT.getId("item/" + name.toLowerCase() + "_sword"),
+                    TextureBuilder.ToolType.SWORD,
+                    rnd
+            );
         }
         if (hasTools) {
-            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_axe"), TextureBuilder.ToolType.AXE, rnd);
-            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_pickaxe"), TextureBuilder.ToolType.PICKAXE, rnd);
-            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_shovel"), TextureBuilder.ToolType.SHOVEL, rnd);
-            TextureBuilder.generateTool(c, GWWHIT.getId("item/" + name.toLowerCase() + "_hoe"), TextureBuilder.ToolType.HOE, rnd);
+            TextureBuilder.generateTool(
+                    c,
+                    GWWHIT.getId("item/" + name.toLowerCase() + "_axe"),
+                    TextureBuilder.ToolType.AXE,
+                    rnd
+            );
+            TextureBuilder.generateTool(
+                    c,
+                    GWWHIT.getId("item/" + name.toLowerCase() + "_pickaxe"),
+                    TextureBuilder.ToolType.PICKAXE,
+                    rnd
+            );
+            TextureBuilder.generateTool(
+                    c,
+                    GWWHIT.getId("item/" + name.toLowerCase() + "_shovel"),
+                    TextureBuilder.ToolType.SHOVEL,
+                    rnd
+            );
+            TextureBuilder.generateTool(
+                    c,
+                    GWWHIT.getId("item/" + name.toLowerCase() + "_hoe"),
+                    TextureBuilder.ToolType.HOE,
+                    rnd
+            );
         }
         if (hasArmor) {
             TextureBuilder.generateArmor(c, name.toLowerCase(), rnd);
@@ -385,14 +499,20 @@ public class CustomOre {
     }
 
     private void generateToolModel(String type) {
-        GWWHIT.RESOURCE_PACK.addModel(JModel.model().parent("minecraft:item/handheld")
-                        .textures(JModel.textures().layer0(String.format("gwwhit:item/%s_%s", name.toLowerCase(), type))),
+        GWWHIT.RESOURCE_PACK.addModel(
+                JModel.model().parent("minecraft:item/handheld")
+                        .textures(
+                                JModel.textures().layer0(String.format("gwwhit:item/%s_%s", name.toLowerCase(), type))
+                        ),
                 GWWHIT.getId(String.format("item/%s_%s", name.toLowerCase(), type)));
     }
 
     private void generateBasicItemModel(String type) {
-        GWWHIT.RESOURCE_PACK.addModel(JModel.model().parent("minecraft:item/generated")
-                        .textures(JModel.textures().layer0(String.format("gwwhit:item/%s_%s", name.toLowerCase(), type))),
+        GWWHIT.RESOURCE_PACK.addModel(
+                JModel.model().parent("minecraft:item/generated")
+                        .textures(
+                                JModel.textures().layer0(String.format("gwwhit:item/%s_%s", name.toLowerCase(), type))
+                        ),
                 GWWHIT.getId(String.format("item/%s_%s", name.toLowerCase(), type)));
     }
 
@@ -426,7 +546,11 @@ public class CustomOre {
     private void createArmorItem(ArmorType type, ArmorMaterial material, Map<String, JLang> lang) {
         ArmorItem item = new ArmorItem(material, getEquipmentSlot(type), createItemSettings());
         armorItems.put(type, item);
-        Registry.register(Registry.ITEM, new Identifier(MOD_ID, String.format("%s_%s", name.toLowerCase(), type.toString().toLowerCase())), item);
+        Registry.register(
+                Registry.ITEM,
+                new Identifier(MOD_ID, String.format("%s_%s", name.toLowerCase(), type.toString().toLowerCase())),
+                item
+        );
         createTranslations(type.name().toLowerCase(), item.getTranslationKey(), lang);
     }
 

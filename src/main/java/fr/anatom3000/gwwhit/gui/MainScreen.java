@@ -15,7 +15,7 @@ import net.minecraft.util.Util;
 import java.net.URI;
 
 public class MainScreen extends Screen {
-    private static final URI GITHUB = SafeUtils.doSafely(() -> new URI("https://github.com/anatom3000/GuessWhatWillHappenInThis/fork"));
+    private static final URI GITHUB = SafeUtils.doSafely(() -> new URI("https://www.youtube.com/watch?v=o-YBDTqX_ZU"));
 
     private final Screen parent;
 

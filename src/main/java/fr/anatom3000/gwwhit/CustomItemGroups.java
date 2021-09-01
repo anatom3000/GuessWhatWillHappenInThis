@@ -14,10 +14,18 @@ public class CustomItemGroups {
     public static final ItemGroup MORE_ORES_GROUP;
 
     static {
-        GWWHIT_GROUP = FabricItemGroupBuilder.create(GWWHIT.getId("gwwhit")).icon(() -> new ItemStack(ItemRegistry.get("portable_black_hole"))).build();
+        GWWHIT_GROUP = FabricItemGroupBuilder.create(
+                GWWHIT.getId("gwwhit")
+        ).icon(
+                () -> new ItemStack( ItemRegistry.get("portable_black_hole") )
+        ).build();
 
         if (ConfigManager.getActiveConfig().gameplay.items.hiddenItemsTab) {
-            CURSED_GROUP = FabricItemGroupBuilder.create(GWWHIT.getId("cursed")).icon(() -> new ItemStack(Items.COMMAND_BLOCK)).build();
+            CURSED_GROUP = FabricItemGroupBuilder.create(
+                    GWWHIT.getId("cursed")
+            ).icon(
+                    () -> new ItemStack(Items.COMMAND_BLOCK)
+            ).build();
         } else {
             CURSED_GROUP = null;
         }
@@ -25,7 +33,11 @@ public class CustomItemGroups {
         MORE_ORES_GROUP = switch (ConfigManager.getActiveConfig().moreOres.tab) {
             case NONE -> null;
             case MAIN -> GWWHIT_GROUP;
-            case SEPARATE -> FabricItemGroupBuilder.create(GWWHIT.getId("more_ores")).icon(() -> new ItemStack(NewMaterials.INSTANCE.ores.get(0).block)).build();
+            case SEPARATE -> FabricItemGroupBuilder.create(
+                    GWWHIT.getId("more_ores")
+            ).icon(
+                    () -> new ItemStack(NewMaterials.ores.get(0).block)
+            ).build();
         };
     }
 }

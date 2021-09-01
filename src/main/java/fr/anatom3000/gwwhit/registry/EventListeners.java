@@ -62,6 +62,7 @@ public class EventListeners {
         );
 
         RRPCallback.AFTER_VANILLA.register(a -> a.add(GWWHIT.RESOURCE_PACK));
+        //noinspection ConstantConditions
         ServerPlayNetworking.registerGlobalReceiver(
                 getId("cheat_codes_channel"),
                 (server, player, handler, buf, responseSender) -> server.execute(

@@ -18,7 +18,7 @@ public class DimensionTypeMixin {
 
     @Inject(at = @At("TAIL"), method = "<clinit>")
     private static void tweakOverworld(CallbackInfo ci) {
-        if (ConfigManager.getLoadedConfig().misc.increaseWorldHeight) {
+        if (ConfigManager.getActiveConfig().misc.increaseWorldHeight) {
             ((DimensionTypeAccess) OVERWORLD).setMinimumY(-256);
         }
     }

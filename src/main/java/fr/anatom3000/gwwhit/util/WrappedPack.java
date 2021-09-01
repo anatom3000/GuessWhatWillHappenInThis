@@ -26,7 +26,7 @@ public record WrappedPack(ResourcePack pack) implements ResourcePack {
     @Override
     public InputStream open(ResourceType type, Identifier id) throws IOException {
         if (id.getPath().endsWith(".ogg")) {
-            SoundReplacement r = ConfigManager.getLoadedConfig().audio.soundReplacement;
+            SoundReplacement r = ConfigManager.getActiveConfig().audio.soundReplacement;
             if (r != SoundReplacement.None)
                 return Files.newInputStream(GWWHIT.ASSETS_ROOT.resolve("sounds/" + r.name().toLowerCase() + ".ogg"));
         }

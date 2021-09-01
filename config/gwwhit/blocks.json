@@ -1,0 +1,27 @@
+{
+  "randomisingBlock": {
+    "ticksBetweenPlacements": 20,
+    "totalPlacements": 64,
+    "scrambleBlockState": false,
+    "deWaterlog": true,
+    "blockBlacklist": [
+      "minecraft:air",
+      "minecraft:cave_air",
+      "minecraft:void_air",
+      "gwwhit:infected_mass",
+      "gwwhit:randomising_block"
+    ]
+  },
+  "infectedMassBlock": {
+    "ticksBetweenSpread": 20,
+    "globalSpreadChance": 75.0,
+    "directionalSpreadChance": 20.0,
+    "spreadBlacklist": [
+      "minecraft:air",
+      "minecraft:cave_air",
+      "minecraft:void_air",
+      "gwwhit:infected_mass",
+      "gwwhit:inert_infected_mass"
+    ]
+  }
+}

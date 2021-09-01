@@ -20,6 +20,6 @@ public class AbstractBlockSettingsMixin {
 
     @Inject(method = "<init>(Lnet/minecraft/block/Material;Ljava/util/function/Function;)V", at = @At("TAIL"))
     private void postInit(Material material, Function<BlockState, MapColor> mapColorProvider, CallbackInfo ci) {
-        slipperiness = ConfigManager.getLoadedConfig().gameplay.blocks.defaultSlipperiness;
+        slipperiness = ConfigManager.getActiveConfig().gameplay.blocks.defaultSlipperiness;
     }
 }

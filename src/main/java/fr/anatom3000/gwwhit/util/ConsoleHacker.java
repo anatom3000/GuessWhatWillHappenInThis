@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class ConsoleHacker implements PrePreLaunch {
     @Override
     public void onPrePreLaunch() {
-        if (!ConfigManager.getLoadedConfig().misc.rainbowConsole) return;
+        if (!ConfigManager.getActiveConfig().misc.rainbowConsole) return;
 
         PrintStream out = new PrintStream(new FileOutputStream(FileDescriptor.out), true);
         Random random = new Random();

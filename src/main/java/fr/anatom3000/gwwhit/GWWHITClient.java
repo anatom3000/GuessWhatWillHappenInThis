@@ -22,22 +22,6 @@ public class GWWHITClient implements ClientModInitializer {
         Registry.register(Registry.SOUND_EVENT, WHISTLE_SOUND, WHISTLE_SOUND_EVENT);
         Registry.register(Registry.SOUND_EVENT, MOJAAAANG_SOUND, MOJAAAANG_SOUND_EVENT);
 
-        ClientPlayNetworking.registerGlobalReceiver(GWWHIT.CONFIG_SYNC_ID, (client, networkHandler, data, sender) -> {
-            MainConfig config = null;
-            try {
-                if (GWWHIT.MOD_VERSION.equals(data.readString()))
-                    config = GWWHIT.GSON.fromJson(data.readString(), MainConfig.class);
-            } catch (JsonSyntaxException e) {
-                GWWHIT.LOGGER.error("Can't parse config!", e);
-            }
-            if (config == null) GWWHIT.LOGGER.warn("Failed to load synced config, falling back to local config!");
-
-            MainConfig finalConfig = config;
-            client.execute(() -> {
-                ConfigManager.loadConfig(finalConfig);
-                ConfigManager.setShader();
-                client.worldRenderer.reload();
-            });
-        });
+        ClientPlayNetworking.registerGlobalReceiver(GWWHIT.CONFIG_SYNC_ID, (client, networkHandler, data, sender) -> client.execute(() -> ConfigManager.fromPacketByteBuf(data)));
     }
 }

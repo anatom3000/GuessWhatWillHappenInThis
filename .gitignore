@@ -31,7 +31,8 @@ bin/
 # fabric
 
 .mixin.out/
-.jython_cache/
+.jython_cache/packages/
+gross_hacks
 run
 runs
 logs/

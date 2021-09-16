@@ -2,6 +2,8 @@ package fr.anatom3000.gwwhit.registry;
 
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.config.ConfigManager;
+import fr.anatom3000.gwwhit.config.data.MiscConfig;
+import fr.anatom3000.gwwhit.event.PlayerDeathEvent;
 import fr.anatom3000.gwwhit.util.CheatCodes;
 import net.devtech.arrp.api.RRPCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
@@ -9,6 +11,8 @@ import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Material;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.SilverfishEntity;
 import net.minecraft.item.Items;
@@ -61,7 +65,8 @@ public class EventListeners {
                 }
         );
 
-        RRPCallback.AFTER_VANILLA.register(a -> a.add(GWWHIT.RESOURCE_PACK));
+        RRPCallback.AFTER_VANILLA.register( a -> a.add(GWWHIT.RESOURCE_PACK) );
+        // AUTHOR: ENDERZOMBI102
         //noinspection ConstantConditions
         ServerPlayNetworking.registerGlobalReceiver(
                 getId("cheat_codes_channel"),
@@ -72,5 +77,9 @@ public class EventListeners {
                         )
                 )
         );
+    }
+
+    public static void registerClient() {
+
     }
 }

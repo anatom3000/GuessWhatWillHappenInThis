@@ -24,6 +24,8 @@
   "gui.gwwhit.config": "Config",
   "gui.gwwhit.mainscreen.hello": "Hello",
   "gui.gwwhit.reload": "Reload Resources",
+  "gui.gwwhit.fork": "Fork on github",
+  "gui.gwwhit.more_info": "More Info",
 
   "itemGroup.gwwhit.gwwhit": "GWWHIT: Misc",
   "itemGroup.gwwhit.more_ores": "GWWHIT: Ores",

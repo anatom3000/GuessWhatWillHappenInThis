@@ -7,16 +7,19 @@
   "description": "Fabric mod where anyone can PR anything, concerning or not. I'll merge everything as soon as it works.",
   "authors": [
     "anatom3000",
+    "MattiDragon",
+    "ENDERZOMBI102",
     "JFronny",
+    "C10udburst",
     "LordDeatHunter",
     "SekoiaTree",
-    "ENDERZOMBI102",
+    "Ryorama",
     "Minenash",
-    "KosmX",
+    "slambo312",
     "Noaaan",
+    "IMS212",
     "PheonixVX",
-    "MattiDragon",
-    "Ryorama"
+    "KosmX"
   ],
   "contact": {
     "sources": "https://github.com/anatom3000/GuessWhatWillHappenInThis"

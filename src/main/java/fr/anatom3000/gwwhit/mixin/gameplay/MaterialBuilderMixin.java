@@ -16,6 +16,6 @@ public class MaterialBuilderMixin {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void postInit(MapColor color, CallbackInfo ci) {
-        replaceable = ConfigManager.getLoadedConfig().gameplay.blocks.replaceEverything;
+        replaceable = ConfigManager.getActiveConfig().gameplay.blocks.replaceEverything;
     }
 }

@@ -10,6 +10,7 @@ import net.minecraft.util.math.Vec3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
@@ -23,7 +24,7 @@ public abstract class MatrixStackMixin {
 
     @Inject(method = "translate(DDD)V", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
     public void translate(double x, double y, double z, CallbackInfo ci, MatrixStack.Entry entry) {
-        World config = ConfigManager.getLoadedConfig().rendering.world;
+        World config = ConfigManager.getActiveConfig().rendering.world;
 
         if (config.smallBlocks) {
             entry.getModel().multiply(Matrix4f.translate(iv(x), iv(y), iv(z)));
@@ -35,5 +36,27 @@ public abstract class MatrixStackMixin {
             entry.getModel().multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(increment));
         }
         entry.getModel().multiply(config.matrixScale);
+    }
+
+    @ModifyVariable(method = "translate", at = @At("HEAD"), index = 1)
+    public double editTranslateX(double x) {
+        return x * ConfigManager.getActiveConfig().rendering.world.matrixTranslationScale;
+    }
+
+    @ModifyVariable(method = "translate", at = @At("HEAD"), index = 3)
+    public double editTranslateY(double y) {
+        return y * ConfigManager.getActiveConfig().rendering.world.matrixTranslationScale;
+    }
+
+
+    @ModifyVariable(method = "translate", at = @At("HEAD"), index = 5)
+    public double editTranslateZ(double z) {
+        return z * ConfigManager.getActiveConfig().rendering.world.matrixTranslationScale;
+    }
+
+
+    @Inject(method = {"push", "pop"}, at = @At("HEAD"), cancellable = true)
+    public void doStuff(CallbackInfo ci) {
+        if (!ConfigManager.getActiveConfig().rendering.world.allowMatrixLevels) ci.cancel();
     }
 }

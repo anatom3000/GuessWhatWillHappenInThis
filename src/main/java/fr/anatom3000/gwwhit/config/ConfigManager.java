@@ -2,10 +2,12 @@ package fr.anatom3000.gwwhit.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.config.data.MainConfig;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
+import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -14,6 +16,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.ShaderEffect;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
@@ -21,44 +25,58 @@ import java.io.IOException;
 public class ConfigManager {
     private static final Gson GSON = new GsonBuilder().setExclusionStrategies(new AnnotationExclusionStrategy()).setPrettyPrinting().create();
     public static ShaderEffect shader = null;
-    private static MainConfig CURRENT_CONFIG = null;
+    private static MainConfig activeConfig = null;
 
     private ConfigManager() {
     }
 
-    public static MainConfig getLoadedConfig() {
-        if (CURRENT_CONFIG == null) {
+    public static MainConfig getActiveConfig() {
+        if (activeConfig == null) {
             AutoConfig.register(MainConfig.class, PartitioningSerializer.wrap((definition, configClass) -> new GsonConfigSerializer<>(definition, configClass, GSON)));
             GWWHIT.LOGGER.info("Gwwhit config registered!");
-            CURRENT_CONFIG = getHolder().getConfig();
+            activeConfig = getHolder().get();
         }
 
-        return CURRENT_CONFIG;
+        return activeConfig;
     }
 
-    public static void loadConfig(@Nullable MainConfig config) {
-        if (config == null) config = getHolder().getConfig();
+    public static void setActiveConfig(@Nullable MainConfig config) {
+        if (config == null) config = getHolder().get();
 
-        CURRENT_CONFIG = config;
+        activeConfig = config;
     }
 
     public static ConfigHolder<MainConfig> getHolder() {
         return AutoConfig.getConfigHolder(MainConfig.class);
     }
 
+    public static void fromPacketByteBuf(PacketByteBuf buf) {
+        MainConfig config = null;
+        try {
+            if (GWWHIT.MOD_VERSION.equals(buf.readString()))
+                config = GWWHIT.GSON.fromJson(buf.readString(), MainConfig.class);
+            else
+                throw new IllegalStateException("Non matching gwwhit versions!");
+        } catch (JsonSyntaxException e) {
+            GWWHIT.LOGGER.error("Can't parse config! Falling back to local", e);
+        }
+
+        ConfigManager.setActiveConfig(config);
+        ConfigManager.onSync();
+        MinecraftClient.getInstance().worldRenderer.reload();
+    }
+
     public static PacketByteBuf toPacketByteBuf() {
-        String version = FabricLoader.getInstance().getModContainer(GWWHIT.MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
-        String config = GWWHIT.GSON.toJson(getLoadedConfig());
+        String config = GWWHIT.GSON.toJson(getActiveConfig());
         PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeString(version);
+        buf.writeString(GWWHIT.MOD_VERSION);
         buf.writeString(config);
         return buf;
     }
 
-    //Suggestion: rename to onLoad when adding other features similar to this
-    public static void setShader() {
+    public static void onSync() {
         MinecraftClient mc = MinecraftClient.getInstance();
-        Identifier shaderID = new Identifier(String.format("shaders/post/%s.json", ConfigManager.getLoadedConfig().rendering.shader.toString().toLowerCase()));
+        Identifier shaderID = new Identifier(String.format("shaders/post/%s.json", ConfigManager.getActiveConfig().rendering.shader.toString().toLowerCase()));
         try {
             shader = new ShaderEffect(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), shaderID);
         } catch (IOException e) {
@@ -66,7 +84,9 @@ public class ConfigManager {
         }
     }
 
-    public static void load() {
+    public static void reloadLocalConfig() {
+        boolean isSame = getHolder().get() == activeConfig;
         getHolder().load();
+        if (isSame) activeConfig = getHolder().get();
     }
 }

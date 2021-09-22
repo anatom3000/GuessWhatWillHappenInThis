@@ -16,7 +16,7 @@ import static fr.anatom3000.gwwhit.GWWHITClient.WHISTLE_SOUND_EVENT;
 public class ChatHudMixin {
     @Inject(at = @At("HEAD"), method = "addMessage(Lnet/minecraft/text/Text;)V")
     private void gwwhit$playWhatsAppWhistleSound(CallbackInfo callbackInfo) {
-        AudioConfig.WhatsAppWhistle whistle = ConfigManager.getLoadedConfig().audio.whatsAppWhistle;
+        AudioConfig.WhatsAppWhistle whistle = ConfigManager.getActiveConfig().audio.whatsAppWhistle;
         if (!whistle.enabled) {
             return;
         }

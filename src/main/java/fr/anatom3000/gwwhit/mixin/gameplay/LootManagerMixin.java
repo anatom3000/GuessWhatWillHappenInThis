@@ -20,7 +20,7 @@ public class LootManagerMixin {
 
     @Inject(at = @At("HEAD"), method = "getTable(Lnet/minecraft/util/Identifier;)Lnet/minecraft/loot/LootTable;", cancellable = true)
     private void randomizeTable(Identifier id, CallbackInfoReturnable<LootTable> cir) {
-        if (ConfigManager.getLoadedConfig().gameplay.randomizedDrops && tables.containsKey(id)) {
+        if (ConfigManager.getActiveConfig().gameplay.randomizedDrops && tables.containsKey(id)) {
             cir.setReturnValue(tables.get(GWWHIT.TABLE_RANDOMIZER.apply(id, tables)));
         }
     }

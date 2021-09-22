@@ -18,7 +18,7 @@ public class MinecraftClientMixin {
 
     @Inject(method = "doItemUse", at = @At("RETURN"))
     public void doItemUse(CallbackInfo ci) {
-        if (ConfigManager.getLoadedConfig().gameplay.items.noHardcodedItemCooldown) {
+        if (ConfigManager.getActiveConfig().gameplay.items.noHardcodedItemCooldown) {
             itemUseCooldown = 0;
         }
     }

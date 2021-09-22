@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class FallingBlockMixin {
     @Redirect(method = "canFallThrough", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Material;isReplaceable()Z"))
     private static boolean fixSand(Material material) {
-        if (ConfigManager.getLoadedConfig().gameplay.blocks.replaceEverything) return false;
+        if (ConfigManager.getActiveConfig().gameplay.blocks.replaceEverything) return false;
         return material.isReplaceable();
     }
 }

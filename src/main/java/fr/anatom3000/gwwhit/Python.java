@@ -40,7 +40,7 @@ public class Python {
     }
 
     public static void load() {
-        MiscConfig config = ConfigManager.getLoadedConfig().misc;
+        MiscConfig config = ConfigManager.getActiveConfig().misc;
 
         if (!(config.python || config.scripting)) return;
         try (PythonInterpreter python = createInterpreter()) {

@@ -46,8 +46,9 @@ public class RenderingConfig implements ConfigData {
         public boolean smallBlocks = false;
         @ConfigEntry.Gui.Tooltip
         public boolean spin = false;
-        @ConfigEntry.Gui.Tooltip
         public float matrixScale = 1;
+        public boolean allowMatrixLevels = true;
+        public float matrixTranslationScale = 1;
     }
 
     public static class Entities {

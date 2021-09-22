@@ -38,10 +38,10 @@ public class ItemMixin {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void onInit(Item.Settings settings, CallbackInfo ci) {
-        maxCount = Math.min(ConfigManager.getLoadedConfig().gameplay.items.maxStackSize, maxCount);
-        if (foodComponent == null && ConfigManager.getLoadedConfig().gameplay.items.everythingIsEdible)
+        maxCount = Math.min(ConfigManager.getActiveConfig().gameplay.items.maxStackSize, maxCount);
+        if (foodComponent == null && ConfigManager.getActiveConfig().gameplay.items.everythingIsEdible)
             foodComponent = DEFAULT_COMPONENT;
-        if (group == null && ConfigManager.getLoadedConfig().gameplay.items.hiddenItemsTab)
+        if (group == null && ConfigManager.getActiveConfig().gameplay.items.hiddenItemsTab)
             group = CustomItemGroups.CURSED_GROUP;
     }
 }

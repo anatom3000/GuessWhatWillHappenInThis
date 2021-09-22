@@ -34,7 +34,7 @@ public class GameRendererMixin {
 
     @Inject(at = @At("TAIL"), method = "render")
     public void render(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
-        if (!ConfigManager.getLoadedConfig().rendering.unregisteredVersion) {
+        if (!ConfigManager.getActiveConfig().rendering.unregisteredVersion) {
             return;
         }
         int var1 = this.client.getWindow().getScaledWidth();

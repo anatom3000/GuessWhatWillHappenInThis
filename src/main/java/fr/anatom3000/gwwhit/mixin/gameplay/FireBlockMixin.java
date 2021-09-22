@@ -17,7 +17,7 @@ public class FireBlockMixin {
             cir.cancel();
             return;
         }
-        if (ConfigManager.getLoadedConfig().gameplay.blocks.everythingBurns) cir.setReturnValue(50);
+        if (ConfigManager.getActiveConfig().gameplay.blocks.everythingBurns) cir.setReturnValue(50);
         cir.cancel();
     }
 
@@ -28,6 +28,6 @@ public class FireBlockMixin {
             cir.cancel();
             return;
         }
-        if (ConfigManager.getLoadedConfig().gameplay.blocks.everythingBurns) cir.setReturnValue(30);
+        if (ConfigManager.getActiveConfig().gameplay.blocks.everythingBurns) cir.setReturnValue(30);
     }
 }

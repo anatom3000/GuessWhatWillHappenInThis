@@ -3,6 +3,7 @@ package fr.anatom3000.gwwhit;
 import com.google.gson.JsonSyntaxException;
 import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.config.data.MainConfig;
+import fr.anatom3000.gwwhit.registry.EventListeners;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -24,6 +25,7 @@ public class GWWHITClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         NewMaterials.onInitializeClient();
+        EventListeners.registerClient();
         Registry.register(Registry.SOUND_EVENT, WHISTLE_SOUND, WHISTLE_SOUND_EVENT);
         Registry.register(Registry.SOUND_EVENT, MOJAAAANG_SOUND, MOJAAAANG_SOUND_EVENT);
         Registry.register(Registry.SOUND_EVENT, ROCK_SOUND, ROCK_SOUND_EVENT);

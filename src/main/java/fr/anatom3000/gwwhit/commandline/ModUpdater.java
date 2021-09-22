@@ -102,12 +102,7 @@ public class ModUpdater {
 
     private Pair<File, VersionData.VersionNumber> getModJar() {
         File gwwhit;
-        try {
-            gwwhit = Utilities.getJarLocation().toFile();
-        } catch (URISyntaxException e) {
-            CommandLine.println("<clr:red>Somehow the URL class returned a bad URI.");
-            throw new IllegalStateException("WTF", e);
-        }
+        gwwhit = Utilities.getJarLocation().toFile();
         VersionData.VersionNumber number = new VersionData.VersionNumber(
                 GSON.fromJson(
                         new BufferedReader(

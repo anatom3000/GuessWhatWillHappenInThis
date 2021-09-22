@@ -4,12 +4,10 @@ import fr.anatom3000.gwwhit.CustomItemGroups;
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.item.*;
 import fr.anatom3000.gwwhit.materials.CustomArmorMaterials;
+import fr.anatom3000.gwwhit.materials.MalekToolMaterial;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.util.registry.Registry;
 
 import java.util.HashMap;
@@ -37,6 +35,7 @@ public class ItemRegistry {
         put("mud", new BlockItem(BlockRegistry.get("mud"), new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP)));
         put("mushroom_grass", new BlockItem(BlockRegistry.get("mushroom_grass"), new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP)));
         put("noscope", new NoscopeItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP).maxCount(1)));
+        put("malek_pickaxe", new MalekPickaxeItem(MalekToolMaterial.INSTANCE, 15, 15, new FabricItemSettings().group(CustomItemGroups.GWWHIT_GROUP)));
     }};
 
     public static void register() {

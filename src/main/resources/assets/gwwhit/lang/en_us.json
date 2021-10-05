@@ -38,6 +38,9 @@
   "text.autoconfig.gwwhit.option.misc.scripting": "Enable Scripting",
   "text.autoconfig.gwwhit.option.misc.owoifyer": "Owoifyer",
   "text.autoconfig.gwwhit.option.misc.rainbowConsole": "Rainbow Console",
+  "text.autoconfig.gwwhit.option.misc.fov": "Fov Settings",
+  "text.autoconfig.gwwhit.option.misc.fov.min": "Min",
+  "text.autoconfig.gwwhit.option.misc.fov.max": "Max",
 
   "text.autoconfig.gwwhit.category.blocks": "Blocks",
   "text.autoconfig.gwwhit.option.blocks.randomisingBlock": "Randomising Block",

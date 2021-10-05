@@ -12,7 +12,6 @@ public class GameplayConfig implements ConfigData {
     public Items items = new Items();
     @ConfigEntry.Gui.CollapsibleObject
     public Blocks blocks = new Blocks();
-
     public boolean stoneBlocksAreInfected = false;
     public boolean mobsMayExplode = false;
     @ConfigEntry.Gui.Tooltip

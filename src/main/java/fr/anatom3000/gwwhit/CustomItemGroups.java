@@ -20,7 +20,7 @@ public class CustomItemGroups {
                 () -> new ItemStack( ItemRegistry.get("portable_black_hole") )
         ).build();
 
-        if (ConfigManager.getLoadedConfig().gameplay.items.hiddenItemsTab) {
+        if (ConfigManager.getActiveConfig().gameplay.items.hiddenItemsTab) {
             CURSED_GROUP = FabricItemGroupBuilder.create(
                     GWWHIT.getId("cursed")
             ).icon(
@@ -30,7 +30,7 @@ public class CustomItemGroups {
             CURSED_GROUP = null;
         }
 
-        MORE_ORES_GROUP = switch (ConfigManager.getLoadedConfig().moreOres.tab) {
+        MORE_ORES_GROUP = switch (ConfigManager.getActiveConfig().moreOres.tab) {
             case NONE -> null;
             case MAIN -> GWWHIT_GROUP;
             case SEPARATE -> FabricItemGroupBuilder.create(

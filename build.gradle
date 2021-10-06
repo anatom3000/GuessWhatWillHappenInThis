@@ -20,16 +20,11 @@ repositories {
 
 	maven { url 'https://maven.shedaniel.me/' }
 	maven { url 'https://jitpack.io' }
-	maven {
-		url 'https://repo.repsy.io/mvn/enderzombi102/mc/'
-	}
-	maven {
-		url 'https://storage.googleapis.com/devan-maven/'
-	}
-	maven {
-		url = 'https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/'
-	}
-	mavenCentral()
+    maven {	url 'https://repo.repsy.io/mvn/enderzombi102/mc/' }
+    maven { url 'https://storage.googleapis.com/devan-maven/' }
+    maven { url 'https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/' }
+    maven { url 'https://server.bbkr.space/artifactory/libs-release' }
+    mavenCentral()
 }
 
 dependencies {

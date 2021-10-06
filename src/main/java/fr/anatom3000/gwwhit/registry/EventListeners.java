@@ -35,7 +35,7 @@ public class EventListeners {
 
     public static void register() {
         LootTableLoadingCallback.EVENT.register((resourceManager, manager, id, supplier, setter) -> {
-            if (ConfigManager.getLoadedConfig().gameplay.dreamLuck) {
+            if (ConfigManager.getActiveConfig().gameplay.dreamLuck) {
                 if (LE_BLAZE_LOOT.equals(id)) {
                     supplier.withPool(POOL_BUILDER.build());
                 } else if (LE_BARTER_LOOT.equals(id)) {
@@ -46,7 +46,7 @@ public class EventListeners {
 
         PlayerBlockBreakEvents.AFTER.register(
                 (world, player, pos, state, blockEntity) -> {
-                    if (ConfigManager.getLoadedConfig().gameplay.stoneBlocksAreInfected) {
+                    if (ConfigManager.getActiveConfig().gameplay.stoneBlocksAreInfected) {
                         // AUTHOR: ENDERZOMBI102
                         if (state.getMaterial() == Material.STONE) {
                             SilverfishEntity silverfishEntity = EntityType.SILVERFISH.create(world);

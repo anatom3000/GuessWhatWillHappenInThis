@@ -5,11 +5,8 @@ import fr.anatom3000.gwwhit.Python;
 import fr.anatom3000.gwwhit.block.entity.InfectedMassBlockEntity;
 import fr.anatom3000.gwwhit.block.entity.RandomisingBlockEntity;
 import fr.anatom3000.gwwhit.config.ConfigManager;
-import fr.anatom3000.gwwhit.config.data.MainConfig;
-import me.shedaniel.autoconfig.ConfigHolder;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.ItemStackArgument;
 import net.minecraft.command.argument.ItemStackArgumentType;
 import net.minecraft.item.ItemStack;
@@ -25,32 +22,9 @@ public class Commands {
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal(GWWHIT.MOD_ID)
                 .requires(source -> source.hasPermissionLevel(2))
                 .then(CommandManager.literal("config")
-                        .then(CommandManager.literal("sync")
-                                .executes(context -> {
-                                    for (ServerPlayerEntity player : context.getSource().getMinecraftServer().getPlayerManager().getPlayerList()) {
-                                        ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, ConfigManager.toPacketByteBuf());
-                                    }
-                                    return 1;
-                                })
-                                .then(CommandManager.argument("targets", EntityArgumentType.players())
-                                        .executes(context -> {
-                                            for (ServerPlayerEntity player : EntityArgumentType.getPlayers(context, "targets")) {
-                                                ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, ConfigManager.toPacketByteBuf());
-                                            }
-                                            return 1;
-                                        })
-                                )
-                        )
-                        .then(CommandManager.literal("load")
-                                .executes(context -> {
-                                    ConfigHolder<MainConfig> configHolder = ConfigManager.getHolder();
-                                    configHolder.load();
-                                    return 1;
-                                })
-                        )
                         .then(CommandManager.literal("reload")
                                 .executes(context -> {
-                                    ConfigManager.load();
+                                    ConfigManager.reloadLocalConfig();
 
                                     for (ServerPlayerEntity player : context.getSource().getMinecraftServer().getPlayerManager().getPlayerList()) {
                                         ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, ConfigManager.toPacketByteBuf());
@@ -70,7 +44,7 @@ public class Commands {
                         )
                 )
                 .then(CommandManager.literal("python")
-                        .requires(source -> ConfigManager.getLoadedConfig().misc.scripting)
+                        .requires(source -> ConfigManager.getActiveConfig().misc.scripting)
                         .then(CommandManager.literal("execute")
                                 .then(CommandManager.argument("script", new ScriptArgumentType())
                                         .executes(context -> {

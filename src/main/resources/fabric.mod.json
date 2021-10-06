@@ -7,8 +7,8 @@
   "description": "Fabric mod where anyone can PR anything, concerning or not. I'll merge everything as soon as it works.",
   "authors": [
     "anatom3000",
-    "MattiDragon",
     "ENDERZOMBI102",
+    "MattiDragon",
     "JFronny",
     "C10udburst",
     "LordDeatHunter",
@@ -17,6 +17,7 @@
     "Minenash",
     "slambo312",
     "Noaaan",
+    "MalekiRe",
     "IMS212",
     "PheonixVX",
     "KosmX"
@@ -52,7 +53,7 @@
     "fabric": "*",
     "minecraft": "1.17.x",
     "cloth-config2": ">=4.11.19",
-    "jythonmc": ">=1.0.1"
+    "jythonmc": ">=1.0.2"
   },
 
   "suggests": {

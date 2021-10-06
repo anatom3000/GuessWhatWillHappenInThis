@@ -3,10 +3,13 @@ package fr.anatom3000.gwwhit;
 import com.google.gson.JsonSyntaxException;
 import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.config.data.MainConfig;
+import fr.anatom3000.gwwhit.gui.FurnaceBlockScreen;
+import fr.anatom3000.gwwhit.gui.FurnaceGuiDescription;
 import fr.anatom3000.gwwhit.registry.EventListeners;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -29,6 +32,12 @@ public class GWWHITClient implements ClientModInitializer {
         Registry.register(Registry.SOUND_EVENT, WHISTLE_SOUND, WHISTLE_SOUND_EVENT);
         Registry.register(Registry.SOUND_EVENT, MOJAAAANG_SOUND, MOJAAAANG_SOUND_EVENT);
         Registry.register(Registry.SOUND_EVENT, ROCK_SOUND, ROCK_SOUND_EVENT);
+
+        //noinspection RedundantTypeArguments
+        ScreenRegistry.<FurnaceGuiDescription, FurnaceBlockScreen>register(
+                GWWHIT.FURNACE_SCREEN_HANDLER_TYPE,
+                (gui, inventory, title) -> new FurnaceBlockScreen(gui, inventory.player, title)
+        );
 
         ClientPlayNetworking.registerGlobalReceiver(GWWHIT.CONFIG_SYNC_ID, (client, networkHandler, data, sender) -> {
             MainConfig config = null;

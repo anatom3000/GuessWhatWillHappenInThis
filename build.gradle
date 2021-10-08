@@ -2,7 +2,7 @@ plugins {
 	id 'fabric-loom' version '0.9-SNAPSHOT'
 	id 'maven-publish'
 	id 'application'
-	id 'com.github.johnrengelman.shadow' version '7.0.0'
+	id 'com.github.johnrengelman.shadow' version '7.1.0'
 }
 
 archivesBaseName = project.archives_base_name
@@ -27,7 +27,6 @@ dependencies {
 	mappings "net.fabricmc:yarn:$minecraft_version+$yarn_mappings:v2"
 	modImplementation "net.fabricmc:fabric-loader:$loader_version"
 
-	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:$fabric_version"
 
 	modRuntime modApi("me.shedaniel.cloth:cloth-config-fabric:$cloth_config_version") {
@@ -53,11 +52,13 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
-
-    //Fixes bug in shadow
+	//Fixes bug in shadow
+    /*
 	implementation('org.vafer:jdependency:2.7.0') {
 		exclude group: 'org.ow2.asm'
 	}
+
+     */
 }
 
 application {
@@ -107,7 +108,7 @@ shadowJar {
 	}
 
 	//Currently broken. Should be fixed in a future shadow release
-	//minimize()
+	minimize()
 }
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation

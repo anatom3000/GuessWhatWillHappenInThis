@@ -13,7 +13,7 @@ public class RenderingConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public Entities entities = new Entities();
     public boolean unregisteredVersion = false;
-    @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
+    @ConfigEntry.Gui.EnumHandler
     public Shaders shader = Shaders.NONE;
     @ConfigEntry.Gui.Tooltip
     public boolean itemUseRomanNumerals;
@@ -34,7 +34,7 @@ public class RenderingConfig implements ConfigData {
         SOBEL,
         BITS,
         DESATURATE,
-        BLUR,
+        //BLUR, //Makes the screen black probably broken
         CREEPER,
         SPIDER,
         WOBBLE,
@@ -49,6 +49,7 @@ public class RenderingConfig implements ConfigData {
         public float matrixScale = 1;
         public boolean allowMatrixLevels = true;
         public float matrixTranslationScale = 1;
+        public boolean nauseaOverride = false;
     }
 
     public static class Entities {

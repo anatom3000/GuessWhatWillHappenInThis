@@ -1,8 +1,7 @@
 package fr.anatom3000.gwwhit;
 
-import com.google.gson.JsonSyntaxException;
+import fr.anatom3000.gwwhit.command.Commands;
 import fr.anatom3000.gwwhit.config.ConfigManager;
-import fr.anatom3000.gwwhit.config.data.MainConfig;
 import fr.anatom3000.gwwhit.registry.EventListeners;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
 import net.fabricmc.api.ClientModInitializer;
@@ -26,10 +25,18 @@ public class GWWHITClient implements ClientModInitializer {
     public void onInitializeClient() {
         NewMaterials.onInitializeClient();
         EventListeners.registerClient();
+        Commands.registerClient();
         Registry.register(Registry.SOUND_EVENT, WHISTLE_SOUND, WHISTLE_SOUND_EVENT);
         Registry.register(Registry.SOUND_EVENT, MOJAAAANG_SOUND, MOJAAAANG_SOUND_EVENT);
         Registry.register(Registry.SOUND_EVENT, ROCK_SOUND, ROCK_SOUND_EVENT);
 
-        ClientPlayNetworking.registerGlobalReceiver(GWWHIT.CONFIG_SYNC_ID, (client, networkHandler, data, sender) -> client.execute(() -> ConfigManager.fromPacketByteBuf(data)));
+        ClientPlayNetworking.registerGlobalReceiver(GWWHIT.CONFIG_SYNC_ID, (client, networkHandler, data, sender) -> {
+            String version = data.readString();
+            String config = data.readString();
+
+            client.execute(() -> {
+                ConfigManager.fromPacket(version, config);
+            });
+        });
     }
 }

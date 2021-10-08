@@ -61,6 +61,7 @@
   },
 
   "custom": {
-    "jythonmc:use": true
+    "jythonmc:use": true,
+    "codename": "@codename@"
   }
 }

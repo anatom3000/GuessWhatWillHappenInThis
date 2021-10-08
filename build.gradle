@@ -9,6 +9,8 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
+apply from: "codename.gradle"
+
 repositories {
 	maven { url 'https://maven.terraformersmc.com/releases/' }
 	maven { url 'https://maven.shedaniel.me/' }
@@ -70,6 +72,8 @@ processResources {
 
 	filesMatching('fabric.mod.json') {
 		expand 'version': project.version
+
+        filter { line -> line.replace("@codename@", project.ext.codename) }
 	}
 }
 

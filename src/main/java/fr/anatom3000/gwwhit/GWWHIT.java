@@ -6,7 +6,6 @@ import fr.anatom3000.gwwhit.command.Commands;
 import fr.anatom3000.gwwhit.config.AnnotationExclusionStrategy;
 import fr.anatom3000.gwwhit.dimension.RandomChunkGenerator;
 import fr.anatom3000.gwwhit.registry.*;
-import fr.anatom3000.gwwhit.util.ItalianUtil;
 import fr.anatom3000.gwwhit.util.TableRandomizer;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
@@ -52,7 +51,7 @@ public class GWWHIT implements ModInitializer {
     public static final Path ASSETS_ROOT = GWWHIT_MOD.getPath("assets/gwwhit");
     public static final Identifier CONFIG_SYNC_ID = getId("config_sync");
     public static final String MOD_VERSION = GWWHIT_MOD.getMetadata().getVersion().getFriendlyString();
-    public static final String VERSION_CODENAME = ItalianUtil.getRandomWord(new Random(GWWHIT_MOD.getMetadata().getVersion().getFriendlyString().hashCode()), true);
+    public static final String VERSION_CODENAME = GWWHIT_MOD.getMetadata().getCustomValue("codename").getAsString();
 
     //Caches
     public static final Map<String, Map<String, String>> TRANSLATIONS = new HashMap<>();

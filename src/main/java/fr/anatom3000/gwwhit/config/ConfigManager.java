@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.config.data.MainConfig;
+import fr.anatom3000.gwwhit.config.data.RenderingConfig;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.annotation.Config;
@@ -50,11 +51,11 @@ public class ConfigManager {
         return AutoConfig.getConfigHolder(MainConfig.class);
     }
 
-    public static void fromPacketByteBuf(PacketByteBuf buf) {
+    public static void fromPacket(String version, String configData) {
         MainConfig config = null;
         try {
-            if (GWWHIT.MOD_VERSION.equals(buf.readString()))
-                config = GWWHIT.GSON.fromJson(buf.readString(), MainConfig.class);
+            if (GWWHIT.MOD_VERSION.equals(version))
+                config = GWWHIT.GSON.fromJson(configData, MainConfig.class);
             else
                 throw new IllegalStateException("Non matching gwwhit versions!");
         } catch (JsonSyntaxException e) {
@@ -76,7 +77,13 @@ public class ConfigManager {
 
     public static void onSync() {
         MinecraftClient mc = MinecraftClient.getInstance();
-        Identifier shaderID = new Identifier(String.format("shaders/post/%s.json", ConfigManager.getActiveConfig().rendering.shader.toString().toLowerCase()));
+        var configShader = ConfigManager.getActiveConfig().rendering.shader;
+        if (configShader == RenderingConfig.Shaders.NONE) {
+            shader = null;
+            return;
+        }
+
+        Identifier shaderID = new Identifier(String.format("shaders/post/%s.json", configShader.toString().toLowerCase()));
         try {
             shader = new ShaderEffect(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), shaderID);
         } catch (IOException e) {
@@ -85,8 +92,7 @@ public class ConfigManager {
     }
 
     public static void reloadLocalConfig() {
-        boolean isSame = getHolder().get() == activeConfig;
         getHolder().load();
-        if (isSame) activeConfig = getHolder().get();
+        activeConfig = getHolder().get();
     }
 }

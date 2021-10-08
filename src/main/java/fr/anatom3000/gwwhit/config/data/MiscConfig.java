@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Either;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import net.fabricmc.loader.api.FabricLoader;
 
 import java.util.Optional;
 
@@ -25,6 +26,8 @@ public class MiscConfig implements ConfigData {
     public boolean increaseWorldHeight = false;
     @ConfigEntry.Gui.CollapsibleObject
     public Fov fov = new Fov();
+    @ConfigEntry.Gui.RequiresRestart
+    public boolean debugMode = FabricLoader.getInstance().isDevelopmentEnvironment();
 
     public static class Fov {
         @ConfigEntry.Gui.RequiresRestart

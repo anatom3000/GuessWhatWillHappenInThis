@@ -17,7 +17,6 @@
     "gameplay.LootManagerMixin",
     "gameplay.MaterialBuilderMixin",
     "gameplay.MinecraftClientMixin",
-    "misc.MainMixin",
     "misc.OptionMixin",
     "misc.config.PlayerManagerMixin",
     "misc.owoifyer.ChatMessageC2SPacketMixin",

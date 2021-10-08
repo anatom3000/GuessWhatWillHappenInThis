@@ -21,6 +21,7 @@
   "block.gwwhit.mushroom_grass": "Mushroom Grass",
   "block.gwwhit.pyblock": "PyBlock",
 
+  "gui.gwwhit.title": "GWWHIT %s",
   "gui.gwwhit.config": "Config",
   "gui.gwwhit.mainscreen.hello": "Hello",
   "gui.gwwhit.reload": "Reload Resources",
@@ -57,6 +58,8 @@
 
   "text.autoconfig.gwwhit.category.moreOres": "More Ores",
   "text.autoconfig.gwwhit.option.moreOres.generateInWorld": "Generate in World",
+  "text.autoconfig.gwwhit.option.moreOres.oresCount": "Number of Ores to generate",
+  "text.autoconfig.gwwhit.option.moreOres.seed": "RNG Seed for Ores",
   "text.autoconfig.gwwhit.option.moreOres.tab": "Creative Tab",
 
   "text.autoconfig.gwwhit.category.gameplay": "Gameplay",

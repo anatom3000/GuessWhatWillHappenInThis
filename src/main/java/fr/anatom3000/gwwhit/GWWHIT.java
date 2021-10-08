@@ -6,10 +6,12 @@ import fr.anatom3000.gwwhit.command.Commands;
 import fr.anatom3000.gwwhit.config.AnnotationExclusionStrategy;
 import fr.anatom3000.gwwhit.dimension.RandomChunkGenerator;
 import fr.anatom3000.gwwhit.registry.*;
+import fr.anatom3000.gwwhit.util.ItalianUtil;
 import fr.anatom3000.gwwhit.util.TableRandomizer;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.LogManager;
@@ -46,10 +48,11 @@ public class GWWHIT implements ModInitializer {
     public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create(MOD_ID);
 
     //Locations / Ids
-    @SuppressWarnings("OptionalGetWithoutIsPresent") //It has to exist
-    public static final Path ASSETS_ROOT = FabricLoader.getInstance().getModContainer(MOD_ID).get().getPath("assets/gwwhit");
+    private static final ModContainer GWWHIT_MOD = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow();
+    public static final Path ASSETS_ROOT = GWWHIT_MOD.getPath("assets/gwwhit");
     public static final Identifier CONFIG_SYNC_ID = getId("config_sync");
-    public static final String MOD_VERSION = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
+    public static final String MOD_VERSION = GWWHIT_MOD.getMetadata().getVersion().getFriendlyString();
+    public static final String VERSION_CODENAME = ItalianUtil.getRandomWord(new Random(GWWHIT_MOD.getMetadata().getVersion().getFriendlyString().hashCode()), true);
 
     //Caches
     public static final Map<String, Map<String, String>> TRANSLATIONS = new HashMap<>();

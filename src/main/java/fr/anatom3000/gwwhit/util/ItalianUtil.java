@@ -16,11 +16,12 @@ public class ItalianUtil {
         while (usedNames.contains(n)
                 || n.length() < 5
                 || n.length() > 15
-                || !n.matches("^[a-zA-Z]+$")
-                || (uppercase && !Character.isUpperCase(n.charAt(0)))) {
+                || !n.matches("^[a-zA-Z]+$")) {
             assert names != null;
             n = names.get(rng.nextInt(names.size()));
         }
+        if (uppercase)
+            n = Character.toUpperCase(n.charAt(0)) + n.substring(1);
         usedNames.add(n);
         return n;
     }

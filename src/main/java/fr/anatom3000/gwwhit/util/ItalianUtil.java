@@ -9,20 +9,20 @@ import java.util.Random;
 import java.util.Set;
 
 public class ItalianUtil {
-    private static final List<String> names = SafeUtils.doSafely(() -> Files.readAllLines(GWWHIT.ASSETS_ROOT.resolve("italian.txt")));
-    private static final Set<String> usedNames = new HashSet<>();
+    private static final List<String> NAMES = SafeUtils.doSafely(() -> Files.readAllLines(GWWHIT.ASSETS_ROOT.resolve("italian.txt")));
+    private static final Set<String> USED_NAMES = new HashSet<>();
     public static String getRandomWord(Random rng, boolean uppercase) {
         String n = "";
-        while (usedNames.contains(n)
+        while (USED_NAMES.contains(n)
                 || n.length() < 5
                 || n.length() > 15
                 || !n.matches("^[a-zA-Z]+$")) {
-            assert names != null;
-            n = names.get(rng.nextInt(names.size()));
+            assert NAMES != null;
+            n = NAMES.get(rng.nextInt(NAMES.size()));
         }
         if (uppercase)
             n = Character.toUpperCase(n.charAt(0)) + n.substring(1);
-        usedNames.add(n);
+        USED_NAMES.add(n);
         return n;
     }
 }

@@ -16,7 +16,7 @@ repositories {
     maven {	url 'https://repo.repsy.io/mvn/enderzombi102/mc/' }
     maven { url 'https://storage.googleapis.com/devan-maven/' }
     maven { url 'https://server.bbkr.space/artifactory/libs-release' }
-    maven { url 'https://gitlab.com/api/v4/projects/25805200/packages/maven' }
+    maven { url 'https://gitlab.com/api/v4/projects/25805200/packages/maven' } //https://gitlab.com/jfmods/LibJF
 
     mavenCentral()
 }

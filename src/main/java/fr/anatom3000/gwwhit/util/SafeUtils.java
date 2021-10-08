@@ -2,9 +2,6 @@ package fr.anatom3000.gwwhit.util;
 
 import fr.anatom3000.gwwhit.GWWHIT;
 
-import io.gitlab.jfronny.libjf.interfaces.ThrowingRunnable;
-import io.gitlab.jfronny.libjf.interfaces.ThrowingSupplier;
-
 /**
  * Utility methods for calling methods without having to deal with exceptions.
  * @author MattiDragon
@@ -33,5 +30,13 @@ public class SafeUtils {
             GWWHIT.LOGGER.error("Could not execute safely", e);
             return null;
         }
+    }
+
+    public interface ThrowingRunnable<TEx extends Throwable> {
+        void run() throws TEx;
+    }
+
+    public interface ThrowingSupplier<T, TEx extends Throwable> {
+        T get() throws TEx;
     }
 }

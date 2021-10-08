@@ -21,7 +21,7 @@
   "block.gwwhit.mushroom_grass": "Mushroom Grass",
   "block.gwwhit.pyblock": "PyBlock",
 
-  "gui.gwwhit.title": "GWWHIT %s",
+  "gui.gwwhit.title": "GWWHIT - The %s Update",
   "gui.gwwhit.config": "Config",
   "gui.gwwhit.mainscreen.hello": "Hello",
   "gui.gwwhit.reload": "Reload Resources",

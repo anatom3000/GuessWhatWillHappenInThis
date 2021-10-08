@@ -1,7 +1,6 @@
 package fr.anatom3000.gwwhit.util;
 
 import fr.anatom3000.gwwhit.config.ConfigManager;
-import net.devtech.grossfabrichacks.entrypoints.PrePreLaunch;
 import net.minecraft.util.math.MathHelper;
 
 import java.io.FileDescriptor;
@@ -12,9 +11,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class ConsoleHacker implements PrePreLaunch {
-    @Override
-    public void onPrePreLaunch() {
+public class ConsoleHacker {
+    public static void hack() {
         if (!ConfigManager.getActiveConfig().misc.rainbowConsole) return;
 
         PrintStream out = new PrintStream(new FileOutputStream(FileDescriptor.out), true);

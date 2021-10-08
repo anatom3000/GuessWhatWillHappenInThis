@@ -9,6 +9,8 @@ import net.minecraft.client.render.BufferBuilderStorage;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.math.MathHelper;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,6 +25,9 @@ public class GameRendererMixin {
     @Final
     private MinecraftClient client;
 
+    @Shadow
+    @Nullable
+    private ShaderEffect shader;
     private int textWidth;
     private int field_19254;
 
@@ -53,14 +58,23 @@ public class GameRendererMixin {
         }
     }
 
-    @Redirect(method = "render", at = @At(value = "FIELD", target = "Lnet/minecraft/client/render/GameRenderer;shader:Lnet/minecraft/client/gl/ShaderEffect;", ordinal = 0))
+    @Redirect(method = "renderWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F"))
+    private float nauseaTest(float delta, float start, float end) {
+        if (ConfigManager.getActiveConfig().rendering.world.nauseaOverride)
+            return 1f;
+        return MathHelper.lerp(delta, start, end);
+    }
+
+
+    @Redirect(method = "render", at = @At(value = "FIELD", target = "Lnet/minecraft/client/render/GameRenderer;shader:Lnet/minecraft/client/gl/ShaderEffect;"), require = 2)
     private ShaderEffect render_Shader(GameRenderer renderer, float tickDelta) {
         ShaderEffect shader = ConfigManager.shader;
 
         if (shader != null) {
             shader.setupDimensions(client.getWindow().getFramebufferWidth(), client.getWindow().getFramebufferHeight());
             shader.render(tickDelta);
+            return null;
         }
-        return null;
+        return this.shader;
     }
 }

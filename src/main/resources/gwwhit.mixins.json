@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_16",
   "mixins": [
     "access.DimensionTypeAccess",
+    "access.GameRendererAccess",
     "access.LivingEntityAccessor",
     "event.PlayerEntityMixin",
     "gameplay.AbstractBlockSettingsMixin",
@@ -16,6 +17,7 @@
     "gameplay.LootManagerMixin",
     "gameplay.MaterialBuilderMixin",
     "gameplay.MinecraftClientMixin",
+    "misc.MainMixin",
     "misc.OptionMixin",
     "misc.config.PlayerManagerMixin",
     "misc.owoifyer.ChatMessageC2SPacketMixin",

@@ -1,5 +1,6 @@
 package fr.anatom3000.gwwhit.gui;
 
+import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.config.data.MainConfig;
 import fr.anatom3000.gwwhit.util.SafeUtils;
 import fr.anatom3000.gwwhit.util.Utilities;
@@ -50,8 +51,9 @@ public class MainScreen extends Screen {
                         this.height / 6 + 48 - 6,
                         150,
                         20,
-                        new TranslatableText("gui.gwwhit.reload"),
-                        (button) -> MinecraftClient.getInstance().reloadResources()
+                        new TranslatableText("gui.gwwhit.more_info"),
+                        (button) -> Util.getOperatingSystem().open(MORE_INFO)
+
                 )
         );
         addDrawableChild(
@@ -64,16 +66,18 @@ public class MainScreen extends Screen {
                         (button) -> Util.getOperatingSystem().open(FORK)
                 )
         );
-        addDrawableChild(
-                new ButtonWidget(
-                        this.width / 2 + 5,
-                        this.height / 6 + 70,
-                        150,
-                        20,
-                        new TranslatableText("gui.gwwhit.more_info"),
-                        (button) -> Util.getOperatingSystem().open(MORE_INFO)
-                )
-        );
+        if (ConfigManager.getActiveConfig().misc.debugMode) {
+            addDrawableChild(
+                    new ButtonWidget(
+                            this.width / 2 + 5,
+                            this.height / 6 + 70,
+                            150,
+                            20,
+                            new TranslatableText("gui.gwwhit.reload"),
+                            (button) -> MinecraftClient.getInstance().reloadResources()
+                    )
+            );
+        }
         addDrawableChild(
                 new ButtonWidget(
                         this.width / 2 - 100,

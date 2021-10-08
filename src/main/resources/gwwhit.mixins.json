@@ -29,7 +29,6 @@
     "access.TranslationStorageAccessor",
     "gameplay.MinecraftClientMixin",
     "misc.KeyboardMixin",
-    "misc.ReloadableResourceManagerImplMixin",
     "misc.SoundSystemMixin",
     "misc.TitleScreenMixin",
     "misc.config.ClientWorldMixin",

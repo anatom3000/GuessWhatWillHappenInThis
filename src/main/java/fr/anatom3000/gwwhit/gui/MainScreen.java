@@ -36,7 +36,7 @@ public class MainScreen extends Screen {
                         150,
                         20,
                         new TranslatableText("gui.gwwhit.config"),
-                        (button) -> MinecraftClient.getInstance().openScreen(
+                        (button) -> MinecraftClient.getInstance().setScreen(
                                     AutoConfig.getConfigScreen(
                                             MainConfig.class,
                                             this
@@ -81,7 +81,7 @@ public class MainScreen extends Screen {
                         200,
                         20,
                         ScreenTexts.DONE,
-                        (button) -> MinecraftClient.getInstance().openScreen(this.parent)
+                        (button) -> MinecraftClient.getInstance().setScreen(this.parent)
                 )
         );
     }

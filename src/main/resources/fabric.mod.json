@@ -40,7 +40,7 @@
     "client": [
       "fr.anatom3000.gwwhit.GWWHITClient"
     ],
-    "gfh:prePreLaunch": [
+    "libjf:early": [
       "fr.anatom3000.gwwhit.util.ConsoleHacker"
     ]
   },

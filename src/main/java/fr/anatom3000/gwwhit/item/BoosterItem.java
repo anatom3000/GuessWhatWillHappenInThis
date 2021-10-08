@@ -10,7 +10,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class BoosterItem extends Item {
-
     public BoosterItem(FabricItemSettings settings) {
         super(settings);
     }
@@ -27,5 +26,4 @@ public class BoosterItem extends Item {
     public int getMaxUseTime(ItemStack stack) {
         return 5;
     }
-
 }

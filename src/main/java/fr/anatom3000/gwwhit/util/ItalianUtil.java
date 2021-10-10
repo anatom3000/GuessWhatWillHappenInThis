@@ -14,9 +14,7 @@ public class ItalianUtil {
     public static String getRandomWord(Random rng, boolean uppercase) {
         String n = "";
         while (USED_NAMES.contains(n)
-                || n.length() < 5
-                || n.length() > 15
-                || !n.matches("^[a-zA-Z]+$")) {
+                || !n.matches("^[a-zA-Z][a-z]{4,14}$")) {
             assert NAMES != null;
             n = NAMES.get(rng.nextInt(NAMES.size()));
         }

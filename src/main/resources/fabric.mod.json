@@ -39,6 +39,9 @@
     ],
     "client": [
       "fr.anatom3000.gwwhit.GWWHITClient"
+    ],
+    "libjf:early": [
+      "fr.anatom3000.gwwhit.util.ConsoleHacker"
     ]
   },
   "mixins": [
@@ -58,6 +61,7 @@
   },
 
   "custom": {
-    "jythonmc:use": true
+    "jythonmc:use": true,
+    "codename": "@codename@"
   }
 }

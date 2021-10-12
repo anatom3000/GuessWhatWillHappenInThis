@@ -11,7 +11,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class TransdimensionalLensItem extends Item {
-
     public TransdimensionalLensItem(FabricItemSettings settings) {
         super(settings);
     }
@@ -33,5 +32,4 @@ public class TransdimensionalLensItem extends Item {
     public int getMaxUseTime(ItemStack stack) {
         return 10;
     }
-
 }

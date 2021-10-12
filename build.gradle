@@ -9,21 +9,17 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
-repositories {
-	maven {
-		// https://maven.terraformersmc.com/releases/
-		url 'https://maven.kotlindiscord.com/repository/terraformers/'
-		content {
-			includeGroup 'com.terraformersmc'
-		}
-	}
+apply from: "codename.gradle"
 
+repositories {
+	maven { url 'https://maven.terraformersmc.com/releases/' }
 	maven { url 'https://maven.shedaniel.me/' }
 	maven { url 'https://jitpack.io' }
     maven {	url 'https://repo.repsy.io/mvn/enderzombi102/mc/' }
     maven { url 'https://storage.googleapis.com/devan-maven/' }
-    maven { url 'https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/' }
     maven { url 'https://server.bbkr.space/artifactory/libs-release' }
+    maven { url 'https://gitlab.com/api/v4/projects/25805200/packages/maven' } //https://gitlab.com/jfmods/LibJF
+
     mavenCentral()
 }
 
@@ -39,8 +35,6 @@ dependencies {
 		exclude(group: 'net.fabricmc.fabric-api')
 	}
 
-	//modImplementation "net.devtech:grossfabrichacks:6.1"
-
 	modImplementation("com.terraformersmc:modmenu:$modmenu_version") {
 		transitive(false)
 	}
@@ -49,6 +43,16 @@ dependencies {
 	//modRuntime "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"
 
 	include modImplementation("com.enderzombi102:JythonMC:$jythonmc_version")
+
+    include modImplementation("io.gitlab.jfronny.libjf:libjf-data-manipulation-v0:${project.jfapi_version}") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
+    include modImplementation("io.gitlab.jfronny.libjf:libjf-unsafe-v0:${project.jfapi_version}") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
+    include modImplementation("io.gitlab.jfronny.libjf:libjf-base:${project.jfapi_version}") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
 
 	//Fixes bug in shadow
     /*
@@ -68,6 +72,8 @@ processResources {
 
 	filesMatching('fabric.mod.json') {
 		expand 'version': project.version
+
+        filter { line -> line.replace("@codename@", project.ext.codename) }
 	}
 }
 

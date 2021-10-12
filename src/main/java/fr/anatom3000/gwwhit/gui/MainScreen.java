@@ -1,5 +1,6 @@
 package fr.anatom3000.gwwhit.gui;
 
+import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.config.data.MainConfig;
 import fr.anatom3000.gwwhit.util.SafeUtils;
@@ -10,11 +11,9 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Util;
 
-import java.awt.*;
 import java.net.URI;
 
 public class MainScreen extends Screen {
@@ -23,8 +22,8 @@ public class MainScreen extends Screen {
 
     private final Screen parent;
 
-    public MainScreen(Text title, Screen parent) {
-        super(title);
+    public MainScreen(Screen parent) {
+        super(new TranslatableText("gui.gwwhit.title", GWWHIT.VERSION_CODENAME));
         this.parent = parent;
     }
 
@@ -37,7 +36,7 @@ public class MainScreen extends Screen {
                         150,
                         20,
                         new TranslatableText("gui.gwwhit.config"),
-                        (button) -> MinecraftClient.getInstance().openScreen(
+                        (button) -> MinecraftClient.getInstance().setScreen(
                                     AutoConfig.getConfigScreen(
                                             MainConfig.class,
                                             this
@@ -85,7 +84,7 @@ public class MainScreen extends Screen {
                         200,
                         20,
                         ScreenTexts.DONE,
-                        (button) -> MinecraftClient.getInstance().openScreen(this.parent)
+                        (button) -> MinecraftClient.getInstance().setScreen(this.parent)
                 )
         );
     }

@@ -1,6 +1,7 @@
 package fr.anatom3000.gwwhit.util;
 
 import fr.anatom3000.gwwhit.config.ConfigManager;
+import io.gitlab.jfronny.libjf.unsafe.UltraEarlyInit;
 import net.minecraft.util.math.MathHelper;
 
 import java.io.FileDescriptor;
@@ -11,8 +12,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class ConsoleHacker {
-    public static void hack() {
+public class ConsoleHacker implements UltraEarlyInit {
+    @Override
+    public void init() {
         if (!ConfigManager.getActiveConfig().misc.rainbowConsole) return;
 
         PrintStream out = new PrintStream(new FileOutputStream(FileDescriptor.out), true);

@@ -6,6 +6,7 @@ import fr.anatom3000.gwwhit.CustomItemGroups;
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.imixin.IFixedYOffset;
+import fr.anatom3000.gwwhit.item.access.*;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
 import net.devtech.arrp.json.blockstate.JState;
 import net.devtech.arrp.json.lang.JLang;
@@ -24,10 +25,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
@@ -68,10 +66,10 @@ public class CustomOre {
     private final Identifier oreBlockId;
     private final DyeColor color;
     private final Map<ArmorType, ArmorItem> armorItems = new HashMap<>();
-    public CustomOre(String name, Type type, boolean hasArmor, boolean hasTools, boolean hasSword, Dimension dimension, DyeColor color) {
+    public CustomOre(String name, Type type, Random rnd, boolean hasArmor, boolean hasTools, boolean hasSword, Dimension dimension, DyeColor color) {
         this.dimension = dimension;
         this.color = color;
-        this.rnd = new Random(name.hashCode() ^ type.hashCode());
+        this.rnd = rnd;
         this.type = type;
         this.hasArmor = hasArmor;
         this.hasTools = hasTools;
@@ -594,123 +592,4 @@ public class CustomOre {
         BOOTS
     }
 
-    private static class CustomSword extends SwordItem {
-        public CustomSword(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
-            super(toolMaterial, attackDamage, attackSpeed, settings);
-        }
-    }
-
-    private static class CustomPickaxe extends PickaxeItem {
-        public CustomPickaxe(ToolMaterial material, int attackDamage, float attackSpeed, Settings settings) {
-            super(material, attackDamage, attackSpeed, settings);
-        }
-    }
-
-    private static class CustomShovel extends ShovelItem {
-        public CustomShovel(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
-            super(material, attackDamage, attackSpeed, settings);
-        }
-    }
-
-    private static class CustomAxe extends AxeItem {
-        public CustomAxe(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
-            super(material, attackDamage, attackSpeed, settings);
-        }
-    }
-
-    private static class CustomHoe extends HoeItem {
-        public CustomHoe(ToolMaterial material, int attackDamage, float attackSpeed, Settings settings) {
-            super(material, attackDamage, attackSpeed, settings);
-        }
-    }
-
-    private record CustomArmorMaterial(int durabilityMultiplier,
-                                       int enchantibility,
-                                       Item repairMaterial,
-                                       String name,
-                                       float knockbackResistance,
-                                       int protection,
-                                       float toughness) implements ArmorMaterial {
-
-        public static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
-        public static final int[] PROTECTION_VALUES = new int[]{1, 2, 3, 1};
-
-        @Override
-        public int getDurability(EquipmentSlot slot) {
-            return BASE_DURABILITY[slot.getEntitySlotId()] * durabilityMultiplier;
-        }
-
-        @Override
-        public int getEnchantability() {
-            return enchantibility;
-        }
-
-        @Override
-        public SoundEvent getEquipSound() {
-            return SoundEvents.ITEM_ARMOR_EQUIP_GENERIC;
-        }
-
-        @Override
-        public float getKnockbackResistance() {
-            return knockbackResistance;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public int getProtectionAmount(EquipmentSlot slot) {
-            return PROTECTION_VALUES[slot.getEntitySlotId()] * protection;
-        }
-
-        @Override
-        public Ingredient getRepairIngredient() {
-            return Ingredient.ofItems(repairMaterial);
-        }
-
-        @Override
-        public float getToughness() {
-            return toughness;
-        }
-    }
-
-    private record CustomToolMaterial(float attackDamage,
-                                      int durability,
-                                      int enchantibility,
-                                      int miningLevel,
-                                      float miningSpeedMultiplier,
-                                      Item repairMaterial) implements ToolMaterial {
-
-        @Override
-        public float getAttackDamage() {
-            return attackDamage;
-        }
-
-        @Override
-        public int getDurability() {
-            return durability;
-        }
-
-        @Override
-        public int getEnchantability() {
-            return enchantibility;
-        }
-
-        @Override
-        public int getMiningLevel() {
-            return miningLevel;
-        }
-
-        @Override
-        public float getMiningSpeedMultiplier() {
-            return miningSpeedMultiplier;
-        }
-
-        @Override
-        public Ingredient getRepairIngredient() {
-            return Ingredient.ofItems(repairMaterial);
-        }
-    }
 }

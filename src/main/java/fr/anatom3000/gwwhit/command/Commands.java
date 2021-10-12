@@ -49,7 +49,7 @@ public class Commands {
                                 .executes(context -> {
                                     ConfigManager.reloadLocalConfig();
 
-                                    for (ServerPlayerEntity player : context.getSource().getMinecraftServer().getPlayerManager().getPlayerList()) {
+                                    for (ServerPlayerEntity player : context.getSource().getServer().getPlayerManager().getPlayerList()) {
                                         ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, ConfigManager.toPacketByteBuf());
                                     }
                                     return 1;
@@ -59,7 +59,7 @@ public class Commands {
                 .then(CommandManager.literal("debug")
                         .then(CommandManager.literal("remove_destructive_blocks")
                                 .executes(context -> {
-                                    int ticks = context.getSource().getMinecraftServer().getTicks();
+                                    int ticks = context.getSource().getServer().getTicks();
                                     InfectedMassBlockEntity.removeTick = ticks;
                                     RandomisingBlockEntity.removeTick = ticks;
                                     return 1;

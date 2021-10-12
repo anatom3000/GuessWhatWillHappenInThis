@@ -5,6 +5,8 @@ import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.config.data.MiscConfig;
 import fr.anatom3000.gwwhit.event.PlayerDeathEvent;
 import fr.anatom3000.gwwhit.util.CheatCodes;
+import io.gitlab.jfronny.libjf.data.manipulation.api.UserResourceEvents;
+import io.gitlab.jfronny.libjf.data.manipulation.impl.ResourcePackHook;
 import net.devtech.arrp.api.RRPCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
@@ -21,7 +23,10 @@ import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.util.Identifier;
 
+import java.nio.file.Files;
+
 import static fr.anatom3000.gwwhit.GWWHIT.getId;
+import static fr.anatom3000.gwwhit.config.data.AudioConfig.SoundReplacement;
 
 public class EventListeners {
     private static final Identifier LE_BLAZE_LOOT = new Identifier("minecraft", "entities/blaze");
@@ -77,6 +82,14 @@ public class EventListeners {
                         )
                 )
         );
+        UserResourceEvents.OPEN.register((type, id, previous, pack) -> {
+            if (id.getPath().endsWith(".ogg")) {
+                SoundReplacement r = ConfigManager.getActiveConfig().audio.soundReplacement;
+                if (r != SoundReplacement.None)
+                    return Files.newInputStream(GWWHIT.ASSETS_ROOT.resolve("sounds/" + r.name().toLowerCase() + ".ogg"));
+            }
+            return previous;
+        });
     }
 
     public static void registerClient() {

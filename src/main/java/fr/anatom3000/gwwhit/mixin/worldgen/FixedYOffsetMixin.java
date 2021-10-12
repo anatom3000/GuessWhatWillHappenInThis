@@ -15,7 +15,7 @@ public class FixedYOffsetMixin implements IFixedYOffset {
     @Inject(method = "getY(Lnet/minecraft/world/gen/HeightContext;)I", at = @At("HEAD"), cancellable = true)
     void adjustY(HeightContext context, CallbackInfoReturnable<Integer> res) {
         if (gwwhit$pos != null)
-            res.setReturnValue((int) (context.getMinY() + (context.getMaxY() - context.getMinY()) * gwwhit$pos));
+            res.setReturnValue((int) (context.getMinY() + (context.getHeight() - context.getMinY()) * gwwhit$pos));
     }
 
     @Override

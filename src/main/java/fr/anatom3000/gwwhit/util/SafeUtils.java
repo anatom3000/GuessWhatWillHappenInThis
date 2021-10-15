@@ -4,6 +4,7 @@ import fr.anatom3000.gwwhit.GWWHIT;
 
 /**
  * Utility methods for calling methods without having to deal with exceptions.
+ * Intended use case is calling methods with checked exceptions when it's known that for some reason it won't throw.
  * @author MattiDragon
  */
 public class SafeUtils {

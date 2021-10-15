@@ -25,30 +25,30 @@ public class KeyboardMixin {
     @Shadow
     @Final
     private MinecraftClient client;
-    private String CURRENT_STRING = "";
+    private final StringBuilder currentString = new StringBuilder(CheatCodes.MAX_CHEAT_LEN);
     private static final Identifier CHEAT_CHANNEL_ID = getId("cheat_codes_channel");
 
     @Inject(at = @At("HEAD"), method = "onChar")
     public void onChar(long window, int i, int j, CallbackInfo ci) {
         if (window == this.client.getWindow().getHandle() && this.client.player != null) {
-            if (
-                    !InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 67) ||
-                            !InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 292)
+            if (!InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 67) ||
+                    !InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 292)
             ) {
-                this.CURRENT_STRING += Character.toUpperCase((char) i);
-            }
-            if (this.CURRENT_STRING.length() > CheatCodes.MAX_CHEAT_LEN) {
-                this.CURRENT_STRING = this.CURRENT_STRING.substring(this.CURRENT_STRING.length() - CheatCodes.MAX_CHEAT_LEN);
+                currentString.append(Character.toUpperCase((char) i));
+            } if (currentString.length() > CheatCodes.MAX_CHEAT_LEN) {
+                currentString.replace(0, currentString.length() - CheatCodes.MAX_CHEAT_LEN, "");
             }
 
             MinecraftServer server = this.client.getServer();
 
             // search the cheat code
+
+            String candidate = currentString.toString();
             for (CheatCodes.CheatCode cheatCode : CheatCodes.CHEAT_CODES) {
-                if (this.CURRENT_STRING.endsWith(cheatCode.code)) {
+                if (candidate.endsWith(cheatCode.code)) {
                     // code found
                     if (server == null) {
-                        if ( cheatCode.runOnClient ) {
+                        if (cheatCode.runOnClient) {
                             // we're connected to a server, but the cheat wants the client
                             cheatCode.onExecute(null, this.client.player.getAbilities() );
                         }
@@ -57,7 +57,7 @@ public class KeyboardMixin {
                         NbtCompound nbt = new NbtCompound();
                         nbt.putString("cheat", cheatCode.code);
                         buf.writeNbt(nbt);
-                        ClientPlayNetworking.send( CHEAT_CHANNEL_ID, buf );
+                        ClientPlayNetworking.send(CHEAT_CHANNEL_ID, buf);
                     } else {
                         // we're connected to the integrated server, do it directly
                         try {

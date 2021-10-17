@@ -1,0 +1,8 @@
+{
+  "items": {
+    "everythingIsEdible": true,
+    "hiddenItemsTab": true,
+    "noHardcodedItemCooldown": true
+  },
+  "dreamLuck": true
+}

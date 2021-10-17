@@ -8,14 +8,15 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(Material.Builder.class)
-public class MaterialBuilderMixin {
-    @Shadow private boolean burnable;
-    @Shadow private boolean replaceable;
-
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void postInit(MapColor color, CallbackInfo ci) {
-        replaceable = ConfigManager.getActiveConfig().gameplay.blocks.replaceEverything;
+@Mixin(Material.class)
+public class MaterialMixin {
+    @Inject(method = "isReplaceable", at = @At("TAIL"), cancellable = true)
+    private void postInit(CallbackInfoReturnable<Boolean> cir) {
+        if (ConfigManager.getActiveConfig().gameplay.blocks.replaceEverything) {
+            cir.setReturnValue(true);
+            cir.cancel();
+        }
     }
 }

@@ -1,5 +1,6 @@
 package fr.anatom3000.gwwhit.mixin.misc;
 
+import fr.anatom3000.gwwhit.config.OverrideManager;
 import fr.anatom3000.gwwhit.util.CheatCodes;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -44,29 +45,31 @@ public class KeyboardMixin {
             // search the cheat code
 
             String candidate = currentString.toString();
-            for (CheatCodes.CheatCode cheatCode : CheatCodes.CHEAT_CODES) {
-                if (candidate.endsWith(cheatCode.code)) {
-                    // code found
-                    if (server == null) {
-                        if (cheatCode.runOnClient) {
-                            // we're connected to a server, but the cheat wants the client
-                            cheatCode.onExecute(null, this.client.player.getAbilities() );
-                        }
-                        // we're connected to a server, send a packet
-                        PacketByteBuf buf = PacketByteBufs.create();
-                        NbtCompound nbt = new NbtCompound();
-                        nbt.putString("cheat", cheatCode.code);
-                        buf.writeNbt(nbt);
-                        ClientPlayNetworking.send(CHEAT_CHANNEL_ID, buf);
-                    } else {
-                        // we're connected to the integrated server, do it directly
-                        try {
-                            ServerPlayerEntity player = server.getPlayerManager().getPlayer(
-                                    this.client.player.getGameProfile().getId()
-                            );
-                            assert player != null;
-                            cheatCode.onExecute(player, player.getAbilities());
-                        } catch (AssertionError ignored) {
+            if (OverrideManager.checkFlag(OverrideManager.Flag.CHEAT_CODES)) {
+                for (CheatCodes.CheatCode cheatCode : CheatCodes.CHEAT_CODES) {
+                    if (candidate.endsWith(cheatCode.code)) {
+                        // code found
+                        if (server == null) {
+                            if (cheatCode.runOnClient) {
+                                // we're connected to a server, but the cheat wants the client
+                                cheatCode.onExecute(null, this.client.player.getAbilities() );
+                            }
+                            // we're connected to a server, send a packet
+                            PacketByteBuf buf = PacketByteBufs.create();
+                            NbtCompound nbt = new NbtCompound();
+                            nbt.putString("cheat", cheatCode.code);
+                            buf.writeNbt(nbt);
+                            ClientPlayNetworking.send(CHEAT_CHANNEL_ID, buf);
+                        } else {
+                            // we're connected to the integrated server, do it directly
+                            try {
+                                ServerPlayerEntity player = server.getPlayerManager().getPlayer(
+                                        this.client.player.getGameProfile().getId()
+                                );
+                                assert player != null;
+                                cheatCode.onExecute(player, player.getAbilities());
+                            } catch (AssertionError ignored) {
+                            }
                         }
                     }
                 }

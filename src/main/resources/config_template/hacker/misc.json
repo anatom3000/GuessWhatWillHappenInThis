@@ -1,0 +1,9 @@
+{
+  "rainbowConsole": true,
+  "python": true,
+  "scripting": true,
+  "fov": {
+    "max": 180,
+    "min": 0
+  }
+}

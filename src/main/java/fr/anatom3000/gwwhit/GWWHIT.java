@@ -29,9 +29,9 @@ import java.util.stream.Collectors;
 
 /*  IMPORTANT NOTICE:
     When adding to this mod make sure you follow proper naming standards:
-        Classes                                 ThisIsAClass
-        Static final fields and enum constants     THIS_IS_STATIC_FINAL
-        Everything else                          thisIsEverythingElse
+        Classes                                     ThisIsAClass
+        Static final fields and enum constants      THIS_IS_STATIC_FINAL
+        Everything else                             thisIsEverythingElse
 */
 
 
@@ -47,11 +47,11 @@ public class GWWHIT implements ModInitializer {
     public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create(MOD_ID);
 
     //Locations / Ids
-    private static final ModContainer GWWHIT_MOD = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow();
-    public static final Path ASSETS_ROOT = GWWHIT_MOD.getPath("assets/gwwhit");
+    public static final ModContainer CONTAINER = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow();
+    public static final Path ASSETS_ROOT = CONTAINER.getPath("assets/gwwhit");
     public static final Identifier CONFIG_SYNC_ID = getId("config_sync");
-    public static final String MOD_VERSION = GWWHIT_MOD.getMetadata().getVersion().getFriendlyString();
-    public static final String VERSION_CODENAME = GWWHIT_MOD.getMetadata().getCustomValue("codename").getAsString();
+    public static final String MOD_VERSION = CONTAINER.getMetadata().getVersion().getFriendlyString();
+    public static final String VERSION_CODENAME = CONTAINER.getMetadata().getCustomValue("codename").getAsString();
 
     //Caches
     public static final Map<String, Map<String, String>> TRANSLATIONS = new HashMap<>();

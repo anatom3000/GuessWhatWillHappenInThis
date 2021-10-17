@@ -27,6 +27,11 @@
   "gui.gwwhit.reload": "Reload Resources",
   "gui.gwwhit.fork": "Fork on github",
   "gui.gwwhit.more_info": "More Info",
+  "gui.gwwhit.templates": "Config Templates",
+  "gui.gwwhit.templates.warning": "WARNING: Using a template will override your config!",
+  "gui.gwwhit.templates.confirm": "Do you really want to do this?",
+  "gui.gwwhit.templates.confirm.info": "Clicking 'I understand' will apply the template and restart minecraft!",
+  "gui.gwwhit.templates.confirm.confirm": "I understand",
 
   "itemGroup.gwwhit.gwwhit": "GWWHIT: Misc",
   "itemGroup.gwwhit.more_ores": "GWWHIT: Ores",

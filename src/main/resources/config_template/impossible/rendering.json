@@ -1,0 +1,17 @@
+{
+  "world": {
+    "smallBlocks": true,
+    "spin": true,
+    "matrixScale": 0.5,
+    "allowMatrixLevels": false,
+    "matrixTranslationScale": 1.5,
+    "nauseaOverride": true
+  },
+  "entities": {
+    "deadmauEars": true,
+    "dinnerboneEntities": true
+  },
+  "unregisteredVersion": true,
+  "shader": "WOBBLE",
+  "itemUseRomanNumerals": true
+}

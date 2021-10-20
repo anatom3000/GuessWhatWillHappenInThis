@@ -6,6 +6,7 @@
   "mixins": [
     "access.DimensionTypeAccess",
     "access.GameRendererAccess",
+    "access.ItemGroupAccess",
     "access.LivingEntityAccessor",
     "event.PlayerEntityMixin",
     "gameplay.AnimalEntityMixin",
@@ -27,6 +28,7 @@
     "worldgen.NoiseChunkGeneratorMixin"
   ],
   "client": [
+    "access.CreativeInventoryScreenAccess",
     "access.TranslationStorageAccessor",
     "gameplay.MinecraftClientMixin",
     "misc.KeyboardMixin",

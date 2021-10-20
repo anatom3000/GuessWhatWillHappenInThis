@@ -21,12 +21,9 @@ public class GameplayConfig implements ConfigData {
     public boolean dreamLuck = false;
 
     public static class Items {
-        @ConfigEntry.Gui.RequiresRestart
         public boolean everythingIsEdible = false;
         @ConfigEntry.Gui.Tooltip
-        @ConfigEntry.Gui.RequiresRestart
         public boolean hiddenItemsTab = false;
-        @ConfigEntry.Gui.RequiresRestart
         @ConfigEntry.BoundedDiscrete(min = 1, max = 64)
         public int maxStackSize = 64;
         @ConfigEntry.Gui.Tooltip

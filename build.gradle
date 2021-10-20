@@ -53,14 +53,6 @@ dependencies {
     include modImplementation("io.gitlab.jfronny.libjf:libjf-base:${project.jfapi_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-
-	//Fixes bug in shadow
-    /*
-	implementation('org.vafer:jdependency:2.7.0') {
-		exclude group: 'org.ow2.asm'
-	}
-
-     */
 }
 
 application {
@@ -104,6 +96,9 @@ jar {
 	}
 
 	manifest.attributes.put("Main-Class", "fr.anatom3000.gwwhit.commandline.CommandLine")
+
+    //FIXME: How do you do it? This doesn't seem to work. idk doesn't really mater
+    exclude("fr.anatom3000.gwwhit.DevUtils")
 }
 
 shadowJar {
@@ -111,12 +106,12 @@ shadowJar {
 		include(dependency("com.google.code.gson:gson"))
 	}
 
-	//Currently broken. Should be fixed in a future shadow release
 	minimize()
 }
 
-import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
-task relocateShadowJar(type: ConfigureShadowRelocation) {
+
+//noinspection UnnecessaryQualifiedReference // The import kept breaking
+task relocateShadowJar(type: com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation) {
 	target = tasks.shadowJar
 	prefix = "fr.anatom3000.gwwhit.shadow"
 

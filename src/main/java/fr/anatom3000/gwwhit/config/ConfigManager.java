@@ -35,7 +35,7 @@ public class ConfigManager {
         if (activeConfig == null) {
             AutoConfig.register(MainConfig.class, PartitioningSerializer.wrap((definition, configClass) -> new GsonConfigSerializer<>(definition, configClass, GSON)));
             GWWHIT.LOGGER.info("Gwwhit config registered!");
-            activeConfig = getHolder().get();
+            setActiveConfig(null);
         }
 
         return activeConfig;
@@ -62,8 +62,8 @@ public class ConfigManager {
             GWWHIT.LOGGER.error("Can't parse config! Falling back to local", e);
         }
 
-        ConfigManager.setActiveConfig(config);
-        ConfigManager.onSync();
+        setActiveConfig(config);
+        onSync();
         MinecraftClient.getInstance().worldRenderer.reload();
     }
 
@@ -89,10 +89,5 @@ public class ConfigManager {
         } catch (IOException e) {
             shader = null;
         }
-    }
-
-    public static void reloadLocalConfig() {
-        getHolder().load();
-        activeConfig = getHolder().get();
     }
 }

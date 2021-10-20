@@ -34,11 +34,9 @@ public class GameplayConfig implements ConfigData {
     }
 
     public static class Blocks {
-        @ConfigEntry.Gui.RequiresRestart
         @ConfigEntry.BoundedDiscrete(max = 1)
         public float defaultSlipperiness = 0.6F;
         public boolean everythingBurns = false;
-        @ConfigEntry.Gui.RequiresRestart
         public boolean replaceEverything = false;
     }
 }

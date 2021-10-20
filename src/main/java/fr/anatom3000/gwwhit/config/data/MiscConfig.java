@@ -10,7 +10,14 @@ import java.util.Optional;
 
 @Config(name = "misc")
 public class MiscConfig implements ConfigData {
-    MiscConfig(){}
+    MiscConfig(){
+        //Check if we're running in dev and ignore error if fabric isn't loaded
+        try {
+            debugMode = FabricLoader.getInstance().isDevelopmentEnvironment();
+        } catch (NullPointerException e) {
+            debugMode = false;
+        }
+    }
 
     @ConfigEntry.Gui.Tooltip
     public boolean owoifyer = false;
@@ -27,7 +34,7 @@ public class MiscConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public Fov fov = new Fov();
     @ConfigEntry.Gui.RequiresRestart
-    public boolean debugMode = FabricLoader.getInstance().isDevelopmentEnvironment();
+    public boolean debugMode; // set in constructor
 
     public static class Fov {
         @ConfigEntry.Gui.RequiresRestart

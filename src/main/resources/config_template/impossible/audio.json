@@ -1,0 +1,8 @@
+{
+  "mojaaaangStartupSound": true,
+  "soundReplacement": "UwU",
+  "whatsAppWhistle": {
+    "enabled": true,
+    "volume": 1.0
+  }
+}

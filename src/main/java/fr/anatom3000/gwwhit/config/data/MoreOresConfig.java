@@ -13,6 +13,10 @@ public class MoreOresConfig implements ConfigData {
     @ConfigEntry.Gui.RequiresRestart
     public int oresCount = 100;
     @ConfigEntry.Gui.RequiresRestart
+    public int oreNameLengthMin = 3;
+    @ConfigEntry.Gui.RequiresRestart
+    public int oreNameLengthMax = 5;
+    @ConfigEntry.Gui.RequiresRestart
     public int seed = 1024;
     @ConfigEntry.Gui.RequiresRestart
     @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)

@@ -5,7 +5,7 @@ import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.materials.CustomOre;
 import fr.anatom3000.gwwhit.materials.CustomOre.Dimension;
 import fr.anatom3000.gwwhit.materials.CustomOre.Type;
-import fr.anatom3000.gwwhit.util.ItalianUtil;
+import fr.anatom3000.gwwhit.util.NameGenerator;
 import net.devtech.arrp.json.lang.JLang;
 import net.devtech.arrp.json.tags.JTag;
 import net.minecraft.tag.BlockTags;
@@ -21,7 +21,7 @@ public class NewMaterials {
         int count = ConfigManager.getActiveConfig().moreOres.oresCount;
         Random rng = new Random(ConfigManager.getActiveConfig().moreOres.seed);
         for (int i = 0; i < count; i++) {
-            ores.add(new CustomOre(ItalianUtil.getRandomWord(rng, true),
+            ores.add(new CustomOre(NameGenerator.generateOreName(rng),
                     Type.values()[rng.nextInt(Type.values().length)],
                     rng,
                     rng.nextBoolean(),

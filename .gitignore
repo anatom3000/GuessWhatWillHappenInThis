@@ -33,3 +33,5 @@ bin/
 run
 runs
 logs/
+
+src/main/resources/assets/gwwhit/beemovie.txt

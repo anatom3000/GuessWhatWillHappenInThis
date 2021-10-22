@@ -32,6 +32,8 @@ public class MiscConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean increaseWorldHeight = false;
     @ConfigEntry.Gui.CollapsibleObject
+    public Beemovie beemovie = new Beemovie();
+    @ConfigEntry.Gui.CollapsibleObject
     public Fov fov = new Fov();
     @ConfigEntry.Gui.RequiresRestart
     public boolean debugMode; // set in constructor
@@ -41,5 +43,14 @@ public class MiscConfig implements ConfigData {
         public int max = 110;
         @ConfigEntry.Gui.RequiresRestart
         public int min = 30;
+    }
+
+    public static class Beemovie {
+        @ConfigEntry.Gui.RequiresRestart
+        public boolean replaceSplashes = true;
+        @ConfigEntry.Gui.RequiresRestart
+        public boolean replaceCredits = false; //TODO
+        @ConfigEntry.Gui.RequiresRestart
+        public boolean playNarrator = false;
     }
 }

@@ -65,6 +65,8 @@
   "text.autoconfig.gwwhit.category.moreOres": "More Ores",
   "text.autoconfig.gwwhit.option.moreOres.generateInWorld": "Generate in World",
   "text.autoconfig.gwwhit.option.moreOres.oresCount": "Number of Ores to generate",
+  "text.autoconfig.gwwhit.option.moreOres.oreNameLengthMin": "Minimum length of elements in an ores name",
+  "text.autoconfig.gwwhit.option.moreOres.oreNameLengthMax": "Maximum length of elements in an ores name",
   "text.autoconfig.gwwhit.option.moreOres.seed": "RNG Seed for Ores",
   "text.autoconfig.gwwhit.option.moreOres.tab": "Creative Tab",
 

@@ -1,12 +1,10 @@
 package fr.anatom3000.gwwhit.gui;
 
-import com.sun.jna.platform.unix.X11;
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.gui.widget.TemplateListWidget;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;

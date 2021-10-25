@@ -1,6 +1,5 @@
 package fr.anatom3000.gwwhit.config;
 
-import com.google.gson.JsonObject;
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.config.data.MainConfig;
 import net.fabricmc.loader.api.FabricLoader;

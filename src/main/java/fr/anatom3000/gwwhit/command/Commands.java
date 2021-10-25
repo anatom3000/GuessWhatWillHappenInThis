@@ -1,6 +1,5 @@
 package fr.anatom3000.gwwhit.command;
 
-import com.mojang.brigadier.arguments.StringArgumentType;
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.Python;
 import fr.anatom3000.gwwhit.block.entity.InfectedMassBlockEntity;
@@ -8,11 +7,9 @@ import fr.anatom3000.gwwhit.block.entity.RandomisingBlockEntity;
 import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.mixin.access.GameRendererAccess;
 import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
-import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.GameRenderer;
 import net.minecraft.command.argument.IdentifierArgumentType;
 import net.minecraft.command.argument.ItemStackArgument;
 import net.minecraft.command.argument.ItemStackArgumentType;

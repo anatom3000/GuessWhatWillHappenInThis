@@ -1,7 +1,5 @@
 package fr.anatom3000.gwwhit.option;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.DoubleOption;
 import net.minecraft.client.option.GameOptions;

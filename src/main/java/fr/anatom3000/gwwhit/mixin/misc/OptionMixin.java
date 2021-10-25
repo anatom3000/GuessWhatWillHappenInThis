@@ -1,7 +1,6 @@
 package fr.anatom3000.gwwhit.mixin.misc;
 
 import fr.anatom3000.gwwhit.config.ConfigManager;
-import fr.anatom3000.gwwhit.config.data.MiscConfig;
 import fr.anatom3000.gwwhit.option.DynamicSizeDoubleOption;
 import net.minecraft.client.option.DoubleOption;
 import net.minecraft.client.option.GameOptions;
@@ -9,12 +8,13 @@ import net.minecraft.client.option.Option;
 import net.minecraft.text.Text;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Slice;
 
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 @Mixin(Option.class)
 public class OptionMixin {

@@ -5,7 +5,6 @@ import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.config.OverrideManager;
 import fr.anatom3000.gwwhit.config.data.MainConfig;
 import fr.anatom3000.gwwhit.util.SafeUtils;
-import fr.anatom3000.gwwhit.util.Utilities;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;

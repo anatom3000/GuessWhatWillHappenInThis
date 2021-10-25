@@ -5,15 +5,15 @@ import fr.anatom3000.gwwhit.util.SafeUtils;
 import fr.anatom3000.gwwhit.util.Utilities;
 
 import java.io.*;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 /* IMPORTANT: This is run in a command line context, where we don't have minecraft, and it's libs!
    Try avoiding the use of libs (e.g. use CommandLine instead of a LOGGER)

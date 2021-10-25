@@ -6,6 +6,7 @@ import fr.anatom3000.gwwhit.command.Commands;
 import fr.anatom3000.gwwhit.config.AnnotationExclusionStrategy;
 import fr.anatom3000.gwwhit.dimension.RandomChunkGenerator;
 import fr.anatom3000.gwwhit.registry.*;
+import fr.anatom3000.gwwhit.util.NarratorExt;
 import fr.anatom3000.gwwhit.util.TableRandomizer;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
@@ -71,6 +72,7 @@ public class GWWHIT implements ModInitializer {
         Commands.register();
         NewMaterials.onInitialize();
         EventListeners.register();
+        NarratorExt.getInstance().gwwhit$load();
         LOGGER.info("[GWWHIT] You shouldn't have done this. (Loading done)");
     }
 

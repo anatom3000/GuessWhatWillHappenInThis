@@ -1,12 +1,9 @@
 package fr.anatom3000.gwwhit.config.data;
 
-import com.mojang.datafixers.util.Either;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import net.fabricmc.loader.api.FabricLoader;
-
-import java.util.Optional;
 
 @Config(name = "misc")
 public class MiscConfig implements ConfigData {
@@ -37,9 +34,7 @@ public class MiscConfig implements ConfigData {
     public boolean debugMode; // set in constructor
 
     public static class Fov {
-        @ConfigEntry.Gui.RequiresRestart
         public int max = 110;
-        @ConfigEntry.Gui.RequiresRestart
         public int min = 30;
     }
 }

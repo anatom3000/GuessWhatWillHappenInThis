@@ -5,7 +5,7 @@ import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("CanBeFinal") // Shut up code inspection
 @Config(name = GWWHIT.MOD_ID)
 public class MainConfig extends PartitioningSerializer.GlobalData {
     @ConfigEntry.Gui.TransitiveObject

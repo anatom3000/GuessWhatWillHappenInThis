@@ -7,6 +7,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
 import java.util.List;
 
+@SuppressWarnings("CanBeFinal") // Shut up code inspection
 @Config(name = "blocks")
 public class BlockConfig implements ConfigData {
     BlockConfig(){}

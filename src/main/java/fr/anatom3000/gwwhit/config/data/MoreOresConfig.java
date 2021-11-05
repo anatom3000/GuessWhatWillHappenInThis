@@ -4,6 +4,7 @@ import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
+@SuppressWarnings("CanBeFinal") // Shut up code inspection
 @Config(name = "moreOres")
 public class MoreOresConfig implements ConfigData {
     MoreOresConfig(){}
@@ -22,7 +23,6 @@ public class MoreOresConfig implements ConfigData {
     @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
     public Tab tab = Tab.NONE;
 
-    @SuppressWarnings("unused")
     public enum Tab {
         NONE,
         MAIN,

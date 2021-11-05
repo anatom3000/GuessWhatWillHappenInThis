@@ -5,6 +5,7 @@ import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import net.fabricmc.loader.api.FabricLoader;
 
+@SuppressWarnings("CanBeFinal") // Shut up code inspection
 @Config(name = "misc")
 public class MiscConfig implements ConfigData {
     MiscConfig(){

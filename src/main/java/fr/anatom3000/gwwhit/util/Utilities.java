@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.Objects;
 
 /**
  * DONT USE ANY MC/MOD/MC-RELATED LIB CLASSES HERE
@@ -35,7 +36,7 @@ public final class Utilities {
         if (array == null)
             return false;
         for (T value : array) {
-            if ( object.equals(value) )
+            if (object.equals(value))
                 return true;
         }
         return false;
@@ -45,8 +46,13 @@ public final class Utilities {
      * Returns the location of the GWWHIT jar
      * @return the path of the jar
      */
-    @SuppressWarnings("ConstantConditions")
     public static Path getJarLocation() {
-        return Path.of( SafeUtils.doSafely( () -> ModUpdater.class.getProtectionDomain().getCodeSource().getLocation().toURI() ) );
+        return Path.of(
+                Objects.requireNonNull(
+                        SafeUtils.doSafely(
+                                () -> ModUpdater.class.getProtectionDomain().getCodeSource().getLocation().toURI()
+                        )
+                )
+        );
     }
 }

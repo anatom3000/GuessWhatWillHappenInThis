@@ -224,10 +224,7 @@ public class CheatCodes {
                 client.player.sendChatMessage("U R GOING TO BRAZIL!");
             }
         });
-        add(new CheatCode("WEWILLUJOE") {
-            {
-                runOnClient = true;
-            }
+        add(new CheatCode("WEWILLUJOE", true) {
             @Override
             public void onExecute(@Nullable ServerPlayerEntity player, @NotNull PlayerAbilities abilities) {
                 MinecraftClient.getInstance().getSoundManager().play(
@@ -254,7 +251,7 @@ public class CheatCodes {
          * By doing thing, if the user is connected to a server the cheat will not get the player entity,
          * only the client-avaliable abilities object.
          */
-        public boolean runOnClient = false;
+        public final boolean runOnClient;
 
 
         /**
@@ -263,7 +260,12 @@ public class CheatCodes {
          * @param code The code your cheat will be activated by.
          */
         public CheatCode(String code) {
+            this(code, false);
+        }
+
+        public CheatCode(String code, boolean runOnClient) {
             this.code = code;
+            this.runOnClient = runOnClient;
             MAX_CHEAT_LEN = Math.max(MAX_CHEAT_LEN, code.length());
         }
 

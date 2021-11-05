@@ -4,6 +4,7 @@ import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
+@SuppressWarnings("CanBeFinal") // Shut up code inspection
 @Config(name = "gameplay")
 public class GameplayConfig implements ConfigData {
     GameplayConfig(){}

@@ -14,13 +14,13 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import org.apache.commons.lang3.reflect.TypeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -34,7 +34,6 @@ import java.util.stream.Collectors;
         Static final fields and enum constants      THIS_IS_STATIC_FINAL
         Everything else                             thisIsEverythingElse
 */
-
 
 public class GWWHIT implements ModInitializer {
     //Pure constants
@@ -76,18 +75,13 @@ public class GWWHIT implements ModInitializer {
         LOGGER.info("[GWWHIT] You shouldn't have done this. (Loading done)");
     }
 
-    @SuppressWarnings("unchecked") //Stupid IntelliJ
-    private <T> T deserialize(Reader r, T current) {
-        return GSON.fromJson(r, (Class<T>) current.getClass());
-    }
-
     private void cacheTranslations() {
         try {
             for (Path path : Files.list(ASSETS_ROOT.resolve("lang")).collect(Collectors.toList())) {
                 String name = path.getFileName().toString();
                 name = name.substring(0, name.lastIndexOf('.'));
                 try (InputStream is = Files.newInputStream(path); InputStreamReader ir = new InputStreamReader(is)) {
-                    TRANSLATIONS.put(name, deserialize(ir, new HashMap<>()));
+                    TRANSLATIONS.put(name, GSON.fromJson(ir, TypeUtils.parameterize(HashMap.class, String.class, String.class)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

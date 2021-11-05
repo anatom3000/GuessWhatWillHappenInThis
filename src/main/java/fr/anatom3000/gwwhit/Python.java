@@ -24,19 +24,21 @@ import java.util.stream.Stream;
  * @author ENDERZOMBI102 and MattiDragon
  */
 public class Python {
-    private static String CODE = "";
+    private static final String CODE;
     private static final Map<Script, PyCode> SCRIPTS = new HashMap<>();
     private static final Map<Script, Script[]> SCRIPT_GROUPS = new HashMap<>();
 
     static {
+        String code = "";
         try (InputStream stream = Utilities.getResource("/init.py")) {
-            CODE = IOUtils.toString(
+            code = IOUtils.toString(
                     Objects.requireNonNull(stream),
                     StandardCharsets.UTF_8
             );
         } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+            GWWHIT.LOGGER.error("Error with internal python", e);
         }
+        CODE = code;
     }
 
     public static void load() {

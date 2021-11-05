@@ -4,6 +4,7 @@ import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
+@SuppressWarnings("CanBeFinal") // Shut up code inspection
 @Config(name = "rendering")
 public class RenderingConfig implements ConfigData {
     RenderingConfig(){}
@@ -18,7 +19,7 @@ public class RenderingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean itemUseRomanNumerals;
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("unused") // Used dynamically
     public enum Shaders {
         NONE,
         NOTCH,

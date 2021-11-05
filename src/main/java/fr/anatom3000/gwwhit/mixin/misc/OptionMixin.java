@@ -7,6 +7,7 @@ import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.Option;
 import net.minecraft.text.Text;
 import org.objectweb.asm.Opcodes;
+import org.spongepowered.asm.mixin.Dynamic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -19,7 +20,7 @@ import java.util.function.Function;
 @Mixin(Option.class)
 public class OptionMixin {
 
-    @SuppressWarnings("UnresolvedMixinReference") // mcdev doesn't resolve clinit yet
+    @Dynamic("clinit: McDev doesn't support it yet")
     @Redirect(method = "<clinit>",
             at = @At(
                     value = "NEW",

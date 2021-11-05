@@ -23,48 +23,10 @@ public class OverrideManager {
             .filter(field -> field.getModifiers() == Modifier.PUBLIC)
             .map(Field::getName)
             .toArray(String[]::new);
-    //public static final MainConfig OVERRIDE = loadTemplate();
 
     public static boolean checkFlag(Flag flags) {
         return ArrayUtils.contains(secretFlags, flags);
     }
-    /*
-    public static MainConfig loadTemplate() {
-        Path file = FabricLoader.getInstance().getConfigDir().resolve("gwwhit").resolve("template.txt");
-        if (!Files.exists(file)) {
-            try {
-                Files.createDirectories(file.getParent());
-                Files.createFile(file);
-                Files.writeString(file, "none");
-            } catch (IOException e) {
-                GWWHIT.LOGGER.error("Failed to create template file", e);
-            }
-            return null;
-        }
-        try {
-            String template = Files.lines(file).map(s -> {
-                int index = s.indexOf('#');
-                if (index == -1) return s.strip();
-                return s.substring(0, index).strip().toLowerCase();
-            }).filter(String::isEmpty).findFirst().orElseThrow(() -> new IllegalStateException("Config template not specified. Fix or remove config/gwwhit/template.txt"));
-
-            if (!ArrayUtils.contains(TEMPLATES, template)) {
-                throw new IllegalStateException("Unknown config template " + template + ". Fix or remove config/gwwhit/template.txt");
-            }
-
-            if (template.equals(NO_TEMPLATE)) {
-                return null;
-            }
-
-            return getTemplate(template);
-
-        } catch (IOException e) {
-            GWWHIT.LOGGER.error("Failed to read template file", e);
-        }
-
-        return null;
-    }
-    */
 
     public static void applyTemplate(String template) throws IOException {
         Path source = GWWHIT.CONTAINER.getPath("config_template").resolve(template);

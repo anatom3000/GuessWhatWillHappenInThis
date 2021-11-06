@@ -17,10 +17,10 @@ public class TemplateListWidget extends AlwaysSelectedEntryListWidget<TemplateLi
         return true;
     }
 
-    public int addEntry(String id, boolean select) {
+    public void addEntry(String id, boolean select) {
         Entry entry = new Entry(id);
         if (select) setSelected(entry);
-        return super.addEntry(entry);
+        super.addEntry(entry);
     }
 
     public class Entry extends AlwaysSelectedEntryListWidget.Entry<TemplateListWidget.Entry> {

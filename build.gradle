@@ -16,7 +16,11 @@ repositories {
 	maven { url 'https://maven.shedaniel.me/' }
     maven {	url 'https://repo.repsy.io/mvn/enderzombi102/mc/' }
     maven { url 'https://storage.googleapis.com/devan-maven/' }
-    maven { url 'https://gitlab.com/api/v4/projects/25805200/packages/maven' } //https://gitlab.com/jfmods/LibJF
+    maven { url 'https://gitlab.com/api/v4/projects/25805200/packages/maven' }
+    maven {
+        url 'https://repo.maven.apache.org/maven2'
+        name 'Maven Central'
+    } //https://gitlab.com/jfmods/LibJF
 }
 
 dependencies {
@@ -49,6 +53,9 @@ dependencies {
     include modImplementation("io.gitlab.jfronny.libjf:libjf-base:${project.jfapi_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
 application {
@@ -105,6 +112,10 @@ shadowJar {
 	minimize()
 }
 
+test {
+    useJUnitPlatform()
+}
+
 
 //noinspection UnnecessaryQualifiedReference // The import kept breaking
 task relocateShadowJar(type: com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation) {
@@ -113,26 +124,3 @@ task relocateShadowJar(type: com.github.jengelman.gradle.plugins.shadow.tasks.Co
 
 }
 tasks.shadowJar.dependsOn tasks.relocateShadowJar
-
-// configure the maven publication
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			// add all the jars that should be included when publishing to maven
-			artifact(remapJar) {
-				builtBy remapJar
-			}
-			artifact(sourcesJar) {
-				builtBy remapSourcesJar
-			}
-		}
-	}
-
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
-	}
-}

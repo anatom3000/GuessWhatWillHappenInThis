@@ -78,10 +78,8 @@ public class TextureBuilder {
                     "textures/item/tool_" + type.name().toLowerCase() + (
                             rng.nextInt(
                                     switch (type) {
-                                        case SWORD -> 1;
-                                        case SHOVEL -> 1;
-                                        case AXE -> 12;
-                                        case PICKAXE -> 12;
+                                        case SWORD, SHOVEL -> 1;
+                                        case AXE, PICKAXE -> 12;
                                         case HOE -> 11;
                                     }
                             ) + 1

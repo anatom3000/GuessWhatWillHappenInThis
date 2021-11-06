@@ -34,9 +34,7 @@ public class GWWHITClient implements ClientModInitializer {
             String version = data.readString();
             String config = data.readString();
 
-            client.execute(() -> {
-                ConfigManager.fromPacket(version, config);
-            });
+            client.execute(() -> ConfigManager.fromPacket(version, config));
         });
     }
 }

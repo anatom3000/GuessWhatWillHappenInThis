@@ -5,13 +5,17 @@ import com.google.gson.GsonBuilder;
 import fr.anatom3000.gwwhit.command.Commands;
 import fr.anatom3000.gwwhit.config.AnnotationExclusionStrategy;
 import fr.anatom3000.gwwhit.dimension.RandomChunkGenerator;
+import fr.anatom3000.gwwhit.gui.FurnaceGuiDescription;
 import fr.anatom3000.gwwhit.registry.*;
 import fr.anatom3000.gwwhit.util.NarratorExt;
 import fr.anatom3000.gwwhit.util.TableRandomizer;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.reflect.TypeUtils;
@@ -51,6 +55,15 @@ public class GWWHIT implements ModInitializer {
     public static final TableRandomizer TABLE_RANDOMIZER = new TableRandomizer(RANDOM);
     public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create(MOD_ID);
 
+    //Locations / Ids
+    @SuppressWarnings("OptionalGetWithoutIsPresent") //It has to exist
+    public static final Path ASSETS_ROOT = FabricLoader.getInstance().getModContainer(MOD_ID).get().getPath("assets/gwwhit");
+    public static final Identifier CONFIG_SYNC_ID = getId("config_sync");
+    public static final String MOD_VERSION = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().getFriendlyString();
+
+    // screens
+    public static ScreenHandlerType<FurnaceGuiDescription> FURNACE_SCREEN_HANDLER_TYPE;
+
     //Caches
     public static final Map<String, Map<String, String>> TRANSLATIONS = new HashMap<>();
 
@@ -62,6 +75,10 @@ public class GWWHIT implements ModInitializer {
     public void onInitialize() {
         Python.load();
         cacheTranslations();
+        FURNACE_SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(
+                getId("slow_furnace"),
+                ( syncId, inv ) -> new FurnaceGuiDescription( syncId, inv, ScreenHandlerContext.EMPTY )
+        );
         Registry.register(Registry.CHUNK_GENERATOR, new Identifier("gwwhit", "random"), RandomChunkGenerator.CODEC);
         ItemRegistry.register();
         BlockRegistry.register();

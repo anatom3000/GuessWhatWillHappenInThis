@@ -33,6 +33,8 @@
   "gui.gwwhit.templates.confirm.info": "Clicking 'I understand' will apply the template and restart minecraft!",
   "gui.gwwhit.templates.confirm.confirm": "I understand",
 
+  "container.gwwhit.slow_furnace": "Slow Furnace",
+
   "itemGroup.gwwhit.gwwhit": "GWWHIT: Misc",
   "itemGroup.gwwhit.more_ores": "GWWHIT: Ores",
   "itemGroup.gwwhit.cursed": "GWWHIT: Cursed Items",

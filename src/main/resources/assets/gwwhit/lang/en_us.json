@@ -21,11 +21,17 @@
   "block.gwwhit.mushroom_grass": "Mushroom Grass",
   "block.gwwhit.pyblock": "PyBlock",
 
+  "gui.gwwhit.title": "GWWHIT - The %s Update",
   "gui.gwwhit.config": "Config",
   "gui.gwwhit.mainscreen.hello": "Hello",
   "gui.gwwhit.reload": "Reload Resources",
   "gui.gwwhit.fork": "Fork on github",
   "gui.gwwhit.more_info": "More Info",
+  "gui.gwwhit.templates": "Config Templates",
+  "gui.gwwhit.templates.warning": "WARNING: Using a template will override your config!",
+  "gui.gwwhit.templates.confirm": "Do you really want to do this?",
+  "gui.gwwhit.templates.confirm.info": "Clicking 'I understand' will apply the template and restart minecraft!",
+  "gui.gwwhit.templates.confirm.confirm": "I understand",
 
   "container.gwwhit.slow_furnace": "Slow Furnace",
 
@@ -40,6 +46,11 @@
   "text.autoconfig.gwwhit.option.misc.scripting": "Enable Scripting",
   "text.autoconfig.gwwhit.option.misc.owoifyer": "Owoifyer",
   "text.autoconfig.gwwhit.option.misc.rainbowConsole": "Rainbow Console",
+  "text.autoconfig.gwwhit.option.misc.debugMode": "Debug Mode",
+  "text.autoconfig.gwwhit.option.misc.beemovie": "Bee Movie",
+  "text.autoconfig.gwwhit.option.misc.beemovie.replaceSplashes": "Use bee movie quotes as splashes",
+  "text.autoconfig.gwwhit.option.misc.beemovie.replaceCredits": "Replace the credits with the bee movie",
+  "text.autoconfig.gwwhit.option.misc.beemovie.playNarrator": "Let the narrator read the entire bee movie",
   "text.autoconfig.gwwhit.option.misc.fov": "Fov Settings",
   "text.autoconfig.gwwhit.option.misc.fov.min": "Min",
   "text.autoconfig.gwwhit.option.misc.fov.max": "Max",
@@ -59,6 +70,10 @@
 
   "text.autoconfig.gwwhit.category.moreOres": "More Ores",
   "text.autoconfig.gwwhit.option.moreOres.generateInWorld": "Generate in World",
+  "text.autoconfig.gwwhit.option.moreOres.oresCount": "Number of Ores to generate",
+  "text.autoconfig.gwwhit.option.moreOres.oreNameLengthMin": "Minimum length of elements in an ores name",
+  "text.autoconfig.gwwhit.option.moreOres.oreNameLengthMax": "Maximum length of elements in an ores name",
+  "text.autoconfig.gwwhit.option.moreOres.seed": "RNG Seed for Ores",
   "text.autoconfig.gwwhit.option.moreOres.tab": "Creative Tab",
 
   "text.autoconfig.gwwhit.category.gameplay": "Gameplay",
@@ -81,6 +96,7 @@
   "text.autoconfig.gwwhit.option.rendering.world": "World",
   "text.autoconfig.gwwhit.option.rendering.world.smallBlocks": "Small Blocks",
   "text.autoconfig.gwwhit.option.rendering.world.spin": "Spin",
+  "text.autoconfig.gwwhit.option.rendering.world.nauseaOverride": "Nausea Override",
   "text.autoconfig.gwwhit.option.rendering.world.matrixScale": "Matrix Scale",
   "text.autoconfig.gwwhit.option.rendering.world.allowMatrixLevels": "Allow Matrix Levels",
   "text.autoconfig.gwwhit.option.rendering.world.matrixTranslationScale":"Matrix Translation Scale",

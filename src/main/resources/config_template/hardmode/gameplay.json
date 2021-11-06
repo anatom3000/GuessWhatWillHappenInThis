@@ -1,0 +1,13 @@
+{
+  "items": {
+    "maxStackSize": 8
+  },
+  "blocks": {
+    "defaultSlipperiness": 1,
+    "everythingBurns": true,
+    "replaceEverything": true
+  },
+  "stoneBlocksAreInfected": true,
+  "mobsMayExplode": true,
+  "randomizedDrops": true
+}

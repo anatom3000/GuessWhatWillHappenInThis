@@ -26,6 +26,14 @@
 // off every 'zix'.)
 //
 
+// Modified by MattiDragon to use newer language features.
+/* TODO: Cleanup
+    - Make this follow naming conventions.
+      - Methods should be in lowerCamelCase (currently UpperCamelCase)
+      - Remove m_ prefix from fields (what's up with those anyway?)
+    - Possibly remove unused getters and setters
+*/
+
 package fr.anatom3000.gwwhit.util.fastnoise;
 
 public class FastNoise {
@@ -135,7 +143,7 @@ public class FastNoise {
     private final static float G4 = (float) ((5.0 - 2.23606797) / 20.0);
     private final static float CUBIC_3D_BOUNDING = 1 / (float) (1.5 * 1.5 * 1.5);
     private final static float CUBIC_2D_BOUNDING = 1 / (float) (1.5 * 1.5);
-    private int m_seed = 1337;
+    private int m_seed;
     private float m_frequency = (float) 0.01;
     private Interp m_interp = Interp.Quintic;
     private NoiseType m_noiseType = NoiseType.Simplex;
@@ -149,18 +157,9 @@ public class FastNoise {
     private FastNoise m_cellularNoiseLookup = null;
     private float m_gradientPerturbAmp = (float) (1.0 / 0.45);
 
-    public FastNoise() {
-        this(1337);
-    }
-
     public FastNoise(int seed) {
         m_seed = seed;
         CalculateFractalBounding();
-    }
-
-    // Returns a 0 float/double
-    public static float GetDecimalType() {
-        return 0;
     }
 
     private static int FastFloor(float f) {
@@ -204,19 +203,6 @@ public class FastNoise {
         hash ^= X_PRIME * x;
         hash ^= Y_PRIME * y;
         hash ^= Z_PRIME * z;
-
-        hash = hash * hash * hash * 60493;
-        hash = (hash >> 13) ^ hash;
-
-        return hash;
-    }
-
-    private static int Hash4D(int seed, int x, int y, int z, int w) {
-        int hash = seed;
-        hash ^= X_PRIME * x;
-        hash ^= Y_PRIME * y;
-        hash ^= Z_PRIME * z;
-        hash ^= W_PRIME * w;
 
         hash = hash * hash * hash * 60493;
         hash = (hash >> 13) ^ hash;
@@ -291,21 +277,24 @@ public class FastNoise {
         hash &= 31;
         float a = yd, b = zd, c = wd;            // X,Y,Z
         switch (hash >> 3) {          // OR, DEPENDING ON HIGH ORDER 2 BITS:
-            case 1:
+            case 1 -> {
+                // W,X,Y
                 a = wd;
                 b = xd;
                 c = yd;
-                break;     // W,X,Y
-            case 2:
+            }
+            case 2 -> {
+                // Z,W,X
                 a = zd;
                 b = wd;
                 c = xd;
-                break;     // Z,W,X
-            case 3:
+            }
+            case 3 -> {
+                // Y,Z,W
                 a = yd;
                 b = zd;
                 c = wd;
-                break;     // Y,Z,W
+            }
         }
         return ((hash & 4) == 0 ? -a : a) + ((hash & 2) == 0 ? -b : b) + ((hash & 1) == 0 ? -c : c);
     }
@@ -412,146 +401,74 @@ public class FastNoise {
         y *= m_frequency;
         z *= m_frequency;
 
-        switch (m_noiseType) {
-            case Value:
-                return SingleValue(m_seed, x, y, z);
-            case ValueFractal:
-                switch (m_fractalType) {
-                    case FBM:
-                        return SingleValueFractalFBM(x, y, z);
-                    case Billow:
-                        return SingleValueFractalBillow(x, y, z);
-                    case RigidMulti:
-                        return SingleValueFractalRigidMulti(x, y, z);
-                    default:
-                        return 0;
-                }
-            case Perlin:
-                return SinglePerlin(m_seed, x, y, z);
-            case PerlinFractal:
-                switch (m_fractalType) {
-                    case FBM:
-                        return SinglePerlinFractalFBM(x, y, z);
-                    case Billow:
-                        return SinglePerlinFractalBillow(x, y, z);
-                    case RigidMulti:
-                        return SinglePerlinFractalRigidMulti(x, y, z);
-                    default:
-                        return 0;
-                }
-            case Simplex:
-                return SingleSimplex(m_seed, x, y, z);
-            case SimplexFractal:
-                switch (m_fractalType) {
-                    case FBM:
-                        return SingleSimplexFractalFBM(x, y, z);
-                    case Billow:
-                        return SingleSimplexFractalBillow(x, y, z);
-                    case RigidMulti:
-                        return SingleSimplexFractalRigidMulti(x, y, z);
-                    default:
-                        return 0;
-                }
-            case Cellular:
-                switch (m_cellularReturnType) {
-                    case CellValue:
-                    case NoiseLookup:
-                    case Distance:
-                        return SingleCellular(x, y, z);
-                    default:
-                        return SingleCellular2Edge(x, y, z);
-                }
-            case WhiteNoise:
-                return GetWhiteNoise(x, y, z);
-            case Cubic:
-                return SingleCubic(m_seed, x, y, z);
-            case CubicFractal:
-                switch (m_fractalType) {
-                    case FBM:
-                        return SingleCubicFractalFBM(x, y, z);
-                    case Billow:
-                        return SingleCubicFractalBillow(x, y, z);
-                    case RigidMulti:
-                        return SingleCubicFractalRigidMulti(x, y, z);
-                    default:
-                        return 0;
-                }
-            default:
-                return 0;
-        }
+        return switch (m_noiseType) {
+            case Value -> SingleValue(m_seed, x, y, z);
+            case ValueFractal -> switch (m_fractalType) {
+                case FBM -> SingleValueFractalFBM(x, y, z);
+                case Billow -> SingleValueFractalBillow(x, y, z);
+                case RigidMulti -> SingleValueFractalRigidMulti(x, y, z);
+            };
+            case Perlin -> SinglePerlin(m_seed, x, y, z);
+            case PerlinFractal -> switch (m_fractalType) {
+                case FBM -> SinglePerlinFractalFBM(x, y, z);
+                case Billow -> SinglePerlinFractalBillow(x, y, z);
+                case RigidMulti -> SinglePerlinFractalRigidMulti(x, y, z);
+            };
+            case Simplex -> SingleSimplex(m_seed, x, y, z);
+            case SimplexFractal -> switch (m_fractalType) {
+                case FBM -> SingleSimplexFractalFBM(x, y, z);
+                case Billow -> SingleSimplexFractalBillow(x, y, z);
+                case RigidMulti -> SingleSimplexFractalRigidMulti(x, y, z);
+            };
+            case Cellular -> switch (m_cellularReturnType) {
+                case CellValue, NoiseLookup, Distance -> SingleCellular(x, y, z);
+                default -> SingleCellular2Edge(x, y, z);
+            };
+            case WhiteNoise -> GetWhiteNoise(x, y, z);
+            case Cubic -> SingleCubic(m_seed, x, y, z);
+            case CubicFractal -> switch (m_fractalType) {
+                case FBM -> SingleCubicFractalFBM(x, y, z);
+                case Billow -> SingleCubicFractalBillow(x, y, z);
+                case RigidMulti -> SingleCubicFractalRigidMulti(x, y, z);
+            };
+        };
     }
 
     public float GetNoise(float x, float y) {
         x *= m_frequency;
         y *= m_frequency;
 
-        switch (m_noiseType) {
-            case Value:
-                return SingleValue(m_seed, x, y);
-            case ValueFractal:
-                switch (m_fractalType) {
-                    case FBM:
-                        return SingleValueFractalFBM(x, y);
-                    case Billow:
-                        return SingleValueFractalBillow(x, y);
-                    case RigidMulti:
-                        return SingleValueFractalRigidMulti(x, y);
-                    default:
-                        return 0;
-                }
-            case Perlin:
-                return SinglePerlin(m_seed, x, y);
-            case PerlinFractal:
-                switch (m_fractalType) {
-                    case FBM:
-                        return SinglePerlinFractalFBM(x, y);
-                    case Billow:
-                        return SinglePerlinFractalBillow(x, y);
-                    case RigidMulti:
-                        return SinglePerlinFractalRigidMulti(x, y);
-                    default:
-                        return 0;
-                }
-            case Simplex:
-                return SingleSimplex(m_seed, x, y);
-            case SimplexFractal:
-                switch (m_fractalType) {
-                    case FBM:
-                        return SingleSimplexFractalFBM(x, y);
-                    case Billow:
-                        return SingleSimplexFractalBillow(x, y);
-                    case RigidMulti:
-                        return SingleSimplexFractalRigidMulti(x, y);
-                    default:
-                        return 0;
-                }
-            case Cellular:
-                switch (m_cellularReturnType) {
-                    case CellValue:
-                    case NoiseLookup:
-                    case Distance:
-                        return SingleCellular(x, y);
-                    default:
-                        return SingleCellular2Edge(x, y);
-                }
-            case WhiteNoise:
-                return GetWhiteNoise(x, y);
-            case Cubic:
-                return SingleCubic(m_seed, x, y);
-            case CubicFractal:
-                switch (m_fractalType) {
-                    case FBM:
-                        return SingleCubicFractalFBM(x, y);
-                    case Billow:
-                        return SingleCubicFractalBillow(x, y);
-                    case RigidMulti:
-                        return SingleCubicFractalRigidMulti(x, y);
-                    default:
-                        return 0;
-                }
-            default:
-                return 0;
-        }
+        return switch (m_noiseType) {
+            case Value -> SingleValue(m_seed, x, y);
+            case ValueFractal -> switch (m_fractalType) {
+                case FBM -> SingleValueFractalFBM(x, y);
+                case Billow -> SingleValueFractalBillow(x, y);
+                case RigidMulti -> SingleValueFractalRigidMulti(x, y);
+            };
+            case Perlin -> SinglePerlin(m_seed, x, y);
+            case PerlinFractal -> switch (m_fractalType) {
+                case FBM -> SinglePerlinFractalFBM(x, y);
+                case Billow -> SinglePerlinFractalBillow(x, y);
+                case RigidMulti -> SinglePerlinFractalRigidMulti(x, y);
+            };
+            case Simplex -> SingleSimplex(m_seed, x, y);
+            case SimplexFractal -> switch (m_fractalType) {
+                case FBM -> SingleSimplexFractalFBM(x, y);
+                case Billow -> SingleSimplexFractalBillow(x, y);
+                case RigidMulti -> SingleSimplexFractalRigidMulti(x, y);
+            };
+            case Cellular -> switch (m_cellularReturnType) {
+                case CellValue, NoiseLookup, Distance -> SingleCellular(x, y);
+                default -> SingleCellular2Edge(x, y);
+            };
+            case WhiteNoise -> GetWhiteNoise(x, y);
+            case Cubic -> SingleCubic(m_seed, x, y);
+            case CubicFractal -> switch (m_fractalType) {
+                case FBM -> SingleCubicFractalFBM(x, y);
+                case Billow -> SingleCubicFractalBillow(x, y);
+                case RigidMulti -> SingleCubicFractalRigidMulti(x, y);
+            };
+        };
     }
 
     private int FloatCast2Int(float f) {
@@ -602,16 +519,11 @@ public class FastNoise {
         y *= m_frequency;
         z *= m_frequency;
 
-        switch (m_fractalType) {
-            case FBM:
-                return SingleValueFractalFBM(x, y, z);
-            case Billow:
-                return SingleValueFractalBillow(x, y, z);
-            case RigidMulti:
-                return SingleValueFractalRigidMulti(x, y, z);
-            default:
-                return 0;
-        }
+        return switch (m_fractalType) {
+            case FBM -> SingleValueFractalFBM(x, y, z);
+            case Billow -> SingleValueFractalBillow(x, y, z);
+            case RigidMulti -> SingleValueFractalRigidMulti(x, y, z);
+        };
     }
 
     private float SingleValueFractalFBM(float x, float y, float z) {
@@ -679,22 +591,26 @@ public class FastNoise {
 
         float xs, ys, zs;
         switch (m_interp) {
-            default:
-            case Linear:
+            case Linear -> {
                 xs = x - x0;
                 ys = y - y0;
                 zs = z - z0;
-                break;
-            case Hermite:
+            }
+            case Hermite -> {
                 xs = InterpHermiteFunc(x - x0);
                 ys = InterpHermiteFunc(y - y0);
                 zs = InterpHermiteFunc(z - z0);
-                break;
-            case Quintic:
+            }
+            case Quintic -> {
                 xs = InterpQuinticFunc(x - x0);
                 ys = InterpQuinticFunc(y - y0);
                 zs = InterpQuinticFunc(z - z0);
-                break;
+            }
+            default -> {
+                xs = 0;
+                ys = 0;
+                zs = 0;
+            }
         }
 
         float xf00 = Lerp(ValCoord3D(seed, x0, y0, z0), ValCoord3D(seed, x1, y0, z0), xs);
@@ -712,16 +628,11 @@ public class FastNoise {
         x *= m_frequency;
         y *= m_frequency;
 
-        switch (m_fractalType) {
-            case FBM:
-                return SingleValueFractalFBM(x, y);
-            case Billow:
-                return SingleValueFractalBillow(x, y);
-            case RigidMulti:
-                return SingleValueFractalRigidMulti(x, y);
-            default:
-                return 0;
-        }
+        return switch (m_fractalType) {
+            case FBM -> SingleValueFractalFBM(x, y);
+            case Billow -> SingleValueFractalBillow(x, y);
+            case RigidMulti -> SingleValueFractalRigidMulti(x, y);
+        };
     }
 
     private float SingleValueFractalFBM(float x, float y) {
@@ -783,19 +694,22 @@ public class FastNoise {
 
         float xs, ys;
         switch (m_interp) {
-            default:
-            case Linear:
+            case Linear -> {
                 xs = x - x0;
                 ys = y - y0;
-                break;
-            case Hermite:
+            }
+            case Hermite -> {
                 xs = InterpHermiteFunc(x - x0);
                 ys = InterpHermiteFunc(y - y0);
-                break;
-            case Quintic:
+            }
+            case Quintic -> {
                 xs = InterpQuinticFunc(x - x0);
                 ys = InterpQuinticFunc(y - y0);
-                break;
+            }
+            default -> {
+                xs = 0;
+                ys = 0;
+            }
         }
 
         float xf0 = Lerp(ValCoord2D(seed, x0, y0), ValCoord2D(seed, x1, y0), xs);
@@ -810,16 +724,11 @@ public class FastNoise {
         y *= m_frequency;
         z *= m_frequency;
 
-        switch (m_fractalType) {
-            case FBM:
-                return SinglePerlinFractalFBM(x, y, z);
-            case Billow:
-                return SinglePerlinFractalBillow(x, y, z);
-            case RigidMulti:
-                return SinglePerlinFractalRigidMulti(x, y, z);
-            default:
-                return 0;
-        }
+        return switch (m_fractalType) {
+            case FBM -> SinglePerlinFractalFBM(x, y, z);
+            case Billow -> SinglePerlinFractalBillow(x, y, z);
+            case RigidMulti -> SinglePerlinFractalRigidMulti(x, y, z);
+        };
     }
 
     private float SinglePerlinFractalFBM(float x, float y, float z) {
@@ -887,22 +796,26 @@ public class FastNoise {
 
         float xs, ys, zs;
         switch (m_interp) {
-            default:
-            case Linear:
+            case Linear -> {
                 xs = x - x0;
                 ys = y - y0;
                 zs = z - z0;
-                break;
-            case Hermite:
+            }
+            case Hermite -> {
                 xs = InterpHermiteFunc(x - x0);
                 ys = InterpHermiteFunc(y - y0);
                 zs = InterpHermiteFunc(z - z0);
-                break;
-            case Quintic:
+            }
+            case Quintic -> {
                 xs = InterpQuinticFunc(x - x0);
                 ys = InterpQuinticFunc(y - y0);
                 zs = InterpQuinticFunc(z - z0);
-                break;
+            }
+            default -> {
+                xs = 0;
+                ys = 0;
+                zs = 0;
+            }
         }
 
         float xd0 = x - x0;
@@ -927,16 +840,11 @@ public class FastNoise {
         x *= m_frequency;
         y *= m_frequency;
 
-        switch (m_fractalType) {
-            case FBM:
-                return SinglePerlinFractalFBM(x, y);
-            case Billow:
-                return SinglePerlinFractalBillow(x, y);
-            case RigidMulti:
-                return SinglePerlinFractalRigidMulti(x, y);
-            default:
-                return 0;
-        }
+        return switch (m_fractalType) {
+            case FBM -> SinglePerlinFractalFBM(x, y);
+            case Billow -> SinglePerlinFractalBillow(x, y);
+            case RigidMulti -> SinglePerlinFractalRigidMulti(x, y);
+        };
     }
 
     private float SinglePerlinFractalFBM(float x, float y) {
@@ -999,19 +907,22 @@ public class FastNoise {
 
         float xs, ys;
         switch (m_interp) {
-            default:
-            case Linear:
+            case Linear -> {
                 xs = x - x0;
                 ys = y - y0;
-                break;
-            case Hermite:
+            }
+            case Hermite -> {
                 xs = InterpHermiteFunc(x - x0);
                 ys = InterpHermiteFunc(y - y0);
-                break;
-            case Quintic:
+            }
+            case Quintic -> {
                 xs = InterpQuinticFunc(x - x0);
                 ys = InterpQuinticFunc(y - y0);
-                break;
+            }
+            default -> {
+                xs = 0;
+                ys = 0;
+            }
         }
 
         float xd0 = x - x0;
@@ -1031,16 +942,11 @@ public class FastNoise {
         y *= m_frequency;
         z *= m_frequency;
 
-        switch (m_fractalType) {
-            case FBM:
-                return SingleSimplexFractalFBM(x, y, z);
-            case Billow:
-                return SingleSimplexFractalBillow(x, y, z);
-            case RigidMulti:
-                return SingleSimplexFractalRigidMulti(x, y, z);
-            default:
-                return 0;
-        }
+        return switch (m_fractalType) {
+            case FBM -> SingleSimplexFractalFBM(x, y, z);
+            case Billow -> SingleSimplexFractalBillow(x, y, z);
+            case RigidMulti -> SingleSimplexFractalRigidMulti(x, y, z);
+        };
     }
 
     private float SingleSimplexFractalFBM(float x, float y, float z) {
@@ -1210,16 +1116,11 @@ public class FastNoise {
         x *= m_frequency;
         y *= m_frequency;
 
-        switch (m_fractalType) {
-            case FBM:
-                return SingleSimplexFractalFBM(x, y);
-            case Billow:
-                return SingleSimplexFractalBillow(x, y);
-            case RigidMulti:
-                return SingleSimplexFractalRigidMulti(x, y);
-            default:
-                return 0;
-        }
+        return switch (m_fractalType) {
+            case FBM -> SingleSimplexFractalFBM(x, y);
+            case Billow -> SingleSimplexFractalBillow(x, y);
+            case RigidMulti -> SingleSimplexFractalRigidMulti(x, y);
+        };
     }
 
     private float SingleSimplexFractalFBM(float x, float y) {
@@ -1269,9 +1170,6 @@ public class FastNoise {
 
         return sum;
     }
-
-    //private final static float F2 = (float) (1.0 / 2.0);
-    //private final static float G2 = (float) (1.0 / 4.0);
 
     public float GetSimplex(float x, float y) {
         return SingleSimplex(m_seed, x * m_frequency, y * m_frequency);
@@ -1428,16 +1326,11 @@ public class FastNoise {
         y *= m_frequency;
         z *= m_frequency;
 
-        switch (m_fractalType) {
-            case FBM:
-                return SingleCubicFractalFBM(x, y, z);
-            case Billow:
-                return SingleCubicFractalBillow(x, y, z);
-            case RigidMulti:
-                return SingleCubicFractalRigidMulti(x, y, z);
-            default:
-                return 0;
-        }
+        return switch (m_fractalType) {
+            case FBM -> SingleCubicFractalFBM(x, y, z);
+            case Billow -> SingleCubicFractalBillow(x, y, z);
+            case RigidMulti -> SingleCubicFractalRigidMulti(x, y, z);
+        };
     }
 
     private float SingleCubicFractalFBM(float x, float y, float z) {
@@ -1549,16 +1442,11 @@ public class FastNoise {
         x *= m_frequency;
         y *= m_frequency;
 
-        switch (m_fractalType) {
-            case FBM:
-                return SingleCubicFractalFBM(x, y);
-            case Billow:
-                return SingleCubicFractalBillow(x, y);
-            case RigidMulti:
-                return SingleCubicFractalRigidMulti(x, y);
-            default:
-                return 0;
-        }
+        return switch (m_fractalType) {
+            case FBM -> SingleCubicFractalFBM(x, y);
+            case Billow -> SingleCubicFractalBillow(x, y);
+            case RigidMulti -> SingleCubicFractalRigidMulti(x, y);
+        };
     }
 
     private float SingleCubicFractalFBM(float x, float y) {
@@ -1651,14 +1539,10 @@ public class FastNoise {
         y *= m_frequency;
         z *= m_frequency;
 
-        switch (m_cellularReturnType) {
-            case CellValue:
-            case NoiseLookup:
-            case Distance:
-                return SingleCellular(x, y, z);
-            default:
-                return SingleCellular2Edge(x, y, z);
-        }
+        return switch (m_cellularReturnType) {
+            case CellValue, NoiseLookup, Distance -> SingleCellular(x, y, z);
+            default -> SingleCellular2Edge(x, y, z);
+        };
     }
 
     private float SingleCellular(float x, float y, float z) {
@@ -1820,34 +1704,24 @@ public class FastNoise {
                 break;
         }
 
-        switch (m_cellularReturnType) {
-            case Distance2:
-                return distance2 - 1;
-            case Distance2Add:
-                return distance2 + distance - 1;
-            case Distance2Sub:
-                return distance2 - distance - 1;
-            case Distance2Mul:
-                return distance2 * distance - 1;
-            case Distance2Div:
-                return distance / distance2 - 1;
-            default:
-                return 0;
-        }
+        return switch (m_cellularReturnType) {
+            case Distance2 -> distance2 - 1;
+            case Distance2Add -> distance2 + distance - 1;
+            case Distance2Sub -> distance2 - distance - 1;
+            case Distance2Mul -> distance2 * distance - 1;
+            case Distance2Div -> distance / distance2 - 1;
+            default -> 0;
+        };
     }
 
     public float GetCellular(float x, float y) {
         x *= m_frequency;
         y *= m_frequency;
 
-        switch (m_cellularReturnType) {
-            case CellValue:
-            case NoiseLookup:
-            case Distance:
-                return SingleCellular(x, y);
-            default:
-                return SingleCellular2Edge(x, y);
-        }
+        return switch (m_cellularReturnType) {
+            case CellValue, NoiseLookup, Distance -> SingleCellular(x, y);
+            default -> SingleCellular2Edge(x, y);
+        };
     }
 
     private float SingleCellular(float x, float y) {
@@ -1986,20 +1860,14 @@ public class FastNoise {
                 break;
         }
 
-        switch (m_cellularReturnType) {
-            case Distance2:
-                return distance2 - 1;
-            case Distance2Add:
-                return distance2 + distance - 1;
-            case Distance2Sub:
-                return distance2 - distance - 1;
-            case Distance2Mul:
-                return distance2 * distance - 1;
-            case Distance2Div:
-                return distance / distance2 - 1;
-            default:
-                return 0;
-        }
+        return switch (m_cellularReturnType) {
+            case Distance2 -> distance2 - 1;
+            case Distance2Add -> distance2 + distance - 1;
+            case Distance2Sub -> distance2 - distance - 1;
+            case Distance2Mul -> distance2 * distance - 1;
+            case Distance2Div -> distance / distance2 - 1;
+            default -> 0;
+        };
     }
 
     public void GradientPerturb(Vector3f v3) {
@@ -2034,22 +1902,26 @@ public class FastNoise {
 
         float xs, ys, zs;
         switch (m_interp) {
-            default:
-            case Linear:
+            case Linear -> {
                 xs = xf - x0;
                 ys = yf - y0;
                 zs = zf - z0;
-                break;
-            case Hermite:
+            }
+            case Hermite -> {
                 xs = InterpHermiteFunc(xf - x0);
                 ys = InterpHermiteFunc(yf - y0);
                 zs = InterpHermiteFunc(zf - z0);
-                break;
-            case Quintic:
+            }
+            case Quintic -> {
                 xs = InterpQuinticFunc(xf - x0);
                 ys = InterpQuinticFunc(yf - y0);
                 zs = InterpQuinticFunc(zf - z0);
-                break;
+            }
+            default -> {
+                xs = 0;
+                ys = 0;
+                zs = 0;
+            }
         }
 
         Float3 vec0 = CELL_3D[Hash3D(seed, x0, y0, z0) & 255];
@@ -2118,19 +1990,22 @@ public class FastNoise {
 
         float xs, ys;
         switch (m_interp) {
-            default:
-            case Linear:
+            case Linear -> {
                 xs = xf - x0;
                 ys = yf - y0;
-                break;
-            case Hermite:
+            }
+            case Hermite -> {
                 xs = InterpHermiteFunc(xf - x0);
                 ys = InterpHermiteFunc(yf - y0);
-                break;
-            case Quintic:
+            }
+            case Quintic -> {
                 xs = InterpQuinticFunc(xf - x0);
                 ys = InterpQuinticFunc(yf - y0);
-                break;
+            }
+            default -> {
+                xs = 0;
+                ys = 0;
+            }
         }
 
         Float2 vec0 = CELL_2D[Hash2D(seed, x0, y0) & 255];
@@ -2159,22 +2034,7 @@ public class FastNoise {
 
     public enum CellularReturnType {CellValue, NoiseLookup, Distance, Distance2, Distance2Add, Distance2Sub, Distance2Mul, Distance2Div}
 
-    private static class Float2 {
-        public final float x, y;
+    private record Float2(float x, float y) { }
 
-        public Float2(float x, float y) {
-            this.x = x;
-            this.y = y;
-        }
-    }
-
-    private static class Float3 {
-        public final float x, y, z;
-
-        public Float3(float x, float y, float z) {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-        }
-    }
+    private record Float3(float x, float y, float z) { }
 }

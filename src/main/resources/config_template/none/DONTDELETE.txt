@@ -1,0 +1,1 @@
+Don't delete this directory. It's required to allow disabling templates.

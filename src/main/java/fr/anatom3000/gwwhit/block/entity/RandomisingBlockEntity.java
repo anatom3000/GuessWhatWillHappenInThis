@@ -1,5 +1,7 @@
 package fr.anatom3000.gwwhit.block.entity;
 
+import com.google.common.collect.Iterables;
+import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.registry.BlockEntityRegistry;
 import net.minecraft.block.Block;
@@ -93,13 +95,9 @@ public class RandomisingBlockEntity extends BlockEntity {
         return state;
     }
 
-    @SuppressWarnings("unchecked")
     private <T extends Comparable<T>> BlockState scrambleProperty(Property<T> property, BlockState state) {
-        //get possible values
-        Object[] values = property.getValues().toArray();
-        //get a random one
-        T value = (T) values[RANDOM.nextInt(values.length)];
-        //add it
+        var values = property.getValues();
+        var value = Iterables.get(values, GWWHIT.RANDOM.nextInt(values.size()));
         return state.with(property, value);
     }
 }

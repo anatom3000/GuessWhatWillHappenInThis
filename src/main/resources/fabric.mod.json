@@ -27,7 +27,7 @@
   },
 
   "license": "MIT",
-  "icon": "assets/gwwhit/gwwhit.png",
+  "icon": "assets/gwwhit/icon.png",
 
   "environment": "*",
   "entrypoints": {
@@ -40,7 +40,7 @@
     "client": [
       "fr.anatom3000.gwwhit.GWWHITClient"
     ],
-    "gfh:prePreLaunch": [
+    "libjf:early": [
       "fr.anatom3000.gwwhit.util.ConsoleHacker"
     ]
   },
@@ -61,6 +61,7 @@
   },
 
   "custom": {
-    "jythonmc:use": true
+    "jythonmc:use": true,
+    "codename": "@codename@"
   }
 }

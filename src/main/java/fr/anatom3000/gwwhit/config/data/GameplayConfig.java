@@ -1,44 +1,37 @@
 package fr.anatom3000.gwwhit.config.data;
 
+import fr.anatom3000.gwwhit.config.SyncOptions;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import me.shedaniel.autoconfig.annotation.ConfigEntry.BoundedDiscrete;
+import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
+import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Tooltip;
 
+import static fr.anatom3000.gwwhit.config.SyncOptions.*;
+
+@SuppressWarnings("CanBeFinal") // Shut up code inspection
 @Config(name = "gameplay")
 public class GameplayConfig implements ConfigData {
     GameplayConfig(){}
 
-    @ConfigEntry.Gui.CollapsibleObject
-    public Items items = new Items();
-    @ConfigEntry.Gui.CollapsibleObject
-    public Blocks blocks = new Blocks();
-    public boolean stoneBlocksAreInfected = false;
-    public boolean mobsMayExplode = false;
-    @ConfigEntry.Gui.Tooltip
-    public boolean killCulling = false;
-    public boolean randomizedDrops = false;
-    @ConfigEntry.Gui.Tooltip(count = 2)
-    public boolean dreamLuck = false;
+    @SyncOptions(GROUP) @CollapsibleObject public Items items = new Items();
+    @SyncOptions(GROUP) @CollapsibleObject public Blocks blocks = new Blocks();
+    @SyncOptions(SERVER) public boolean stoneBlocksAreInfected = false;
+    @SyncOptions(SERVER) public boolean mobsMayExplode = false;
+    @SyncOptions(SERVER) public boolean randomizedDrops = false;
+    @SyncOptions(SERVER) @Tooltip(count = 2) public boolean dreamLuck = false;
+    @SyncOptions(CLIENT) @Tooltip public boolean killCulling = false;
 
     public static class Items {
-        @ConfigEntry.Gui.RequiresRestart
-        public boolean everythingIsEdible = false;
-        @ConfigEntry.Gui.Tooltip
-        @ConfigEntry.Gui.RequiresRestart
-        public boolean hiddenItemsTab = false;
-        @ConfigEntry.Gui.RequiresRestart
-        @ConfigEntry.BoundedDiscrete(min = 1, max = 64)
-        public int maxStackSize = 64;
-        @ConfigEntry.Gui.Tooltip
-        public boolean noHardcodedItemCooldown = false;
+        @SyncOptions(BOTH | SYNCED) public boolean everythingIsEdible = false;
+        @SyncOptions(BOTH | SYNCED) @Tooltip public boolean hiddenItemsTab = false;
+        @SyncOptions(BOTH | SYNCED) @Tooltip public boolean noHardcodedItemCooldown = false;
+        @SyncOptions(BOTH | SYNCED) @BoundedDiscrete(min = 1, max = 64) public int maxStackSize = 64;
     }
 
     public static class Blocks {
-        @ConfigEntry.Gui.RequiresRestart
-        @ConfigEntry.BoundedDiscrete(max = 1)
-        public float defaultSlipperiness = 0.6F;
-        public boolean everythingBurns = false;
-        @ConfigEntry.Gui.RequiresRestart
-        public boolean replaceEverything = false;
+        @SyncOptions(CLIENT | SYNCED) @BoundedDiscrete(max = 1) public float defaultSlipperiness = 0.6F;
+        @SyncOptions(BOTH | SYNCED) public boolean replaceEverything = false;
+        @SyncOptions(SERVER) public boolean everythingBurns = false;
     }
 }

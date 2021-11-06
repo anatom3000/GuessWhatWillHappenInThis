@@ -1,0 +1,9 @@
+{
+  "entities": {
+    "deadmauEars": true,
+    "dinnerboneEntities": true
+  },
+  "unregisteredVersion": true,
+  "shader": "FLIP",
+  "itemUseRomanNumerals": true
+}

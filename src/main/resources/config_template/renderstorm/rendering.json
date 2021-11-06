@@ -1,0 +1,13 @@
+{
+  "world": {
+    "smallBlocks": true,
+    "spin": true,
+    "matrixScale": 0.8,
+    "matrixTranslationScale": 1.2
+  },
+  "entities": {
+    "deadmauEars": true,
+    "dinnerboneEntities": true
+  },
+  "unregisteredVersion": true
+}

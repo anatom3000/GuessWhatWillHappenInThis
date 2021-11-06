@@ -70,8 +70,8 @@ public class ChunkGeneratorMixin {
                                                         for (int j = y; j < y + height; j++) {
                                                             pos.set(x, j, z);
                                                         }
-                                                        for (int i = -2; i <= +2; i++) {
-                                                            for (int j = -2; j <= +2; j++) {
+                                                        for (int i = -2; i <= 2; i++) {
+                                                            for (int j = -2; j <= 2; j++) {
                                                                 pos.set(x + i, y + height, z + j);
 
                                                                 if (Math.abs(i) == 2 && Math.abs(j) == 2) {

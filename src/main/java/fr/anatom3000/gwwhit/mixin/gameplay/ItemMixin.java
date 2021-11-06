@@ -7,13 +7,10 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Item.class)
 public class ItemMixin {
@@ -23,25 +20,27 @@ public class ItemMixin {
             .saturationModifier(1)
             .hunger(-5)
             .build();
-    @Mutable
-    @Final
-    @Shadow
-    protected ItemGroup group;
-    @Mutable
-    @Final
-    @Shadow
-    private int maxCount;
-    @Mutable
-    @Final
-    @Shadow
-    private FoodComponent foodComponent;
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void onInit(Item.Settings settings, CallbackInfo ci) {
-        maxCount = Math.min(ConfigManager.getActiveConfig().gameplay.items.maxStackSize, maxCount);
-        if (foodComponent == null && ConfigManager.getActiveConfig().gameplay.items.everythingIsEdible)
-            foodComponent = DEFAULT_COMPONENT;
-        if (group == null && ConfigManager.getActiveConfig().gameplay.items.hiddenItemsTab)
-            group = CustomItemGroups.CURSED_GROUP;
+    @Inject(method = "isFood", at = @At("TAIL"), cancellable = true)
+    private void overrideIsFood(CallbackInfoReturnable<Boolean> cir) {
+        if (ConfigManager.getActiveConfig().gameplay.items.everythingIsEdible)
+            cir.setReturnValue(true);
+    }
+
+    @Inject(method = "getFoodComponent", at = @At("TAIL"), cancellable = true)
+    private void overrideGetFoodComponent(CallbackInfoReturnable<FoodComponent> cir) {
+        if (ConfigManager.getActiveConfig().gameplay.items.everythingIsEdible && cir.getReturnValue() == null)
+            cir.setReturnValue(DEFAULT_COMPONENT);
+    }
+
+    @Inject(method = "getMaxCount", at = @At("TAIL"), cancellable = true)
+    private void overrideGetMaxCount(CallbackInfoReturnable<Integer> cir) {
+        cir.setReturnValue(Math.min(cir.getReturnValueI(), ConfigManager.getActiveConfig().gameplay.items.maxStackSize));
+    }
+
+    @Inject(method = "getGroup", at = @At("TAIL"), cancellable = true)
+    private void overrideGetItemGroup(CallbackInfoReturnable<ItemGroup> cir) {
+        if (cir.getReturnValue() == null && ConfigManager.getActiveConfig().gameplay.items.hiddenItemsTab)
+            cir.setReturnValue(CustomItemGroups.CURSED_GROUP);
     }
 }

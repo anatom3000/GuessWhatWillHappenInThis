@@ -5,17 +5,37 @@ import fr.anatom3000.gwwhit.Python;
 import fr.anatom3000.gwwhit.block.entity.InfectedMassBlockEntity;
 import fr.anatom3000.gwwhit.block.entity.RandomisingBlockEntity;
 import fr.anatom3000.gwwhit.config.ConfigManager;
+import fr.anatom3000.gwwhit.mixin.access.GameRendererAccess;
+import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.command.argument.IdentifierArgumentType;
 import net.minecraft.command.argument.ItemStackArgument;
 import net.minecraft.command.argument.ItemStackArgumentType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
+import net.minecraft.util.Identifier;
 
 public class Commands {
     private Commands() {
+    }
+
+    public static void registerClient() {
+        if (ConfigManager.getActiveConfig().misc.debugMode)
+            ClientCommandManager.DISPATCHER.register(ClientCommandManager.literal("gwwhitclient")
+                    .then(ClientCommandManager.literal("set_shader")
+                            .then(ClientCommandManager.argument("name", IdentifierArgumentType.identifier())
+                                    .executes(context -> {
+                                        Identifier id = context.getArgument("name", Identifier.class);
+
+                                        ((GameRendererAccess)MinecraftClient.getInstance().gameRenderer).callLoadShader(id);
+                                        return 1;
+                                    })
+                            )
+                    ));
     }
 
     public static void register() {
@@ -24,9 +44,10 @@ public class Commands {
                 .then(CommandManager.literal("config")
                         .then(CommandManager.literal("reload")
                                 .executes(context -> {
-                                    ConfigManager.reloadLocalConfig();
+                                    ConfigManager.getHolder().load();
+                                    ConfigManager.setActiveConfig(null);
 
-                                    for (ServerPlayerEntity player : context.getSource().getMinecraftServer().getPlayerManager().getPlayerList()) {
+                                    for (ServerPlayerEntity player : context.getSource().getServer().getPlayerManager().getPlayerList()) {
                                         ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, ConfigManager.toPacketByteBuf());
                                     }
                                     return 1;
@@ -36,7 +57,7 @@ public class Commands {
                 .then(CommandManager.literal("debug")
                         .then(CommandManager.literal("remove_destructive_blocks")
                                 .executes(context -> {
-                                    int ticks = context.getSource().getMinecraftServer().getTicks();
+                                    int ticks = context.getSource().getServer().getTicks();
                                     InfectedMassBlockEntity.removeTick = ticks;
                                     RandomisingBlockEntity.removeTick = ticks;
                                     return 1;

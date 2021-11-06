@@ -56,12 +56,6 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-    include modImplementation("io.github.cottonmc:LibGui:$libgui_version")
-
-	//Fixes bug in shadow
-	implementation('org.vafer:jdependency:2.7.0') {
-		exclude group: 'org.ow2.asm'
-	}
 }
 
 application {

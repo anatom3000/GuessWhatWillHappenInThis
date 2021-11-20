@@ -19,12 +19,10 @@ import java.util.function.Function;
 
 @Mixin(Option.class)
 public class OptionMixin {
-
-    @Dynamic("clinit: McDev doesn't support it yet")
     @Redirect(method = "<clinit>",
             at = @At(
                     value = "NEW",
-                    target = "(Ljava/lang/String;DDFLjava/util/function/Function;Ljava/util/function/BiConsumer;Ljava/util/function/BiFunction;)Lnet/minecraft/client/option/DoubleOption;"),
+                    target = "net/minecraft/client/option/DoubleOption"),
             slice = @Slice(
                     from = @At(value = "FIELD",
                             target = "Lnet/minecraft/client/option/Option;CHAT_DELAY_INSTANT:Lnet/minecraft/client/option/DoubleOption;",

@@ -17,7 +17,6 @@ public class DimensionTypeMixin {
     @Final
     protected static DimensionType OVERWORLD;
 
-    @Dynamic("clinit: McDev doesn't support it yet")
     @Inject(at = @At("TAIL"), method = "<clinit>")
     private static void tweakOverworld(CallbackInfo ci) {
         if (ConfigManager.getActiveConfig().misc.increaseWorldHeight) {

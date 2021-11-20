@@ -21,6 +21,9 @@
   "block.gwwhit.mushroom_grass": "Mushroom Grass",
   "block.gwwhit.pyblock": "PyBlock",
 
+  "enchantment.gwwhit.swapping_curse": "Curse of Swapping",
+  "enchantment.gwwhit.curse_curse": "Curse of Curses",
+
   "gui.gwwhit.title": "GWWHIT - The %s Update",
   "gui.gwwhit.config": "Config",
   "gui.gwwhit.mainscreen.hello": "Hello",

@@ -14,6 +14,7 @@
     "gameplay.FallingBlockMixin",
     "gameplay.FireBlockMixin",
     "gameplay.ItemMixin",
+    "gameplay.ItemStackMixin",
     "gameplay.LivingEntityMixin",
     "gameplay.LootManagerMixin",
     "gameplay.MaterialMixin",

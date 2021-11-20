@@ -67,6 +67,7 @@ public class GWWHIT implements ModInitializer {
         BlockRegistry.register();
         BlockEntityRegistry.register();
         Commands.register();
+        EnchantmentRegistry.register();
         NewMaterials.onInitialize();
         EventListeners.register();
         NarratorExt.getInstance().gwwhit$load();

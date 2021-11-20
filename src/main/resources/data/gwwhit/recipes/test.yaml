@@ -1,0 +1,14 @@
+type: "minecraft:crafting_shaped"
+pattern:
+  - "III"
+  - "ICI"
+  - "III"
+key:
+  I:
+    item: "minecraft:iron_nugget"
+  C:
+    item: "minecraft:carrot"
+result:
+  item: "minecraft:oak_slab"
+  count: 1
+

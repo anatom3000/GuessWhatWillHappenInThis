@@ -10,7 +10,7 @@ tab_width = 4
 ij_continuation_indent_size = 8
 ij_smart_tabs = false
 
-[*.{json, yml}]
+[*.{json, yml, yaml}]
 indent_size = 2
 
 [*.md]

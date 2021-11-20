@@ -22,7 +22,7 @@ public class OptionMixin {
     @Redirect(method = "<clinit>",
             at = @At(
                     value = "NEW",
-                    target = "Lnet/minecraft/client/option/DoubleOption;<init>(Ljava/lang/String;DDFLjava/util/function/Function;Ljava/util/function/BiConsumer;Ljava/util/function/BiFunction;)V"),
+                    target = "net/minecraft/client/option/DoubleOption"),
             slice = @Slice(
                     from = @At(value = "FIELD",
                             target = "Lnet/minecraft/client/option/Option;CHAT_DELAY_INSTANT:Lnet/minecraft/client/option/DoubleOption;",

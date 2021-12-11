@@ -3,24 +3,21 @@ package fr.anatom3000.gwwhit.config;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
-import fr.anatom3000.gwwhit.CustomItemGroups;
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.config.data.MainConfig;
-import fr.anatom3000.gwwhit.config.data.RenderingConfig;
-import fr.anatom3000.gwwhit.mixin.access.CreativeInventoryScreenAccess;
-import fr.anatom3000.gwwhit.mixin.access.ItemGroupAccess;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
+import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.ShaderEffect;
-import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
-import org.apache.commons.lang3.ArrayUtils;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
@@ -37,7 +34,7 @@ public class ConfigManager {
         if (activeConfig == null) {
             AutoConfig.register(MainConfig.class, PartitioningSerializer.wrap((definition, configClass) -> new GsonConfigSerializer<>(definition, configClass, GSON)));
             GWWHIT.LOGGER.info("Gwwhit config registered!");
-            setActiveConfig(null);
+            activeConfig = getHolder().get();
         }
 
         return activeConfig;
@@ -53,19 +50,19 @@ public class ConfigManager {
         return AutoConfig.getConfigHolder(MainConfig.class);
     }
 
-    public static void fromPacket(String version, String configData) {
+    public static void fromPacketByteBuf(PacketByteBuf buf) {
         MainConfig config = null;
         try {
-            if (GWWHIT.MOD_VERSION.equals(version))
-                config = GWWHIT.GSON.fromJson(configData, MainConfig.class);
+            if (GWWHIT.MOD_VERSION.equals(buf.readString()))
+                config = GWWHIT.GSON.fromJson(buf.readString(), MainConfig.class);
             else
                 throw new IllegalStateException("Non matching gwwhit versions!");
         } catch (JsonSyntaxException e) {
             GWWHIT.LOGGER.error("Can't parse config! Falling back to local", e);
         }
 
-        setActiveConfig(config);
-        onSync();
+        ConfigManager.setActiveConfig(config);
+        ConfigManager.onSync();
         MinecraftClient.getInstance().worldRenderer.reload();
     }
 
@@ -78,19 +75,8 @@ public class ConfigManager {
     }
 
     public static void onSync() {
-        reloadShader();
-        modifyItemGroups();
-    }
-
-    private static void reloadShader() {
         MinecraftClient mc = MinecraftClient.getInstance();
-        var configShader = ConfigManager.getActiveConfig().rendering.shader;
-        if (configShader == RenderingConfig.Shaders.NONE) {
-            shader = null;
-            return;
-        }
-
-        Identifier shaderID = new Identifier(String.format("shaders/post/%s.json", configShader.toString().toLowerCase()));
+        Identifier shaderID = new Identifier(String.format("shaders/post/%s.json", ConfigManager.getActiveConfig().rendering.shader.toString().toLowerCase()));
         try {
             shader = new ShaderEffect(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), shaderID);
         } catch (IOException e) {
@@ -98,23 +84,9 @@ public class ConfigManager {
         }
     }
 
-    private static void modifyItemGroups() {
-        // Close the creative inventory. Otherwise, unexpected things may happen.
-        if (MinecraftClient.getInstance().currentScreen instanceof CreativeInventoryScreen)
-            MinecraftClient.getInstance().setScreen(null);
-
-        boolean oldStatus = ArrayUtils.contains(ItemGroup.GROUPS, CustomItemGroups.CURSED_GROUP);
-        boolean newStatus = activeConfig.gameplay.items.hiddenItemsTab;
-
-        // If nothing changed there's no need to refresh
-        if (oldStatus != newStatus) {
-            if (oldStatus) {
-                ItemGroupAccess.setGroups(ArrayUtils.removeElement(ItemGroup.GROUPS, CustomItemGroups.CURSED_GROUP));
-                if (CreativeInventoryScreenAccess.getSelectedTab() == ItemGroup.GROUPS.length)
-                    CreativeInventoryScreenAccess.setSelectedTab(ItemGroup.GROUPS.length - 1);
-            } else {
-                ItemGroupAccess.setGroups(ArrayUtils.add(ItemGroup.GROUPS, CustomItemGroups.CURSED_GROUP));
-            }
-        }
+    public static void reloadLocalConfig() {
+        boolean isSame = getHolder().get() == activeConfig;
+        getHolder().load();
+        if (isSame) activeConfig = getHolder().get();
     }
 }

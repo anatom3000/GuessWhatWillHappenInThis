@@ -12,6 +12,7 @@ public class CustomItemGroups {
     public static final ItemGroup GWWHIT_GROUP;
     public static final ItemGroup CURSED_GROUP;
     public static final ItemGroup MORE_ORES_GROUP;
+    public static final ItemGroup COLORS_GROUP;
 
     static {
         GWWHIT_GROUP = FabricItemGroupBuilder.create(GWWHIT.getId("gwwhit"))
@@ -29,6 +30,16 @@ public class CustomItemGroups {
             case SEPARATE -> FabricItemGroupBuilder.create(GWWHIT.getId("more_ores"))
                     .icon(() -> new ItemStack(NewMaterials.ores.get(0).block))
                     .build();
+        };
+
+        COLORS_GROUP = switch (ConfigManager.getActiveConfig().blocks.colors.tab) {
+            case NONE -> null;
+            case MAIN -> GWWHIT_GROUP;
+            case SEPARATE -> FabricItemGroupBuilder.create(
+                    GWWHIT.getId("colors")
+            ).icon(
+                    () -> new ItemStack( Items.CYAN_DYE )
+            ).build();
         };
     }
 }

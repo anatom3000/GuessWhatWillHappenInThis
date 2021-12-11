@@ -3,6 +3,7 @@ package fr.anatom3000.gwwhit.registry;
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.block.FurnaceBlock;
 import fr.anatom3000.gwwhit.block.InfectedMassBlock;
+import fr.anatom3000.gwwhit.block.MulticoloredBlock;
 import fr.anatom3000.gwwhit.block.RandomisingBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -24,6 +25,7 @@ public class BlockRegistry {
         put("mushroom_grass", new Block(FabricBlockSettings.of(Material.SOIL).strength(1f).luminance(15)));
         put("mud", new Block(FabricBlockSettings.of(Material.SOIL).strength(1f)));
         put( "slow_furnace", new FurnaceBlock() );
+        put( "multicolor_block", new MulticoloredBlock() );
     }};
 
     public static void register() {

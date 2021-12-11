@@ -32,9 +32,9 @@ import static fr.anatom3000.gwwhit.Const.MOD_ID;
 
 /*  IMPORTANT NOTICE:
     When adding to this mod make sure you follow proper naming standards:
-        Classes                                     ThisIsAClass
-        Static final fields and enum constants      THIS_IS_STATIC_FINAL
-        Everything else                             thisIsEverythingElse
+        Classes                                 ThisIsAClass
+        Static final fields and enum constants     THIS_IS_STATIC_FINAL
+        Everything else                          thisIsEverythingElse
 */
 
 public class GWWHIT implements ModInitializer {

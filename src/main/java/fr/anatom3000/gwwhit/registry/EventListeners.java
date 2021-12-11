@@ -3,7 +3,7 @@ package fr.anatom3000.gwwhit.registry;
 import fr.anatom3000.gwwhit.Const;
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.config.ConfigManager;
-import fr.anatom3000.gwwhit.config.data.AudioConfig.SoundReplacement;
+import fr.anatom3000.gwwhit.config.data.AudioConfig;
 import fr.anatom3000.gwwhit.util.CheatCodes;
 import io.gitlab.jfronny.libjf.data.manipulation.api.UserResourceEvents;
 import net.devtech.arrp.api.RRPCallback;
@@ -80,8 +80,8 @@ public class EventListeners {
         );
         UserResourceEvents.OPEN.register((type, id, previous, pack) -> {
             if (id.getPath().endsWith(".ogg")) {
-                SoundReplacement r = ConfigManager.getActiveConfig().audio.soundReplacement;
-                if (r != SoundReplacement.None)
+                AudioConfig.SoundReplacement r = ConfigManager.getActiveConfig().audio.soundReplacement;
+                if (r != AudioConfig.SoundReplacement.None)
                     return Files.newInputStream(Const.ASSETS_ROOT.resolve("sounds/" + r.name().toLowerCase() + ".ogg"));
             }
             return previous.get();

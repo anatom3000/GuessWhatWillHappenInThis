@@ -1,10 +1,14 @@
 package fr.anatom3000.gwwhit.registry;
 
+import com.google.gson.JsonSyntaxException;
+import fr.anatom3000.gwwhit.Const;
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.config.ConfigManager;
+import fr.anatom3000.gwwhit.config.data.MainConfig;
 import fr.anatom3000.gwwhit.util.CheatCodes;
 import io.gitlab.jfronny.libjf.data.manipulation.api.UserResourceEvents;
 import net.devtech.arrp.api.RRPCallback;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
@@ -88,6 +92,23 @@ public class EventListeners {
     }
 
     public static void registerClient() {
+        ClientPlayNetworking.registerGlobalReceiver(GWWHIT.CONFIG_SYNC_ID, (client, networkHandler, data, sender) -> {
+            MainConfig config = null;
+            try {
+                if (Const.MOD_VERSION.equals(data.readString()))
+                    config = GWWHIT.GSON.fromJson(data.readString(), MainConfig.class);
+            } catch (JsonSyntaxException e) {
+                GWWHIT.LOGGER.error("Can't parse config!", e);
+            }
+            if (config == null)
+                GWWHIT.LOGGER.warn("Failed to load synced config, falling back to local config!");
 
+            MainConfig finalConfig = config;
+            client.execute(() -> {
+                ConfigManager.setActiveConfig(finalConfig);
+                ConfigManager.onSync();
+                client.worldRenderer.reload();
+            });
+        });
     }
 }

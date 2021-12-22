@@ -7,24 +7,22 @@ import fr.anatom3000.gwwhit.config.AnnotationExclusionStrategy;
 import fr.anatom3000.gwwhit.dimension.RandomChunkGenerator;
 import fr.anatom3000.gwwhit.gui.FurnaceGuiDescription;
 import fr.anatom3000.gwwhit.registry.*;
-import fr.anatom3000.gwwhit.util.NarratorExt;
 import fr.anatom3000.gwwhit.util.TableRandomizer;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import org.apache.commons.lang3.reflect.TypeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -39,14 +37,10 @@ import java.util.stream.Collectors;
         Everything else                          thisIsEverythingElse
 */
 
+
 public class GWWHIT implements ModInitializer {
-    //Locations / Ids
+    //Pure constants
     public static final String MOD_ID = "gwwhit";
-    public static final ModContainer CONTAINER = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow();
-    public static final Path ASSETS_ROOT = CONTAINER.getPath("assets/gwwhit");
-    public static final Identifier CONFIG_SYNC_ID = getId("config_sync");
-    public static final String MOD_VERSION = CONTAINER.getMetadata().getVersion().getFriendlyString();
-    public static final String VERSION_CODENAME = CONTAINER.getMetadata().getCustomValue("codename").getAsString();
 
     //Instances of configurable utils
     public static final Gson GSON = new GsonBuilder().setExclusionStrategies(new AnnotationExclusionStrategy()).create();
@@ -81,8 +75,12 @@ public class GWWHIT implements ModInitializer {
         EnchantmentRegistry.register();
         NewMaterials.onInitialize();
         EventListeners.register();
-        NarratorExt.getInstance().gwwhit$load();
         LOGGER.info("[GWWHIT] You shouldn't have done this. (Loading done)");
+    }
+
+    @SuppressWarnings("unchecked") //Stupid IntelliJ
+    private <T> T deserialize(Reader r, T current) {
+        return GSON.fromJson(r, (Class<T>) current.getClass());
     }
 
     private void cacheTranslations() {
@@ -91,7 +89,7 @@ public class GWWHIT implements ModInitializer {
                 String name = path.getFileName().toString();
                 name = name.substring(0, name.lastIndexOf('.'));
                 try (InputStream is = Files.newInputStream(path); InputStreamReader ir = new InputStreamReader(is)) {
-                    TRANSLATIONS.put(name, GSON.fromJson(ir, TypeUtils.parameterize(HashMap.class, String.class, String.class)));
+                    TRANSLATIONS.put(name, deserialize(ir, new HashMap<>()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

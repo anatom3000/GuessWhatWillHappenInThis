@@ -1,4 +1,5 @@
 import java.nio.file.Files
+import java.nio.file.Path
 
 // Codename
 List<String> possibleNames = new ArrayList<>()
@@ -20,4 +21,4 @@ compound = "";
 for (String a : beequotes) {
     compound += "[PARAGRAPH]" + a;
 }
-Files.writeString(java.nio.file.Path.of("${project.projectDir}/src/main/resources/assets/gwwhit/beemovie.txt"), compound)
+Files.writeString(Path.of("${project.projectDir}/src/main/resources/assets/gwwhit/beemovie.txt"), compound)

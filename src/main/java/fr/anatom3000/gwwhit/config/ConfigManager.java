@@ -36,7 +36,7 @@ public class ConfigManager {
     public static MainConfig getActiveConfig() {
         if (activeConfig == null) {
             AutoConfig.register(MainConfig.class, PartitioningSerializer.wrap((definition, configClass) -> new GsonConfigSerializer<>(definition, configClass, GSON)));
-            GWWHIT.LOGGER.info("Gwwhit config registered!");
+            System.out.println("GWWHIT config registered!"); // Called in ultra early init, using the logger initializes the GWWHIT class, which references unloaded classes
             setActiveConfig(null);
         }
 

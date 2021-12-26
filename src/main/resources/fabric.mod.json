@@ -52,8 +52,10 @@
     "fabricloader": ">=0.7.4",
     "fabric": "*",
     "minecraft": "1.17.x",
-    "cloth-config2": ">=4.11.19",
-    "jythonmc": ">=1.0.2"
+    "cloth-config2": ">=5.1.40",
+    "jythonmc": ">=1.0.2",
+    "libjf-data-manipulation-v0": ">=2.0.0",
+    "libjf-unsafe-v0": ">=2.0.0"
   },
 
   "suggests": {

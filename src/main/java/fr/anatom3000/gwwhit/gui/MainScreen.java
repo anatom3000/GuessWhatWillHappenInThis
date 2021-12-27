@@ -1,6 +1,6 @@
 package fr.anatom3000.gwwhit.gui;
 
-import fr.anatom3000.gwwhit.GWWHIT;
+import fr.anatom3000.gwwhit.Const;
 import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.config.OverrideManager;
 import fr.anatom3000.gwwhit.config.data.MainConfig;
@@ -24,7 +24,7 @@ public class MainScreen extends Screen {
     private final Screen parent;
 
     public MainScreen(Screen parent) {
-        super(new TranslatableText("gui.gwwhit.title", GWWHIT.VERSION_CODENAME));
+        super(new TranslatableText("gui.gwwhit.title", Const.MOD_VERSION_CODENAME));
         this.parent = parent;
     }
 

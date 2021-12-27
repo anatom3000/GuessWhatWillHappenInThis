@@ -1,5 +1,6 @@
 package fr.anatom3000.gwwhit.util;
 
+import fr.anatom3000.gwwhit.Const;
 import fr.anatom3000.gwwhit.GWWHIT;
 
 import java.io.BufferedReader;
@@ -15,7 +16,7 @@ public class ResourceUtil {
     private static final String[] BEE_MOVIE_L;
     private static final String[] BEE_MOVIE_NL;
     static {
-        try (InputStream is = Files.newInputStream(GWWHIT.ASSETS_ROOT.resolve("beemovie.txt")) ;
+        try (InputStream is = Files.newInputStream(Const.ASSETS_ROOT.resolve("beemovie.txt"));
              InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
              BufferedReader bufferedReader = new BufferedReader(isr)) {
             BEE_MOVIE = bufferedReader.lines().collect(Collectors.joining());

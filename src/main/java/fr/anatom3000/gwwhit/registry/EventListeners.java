@@ -1,5 +1,6 @@
 package fr.anatom3000.gwwhit.registry;
 
+import fr.anatom3000.gwwhit.Const;
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.util.CheatCodes;
@@ -81,7 +82,7 @@ public class EventListeners {
             if (id.getPath().endsWith(".ogg")) {
                 SoundReplacement r = ConfigManager.getActiveConfig().audio.soundReplacement;
                 if (r != SoundReplacement.None)
-                    return Files.newInputStream(GWWHIT.ASSETS_ROOT.resolve("sounds/" + r.name().toLowerCase() + ".ogg"));
+                    return Files.newInputStream(Const.ASSETS_ROOT.resolve("sounds/" + r.name().toLowerCase() + ".ogg"));
             }
             return previous;
         });

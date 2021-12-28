@@ -45,7 +45,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import static fr.anatom3000.gwwhit.GWWHIT.MOD_ID;
+import static fr.anatom3000.gwwhit.Const.MOD_ID;
 
 public class CustomOre {
     public final Item material;

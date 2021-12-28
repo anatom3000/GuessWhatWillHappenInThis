@@ -1,6 +1,6 @@
 package fr.anatom3000.gwwhit.config.data;
 
-import fr.anatom3000.gwwhit.GWWHIT;
+import fr.anatom3000.gwwhit.Const;
 import fr.anatom3000.gwwhit.config.SyncOptions;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Category;
@@ -10,7 +10,7 @@ import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 import static fr.anatom3000.gwwhit.config.SyncOptions.GROUP;
 
 @SuppressWarnings("CanBeFinal") // Shut up code inspection
-@Config(name = GWWHIT.MOD_ID)
+@Config(name = Const.MOD_ID)
 public class MainConfig extends PartitioningSerializer.GlobalData {
     @SyncOptions(GROUP) @TransitiveObject @Category("moreOres") public MoreOresConfig moreOres = new MoreOresConfig();
 

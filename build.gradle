@@ -20,7 +20,6 @@ repositories {
     mavenCentral()
 }
 
-
 dependencies {
     def noFAPI = {
         exclude(group: 'net.fabricmc.fabric-api')
@@ -96,7 +95,7 @@ jar {
 
 shadowJar {
 	dependencies {
-		include( dependency("com.google.code.gson:gson") )
+		include(dependency("com.google.code.gson:gson"))
 	}
 
 	minimize()

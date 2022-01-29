@@ -3,7 +3,7 @@ package fr.anatom3000.gwwhit.registry;
 import fr.anatom3000.gwwhit.CustomItemGroups;
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.item.*;
-import fr.anatom3000.gwwhit.item.access.CustomPickaxe;
+import fr.anatom3000.gwwhit.item.access.CustomPickaxeItem;
 import fr.anatom3000.gwwhit.item.access.CustomToolMaterial;
 import fr.anatom3000.gwwhit.materials.CustomArmorMaterials;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -37,7 +37,7 @@ public class ItemRegistry {
         put("mud", new BlockItem(BlockRegistry.get("mud"), new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP)));
         put("mushroom_grass", new BlockItem(BlockRegistry.get("mushroom_grass"), new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP)));
         put("noscope", new NoscopeItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP).maxCount(1)));
-        put("malek_pickaxe", new CustomPickaxe(new CustomToolMaterial(15, 50, -1, 100000, 1000, Items.OAK_LOG), 15, 15, new FabricItemSettings().group(CustomItemGroups.GWWHIT_GROUP)));
+        put("malek_pickaxe", new CustomPickaxeItem(new CustomToolMaterial(15, 50, -1, 100000, 1000, Items.OAK_LOG), 15, 15, new FabricItemSettings().group(CustomItemGroups.GWWHIT_GROUP)));
     }};
 
     public static void register() {

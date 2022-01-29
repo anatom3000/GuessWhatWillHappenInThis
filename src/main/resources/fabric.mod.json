@@ -49,13 +49,13 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.7.4",
+    "fabricloader": ">=0.12.12",
     "fabric": "*",
-    "minecraft": "1.17.x",
-    "cloth-config2": ">=5.1.40",
+    "minecraft": "1.18.x",
+    "cloth-config2": ">=6.1.48",
     "jythonmc": ">=1.0.2",
-    "libjf-data-manipulation-v0": ">=2.0.0",
-    "libjf-unsafe-v0": ">=2.0.0"
+    "libjf-data-manipulation-v0": ">=2.4.0",
+    "libjf-unsafe-v0": ">=2.4.0"
   },
 
   "suggests": {
@@ -64,6 +64,6 @@
 
   "custom": {
     "jythonmc:use": true,
-    "codename": "@codename@"
+    "codename": "${codename}"
   }
 }

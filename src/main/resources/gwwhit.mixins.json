@@ -4,10 +4,10 @@
   "package": "fr.anatom3000.gwwhit.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "access.DimensionTypeAccess",
     "access.GameRendererAccess",
     "access.ItemGroupAccess",
     "access.LivingEntityAccessor",
+    "access.NarratorManagerAccess",
     "event.PlayerEntityMixin",
     "gameplay.AnimalEntityMixin",
     "gameplay.BlockMixin",
@@ -22,12 +22,7 @@
     "misc.JsonDataLoaderMixin",
     "misc.MathHelperMixin",
     "misc.config.PlayerManagerMixin",
-    "misc.owoifyer.ChatMessageC2SPacketMixin",
-    "worldgen.ChunkGeneratorMixin",
-    "worldgen.ChunkGeneratorSettingsMixin",
-    "worldgen.DimensionTypeMixin",
-    "worldgen.FixedYOffsetMixin",
-    "worldgen.NoiseChunkGeneratorMixin"
+    "misc.owoifyer.ChatMessageC2SPacketMixin"
   ],
   "client": [
     "access.CreativeInventoryScreenAccess",
@@ -35,7 +30,6 @@
     "gameplay.MinecraftClientMixin",
     "misc.CreditsScreenMixin",
     "misc.KeyboardMixin",
-    "misc.NarratorManagerMixin",
     "misc.OptionMixin",
     "misc.SoundSystemMixin",
     "misc.TitleScreenMixin",

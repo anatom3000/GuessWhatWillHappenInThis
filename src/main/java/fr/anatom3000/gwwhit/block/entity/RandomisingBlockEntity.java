@@ -64,7 +64,8 @@ public class RandomisingBlockEntity extends BlockEntity {
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound tag) {
+    public void writeNbt(NbtCompound tag) {
+        super.writeNbt(tag);
         tag.putInt("usesRemaining", usesRemaining);
         tag.putInt("cooldown", cooldown);
         NbtCompound posTag = new NbtCompound();
@@ -72,7 +73,6 @@ public class RandomisingBlockEntity extends BlockEntity {
         posTag.putInt("y", placePos.getY());
         posTag.putInt("z", placePos.getZ());
         tag.put("placePos", posTag);
-        return super.writeNbt(tag);
     }
 
     private BlockState getRandomState() {

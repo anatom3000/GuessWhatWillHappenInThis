@@ -26,7 +26,6 @@ public class MiscConfig implements ConfigData {
     @SyncOptions(CLIENT | CHECKED) @RequiresRestart public boolean debugMode; // set in constructor
     @SyncOptions(BOTH | CHECKED) @Tooltip @RequiresRestart public boolean python = false;
     @SyncOptions(BOTH | CHECKED) @Tooltip @RequiresRestart public boolean scripting = false;
-    @SyncOptions(SERVER) @Tooltip public boolean increaseWorldHeight = false;
     @SyncOptions(BOTH) @Tooltip public boolean rainbowConsole = false;
     @SyncOptions(GROUP) @CollapsibleObject public Beemovie beemovie = new Beemovie();
     @SyncOptions(GROUP) @CollapsibleObject public Fov fov = new Fov();

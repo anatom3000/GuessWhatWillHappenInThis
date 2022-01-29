@@ -3,6 +3,7 @@ package fr.anatom3000.gwwhit.registry;
 import fr.anatom3000.gwwhit.Const;
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.config.ConfigManager;
+import fr.anatom3000.gwwhit.config.data.AudioConfig.SoundReplacement;
 import fr.anatom3000.gwwhit.util.CheatCodes;
 import io.gitlab.jfronny.libjf.data.manipulation.api.UserResourceEvents;
 import net.devtech.arrp.api.RRPCallback;
@@ -22,7 +23,6 @@ import net.minecraft.util.Identifier;
 import java.nio.file.Files;
 
 import static fr.anatom3000.gwwhit.GWWHIT.getId;
-import static fr.anatom3000.gwwhit.config.data.AudioConfig.SoundReplacement;
 
 public class EventListeners {
     private static final Identifier LE_BLAZE_LOOT = new Identifier("minecraft", "entities/blaze");
@@ -84,7 +84,7 @@ public class EventListeners {
                 if (r != SoundReplacement.None)
                     return Files.newInputStream(Const.ASSETS_ROOT.resolve("sounds/" + r.name().toLowerCase() + ".ogg"));
             }
-            return previous;
+            return previous.get();
         });
     }
 

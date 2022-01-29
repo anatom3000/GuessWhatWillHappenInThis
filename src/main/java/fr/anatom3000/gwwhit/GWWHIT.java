@@ -28,6 +28,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import static fr.anatom3000.gwwhit.Const.ASSETS_ROOT;
+import static fr.anatom3000.gwwhit.Const.MOD_ID;
+
 /*  IMPORTANT NOTICE:
     When adding to this mod make sure you follow proper naming standards:
         Classes                                     ThisIsAClass
@@ -37,12 +40,8 @@ import java.util.stream.Collectors;
 
 public class GWWHIT implements ModInitializer {
     //Locations / Ids
-    public static final String MOD_ID = "gwwhit";
     public static final ModContainer CONTAINER = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow();
-    public static final Path ASSETS_ROOT = CONTAINER.getPath("assets/gwwhit");
     public static final Identifier CONFIG_SYNC_ID = getId("config_sync");
-    public static final String MOD_VERSION = CONTAINER.getMetadata().getVersion().getFriendlyString();
-    public static final String VERSION_CODENAME = CONTAINER.getMetadata().getCustomValue("codename").getAsString();
 
     //Instances of configurable utils
     public static final Gson GSON = new GsonBuilder().setExclusionStrategies(new AnnotationExclusionStrategy()).create();
@@ -62,7 +61,7 @@ public class GWWHIT implements ModInitializer {
     public void onInitialize() {
         Python.load();
         cacheTranslations();
-        Registry.register(Registry.CHUNK_GENERATOR, new Identifier("gwwhit", "random"), RandomChunkGenerator.CODEC);
+        Registry.register(Registry.CHUNK_GENERATOR, getId("random"), RandomChunkGenerator.CODEC);
         ItemRegistry.register();
         BlockRegistry.register();
         BlockEntityRegistry.register();

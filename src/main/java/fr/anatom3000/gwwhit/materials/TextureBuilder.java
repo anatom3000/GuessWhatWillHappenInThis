@@ -1,5 +1,6 @@
 package fr.anatom3000.gwwhit.materials;
 
+import fr.anatom3000.gwwhit.Const;
 import fr.anatom3000.gwwhit.GWWHIT;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
@@ -74,7 +75,7 @@ public class TextureBuilder {
             String n = type == ToolType.SHOVEL ? "tool_base_shovel" : "tool_base";
             retextureMerge(
                     id,
-                    GWWHIT.ASSETS_ROOT.resolve("textures/item/" + n + ".png"),
+                    Const.ASSETS_ROOT.resolve("textures/item/" + n + ".png"),
                     "textures/item/tool_" + type.name().toLowerCase() + (
                             rng.nextInt(
                                     switch (type) {
@@ -91,7 +92,7 @@ public class TextureBuilder {
 
     private static void retextureMerge(Identifier id, Path base, String upper, int tint) throws IOException {
         try (InputStream is = Files.newInputStream(base);
-             InputStream isOverlay = Files.newInputStream(GWWHIT.ASSETS_ROOT.resolve(upper + ".png"))
+             InputStream isOverlay = Files.newInputStream(Const.ASSETS_ROOT.resolve(upper + ".png"))
         ) {
             BufferedImage img = ImageIO.read(is);
             BufferedImage imgOverlay = ImageIO.read(isOverlay);
@@ -105,7 +106,7 @@ public class TextureBuilder {
     }
 
     private static void simpleRetexture(Identifier id, String origin, int tint) throws IOException {
-        InputStream base = Files.newInputStream(GWWHIT.ASSETS_ROOT.resolve(origin + ".png"));
+        InputStream base = Files.newInputStream(Const.ASSETS_ROOT.resolve(origin + ".png"));
         GWWHIT.RESOURCE_PACK.addRecoloredImage(id, base, i -> tint(i, tint));
     }
 

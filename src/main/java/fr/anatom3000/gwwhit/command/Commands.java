@@ -1,5 +1,6 @@
 package fr.anatom3000.gwwhit.command;
 
+import fr.anatom3000.gwwhit.Const;
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.Python;
 import fr.anatom3000.gwwhit.block.entity.InfectedMassBlockEntity;
@@ -39,7 +40,7 @@ public class Commands {
     }
 
     public static void register() {
-        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal(GWWHIT.MOD_ID)
+        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(CommandManager.literal(Const.MOD_ID)
                 .requires(source -> source.hasPermissionLevel(2))
                 .then(CommandManager.literal("config")
                         .then(CommandManager.literal("reload")

@@ -29,6 +29,7 @@ public class OverrideManager {
     }
 
     public static void applyTemplate(String template) throws IOException {
+        // TODO> Possible candidate to use Utilities.getJarPath()
         Path source = GWWHIT.CONTAINER.getPath("config_template").resolve(template);
         Path target = FabricLoader.getInstance().getConfigDir().resolve("gwwhit");
 

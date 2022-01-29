@@ -3,6 +3,7 @@ package fr.anatom3000.gwwhit.config;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
+import fr.anatom3000.gwwhit.Const;
 import fr.anatom3000.gwwhit.CustomItemGroups;
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.config.data.MainConfig;
@@ -36,7 +37,7 @@ public class ConfigManager {
     public static MainConfig getActiveConfig() {
         if (activeConfig == null) {
             AutoConfig.register(MainConfig.class, PartitioningSerializer.wrap((definition, configClass) -> new GsonConfigSerializer<>(definition, configClass, GSON)));
-            GWWHIT.LOGGER.info("Gwwhit config registered!");
+            System.out.println("GWWHIT config registered!"); // Called in ultra early init, using the logger initializes the GWWHIT class, which references unloaded classes
             setActiveConfig(null);
         }
 
@@ -56,7 +57,7 @@ public class ConfigManager {
     public static void fromPacket(String version, String configData) {
         MainConfig config = null;
         try {
-            if (GWWHIT.MOD_VERSION.equals(version))
+            if (Const.MOD_VERSION.equals(version))
                 config = GWWHIT.GSON.fromJson(configData, MainConfig.class);
             else
                 throw new IllegalStateException("Non matching gwwhit versions!");
@@ -72,7 +73,7 @@ public class ConfigManager {
     public static PacketByteBuf toPacketByteBuf() {
         String config = GWWHIT.GSON.toJson(getActiveConfig());
         PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeString(GWWHIT.MOD_VERSION);
+        buf.writeString(Const.MOD_VERSION);
         buf.writeString(config);
         return buf;
     }

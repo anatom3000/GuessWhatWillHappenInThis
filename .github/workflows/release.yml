@@ -17,8 +17,8 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
-        java-version: '16'
-        distribution: 'adopt'
+        java-version: '17'
+        distribution: 'temurin'
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
@@ -31,4 +31,3 @@ jobs:
           title: "Development Build"
           files: |
             ./build/libs/*.jar
-    

@@ -6,7 +6,6 @@ import fr.anatom3000.gwwhit.command.Commands;
 import fr.anatom3000.gwwhit.config.AnnotationExclusionStrategy;
 import fr.anatom3000.gwwhit.dimension.RandomChunkGenerator;
 import fr.anatom3000.gwwhit.registry.*;
-import fr.anatom3000.gwwhit.util.NarratorExt;
 import fr.anatom3000.gwwhit.util.TableRandomizer;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
@@ -15,8 +14,8 @@ import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.reflect.TypeUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,7 +25,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static fr.anatom3000.gwwhit.Const.ASSETS_ROOT;
 import static fr.anatom3000.gwwhit.Const.MOD_ID;
@@ -45,7 +44,7 @@ public class GWWHIT implements ModInitializer {
 
     //Instances of configurable utils
     public static final Gson GSON = new GsonBuilder().setExclusionStrategies(new AnnotationExclusionStrategy()).create();
-    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final Random RANDOM = new Random();
     public static final TableRandomizer TABLE_RANDOMIZER = new TableRandomizer(RANDOM);
     public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create(MOD_ID);
@@ -69,23 +68,23 @@ public class GWWHIT implements ModInitializer {
         EnchantmentRegistry.register();
         NewMaterials.onInitialize();
         EventListeners.register();
-        NarratorExt.getInstance().gwwhit$load();
+        NarratorUtil.initialize();
         LOGGER.info("[GWWHIT] You shouldn't have done this. (Loading done)");
     }
 
     private void cacheTranslations() {
-        try {
-            for (Path path : Files.list(ASSETS_ROOT.resolve("lang")).collect(Collectors.toList())) {
+        try (Stream<Path> translations = Files.list(ASSETS_ROOT.resolve("lang"))) {
+            for (Path path : translations.toList()) {
                 String name = path.getFileName().toString();
                 name = name.substring(0, name.lastIndexOf('.'));
                 try (InputStream is = Files.newInputStream(path); InputStreamReader ir = new InputStreamReader(is)) {
                     TRANSLATIONS.put(name, GSON.fromJson(ir, TypeUtils.parameterize(HashMap.class, String.class, String.class)));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LOGGER.error("Could not cache translation", e);
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Could not cache translations", e);
         }
     }
 }

@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.10-SNAPSHOT'
+	id 'fabric-loom' version '0.11-SNAPSHOT'
 	id 'maven-publish'
 	id 'application'
 	id 'com.github.johnrengelman.shadow' version '7.1.0'
@@ -10,6 +10,10 @@ version = project.mod_version
 group = project.maven_group
 
 apply from: "resources.gradle"
+
+loom {
+    runtimeOnlyLog4j = true
+}
 
 repositories {
 	maven { url 'https://maven.terraformersmc.com/releases/' }
@@ -42,7 +46,8 @@ dependencies {
 
     include modImplementation("io.gitlab.jfronny.libjf:libjf-data-manipulation-v0:${project.jfapi_version}", noFAPI)
     include modImplementation("io.gitlab.jfronny.libjf:libjf-unsafe-v0:${project.jfapi_version}", noFAPI)
-    include modImplementation("io.gitlab.jfronny.libjf:libjf-base:${project.jfapi_version}", noFAPI)
+    include "io.gitlab.jfronny.libjf:libjf-base:${project.jfapi_version}"
+    modRuntimeOnly "io.gitlab.jfronny.libjf:libjf-devutil-v0:${project.jfapi_version}", noFAPI
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
@@ -53,34 +58,17 @@ application {
 }
 
 processResources {
-	inputs.property 'version', project.version
-
 	filesMatching('fabric.mod.json') {
-		expand 'version': project.version
-
-        filter { line -> line.replace("@codename@", project.ext.codename) }
+		expand 'version': project.version, "codename": project.ext.codename
 	}
 }
 
 tasks.withType(JavaCompile).configureEach {
-	// ensure that the encoding is set to UTF-8, no matter what the system default is
-	// this fixes some edge cases with special characters not displaying correctly
-	// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-	// If Javadoc is generated, this must be specified in that task too.
-	it.options.encoding = 'UTF-8'
-
-	it.options.release.set(16)
+	it.options.release = 17
 }
 
 java {
-	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-	// if it is present.
-	// If you remove this line, sources will not be generated.
 	withSourcesJar()
-
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(16)
-	}
 }
 
 jar {

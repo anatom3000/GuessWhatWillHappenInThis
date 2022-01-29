@@ -55,6 +55,11 @@ public class NewMaterials {
         for (Map.Entry<String, JLang> entry : param.lang.entrySet()) {
             GWWHIT.RESOURCE_PACK.addLang(GWWHIT.getId(entry.getKey()), entry.getValue());
         }
+
+        GWWHIT.RESOURCE_PACK.addTag(new Identifier("minecraft", "blocks/mineable/pickaxe"), param.mineablePickaxe);
+        GWWHIT.RESOURCE_PACK.addTag(new Identifier("minecraft", "blocks/needs_stone_tool"), param.needsStoneTool);
+        GWWHIT.RESOURCE_PACK.addTag(new Identifier("minecraft", "blocks/needs_iron_tool"), param.needsIronTool);
+        GWWHIT.RESOURCE_PACK.addTag(new Identifier("minecraft", "blocks/needs_diamond_tool"), param.needsDiamondTool);
     }
 
     public static void onInitializeClient() {
@@ -74,6 +79,10 @@ public class NewMaterials {
         public final JTag pickaxes = JTag.tag();
         public final JTag shovels = JTag.tag();
         public final JTag swords = JTag.tag();
+        public final JTag mineablePickaxe = JTag.tag();
+        public final JTag needsStoneTool = JTag.tag();
+        public final JTag needsIronTool = JTag.tag();
+        public final JTag needsDiamondTool = JTag.tag();
         public final Map<String, JLang> lang = new HashMap<>();
     }
 }

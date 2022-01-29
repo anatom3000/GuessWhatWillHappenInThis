@@ -5,7 +5,6 @@ import com.google.gson.JsonParser;
 import fr.anatom3000.gwwhit.CustomItemGroups;
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.config.ConfigManager;
-import fr.anatom3000.gwwhit.imixin.IFixedYOffset;
 import fr.anatom3000.gwwhit.item.access.*;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
 import net.devtech.arrp.json.blockstate.JState;
@@ -19,7 +18,6 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
@@ -34,12 +32,10 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.YOffset;
-import net.minecraft.world.gen.decorator.Decorator;
-import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.heightprovider.UniformHeightProvider;
+import net.minecraft.world.gen.decorator.CountPlacementModifier;
+import net.minecraft.world.gen.decorator.HeightRangePlacementModifier;
+import net.minecraft.world.gen.decorator.SquarePlacementModifier;
+import net.minecraft.world.gen.feature.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,6 +48,7 @@ public class CustomOre {
     public final Block ore;
     public final Block block;
     public final ConfiguredFeature<?, ?> feature;
+    public final PlacedFeature placedFeature;
     public final boolean hasArmor;
     public final boolean hasTools;
     public final boolean hasSword;
@@ -75,49 +72,44 @@ public class CustomOre {
         this.hasTools = hasTools;
         this.hasSword = hasSword;
         this.name = name;
-        materialId = new Identifier(MOD_ID, getItemId());
-        blockId = new Identifier(MOD_ID, String.format("%s_block", name.toLowerCase()));
-        oreId = new Identifier(MOD_ID, String.format("%s_ore", name.toLowerCase()));
-        blockBlockId = new Identifier(MOD_ID, String.format("block/%s_block", name.toLowerCase()));
-        oreBlockId = new Identifier(MOD_ID, String.format("block/%s_ore", name.toLowerCase()));
+        this.materialId = new Identifier(MOD_ID, getItemId());
+        this.blockId = new Identifier(MOD_ID, String.format("%s_block", name.toLowerCase()));
+        this.oreId = new Identifier(MOD_ID, String.format("%s_ore", name.toLowerCase()));
+        this.blockBlockId = new Identifier(MOD_ID, String.format("block/%s_block", name.toLowerCase()));
+        this.oreBlockId = new Identifier(MOD_ID, String.format("block/%s_ore", name.toLowerCase()));
         this.material = new Item(createItemSettings());
         this.ore = new Block(
                 FabricBlockSettings.of(Material.STONE)
                         .strength((float) (rnd.nextDouble() * 5), (float) (rnd.nextDouble() * 5))
                         .sounds(BlockSoundGroup.STONE)
                         .requiresTool()
-                        .breakByTool(FabricToolTags.PICKAXES, rnd.nextInt(3))
         );
         this.block = new Block(
                 FabricBlockSettings.of(Material.STONE)
                         .strength((float) (rnd.nextDouble() * 5), (float) (rnd.nextDouble() * 5))
                         .sounds(BlockSoundGroup.STONE)
                         .requiresTool()
-                        .breakByTool(FabricToolTags.PICKAXES, rnd.nextInt(3))
         );
-        this.feature = Feature.ORE
-                .configure(
+        this.feature = Feature.ORE.configure(
                         new OreFeatureConfig(
                             switch (dimension) {
                                 case END -> new BlockMatchRuleTest(Blocks.END_STONE);
-                                case NETHER -> OreFeatureConfig.Rules.BASE_STONE_NETHER;
-                                case OVERWORLD -> OreFeatureConfig.Rules.BASE_STONE_OVERWORLD;
+                                case NETHER -> OreConfiguredFeatures.BASE_STONE_NETHER;
+                                case OVERWORLD -> OreConfiguredFeatures.BASE_STONE_OVERWORLD;
                             },
                             ore.getDefaultState(),
                             rnd.nextInt(16) + 4
                         )
-                ).decorate(
-                        Decorator.RANGE.configure(
-                                new RangeDecoratorConfig(
-                                        UniformHeightProvider.create(
-                                                YOffset.getBottom(),
-                                                ((IFixedYOffset) YOffset.fixed(0)).setPos(rnd.nextDouble())
-                                        )
-                                )
-                        )
-                )
-                .spreadHorizontally()
-                .repeat(rnd.nextInt(12) + 4);
+                );
+        int low = rnd.nextInt(100);
+        int high = rnd.nextInt(100) + low + 10;
+        this.placedFeature = this.feature.withPlacement(
+                CountPlacementModifier.of(rnd.nextInt(12) + 4),
+                SquarePlacementModifier.of(),
+                rnd.nextBoolean()
+                        ? HeightRangePlacementModifier.uniform(YOffset.aboveBottom(low), YOffset.aboveBottom(high))
+                        : HeightRangePlacementModifier.trapezoid(YOffset.aboveBottom(low), YOffset.aboveBottom(high))
+        );
     }
 
     public void onInitialize(NewMaterials.OreInitParam param) {
@@ -131,9 +123,6 @@ public class CustomOre {
         Registry.register(Registry.ITEM, oreId, new BlockItem(ore, createItemSettings()));
         createTranslations("block", block.getTranslationKey(), param.lang);
         createTranslations("ore", ore.getTranslationKey(), param.lang);
-        RegistryKey<ConfiguredFeature<?, ?>> ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, oreId);
-        if (ConfigManager.getActiveConfig().moreOres.generateInWorld)
-            BiomeModifications.addFeature(BiomeSelectors.all(), GenerationStep.Feature.UNDERGROUND_ORES, ore);
         if (hasArmor) {
             ArmorMaterial material = getArmorMaterial();
 
@@ -145,7 +134,7 @@ public class CustomOre {
         if (hasTools || hasSword) {
             ToolMaterial material = getToolMaterial();
             if (hasSword) {
-                SwordItem swordItem = new CustomSword(
+                SwordItem swordItem = new CustomSwordItem(
                         material,
                         rnd.nextInt(17), (float) (rnd.nextDouble() * 3 - 1.0D),
                         createItemSettings()
@@ -158,7 +147,7 @@ public class CustomOre {
                 createTranslations("sword", swordItem.getTranslationKey(), param.lang);
             }
             if (hasTools) {
-                PickaxeItem pickaxeItem = new CustomPickaxe(
+                PickaxeItem pickaxeItem = new CustomPickaxeItem(
                         material,
                         rnd.nextInt(8),
                         (float) (rnd.nextDouble() * 3 - 1.0D),
@@ -171,7 +160,7 @@ public class CustomOre {
                 );
                 createTranslations("pickaxe", pickaxeItem.getTranslationKey(), param.lang);
 
-                ShovelItem shovelItem = new CustomShovel(
+                ShovelItem shovelItem = new CustomShovelItem(
                         material,
                         (float) (rnd.nextDouble() * 8),
                         (float) (rnd.nextDouble() * 3 - 1.0D),
@@ -184,7 +173,7 @@ public class CustomOre {
                 );
                 createTranslations("shovel", shovelItem.getTranslationKey(), param.lang);
 
-                AxeItem axeItem = new CustomAxe(
+                AxeItem axeItem = new CustomAxeItem(
                         material,
                         (float) (rnd.nextDouble() * 8),
                         (float) (rnd.nextDouble() * 3 - 1.0D),
@@ -197,7 +186,7 @@ public class CustomOre {
                 );
                 createTranslations("axe", axeItem.getTranslationKey(), param.lang);
 
-                HoeItem hoeItem = new CustomHoe(
+                HoeItem hoeItem = new CustomHoeItem(
                         material,
                         rnd.nextInt(8),
                         (float) (rnd.nextDouble() * 3 - 1.0D),
@@ -212,35 +201,37 @@ public class CustomOre {
             }
         }
 
-        //Generate ores
-        RegistryKey<ConfiguredFeature<?, ?>> registryKey = RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, oreId);
-        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, registryKey.getValue(), feature);
-        BiomeModifications.addFeature(
-                switch (dimension) {
-                    case END -> BiomeSelectors.foundInTheEnd();
-                    case NETHER -> BiomeSelectors.foundInTheNether();
-                    case OVERWORLD -> BiomeSelectors.foundInOverworld();
-                },
-                GenerationStep.Feature.UNDERGROUND_ORES,
-                registryKey
-        );
+        if (ConfigManager.getActiveConfig().moreOres.generateInWorld) {
+            //Generate ores
+            RegistryKey<PlacedFeature> registryKey = RegistryKey.of(Registry.PLACED_FEATURE_KEY, oreId);
+            Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, oreId, feature);
+            Registry.register(BuiltinRegistries.PLACED_FEATURE, oreId, placedFeature);
+            BiomeModifications.addFeature(
+                    switch (dimension) {
+                        case END -> BiomeSelectors.foundInTheEnd();
+                        case NETHER -> BiomeSelectors.foundInTheNether();
+                        case OVERWORLD -> BiomeSelectors.foundInOverworld();
+                    },
+                    GenerationStep.Feature.UNDERGROUND_ORES,
+                    registryKey
+            );
+        }
 
         //Loot tables
         lootTableSimple("block");
         if (type == Type.INGOT) {
             lootTableSimple("ore");
         } else {
-            JsonParser jp = new JsonParser();
-            JsonElement predicate = jp.parse(
+            JsonElement predicate = JsonParser.parseString(
                     "{\"enchantments\": [{\"enchantment\": \"minecraft:silk_touch\", \"levels\": {\"min\": 1}}]}"
             );
             double base = rnd.nextDouble() + 1;
-            JsonElement count = jp.parse(
+            JsonElement count = JsonParser.parseString(
                     String.format("{\"min\": %s, \"max\": %s, \"type\": \"minecraft:uniform\"}",
-                    base,
-                    base + rnd.nextDouble() * 2)
+                            base,
+                            base + rnd.nextDouble() * 2)
             );
-            JsonElement enchantmentParameters = jp.parse("{\"bonusMultiplier\": 1}");
+            JsonElement enchantmentParameters = JsonParser.parseString("{\"bonusMultiplier\": 1}");
             GWWHIT.RESOURCE_PACK.addLootTable(
                     new Identifier( MOD_ID, String.format( "blocks/%s_ore", name.toLowerCase() ) ),
                     JLootTable.loot("minecraft:block").pool(JLootTable.pool().rolls(1)
@@ -381,6 +372,21 @@ public class CustomOre {
         }
         if (hasSword) {
             param.swords.add(new Identifier(MOD_ID, String.format("%s_sword", name.toLowerCase())));
+        }
+
+        param.mineablePickaxe.add(oreId);
+        param.mineablePickaxe.add(blockId);
+        switch (rnd.nextInt(3)) {
+            case 0 -> param.needsStoneTool.add(oreId);
+            case 1 -> param.needsIronTool.add(oreId);
+            case 2 -> param.needsDiamondTool.add(oreId);
+            default -> throw new IllegalStateException("rnd.nextInt(3) has an unexpected value");
+        }
+        switch (rnd.nextInt(3)) {
+            case 0 -> param.needsStoneTool.add(blockId);
+            case 1 -> param.needsIronTool.add(blockId);
+            case 2 -> param.needsDiamondTool.add(blockId);
+            default -> throw new IllegalStateException("rnd.nextInt(3) has an unexpected value");
         }
     }
 

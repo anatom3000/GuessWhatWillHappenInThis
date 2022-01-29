@@ -27,15 +27,15 @@ public abstract class MatrixStackMixin {
         World config = ConfigManager.getActiveConfig().rendering.world;
 
         if (config.smallBlocks) {
-            entry.getModel().multiply(Matrix4f.translate(iv(x), iv(y), iv(z)));
+            entry.getPositionMatrix().multiply(Matrix4f.translate(iv(x), iv(y), iv(z)));
         }
         if (config.spin) {
             increment = (increment + MinecraftClient.getInstance().getTickDelta() * 0.00001f) % 360;
-            entry.getModel().multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(increment));
-            entry.getModel().multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(increment));
-            entry.getModel().multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(increment));
+            entry.getPositionMatrix().multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(increment));
+            entry.getPositionMatrix().multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(increment));
+            entry.getPositionMatrix().multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(increment));
         }
-        entry.getModel().multiply(config.matrixScale);
+        entry.getPositionMatrix().multiply(config.matrixScale);
     }
 
     @ModifyVariable(method = "translate", at = @At("HEAD"), index = 1)

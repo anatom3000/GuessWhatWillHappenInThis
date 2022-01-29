@@ -22,7 +22,7 @@ public class NoscopeItem extends Item {
         if (!world.isClient) {
             ArrowItem arrowItem = (ArrowItem) Items.ARROW;
             PersistentProjectileEntity persistentProjectileEntity = arrowItem.createArrow(world, new ItemStack(arrowItem), user);
-            persistentProjectileEntity.setProperties(user, user.getPitch(), user.getYaw(), 0.0F, 3.0F, 1.0F);
+            persistentProjectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 3.0F, 1.0F);
             persistentProjectileEntity.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
             world.spawnEntity(persistentProjectileEntity);
         }

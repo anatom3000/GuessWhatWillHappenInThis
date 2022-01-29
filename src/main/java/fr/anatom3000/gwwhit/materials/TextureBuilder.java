@@ -20,7 +20,7 @@ public class TextureBuilder {
                     id,
                     FabricLoader.getInstance().getModContainer("minecraft").orElseThrow()
                         .getPath("assets/minecraft/textures/block/" + baseBlock + ".png"),
-                    "textures/block/ore" + (rng.nextInt(49) + 1),
+                    "textures/block/ore" + (rng.nextInt(18) + 1),
                     color
             );
         } catch (IOException e) {
@@ -30,7 +30,7 @@ public class TextureBuilder {
 
     public static void generateOreBlock(int color, Identifier id, Random rng) {
         try {
-            simpleRetexture(id, "textures/block/oreblock" + (rng.nextInt(27) + 1), color);
+            simpleRetexture(id, "textures/block/oreblock" + (rng.nextInt(12) + 1), color);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,9 +61,9 @@ public class TextureBuilder {
     public static void generateMaterial(int color, Identifier id, CustomOre.Type type, Random rng) {
         try {
             simpleRetexture(id, "textures/item/" + type.name().toLowerCase() + (rng.nextInt(switch (type) {
-                case GEM -> 40;
-                case DUST -> 11;
-                case INGOT -> 19;
+                case GEM -> 8;
+                case DUST -> 4;
+                case INGOT -> 1;
             }) + 1), color);
         } catch (IOException e) {
             e.printStackTrace();
@@ -79,9 +79,7 @@ public class TextureBuilder {
                     "textures/item/tool_" + type.name().toLowerCase() + (
                             rng.nextInt(
                                     switch (type) {
-                                        case SWORD, SHOVEL -> 1;
-                                        case AXE, PICKAXE -> 12;
-                                        case HOE -> 11;
+                                        case SWORD, SHOVEL, AXE, PICKAXE, HOE -> 1;
                                     }
                             ) + 1
                     ),

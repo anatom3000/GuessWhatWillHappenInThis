@@ -17,7 +17,6 @@ public class SlowFurnaceScreenHandler extends ScreenHandler {
 
     public SlowFurnaceScreenHandler( int syncId, PlayerInventory inv ) {
         this( syncId, inv, new SimpleInventory(3) );
-
     }
 
     public SlowFurnaceScreenHandler(int syncId, PlayerInventory inv, Inventory inventory) {

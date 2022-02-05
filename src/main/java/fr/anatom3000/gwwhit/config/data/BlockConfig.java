@@ -1,9 +1,11 @@
 package fr.anatom3000.gwwhit.config.data;
 
 import com.google.common.collect.Lists;
+import fr.anatom3000.gwwhit.config.SyncOptions;
 import fr.anatom3000.gwwhit.util.TabType;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Tooltip;
 

@@ -20,6 +20,8 @@
   "block.gwwhit.mud": "Mud",
   "block.gwwhit.mushroom_grass": "Mushroom Grass",
   "block.gwwhit.pyblock": "PyBlock",
+  "block.gwwhit.slow_furnace": "Slow Furnace",
+  "block.gwwhit.multicolored_block": "Multicolored Block",
 
   "enchantment.gwwhit.swapping_curse": "Curse of Swapping",
   "enchantment.gwwhit.curse_curse": "Curse of Curses",
@@ -158,5 +160,7 @@
   "template.gwwhit.pickaxe": "%s Pickaxe",
   "template.gwwhit.shovel": "%s Shovel",
   "template.gwwhit.axe": "%s Axe",
-  "template.gwwhit.hoe": "%s Hoe"
+  "template.gwwhit.hoe": "%s Hoe",
+
+  "container.gwwhit.slow_furnace": "Slow Furnace"
 }

@@ -17,7 +17,6 @@ public class MulticolorBlockEntity extends BlockEntity {
         super(BlockEntityRegistry.MULTICOLOR_BLOCK_ENTITY, pos, state);
     }
 
-
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
@@ -30,12 +29,12 @@ public class MulticolorBlockEntity extends BlockEntity {
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound nbt) {
+    public void writeNbt(NbtCompound nbt) {
         nbt.putShort( "light", light );
         nbt.putShort( "clr-r", (short) color.getRed() );
         nbt.putShort( "clr-g", (short) color.getGreen() );
         nbt.putShort( "clr-b", (short) color.getBlue() );
-        return super.writeNbt(nbt);
+        super.writeNbt(nbt);
     }
 
     public short getLight() {

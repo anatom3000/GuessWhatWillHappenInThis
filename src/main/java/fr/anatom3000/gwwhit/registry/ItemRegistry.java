@@ -38,6 +38,9 @@ public class ItemRegistry {
         put("mushroom_grass", new BlockItem(BlockRegistry.get("mushroom_grass"), new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP)));
         put("noscope", new NoscopeItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP).maxCount(1)));
         put("malek_pickaxe", new CustomPickaxeItem(new CustomToolMaterial(15, 50, -1, 100000, 1000, Items.OAK_LOG), 15, 15, new FabricItemSettings().group(CustomItemGroups.GWWHIT_GROUP)));
+
+        put( "slow_furnace", new BlockItem( BlockRegistry.get("slow_furnace"), new FabricItemSettings().group(CustomItemGroups.GWWHIT_GROUP) ) );
+        put( "multicolor_block", new BlockItem( BlockRegistry.get("multicolor_block"), new FabricItemSettings().group(CustomItemGroups.GWWHIT_GROUP) ) );
     }};
 
     public static void register() {

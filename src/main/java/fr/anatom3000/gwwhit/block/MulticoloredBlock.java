@@ -27,7 +27,6 @@ public class MulticoloredBlock extends BlockWithEntity {
                         )
                         .sounds(BlockSoundGroup.STONE)
                         .requiresTool()
-                        .breakByTool( FabricToolTags.PICKAXES )
         );
     }
 

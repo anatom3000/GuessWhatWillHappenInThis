@@ -1,15 +1,15 @@
 package fr.anatom3000.gwwhit;
 
+import fr.anatom3000.gwwhit.block.entity.MulticolorBlockEntity;
 import fr.anatom3000.gwwhit.command.Commands;
 import fr.anatom3000.gwwhit.config.ConfigManager;
-import fr.anatom3000.gwwhit.config.data.MainConfig;
-import fr.anatom3000.gwwhit.gui.FurnaceBlockScreen;
-import fr.anatom3000.gwwhit.gui.FurnaceGuiDescription;
+import fr.anatom3000.gwwhit.registry.BlockEntityRegistry;
+import fr.anatom3000.gwwhit.registry.BlockRegistry;
 import fr.anatom3000.gwwhit.registry.EventListeners;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -23,7 +23,6 @@ public class GWWHITClient implements ClientModInitializer {
     public static final SoundEvent MOJAAAANG_SOUND_EVENT = new SoundEvent(MOJAAAANG_SOUND);
     public static final Identifier ROCK_SOUND = getId("rock");
     public static final SoundEvent ROCK_SOUND_EVENT = new SoundEvent(ROCK_SOUND);
-
 
     @Override
     public void onInitializeClient() {
@@ -57,12 +56,6 @@ public class GWWHITClient implements ClientModInitializer {
         ColorProviderRegistry.ITEM.register(
                 ( stack, index ) -> 0,
                 BlockRegistry.get("multicolor_block")
-        );
-
-        //noinspection RedundantTypeArguments
-        ScreenRegistry.<FurnaceGuiDescription, FurnaceBlockScreen>register(
-                GWWHIT.FURNACE_SCREEN_HANDLER_TYPE,
-                (gui, inventory, title) -> new FurnaceBlockScreen(gui, inventory.player, title)
         );
     }
 }

@@ -3,6 +3,7 @@ package fr.anatom3000.gwwhit;
 import fr.anatom3000.gwwhit.block.entity.MulticolorBlockEntity;
 import fr.anatom3000.gwwhit.command.Commands;
 import fr.anatom3000.gwwhit.config.ConfigManager;
+import fr.anatom3000.gwwhit.gui.SlowFurnaceScreenHandler;
 import fr.anatom3000.gwwhit.registry.BlockEntityRegistry;
 import fr.anatom3000.gwwhit.registry.BlockRegistry;
 import fr.anatom3000.gwwhit.registry.EventListeners;
@@ -10,6 +11,7 @@ import fr.anatom3000.gwwhit.registry.NewMaterials;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -57,5 +59,6 @@ public class GWWHITClient implements ClientModInitializer {
                 ( stack, index ) -> 0,
                 BlockRegistry.get("multicolor_block")
         );
+        ScreenRegistry.register( GWWHIT.SLOW_FURNACE_SCREEN_HANDLER, SlowFurnaceScreenHandler::new );
     }
 }

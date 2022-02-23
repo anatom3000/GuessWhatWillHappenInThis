@@ -1,16 +1,14 @@
 package fr.anatom3000.gwwhit.gui;
 
-import fr.anatom3000.gwwhit.block.entity.SlowFurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerListener;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
+import org.jetbrains.annotations.Nullable;
 
 public class SlowFurnaceScreenHandler extends ScreenHandler {
     private final Inventory inventory;
@@ -37,6 +35,7 @@ public class SlowFurnaceScreenHandler extends ScreenHandler {
     public ItemStack transferSlot(PlayerEntity player, int invSlot) {
         ItemStack newStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(invSlot);
+        //noinspection ConstantConditions
         if ( slot != null && slot.hasStack() ) {
             ItemStack originalStack = slot.getStack();
             newStack = originalStack.copy();

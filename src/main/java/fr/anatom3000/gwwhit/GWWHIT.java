@@ -10,9 +10,10 @@ import fr.anatom3000.gwwhit.registry.*;
 import fr.anatom3000.gwwhit.util.TableRandomizer;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.reflect.TypeUtils;
@@ -54,7 +55,10 @@ public class GWWHIT implements ModInitializer {
     // TODO: Register SlowFurnaceScreenHandler to client and server
 
     // Screen Handlers
-    public static final ScreenHandler SLOW_FURNACE = Registry.register( Registry.SCREEN_HANDLER, getId("slow_furnace_handler"), SlowFurnaceScreenHandler.class )
+    public static final ScreenHandlerType<SlowFurnaceScreenHandler> SLOW_FURNACE_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(
+            getId("slow_furnace_handler"),
+            SlowFurnaceScreenHandler::new
+    );
 
     //Caches
     public static final Map<String, Map<String, String>> TRANSLATIONS = new HashMap<>();
@@ -84,8 +88,21 @@ public class GWWHIT implements ModInitializer {
             for (Path path : translations.toList()) {
                 String name = path.getFileName().toString();
                 name = name.substring(0, name.lastIndexOf('.'));
-                try (InputStream is = Files.newInputStream(path); InputStreamReader ir = new InputStreamReader(is)) {
-                    TRANSLATIONS.put(name, GSON.fromJson(ir, TypeUtils.parameterize(HashMap.class, String.class, String.class)));
+                try (
+                        InputStream inputStream = Files.newInputStream(path);
+                        InputStreamReader reader = new InputStreamReader(inputStream)
+                ) {
+                    TRANSLATIONS.put(
+                            name,
+                            GSON.fromJson(
+                                    reader,
+                                    TypeUtils.parameterize(
+                                            HashMap.class,
+                                            String.class,
+                                            String.class
+                                    )
+                            )
+                    );
                 } catch (IOException e) {
                     LOGGER.error("Could not cache translation", e);
                 }

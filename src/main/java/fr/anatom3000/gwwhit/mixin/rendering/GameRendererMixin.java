@@ -60,7 +60,7 @@ public class GameRendererMixin {
 
     @Redirect(method = "renderWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F"))
     private float nauseaTest(float delta, float start, float end) {
-        if (ConfigManager.getActiveConfig().rendering.world.nauseaOverride)
+        if ( ConfigManager.getActiveConfig().rendering.world.nauseaOverride )
             return 1f;
         return MathHelper.lerp(delta, start, end);
     }

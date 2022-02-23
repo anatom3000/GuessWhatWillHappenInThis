@@ -22,6 +22,7 @@ public class BlockEntityRegistry {
     public static void register() {
         Registry.register(Registry.BLOCK_ENTITY_TYPE, GWWHIT.getId("infected_mass"), INFECTED_MASS_BLOCK_ENTITY);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, GWWHIT.getId("randomising_block"), RANDOMISING_BLOCK_ENTITY);
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, GWWHIT.getId("multicolor_block"), MULTICOLOR_BLOCK_ENTITY);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, GWWHIT.getId("slow_furnace"), SLOW_FURNACE_BLOCK_ENTITY);
     }
 }

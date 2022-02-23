@@ -55,4 +55,27 @@ public final class Utilities {
                 )
         );
     }
+
+    /**
+     * Returns a value between min and max, if the given value is higher or lower, it will be replaced by its bound.
+     * @param min Minimum value
+     * @param max Maximum value
+     * @param value Value to clamp
+     * @return Clamped value
+     */
+    public static int clamp( int min, int max, int value ) {
+        return value < min ? 0 : value > max ? 255 : value;
+    }
+
+    /**
+     * Basically same as clamp, but with the values inverted ( < min = max and >max = min )
+     * Returns a value between min and max, if the given value is higher or lower, it will be replaced by its bound.
+     * @param min Minimum value
+     * @param max Maximum value
+     * @param value Value to clamp
+     * @return Clamped value
+     */
+    public static int inverseClamp( int min, int max, int value ) {
+        return value < min ? 255 : value > max ? 0 : value;
+    }
 }

@@ -2,7 +2,6 @@ package fr.anatom3000.gwwhit.model;
 
 import fr.anatom3000.gwwhit.util.Color;
 import net.fabricmc.fabric.api.renderer.v1.mesh.Mesh;
-import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
 import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
@@ -65,7 +64,20 @@ public class MulticolorBakedModel implements BakedModel, FabricBakedModel {
     @Override
     public void emitItemQuads(ItemStack stack, Supplier<Random> supplier, RenderContext ctx) {
         final Color color = new Color( stack.getOrCreateNbt() );
+        ctx.pushTransform(
+                quad -> {
+                    quad.spriteColor(
+                            0,
+                            color.getUnifiedColor(),
+                            color.getUnifiedColor(),
+                            color.getUnifiedColor(),
+                            color.getUnifiedColor()
+                    );
+                    return true;
+                }
+        );
         ctx.meshConsumer().accept(mesh);
+        ctx.popTransform();
     }
 
     @Override

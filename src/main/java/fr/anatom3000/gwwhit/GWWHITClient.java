@@ -1,16 +1,12 @@
 package fr.anatom3000.gwwhit;
 
 import fr.anatom3000.gwwhit.block.entity.MulticolorBlockEntity;
-import fr.anatom3000.gwwhit.block.entity.MulticolorBlockEntityRenderer;
 import fr.anatom3000.gwwhit.command.Commands;
 import fr.anatom3000.gwwhit.config.ConfigManager;
-import fr.anatom3000.gwwhit.registry.BlockEntityRegistry;
-import fr.anatom3000.gwwhit.registry.BlockRegistry;
-import fr.anatom3000.gwwhit.registry.EventListeners;
-import fr.anatom3000.gwwhit.registry.NewMaterials;
+import fr.anatom3000.gwwhit.registry.*;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
@@ -59,10 +55,7 @@ public class GWWHITClient implements ClientModInitializer {
                 ( stack, index ) -> 0,
                 BlockRegistry.get("multicolor_block")
         );
-//        BlockEntityRendererRegistry.register(
-//                BlockEntityRegistry.MULTICOLOR_BLOCK_ENTITY,
-//                MulticolorBlockEntityRenderer::new
-//        );
+        ModelLoadingRegistry.INSTANCE.registerResourceProvider( rm -> new ModelRegistry() );
 //        ScreenRegistry.register( GWWHIT.SLOW_FURNACE_SCREEN_HANDLER, SlowFurnaceScreenHandler::new );
     }
 }

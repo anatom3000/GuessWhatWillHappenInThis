@@ -18,6 +18,12 @@ public final class Color {
         this.blue = (short) Utilities.inverseClamp( 0, 255, b );
     }
 
+    public Color( NbtCompound nbt ) {
+        this.setRed( nbt.getShort( "clr-r" ) );
+        this.setGreen( nbt.getShort( "clr-g" ) );
+        this.setBlue( nbt.getShort( "clr-b" ) );
+    }
+
     public short getRed() {
         return red;
     }
@@ -96,7 +102,11 @@ public final class Color {
         return this.getBlue() / 255f;
     }
 
-    public enum Channel {
+	public Color copy() {
+        return new Color( red, green, blue );
+	}
+
+	public enum Channel {
         RED(1),
         GREEN(2),
         BLUE(0);

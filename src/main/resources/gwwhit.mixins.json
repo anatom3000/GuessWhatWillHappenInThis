@@ -9,6 +9,7 @@
     "access.LivingEntityAccessor",
     "access.NarratorManagerAccess",
     "event.PlayerEntityMixin",
+    "fix.LevelStorageMixin",
     "gameplay.AnimalEntityMixin",
     "gameplay.BlockMixin",
     "gameplay.FallingBlockMixin",

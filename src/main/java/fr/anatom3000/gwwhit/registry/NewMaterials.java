@@ -46,7 +46,7 @@ public class NewMaterials {
             }
         }
 
-        GWWHIT.RESOURCE_PACK.addTag(BlockTags.BEACON_BASE_BLOCKS.getId(), param.blocks);
+        GWWHIT.RESOURCE_PACK.addTag(BlockTags.BEACON_BASE_BLOCKS.id(), param.blocks);
         GWWHIT.RESOURCE_PACK.addTag(new Identifier("fabric", "items/axes"), param.axes);
         GWWHIT.RESOURCE_PACK.addTag(new Identifier("fabric", "items/hoes"), param.hoes);
         GWWHIT.RESOURCE_PACK.addTag(new Identifier("fabric", "items/pickaxes"), param.pickaxes);

@@ -29,14 +29,16 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.YOffset;
-import net.minecraft.world.gen.decorator.CountPlacementModifier;
-import net.minecraft.world.gen.decorator.HeightRangePlacementModifier;
-import net.minecraft.world.gen.decorator.SquarePlacementModifier;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.placementmodifier.CountPlacementModifier;
+import net.minecraft.world.gen.placementmodifier.HeightRangePlacementModifier;
+import net.minecraft.world.gen.placementmodifier.SquarePlacementModifier;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -90,7 +92,7 @@ public class CustomOre {
                         .sounds(BlockSoundGroup.STONE)
                         .requiresTool()
         );
-        this.feature = Feature.ORE.configure(
+        this.feature = new ConfiguredFeature<>(Feature.ORE,
                         new OreFeatureConfig(
                             switch (dimension) {
                                 case END -> new BlockMatchRuleTest(Blocks.END_STONE);
@@ -103,12 +105,12 @@ public class CustomOre {
                 );
         int low = rnd.nextInt(100);
         int high = rnd.nextInt(100) + low + 10;
-        this.placedFeature = this.feature.withPlacement(
-                CountPlacementModifier.of(rnd.nextInt(12) + 4),
-                SquarePlacementModifier.of(),
-                rnd.nextBoolean()
-                        ? HeightRangePlacementModifier.uniform(YOffset.aboveBottom(low), YOffset.aboveBottom(high))
-                        : HeightRangePlacementModifier.trapezoid(YOffset.aboveBottom(low), YOffset.aboveBottom(high))
+        this.placedFeature = new PlacedFeature(RegistryEntry.of(this.feature),
+                Arrays.asList(CountPlacementModifier.of(rnd.nextInt(12) + 4),
+                        SquarePlacementModifier.of(),
+                        rnd.nextBoolean()
+                                ? HeightRangePlacementModifier.uniform(YOffset.aboveBottom(low), YOffset.aboveBottom(high))
+                                : HeightRangePlacementModifier.trapezoid(YOffset.aboveBottom(low), YOffset.aboveBottom(high)))
         );
     }
 

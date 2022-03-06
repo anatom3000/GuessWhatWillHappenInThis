@@ -25,7 +25,7 @@ public class TemplateScreen extends Screen {
     }
 
     @Override
-    public void onClose() {
+    public void close() {
         client.setScreen(parent);
     }
 
@@ -53,7 +53,7 @@ public class TemplateScreen extends Screen {
                         150,
                         20,
                         ScreenTexts.CANCEL,
-                        button -> onClose()
+                        button -> close()
                 )
         );
         this.addDrawableChild(

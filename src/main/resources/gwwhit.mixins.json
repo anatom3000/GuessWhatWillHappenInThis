@@ -37,7 +37,6 @@
 		"misc.owoifyer.ChatHudMixin",
 		"misc.owoifyer.ChatScreenMixin",
 		"misc.owoifyer.LanguageMixin",
-        "client.BlockModelRendererMixin",
         "rendering.Deadmau5FeatureRendererMixin",
 		"rendering.GameRendererMixin",
 		"rendering.ItemRendererMixin",

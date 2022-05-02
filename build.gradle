@@ -3,13 +3,14 @@ plugins {
 	id 'maven-publish'
 	id 'application'
 	id 'com.github.johnrengelman.shadow' version '7.1.0'
+    id 'io.github.juuxel.loom-quiltflower' version '1.7.+'
 }
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
-apply from: "resources.gradle"
+//apply from: 'resources.gradle'
 
 loom {
     runtimeOnlyLog4j = true
@@ -58,8 +59,14 @@ application {
 }
 
 processResources {
+    inputs.property 'version', version
+    inputs.property 'codename', codename
+
 	filesMatching('fabric.mod.json') {
-		expand 'version': project.version, "codename": project.ext.codename
+		expand([
+            'version': version,
+            'codename': codename
+		])
 	}
 }
 

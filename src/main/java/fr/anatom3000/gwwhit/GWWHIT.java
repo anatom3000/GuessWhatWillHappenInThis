@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import fr.anatom3000.gwwhit.command.Commands;
 import fr.anatom3000.gwwhit.config.AnnotationExclusionStrategy;
 import fr.anatom3000.gwwhit.dimension.RandomChunkGenerator;
-import fr.anatom3000.gwwhit.gui.SlowFurnaceScreenHandler;
 import fr.anatom3000.gwwhit.registry.*;
 import fr.anatom3000.gwwhit.util.TableRandomizer;
 import net.devtech.arrp.api.RuntimeResourcePack;
@@ -13,7 +12,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.reflect.TypeUtils;
@@ -51,14 +49,6 @@ public class GWWHIT implements ModInitializer {
     public static final Random RANDOM = new Random();
     public static final TableRandomizer TABLE_RANDOMIZER = new TableRandomizer(RANDOM);
     public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create(MOD_ID);
-
-    // TODO: Register SlowFurnaceScreenHandler to client and server
-
-    // Screen Handlers
-    public static final ScreenHandlerType<SlowFurnaceScreenHandler> SLOW_FURNACE_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(
-            getId("slow_furnace_handler"),
-            SlowFurnaceScreenHandler::new
-    );
 
     //Caches
     public static final Map<String, Map<String, String>> TRANSLATIONS = new HashMap<>();

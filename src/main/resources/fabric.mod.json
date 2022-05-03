@@ -42,7 +42,7 @@
     ],
     "libjf:early": [
       "fr.anatom3000.gwwhit.util.ConsoleHacker",
-      "fr.anatom3000.gwwhit.util.Screenshotter"
+      "fr.anatom3000.gwwhit.util.ScreenData"
     ]
   },
   "mixins": [

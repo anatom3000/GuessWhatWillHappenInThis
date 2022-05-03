@@ -70,19 +70,19 @@ public class EventListeners {
         // AUTHOR: ENDERZOMBI102
         //noinspection ConstantConditions
         ServerPlayNetworking.registerGlobalReceiver(
-                getId("cheat_codes_channel"),
-                (server, player, handler, buf, responseSender) -> server.execute(
-                        new CheatCodes.CheatCodeRunner(
-                                buf.readNbt().getString("cheat"),
-                                player
-                        )
+            getId("cheat_codes_channel"),
+            (server, player, handler, buf, responseSender) -> server.execute(
+                new CheatCodes.CheatCodeRunner(
+                        buf.readNbt().getString("cheat"),
+                        player
                 )
+            )
         );
-        UserResourceEvents.OPEN.register((type, id, previous, pack) -> {
-            if (id.getPath().endsWith(".ogg")) {
+        UserResourceEvents.OPEN.register( (type, id, previous, pack) -> {
+            if ( id.getPath().endsWith(".ogg") ) {
                 AudioConfig.SoundReplacement r = ConfigManager.getActiveConfig().audio.soundReplacement;
-                if (r != AudioConfig.SoundReplacement.None)
-                    return Files.newInputStream(Const.ASSETS_ROOT.resolve("sounds/" + r.name().toLowerCase() + ".ogg"));
+                if ( r != AudioConfig.SoundReplacement.None )
+                    return Files.newInputStream( Const.ASSETS_ROOT.resolve("sounds/" + r.name().toLowerCase() + ".ogg") );
             }
             return previous.get();
         });

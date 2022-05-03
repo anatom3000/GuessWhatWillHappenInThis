@@ -4,12 +4,14 @@ import fr.anatom3000.gwwhit.command.Commands;
 import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.registry.EventListeners;
 import fr.anatom3000.gwwhit.registry.NewMaterials;
+import fr.anatom3000.gwwhit.util.ScreenData;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+import static fr.anatom3000.gwwhit.GWWHIT.RESOURCE_PACK;
 import static fr.anatom3000.gwwhit.GWWHIT.getId;
 
 public class GWWHITClient implements ClientModInitializer {
@@ -25,6 +27,7 @@ public class GWWHITClient implements ClientModInitializer {
         NewMaterials.onInitializeClient();
         EventListeners.registerClient();
         Commands.registerClient();
+        RESOURCE_PACK.addTexture( getId( "dyn/desktop" ), ScreenData.image );
         Registry.register(Registry.SOUND_EVENT, WHISTLE_SOUND, WHISTLE_SOUND_EVENT);
         Registry.register(Registry.SOUND_EVENT, MOJAAAANG_SOUND, MOJAAAANG_SOUND_EVENT);
         Registry.register(Registry.SOUND_EVENT, ROCK_SOUND, ROCK_SOUND_EVENT);

@@ -1,12 +1,13 @@
 package fr.anatom3000.gwwhit.mixin.misc;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.util.ResourceUtil;
-import fr.anatom3000.gwwhit.util.Screenshotter;
+import fr.anatom3000.gwwhit.util.ScreenData;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.texture.NativeImage;
-import net.minecraft.client.texture.NativeImageBackedTexture;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,10 +19,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import javax.imageio.ImageIO;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.ByteBuffer;
+import static fr.anatom3000.gwwhit.util.ScreenData.SCREENSHOT_TEXTURE;
 
 @Mixin(TitleScreen.class)
 public class TitleScreenMixin extends Screen {
@@ -52,30 +50,30 @@ public class TitleScreenMixin extends Screen {
     @Inject(
         method = "render",
         at = @At(
-            value = "INVOKE",
+            value = "RETURN",
             target = "Lnet/minecraft/client/gui/RotatingCubeMapRenderer;render(FF)V"
         ),
-        locals = LocalCapture.CAPTURE_FAILEXCEPTION,
-        cancellable = true
+        locals = LocalCapture.CAPTURE_FAILEXCEPTION
     )
     public void onRenderBackground( MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo info, float alpha ) {
         if ( ConfigManager.getActiveConfig().misc.replacePanorama ) {
-            info.cancel();
-            var texture = (NativeImageBackedTexture) Screenshotter.getNativeImageBackedTexture();
-            //noinspection ConstantConditions
+            RenderSystem.setShader( GameRenderer::getPositionTexShader );
+            RenderSystem.setShaderTexture( 0, SCREENSHOT_TEXTURE );
+            var window = MinecraftClient.getInstance().getWindow();
             drawTexture(
                 matrices,
                 0,
                 0,
                 this.width,
                 this.height,
-                0.0F,
-                0.0F,
-                texture.getImage().getWidth(),
-                texture.getImage().getHeight(),
-                texture.getImage().getWidth(),
-                texture.getImage().getHeight()
+                window.getX() + ScreenData.getWindowDecorations().left * 2,
+                window.getY() + ScreenData.getWindowDecorations().top * 2,
+                window.getWidth(),
+                window.getHeight(),
+                ScreenData.image.getWidth(),
+                ScreenData.image.getHeight()
             );
+            matrices.scale( .8f, .8f, .8f );
         }
     }
 }

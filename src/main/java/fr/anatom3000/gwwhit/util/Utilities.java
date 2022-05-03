@@ -2,8 +2,13 @@ package fr.anatom3000.gwwhit.util;
 
 import fr.anatom3000.gwwhit.commandline.ModUpdater;
 import org.jetbrains.annotations.NotNull;
+import sun.misc.Unsafe;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.Objects;
@@ -48,11 +53,11 @@ public final class Utilities {
      */
     public static Path getJarLocation() {
         return Path.of(
-                Objects.requireNonNull(
-                        SafeUtils.doSafely(
-                                () -> ModUpdater.class.getProtectionDomain().getCodeSource().getLocation().toURI()
-                        )
+            Objects.requireNonNull(
+                SafeUtils.doSafely(
+                    () -> ModUpdater.class.getProtectionDomain().getCodeSource().getLocation().toURI()
                 )
+            )
         );
     }
 
@@ -77,5 +82,26 @@ public final class Utilities {
      */
     public static int inverseClamp( int min, int max, int value ) {
         return value < min ? 255 : value > max ? 0 : value;
+    }
+
+    /**
+     * Takes a screenshot of an area of the screen
+     * @param rect rectangle representing the area to capture
+     * @return a {@link BufferedImage} containing the selected area
+     */
+    public static BufferedImage takeScreenshot(Rectangle rect) {
+        try {
+            return new Robot().createScreenCapture( rect );
+        } catch (AWTException e) {
+            throw new RuntimeException( "Failed to take screenshot", e );
+        }
+    }
+
+    public static <T> float getFloatField( T obj, String name ) {
+        try {
+            var field = obj.getClass().getField(name);
+            field.setAccessible( true );
+            return field.getFloat( obj );
+        } catch (Throwable e) { throw new RuntimeException(e); }
     }
 }

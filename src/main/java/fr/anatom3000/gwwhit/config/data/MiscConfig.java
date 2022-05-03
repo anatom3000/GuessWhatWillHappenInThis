@@ -30,6 +30,7 @@ public class MiscConfig implements ConfigData {
     @SyncOptions(GROUP) @CollapsibleObject public Beemovie beemovie = new Beemovie();
     @SyncOptions(GROUP) @CollapsibleObject public Fov fov = new Fov();
     @SyncOptions(BOTH | SYNCED) @Tooltip( count = 3 ) public boolean invertCoSin = false;
+    @SyncOptions(CLIENT | CHECKED) @Tooltip public boolean replacePanorama = false;
 
     public static class Fov {
         @SyncOptions(CLIENT | SYNCED) public int max = 110;

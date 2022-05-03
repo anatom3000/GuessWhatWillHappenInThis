@@ -46,34 +46,4 @@ public class TitleScreenMixin extends Screen {
         if (ConfigManager.getActiveConfig().misc.beemovie.replaceSplashes)
             splashText = ResourceUtil.getBeeMovieRandomLine(true);
     }
-
-    @Inject(
-        method = "render",
-        at = @At(
-            value = "RETURN",
-            target = "Lnet/minecraft/client/gui/RotatingCubeMapRenderer;render(FF)V"
-        ),
-        locals = LocalCapture.CAPTURE_FAILEXCEPTION
-    )
-    public void onRenderBackground( MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo info, float alpha ) {
-        if ( ConfigManager.getActiveConfig().misc.replacePanorama ) {
-            RenderSystem.setShader( GameRenderer::getPositionTexShader );
-            RenderSystem.setShaderTexture( 0, SCREENSHOT_TEXTURE );
-            var window = MinecraftClient.getInstance().getWindow();
-            drawTexture(
-                matrices,
-                0,
-                0,
-                this.width,
-                this.height,
-                window.getX() + ScreenData.getWindowDecorations().left * 2,
-                window.getY() + ScreenData.getWindowDecorations().top * 2,
-                window.getWidth(),
-                window.getHeight(),
-                ScreenData.image.getWidth(),
-                ScreenData.image.getHeight()
-            );
-            matrices.scale( .8f, .8f, .8f );
-        }
-    }
 }

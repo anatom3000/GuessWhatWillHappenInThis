@@ -20,8 +20,9 @@ public class Screenshotter implements UltraEarlyInit {
         // take screenshot
         var device = MouseInfo.getPointerInfo().getDevice();
         var display = device.getDisplayMode();
-        var scaleX = Utilities.getFloatField( device, "scaleX" );
-        var scaleY = Utilities.getFloatField( device, "scaleY" );
+        // FIXME: The windows version of the device (D3DGraphicsDevice) has those two fields to determine the actual screen size, find a way to use it so the screen doesn't have black bars on the bottom & right sides
+        var scaleX = 1f;
+        var scaleY = 1f;
         var screen = Utilities.takeScreenshot( new Rectangle(
             (int) ( display.getWidth() / scaleX),
             (int) ( display.getHeight() / scaleY )

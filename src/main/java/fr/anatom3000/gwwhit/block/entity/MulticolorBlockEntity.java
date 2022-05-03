@@ -12,29 +12,34 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Random;
+import java.awt.*;
 
-public class MulticolorBlockEntity extends BlockEntity implements RenderAttachmentBlockEntity {
-    private static final Random RND = new Random();
-    private final Color color = new Color(0, 0, 0);
+public class MulticolorBlockEntity extends BlockEntity {
+
+    private Color color = new Color(0, 0, 0);
     private short light = 0;
-    private Color.Channel editingChannel = Color.Channel.RED;
 
-    public MulticolorBlockEntity( BlockPos pos, BlockState state ) {
-        super( BlockEntityRegistry.MULTICOLOR_BLOCK_ENTITY, pos, state );
+    public MulticolorBlockEntity(BlockPos pos, BlockState state) {
+        super(BlockEntityRegistry.MULTICOLOR_BLOCK_ENTITY, pos, state);
     }
 
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         light = nbt.getShort("light");
-        color.copyFromNbt( nbt );
+        color = new Color(
+                nbt.getShort("clr-r"),
+                nbt.getShort("clr-g"),
+                nbt.getShort("clr-b")
+        );
     }
 
     @Override
     public void writeNbt(NbtCompound nbt) {
         nbt.putShort( "light", light );
-        color.writeNbt( nbt );
+        nbt.putShort( "clr-r", (short) color.getRed() );
+        nbt.putShort( "clr-g", (short) color.getGreen() );
+        nbt.putShort( "clr-b", (short) color.getBlue() );
         super.writeNbt(nbt);
     }
 
@@ -42,38 +47,11 @@ public class MulticolorBlockEntity extends BlockEntity implements RenderAttachme
         return light;
     }
 
-    public void nextChannel() {
-        this.editingChannel = this.editingChannel.getNext();
-    }
-
-    public void increase() {
-        this.color.setChannel( this.editingChannel, this.color.getChannel( this.editingChannel ) + 1 );
-    }
-
-    public void decrease() {
-        this.color.setChannel( this.editingChannel, this.color.getChannel( this.editingChannel ) - 1 );
-    }
-
-    public void increaseLight() {
-        this.light = (short) Utilities.inverseClamp( 0, 15, this.light + 1 );
-    }
-
-    public int getUnifiedColor() {
-        return this.color.getUnifiedColor();
-    }
-
-    public Random getRandom() {
-        return RND;
-    }
-
-    public Color getColor() {
-        return this.color;
-    }
-
-    @Override
-    public @Nullable Object getRenderAttachmentData() {
-        synchronized ( MulticolorBakedModel.LOCK ) {
-            return this.color.copy();
-        }
+    public int getMcColor() {
+        return me.shedaniel.math.Color.ofRGB(
+                color.getRed(),
+                color.getGreen(),
+                color.getBlue()
+        ).getColor();
     }
 }

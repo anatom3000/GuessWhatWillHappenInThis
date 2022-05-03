@@ -10,7 +10,7 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
-//apply from: 'resources.gradle'
+apply from: 'resources.gradle'
 
 loom {
     runtimeOnlyLog4j = true
@@ -60,12 +60,12 @@ application {
 
 processResources {
     inputs.property 'version', version
-    inputs.property 'codename', codename
+    inputs.property 'codename', project.ext.codename
 
 	filesMatching('fabric.mod.json') {
 		expand([
             'version': version,
-            'codename': codename
+            'codename': project.ext.codename
 		])
 	}
 }
@@ -80,7 +80,7 @@ java {
 
 jar {
 	from('LICENSE') {
-		rename {"${it}_${project.archivesBaseName}"}
+		rename {"${it}_$archivesBaseName"}
 	}
 
 	manifest.attributes.put("Main-Class", "fr.anatom3000.gwwhit.commandline.CommandLine")

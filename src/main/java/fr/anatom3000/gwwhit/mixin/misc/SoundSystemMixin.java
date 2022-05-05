@@ -14,8 +14,8 @@ import static fr.anatom3000.gwwhit.GWWHITClient.MOJAAAANG_SOUND_EVENT;
 @Mixin(SoundSystem.class)
 public class SoundSystemMixin {
     @Inject(method = "start", at = @At("TAIL"))
-    public void onStart(CallbackInfo ci) {
-        if (ConfigManager.getActiveConfig().audio.mojaaaangStartupSound)
+    public void onStart( CallbackInfo ci ) {
+        if ( ConfigManager.getActiveConfig().audio.mojaaaangStartupSound )
             MinecraftClient.getInstance().getSoundManager().play(
                 PositionedSoundInstance.master(
                     MOJAAAANG_SOUND_EVENT,

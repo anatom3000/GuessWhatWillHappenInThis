@@ -8,7 +8,7 @@ new XmlParser().parse("https://knowyourmeme.com/memes.rss").channel.item.each { 
 }
 project.ext.codename = possibleNames.get(new Random(project.mod_version.hashCode()).nextInt(possibleNames.size()))
 System.out.println("Chose codename \"" + project.ext.codename + "\" from " + possibleNames.size() + " choices")
-
+/*
 // beemovie.txt
 def reader = new BufferedReader(new InputStreamReader(new URL("http://www.script-o-rama.com/movie_scripts/a1/bee-movie-script-transcript-seinfeld.html").openStream()))
 String s = null;
@@ -22,3 +22,4 @@ for (String a : beequotes) {
     compound += "[PARAGRAPH]" + a;
 }
 Files.writeString(Path.of("${project.projectDir}/src/main/resources/assets/gwwhit/beemovie.txt"), compound)
+*/

@@ -44,13 +44,10 @@ public class Commands {
                 .requires(source -> source.hasPermissionLevel(2))
                 .then(CommandManager.literal("config")
                         .then(CommandManager.literal("reload")
-                                .executes(context -> {
+                                .executes(ctx -> {
                                     ConfigManager.getHolder().load();
                                     ConfigManager.setActiveConfig(null);
-
-                                    for (ServerPlayerEntity player : context.getSource().getServer().getPlayerManager().getPlayerList()) {
-                                        ServerPlayNetworking.send(player, GWWHIT.CONFIG_SYNC_ID, ConfigManager.toPacketByteBuf());
-                                    }
+                                    ConfigManager.syncConfig( ctx.getSource().getServer(), null );
                                     return 1;
                                 })
                         )

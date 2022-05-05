@@ -32,7 +32,7 @@
   "environment": "*",
   "entrypoints": {
     "modmenu": [
-      "fr.anatom3000.gwwhit.config.ModmenuIntegration"
+		"fr.anatom3000.gwwhit.compat.ModmenuIntegration"
     ],
     "main": [
       "fr.anatom3000.gwwhit.GWWHIT"
@@ -59,7 +59,8 @@
   },
 
   "suggests": {
-    "modmenu": "*"
+    "modmenu": "*",
+    "valleycraft": ">=2.3"
   },
 
   "custom": {

@@ -27,6 +27,7 @@ public class GameplayConfig implements ConfigData {
         @SyncOptions(BOTH | SYNCED) @Tooltip public boolean hiddenItemsTab = false;
         @SyncOptions(BOTH | SYNCED) @Tooltip public boolean noHardcodedItemCooldown = false;
         @SyncOptions(BOTH | SYNCED) @BoundedDiscrete(min = 1, max = 64) public int maxStackSize = 64;
+        @SyncOptions(BOTH | SYNCED) @BoundedDiscrete(min = 1, max = 10) public int yeeterPowerMultiplier = 1;
     }
 
     public static class Blocks {

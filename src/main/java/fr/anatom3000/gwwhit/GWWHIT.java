@@ -3,6 +3,7 @@ package fr.anatom3000.gwwhit;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import fr.anatom3000.gwwhit.command.Commands;
+import fr.anatom3000.gwwhit.compat.Compats;
 import fr.anatom3000.gwwhit.config.AnnotationExclusionStrategy;
 import fr.anatom3000.gwwhit.dimension.RandomChunkGenerator;
 import fr.anatom3000.gwwhit.registry.*;
@@ -32,9 +33,9 @@ import static fr.anatom3000.gwwhit.Const.MOD_ID;
 
 /*  IMPORTANT NOTICE:
     When adding to this mod make sure you follow proper naming standards:
-        Classes                                     ThisIsAClass
-        Static final fields and enum constants      THIS_IS_STATIC_FINAL
-        Everything else                             thisIsEverythingElse
+        Classes                                 ThisIsAClass
+        Static final fields and enum constants     THIS_IS_STATIC_FINAL
+        Everything else                          thisIsEverythingElse
 */
 
 public class GWWHIT implements ModInitializer {
@@ -59,6 +60,7 @@ public class GWWHIT implements ModInitializer {
     @Override
     public void onInitialize() {
         Python.load();
+        Compats.init();
         cacheTranslations();
         Registry.register(Registry.CHUNK_GENERATOR, getId("random"), RandomChunkGenerator.CODEC);
         ItemRegistry.register();
@@ -77,8 +79,21 @@ public class GWWHIT implements ModInitializer {
             for (Path path : translations.toList()) {
                 String name = path.getFileName().toString();
                 name = name.substring(0, name.lastIndexOf('.'));
-                try (InputStream is = Files.newInputStream(path); InputStreamReader ir = new InputStreamReader(is)) {
-                    TRANSLATIONS.put(name, GSON.fromJson(ir, TypeUtils.parameterize(HashMap.class, String.class, String.class)));
+                try (
+                        InputStream inputStream = Files.newInputStream(path);
+                        InputStreamReader reader = new InputStreamReader(inputStream)
+                ) {
+                    TRANSLATIONS.put(
+                            name,
+                            GSON.fromJson(
+                                    reader,
+                                    TypeUtils.parameterize(
+                                            HashMap.class,
+                                            String.class,
+                                            String.class
+                                    )
+                            )
+                    );
                 } catch (IOException e) {
                     LOGGER.error("Could not cache translation", e);
                 }

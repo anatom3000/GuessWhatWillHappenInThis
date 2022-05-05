@@ -151,5 +151,5 @@ public class Python {
         }
     }
 
-    public static record Script(String id) {}
+    public record Script(String id) { }
 }

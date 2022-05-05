@@ -20,7 +20,6 @@ public class GWWHITClient implements ClientModInitializer {
     public static final Identifier ROCK_SOUND = getId("rock");
     public static final SoundEvent ROCK_SOUND_EVENT = new SoundEvent(ROCK_SOUND);
 
-
     @Override
     public void onInitializeClient() {
         NewMaterials.onInitializeClient();

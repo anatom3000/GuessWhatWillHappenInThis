@@ -3,13 +3,12 @@ package fr.anatom3000.gwwhit.config.data;
 import fr.anatom3000.gwwhit.config.SyncOptions;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
+import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.RequiresRestart;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.EnumHandler;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.EnumHandler.EnumDisplayOption;
-import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.RequiresRestart;
 
 import static fr.anatom3000.gwwhit.config.SyncOptions.*;
 
-@SuppressWarnings("CanBeFinal") // Shut up code inspection
 @Config(name = "moreOres")
 public class MoreOresConfig implements ConfigData {
     MoreOresConfig(){}

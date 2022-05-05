@@ -48,11 +48,42 @@ public final class Utilities {
      */
     public static Path getJarLocation() {
         return Path.of(
-                Objects.requireNonNull(
-                        SafeUtils.doSafely(
-                                () -> ModUpdater.class.getProtectionDomain().getCodeSource().getLocation().toURI()
-                        )
+            Objects.requireNonNull(
+                SafeUtils.doSafely(
+                    () -> ModUpdater.class.getProtectionDomain().getCodeSource().getLocation().toURI()
                 )
+            )
         );
+    }
+
+    /**
+     * Returns a value between min and max, if the given value is higher or lower, it will be replaced by its bound.
+     * @param min Minimum value
+     * @param max Maximum value
+     * @param value Value to clamp
+     * @return Clamped value
+     */
+    public static int clamp( int min, int max, int value ) {
+        return value < min ? 0 : value > max ? 255 : value;
+    }
+
+    /**
+     * Basically same as clamp, but with the values inverted ( < min = max and >max = min )
+     * Returns a value between min and max, if the given value is higher or lower, it will be replaced by its bound.
+     * @param min Minimum value
+     * @param max Maximum value
+     * @param value Value to clamp
+     * @return Clamped value
+     */
+    public static int inverseClamp( int min, int max, int value ) {
+        return value < min ? 255 : value > max ? 0 : value;
+    }
+
+    public static <T> float getFloatField( T obj, String name ) {
+        try {
+            var field = obj.getClass().getField(name);
+            field.setAccessible( true );
+            return field.getFloat( obj );
+        } catch (Throwable e) { throw new RuntimeException(e); }
     }
 }

@@ -15,11 +15,15 @@ import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.ShaderEffect;
 import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.Nullable;
@@ -45,7 +49,8 @@ public class ConfigManager {
     }
 
     public static void setActiveConfig(@Nullable MainConfig config) {
-        if (config == null) config = getHolder().get();
+        if (config == null)
+            config = getHolder().get();
 
         activeConfig = config;
     }
@@ -116,6 +121,17 @@ public class ConfigManager {
             } else {
                 ItemGroupAccess.setGroups(ArrayUtils.add(ItemGroup.GROUPS, CustomItemGroups.CURSED_GROUP));
             }
+        }
+    }
+
+    public static void syncConfig( MinecraftServer server, @Nullable PlayerEntity excluded ) {
+        for ( ServerPlayerEntity player : server.getPlayerManager().getPlayerList() ) {
+            if ( player != excluded )
+                ServerPlayNetworking.send(
+                    player,
+                    GWWHIT.CONFIG_SYNC_ID,
+                    toPacketByteBuf()
+                );
         }
     }
 }

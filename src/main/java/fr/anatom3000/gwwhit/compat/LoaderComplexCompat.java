@@ -13,6 +13,8 @@ import com.enderzombi102.loadercomplex.api.utils.ResourceIdentifier;
 import com.enderzombi102.loadercomplex.api.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
+
 public class LoaderComplexCompat implements Addon {
     @Instance
     public static final LoaderComplexCompat INSTANCE = new LoaderComplexCompat();
@@ -20,6 +22,7 @@ public class LoaderComplexCompat implements Addon {
     public String description;
     public String name;
     public String iconPath;
+    public Map<String, String> links;
 
     @Override
     public void init(Loader loader) {
@@ -58,5 +61,10 @@ public class LoaderComplexCompat implements Addon {
     @Override
     public String getIconPath() {
         return iconPath;
+    }
+
+    @Override
+    public Map<String, String> getLinks() {
+        return links;
     }
 }

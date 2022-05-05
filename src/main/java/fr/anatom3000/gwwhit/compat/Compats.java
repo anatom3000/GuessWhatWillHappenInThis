@@ -23,6 +23,7 @@ public class Compats {
             LoaderComplexCompat.INSTANCE.description = meta.getDescription();
             LoaderComplexCompat.INSTANCE.name = meta.getName() + " " + meta.getCustomValue("codename").getAsString();
             LoaderComplexCompat.INSTANCE.iconPath = meta.getIconPath(32).orElseThrow();
+            LoaderComplexCompat.INSTANCE.links = meta.getContact().asMap();
         }
     }
 

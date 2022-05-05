@@ -42,6 +42,8 @@ dependencies {
     include modImplementation("net.devtech:arrp:$arrp_version")
     include modImplementation("com.enderzombi102:JythonMC:$jythonmc_version")
 
+    compileOnly "com.enderzombi102:loadercomplex-api:$lc_version"
+    modImplementation "maven.modrinth:valleycraft:$valleycraft_version"
     modImplementation("com.terraformersmc:modmenu:$modmenu_version") {
         transitive(false)
     }
@@ -51,7 +53,6 @@ dependencies {
     include "io.gitlab.jfronny.libjf:libjf-base:${project.jfapi_version}"
     modRuntimeOnly "io.gitlab.jfronny.libjf:libjf-devutil-v0:${project.jfapi_version}", noFAPI
 
-    modImplementation "maven.modrinth:valleycraft:2.3"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
@@ -86,14 +87,19 @@ jar {
 		rename {"${it}_$archivesBaseName"}
 	}
 
-	manifest.attributes.put('Main-Class', 'fr.anatom3000.gwwhit.commandline.CommandLine')
+	manifest.attributes += [
+        'Main-Class': 'fr.anatom3000.gwwhit.commandline.CommandLine',
+        'LoaderComplex-AddonId': 'gwwhit',
+        'LoaderComplex-Version': archiveVersion,
+        'LoaderComplex-Main': 'fr.anatom3000.gwwhit.compat.LoaderComplexCompat'
+    ]
 
     exclude('fr/anatom3000/gwwhit/DevUtils*')
 }
 
 shadowJar {
 	dependencies {
-		include(dependency('com.google.code.gson:gson'))
+		include( dependency('com.google.code.gson:gson') )
 	}
 
 	minimize()

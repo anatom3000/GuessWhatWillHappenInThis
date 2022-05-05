@@ -14,6 +14,16 @@ public class Compats {
 
     public static void init() {
         initValleycraftCompat( FabricLoader.getInstance().isModLoaded("valley") );
+        initLoaderComplexCompat( FabricLoader.getInstance().isModLoaded("loadercomplex") );
+    }
+
+    private static void initLoaderComplexCompat( boolean present ) {
+        if ( present ) {
+            var meta = GWWHIT.CONTAINER.getMetadata();
+            LoaderComplexCompat.INSTANCE.description = meta.getDescription();
+            LoaderComplexCompat.INSTANCE.name = meta.getName() + " " + meta.getCustomValue("codename").getAsString();
+            LoaderComplexCompat.INSTANCE.iconPath = meta.getIconPath(32).orElseThrow();
+        }
     }
 
     public static void initValleycraftCompat( boolean present ) {

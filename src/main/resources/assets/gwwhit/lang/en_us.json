@@ -11,6 +11,10 @@
   "item.gwwhit.infected_mass": "Infected Mass",
   "item.gwwhit.inert_infected_mass": "Inert Infected Mass",
   "item.gwwhit.pyblock": "PyBlock",
+  "item.gwwhit.flour": "Flour",
+  "item.gwwhit.pancakes": "Pancakes",
+  "item.gwwhit.pancake_mix": "Pancake Mix",
+  "item.gwwhit.pancakes.tooltip": "Too sweet to be true",
 
   "block.gwwhit.infected_mass": "Infected Mass",
   "block.gwwhit.randomising_block": "Randomising Block",
@@ -25,6 +29,8 @@
 
   "enchantment.gwwhit.swapping_curse": "Curse of Swapping",
   "enchantment.gwwhit.curse_curse": "Curse of Curses",
+
+  "death.attack.gwwhit.pancakes": "%s became too sweet for this world",
 
   "gui.gwwhit.title": "GWWHIT - The %s Update",
   "gui.gwwhit.config": "Config",

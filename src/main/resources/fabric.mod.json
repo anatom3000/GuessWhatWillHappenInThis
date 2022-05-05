@@ -41,8 +41,7 @@
       "fr.anatom3000.gwwhit.GWWHITClient"
     ],
     "libjf:early": [
-      "fr.anatom3000.gwwhit.util.ConsoleHacker",
-      "fr.anatom3000.gwwhit.util.ScreenData"
+      "fr.anatom3000.gwwhit.util.ConsoleHacker"
     ]
   },
   "mixins": [
@@ -60,7 +59,8 @@
   },
 
   "suggests": {
-    "modmenu": "*"
+    "modmenu": "*",
+    "valleycraft": ">=2.3"
   },
 
   "custom": {

@@ -5,25 +5,34 @@ import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.config.data.AudioConfig;
 import fr.anatom3000.gwwhit.util.CheatCodes;
+import fr.anatom3000.gwwhit.util.PancakeDamageSource;
 import io.gitlab.jfronny.libjf.data.manipulation.api.UserResourceEvents;
 import net.devtech.arrp.api.RRPCallback;
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Material;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.SilverfishEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 
 import java.nio.file.Files;
 
 import static fr.anatom3000.gwwhit.GWWHIT.getId;
 
+/*
+-javaagent:"C:\Users\Michele\.gradle\caches\modules-2\files-2.1\net.fabricmc\sponge-mixin\0.11.2+mixin.0.8.5\f4ae569d559b5e3244b67321945261d83ff7ad8e\sponge-mixin-0.11.2+mixin.0.8.5.jar"
+ */
 public class EventListeners {
     private static final Identifier LE_BLAZE_LOOT = new Identifier("minecraft", "entities/blaze");
     private static final Identifier LE_BARTER_LOOT = new Identifier("minecraft", "gameplay/piglin_bartering");
@@ -44,20 +53,19 @@ public class EventListeners {
                 }
             }
         });
-
+        // --- AUTHOR: ENDERZOMBI102 ---
         PlayerBlockBreakEvents.AFTER.register(
                 (world, player, pos, state, blockEntity) -> {
                     if (ConfigManager.getActiveConfig().gameplay.stoneBlocksAreInfected) {
-                        // AUTHOR: ENDERZOMBI102
                         if (state.getMaterial() == Material.STONE) {
                             SilverfishEntity silverfishEntity = EntityType.SILVERFISH.create(world);
                             //noinspection ConstantConditions
                             silverfishEntity.refreshPositionAndAngles(
-                                    (double) pos.getX() + 0.5D,
-                                    pos.getY(),
-                                    (double) pos.getZ() + 0.5D,
-                                    0.0F,
-                                    0.0F
+                                (double) pos.getX() + 0.5D,
+                                pos.getY(),
+                                (double) pos.getZ() + 0.5D,
+                                0.0F,
+                                0.0F
                             );
                             world.spawnEntity(silverfishEntity);
                             silverfishEntity.playSpawnEffects();
@@ -65,9 +73,6 @@ public class EventListeners {
                     }
                 }
         );
-
-        RRPCallback.AFTER_VANILLA.register( a -> a.add(GWWHIT.RESOURCE_PACK) );
-        // AUTHOR: ENDERZOMBI102
         //noinspection ConstantConditions
         ServerPlayNetworking.registerGlobalReceiver(
             getId("cheat_codes_channel"),
@@ -78,6 +83,32 @@ public class EventListeners {
                 )
             )
         );
+        AttackEntityCallback.EVENT.register( ( player, world, hand, entity, hitResult ) -> {
+            if ( player.getStackInHand(hand).isOf( ItemRegistry.get("pancake") ) ) {
+                if ( entity instanceof PlayerEntity playerEntity ) {
+                    if (! world.isClient() )
+                        playerEntity.damage( new PancakeDamageSource( player ), 5 );
+                } else if ( entity instanceof LivingEntity livingEntity ) {
+                    if (! world.isClient() ) {
+                        livingEntity.heal(5);
+                        return ActionResult.FAIL;
+                    }
+                    world.addParticle(
+                            ParticleTypes.HEART,
+                            livingEntity.getX(),
+                            livingEntity.getY() + livingEntity.getStandingEyeHeight(),
+                            livingEntity.getZ(),
+                            0,
+                            1,
+                            0
+                    );
+                }
+            }
+            return ActionResult.PASS;
+        });
+        // --- END AUTHOR ---
+        RRPCallback.AFTER_VANILLA.register( a -> a.add(GWWHIT.RESOURCE_PACK) );
+
         UserResourceEvents.OPEN.register( (type, id, previous, pack) -> {
             if ( id.getPath().endsWith(".ogg") ) {
                 AudioConfig.SoundReplacement r = ConfigManager.getActiveConfig().audio.soundReplacement;

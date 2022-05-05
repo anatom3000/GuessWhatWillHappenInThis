@@ -12,15 +12,18 @@ import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Material;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.SilverfishEntity;
 import net.minecraft.item.Items;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 
 import java.nio.file.Files;
+import java.util.Objects;
 
 import static fr.anatom3000.gwwhit.GWWHIT.getId;
 
@@ -91,6 +94,17 @@ public class EventListeners {
     }
 
     public static void registerClient() {
-
+        ConfigManager.getHolder().registerSaveListener( ( holder, cfg ) -> {
+            if ( MinecraftClient.getInstance().isIntegratedServerRunning() ) {
+                ConfigManager.setActiveConfig( cfg );
+                ConfigManager.syncConfig(
+                        Objects.requireNonNull( MinecraftClient.getInstance().getServer() ),
+                        MinecraftClient.getInstance().getServer().getPlayerManager().getPlayer(
+                                Objects.requireNonNull( MinecraftClient.getInstance().player ).getUuid()
+                        )
+                );
+            }
+            return ActionResult.SUCCESS;
+        } );
     }
 }

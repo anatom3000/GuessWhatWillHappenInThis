@@ -3,7 +3,7 @@ package fr.anatom3000.gwwhit;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import fr.anatom3000.gwwhit.command.Commands;
-import fr.anatom3000.gwwhit.compat.Compat;
+import fr.anatom3000.gwwhit.compat.Compats;
 import fr.anatom3000.gwwhit.config.AnnotationExclusionStrategy;
 import fr.anatom3000.gwwhit.dimension.RandomChunkGenerator;
 import fr.anatom3000.gwwhit.registry.*;
@@ -60,8 +60,8 @@ public class GWWHIT implements ModInitializer {
     @Override
     public void onInitialize() {
         Python.load();
+        Compats.init();
         cacheTranslations();
-        Compat.onLoad();
         Registry.register(Registry.CHUNK_GENERATOR, getId("random"), RandomChunkGenerator.CODEC);
         ItemRegistry.register();
         BlockRegistry.register();

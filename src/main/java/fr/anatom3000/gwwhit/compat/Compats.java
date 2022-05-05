@@ -11,9 +11,9 @@ import net.minecraft.item.Items;
 
 import static fr.anatom3000.gwwhit.GWWHIT.getId;
 
-public class Compat {
+public class Compats {
 
-    public static void onLoad() {
+    public static void init() {
         initValleycraftCompat( FabricLoader.getInstance().isModLoaded("valleycraft") );
     }
 

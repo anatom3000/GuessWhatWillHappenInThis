@@ -65,7 +65,8 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
     public void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (this.world.isClient) return;
+        if (this.world.isClient)
+            return;
         if (source == DamageSource.FALL && getEquippedStack(EquipmentSlot.FEET).getItem() == ItemRegistry.get("shock_resistant_boots")) {
             cir.setReturnValue(false);
             cir.cancel();
@@ -98,9 +99,8 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "tickMovement", at = @At("TAIL"))
     public void tickMovement(CallbackInfo ci) {
-        if (getEquippedStack(EquipmentSlot.FEET).getItem() != ItemRegistry.get("dashing_boots")) {
+        if (getEquippedStack(EquipmentSlot.FEET).getItem() != ItemRegistry.get("dashing_boots"))
             return;
-        }
         if (!isSprinting()) {
             dashTicks = 0;
             return;
@@ -108,6 +108,7 @@ public abstract class LivingEntityMixin extends Entity {
             ++dashTicks;
         }
         EntityAttributeInstance entityAttributeInstance = getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+        assert entityAttributeInstance != null;
         if (entityAttributeInstance.getModifier(DASHING_SPEED_BOOST_ID) != null) {
             entityAttributeInstance.removeModifier(DASHING_SPEED_BOOST);
         }

@@ -5,25 +5,19 @@ import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.config.ConfigManager;
 import fr.anatom3000.gwwhit.config.data.AudioConfig;
 import fr.anatom3000.gwwhit.util.CheatCodes;
-import fr.anatom3000.gwwhit.util.PancakeDamageSource;
 import io.gitlab.jfronny.libjf.data.manipulation.api.UserResourceEvents;
 import net.devtech.arrp.api.RRPCallback;
-import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Material;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.SilverfishEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 
 import java.nio.file.Files;
@@ -83,29 +77,6 @@ public class EventListeners {
                 )
             )
         );
-        AttackEntityCallback.EVENT.register( ( player, world, hand, entity, hitResult ) -> {
-            if ( player.getStackInHand(hand).isOf( ItemRegistry.get("pancake") ) ) {
-                if ( entity instanceof PlayerEntity playerEntity ) {
-                    if (! world.isClient() )
-                        playerEntity.damage( new PancakeDamageSource( player ), 5 );
-                } else if ( entity instanceof LivingEntity livingEntity ) {
-                    if (! world.isClient() ) {
-                        livingEntity.heal(5);
-                        return ActionResult.FAIL;
-                    }
-                    world.addParticle(
-                            ParticleTypes.HEART,
-                            livingEntity.getX(),
-                            livingEntity.getY() + livingEntity.getStandingEyeHeight(),
-                            livingEntity.getZ(),
-                            0,
-                            1,
-                            0
-                    );
-                }
-            }
-            return ActionResult.PASS;
-        });
         // --- END AUTHOR ---
         RRPCallback.AFTER_VANILLA.register( a -> a.add(GWWHIT.RESOURCE_PACK) );
 

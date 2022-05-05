@@ -13,6 +13,6 @@ public class PancakeDamageSource extends EntityDamageSource {
 
     @Override
     public Text getDeathMessage(LivingEntity entity) {
-        return new TranslatableText( "death.attack.gwwhit.pancakes", entity.getDisplayName() );
+        return new TranslatableText( "death.attack.gwwhit.pancakes." + entity.getRandom().nextInt( 0, 4 ), entity.getDisplayName() );
     }
 }

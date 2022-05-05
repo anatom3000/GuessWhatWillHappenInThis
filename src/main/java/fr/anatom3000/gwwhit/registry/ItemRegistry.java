@@ -39,7 +39,8 @@ public class ItemRegistry {
         put("noscope", new NoscopeItem(new FabricItemSettings().fireproof().group(CustomItemGroups.GWWHIT_GROUP).maxCount(1)));
         put("malek_pickaxe", new CustomPickaxeItem(new CustomToolMaterial(15, 50, -1, 100000, 1000, Items.OAK_LOG), 15, 15, new FabricItemSettings().group(CustomItemGroups.GWWHIT_GROUP)));
 
-       put( "pancake", new PanCakeItem() );
+       put( "pancakes", new PanCakesItem() );
+       put( "yeeter", new YeeterItem() );
     }};
 
     public static void register() {

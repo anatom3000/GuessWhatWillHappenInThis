@@ -3,7 +3,6 @@ package fr.anatom3000.gwwhit.compat;
 import fr.anatom3000.gwwhit.CustomItemGroups;
 import fr.anatom3000.gwwhit.GWWHIT;
 import fr.anatom3000.gwwhit.registry.ItemRegistry;
-import io.github.linkle.valleycraft.init.FoodAndCooking;
 import net.devtech.arrp.json.recipe.*;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
@@ -14,7 +13,7 @@ import static fr.anatom3000.gwwhit.GWWHIT.getId;
 public class Compats {
 
     public static void init() {
-        initValleycraftCompat( FabricLoader.getInstance().isModLoaded("valleycraft") );
+        initValleycraftCompat( FabricLoader.getInstance().isModLoaded("valley") );
     }
 
     public static void initValleycraftCompat( boolean present ) {
@@ -23,7 +22,7 @@ public class Compats {
                 getId("pancakes_from_valleycraft_pancake"),
                 JRecipe.shaped(
                     JPattern.pattern(" # ", " # ", " # "),
-                    JKeys.keys().key( "#", JIngredient.ingredient().item( FoodAndCooking.PANCAKE ) ),
+                    JKeys.keys().key( "#", JIngredient.ingredient().item( "valley:pancake" ) ),
                     JResult.result( "gwwhit:pancakes" )
                 )
             );

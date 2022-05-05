@@ -1,4 +1,4 @@
-package fr.anatom3000.gwwhit.config;
+package fr.anatom3000.gwwhit.compat;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;

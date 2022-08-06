@@ -11,18 +11,24 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.stream.Collectors;
 
+import static fr.anatom3000.gwwhit.GWWHIT.LOGGER;
+
 public class ResourceUtil {
     private static final String BEE_MOVIE;
     private static final String[] BEE_MOVIE_L;
     private static final String[] BEE_MOVIE_NL;
     static {
+        String BEE_MOVIE1;
         try (InputStream is = Files.newInputStream(Const.ASSETS_ROOT.resolve("beemovie.txt"));
              InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
              BufferedReader bufferedReader = new BufferedReader(isr)) {
-            BEE_MOVIE = bufferedReader.lines().collect(Collectors.joining());
+            BEE_MOVIE1 = bufferedReader.lines().collect(Collectors.joining());
         } catch (IOException e) {
-            throw new RuntimeException("Could not get beemovie quotes", e);
+            // Try not to crash the game if it fails to load a file.
+            BEE_MOVIE1 = "missingno";
+            LOGGER.error("Could not get beemovie quotes", e);
         }
+        BEE_MOVIE = BEE_MOVIE1;
         BEE_MOVIE_L = BEE_MOVIE.split("\\[PARAGRAPH]");
         BEE_MOVIE_NL = BEE_MOVIE.replace('\n', ' ').split("\\[PARAGRAPH]");
     }

@@ -22,8 +22,6 @@ import net.minecraft.util.math.Vec3f;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-import static fr.anatom3000.gwwhit.GWWHITClient.MOJAAAANG_SOUND;
-
 public class FoolsSplashOverlay extends Overlay {
     private static final Identifier MOJANG_LOGO = new Identifier("gwwhit:textures/gui/mojang_logo.png");
     private static final Identifier MOJANG_TEXT = new Identifier("gwwhit:textures/gui/mojang_text.png");

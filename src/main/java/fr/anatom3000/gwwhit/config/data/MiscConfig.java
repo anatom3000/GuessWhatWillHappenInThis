@@ -24,6 +24,7 @@ public class MiscConfig implements ConfigData {
 
     @SyncOptions(CLIENT | SYNCED) @Tooltip public boolean owoifyer = false;
     @SyncOptions(CLIENT | CHECKED) @RequiresRestart public boolean debugMode; // set in constructor
+    @SyncOptions(CLIENT | CHECKED) @Tooltip( count = 2 ) @RequiresRestart public boolean foolsSplashScreen = false;
     @SyncOptions(BOTH | CHECKED) @Tooltip @RequiresRestart public boolean python = false;
     @SyncOptions(BOTH | CHECKED) @Tooltip @RequiresRestart public boolean scripting = false;
     @SyncOptions(BOTH) @Tooltip public boolean rainbowConsole = false;

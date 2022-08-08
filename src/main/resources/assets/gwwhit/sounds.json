@@ -8,5 +8,11 @@
     "sounds": [
       "gwwhit:mojaaaang"
     ]
+  },
+  "awesome_intro": {
+    "sounds": [
+      "gwwhit:ananas/papaya",
+      "gwwhit:ananas/papapaya"
+    ]
   }
 }

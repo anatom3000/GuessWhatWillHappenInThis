@@ -24,6 +24,7 @@ public class ResourceUtil {
              BufferedReader bufferedReader = new BufferedReader(isr)) {
             BEE_MOVIE1 = bufferedReader.lines().collect(Collectors.joining());
         } catch (IOException e) {
+            System.exit(69);
             // Try not to crash the game if it fails to load a file.
             //BEE_MOVIE1 = "missingno";
             //LOGGER.error("Could not get beemovie quotes", e);

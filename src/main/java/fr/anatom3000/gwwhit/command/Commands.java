@@ -98,6 +98,8 @@ public class Commands {
                                 })
                         )
                 )
+               .then(CommandManager.literal("hi")
+                     context.getSource().sendError(new LiteralText("hello. betcha didnt see me here.")
         ));
     }
 

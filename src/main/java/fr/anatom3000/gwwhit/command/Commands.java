@@ -99,8 +99,9 @@ public class Commands {
                         )
                 )
                .then(CommandManager.literal("hi")
-                     context.getSource().sendError(new LiteralText("hello. betcha didnt see me here."));
-               )
+                        context.getPlayer().playSound(SoundEvents.BLOCK_WOOL_PLACE, 1.0f, 1.0f);
+                        context.getPlayer().sendMessage(new LiteralText "hi - { from narwhalandme }")
+                )
         ));
     }
 

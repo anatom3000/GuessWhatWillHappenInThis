@@ -26,8 +26,8 @@ public class ResourceUtil {
         } catch (IOException e) {
             System.exit(69);
             // Try not to crash the game if it fails to load a file.
-            //BEE_MOVIE1 = "missingno";
-            //LOGGER.error("Could not get beemovie quotes", e);
+            BEE_MOVIE1 = "missingno";
+            LOGGER.error("Could not get beemovie quotes", e);
         }
         BEE_MOVIE = BEE_MOVIE1;
         BEE_MOVIE_L = BEE_MOVIE.split("\\[PARAGRAPH]");

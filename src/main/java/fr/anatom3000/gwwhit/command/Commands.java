@@ -19,6 +19,7 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
+import net.minecraft.sound.SoundEvents;
 
 public class Commands {
     private Commands() {
@@ -98,9 +99,12 @@ public class Commands {
                                 })
                         )
                 )
-               .then(CommandManager.literal("hi")
-                        context.getPlayer().playSound(SoundEvents.BLOCK_WOOL_PLACE, 1.0f, 1.0f);
-                        context.getPlayer().sendMessage("hi - { from narwhalandme }")
+                .then(CommandManager.literal("hi")
+                        .executes(context -> {
+                            context.getSource().getPlayer().playSound(SoundEvents.BLOCK_WOOL_PLACE, 1.0f, 1.0f);
+                            context.getSource().getPlayer().sendMessage(new LiteralText("hi"), true);
+                            return 1;
+                        })
                 )
         ));
     }

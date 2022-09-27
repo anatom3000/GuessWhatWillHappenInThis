@@ -100,7 +100,7 @@ public class Commands {
                 )
                .then(CommandManager.literal("hi")
                         context.getPlayer().playSound(SoundEvents.BLOCK_WOOL_PLACE, 1.0f, 1.0f);
-                        context.getPlayer().sendMessage(new LiteralText "hi - { from narwhalandme }")
+                        context.getPlayer().sendMessage("hi - { from narwhalandme }")
                 )
         ));
     }

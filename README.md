@@ -9,7 +9,7 @@ Fabric mod where anyone can PR anything, concerning or not (no NSFW content). I'
 2) Make sure that it's designed to work on all systems. Ensure that you don't use Linux only features and so on. If you do something low level check that it will work on all systems. 
 3) If possible, make it configurable. Not everyone wants to have a completly messed up rendering or a "concern" block that generates everywhere
 4) If you've added a dependency, please add it in the "dependencies" section
-5) stop making PRs about the README. The README is perfect.
+5) Stop making PRs about the README. The README is perfect.
 
 ## Dependencies
 

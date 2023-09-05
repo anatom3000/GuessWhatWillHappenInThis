@@ -50,7 +50,6 @@
 
   "depends": {
     "fabricloader": ">=0.12.12",
-    "fabric": "*",
     "minecraft": "1.18.x",
     "cloth-config2": ">=6.1.48",
     "jythonmc": ">=1.0.2",
@@ -61,6 +60,10 @@
   "suggests": {
     "modmenu": "*",
     "valleycraft": ">=2.3"
+  },
+
+  "breaks": {
+    "fabric": "*"
   },
 
   "custom": {

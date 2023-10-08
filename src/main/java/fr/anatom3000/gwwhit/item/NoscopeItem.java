@@ -32,14 +32,6 @@ public class NoscopeItem extends Item {
         if (!world.isClient) {
         	// EVERYTHING ABOVE YOUR NECK IS GONNA BE A FINE RED MIST
 			summonAimbotArrow(user.getStackInHand(hand), (ServerPlayerEntity) user);
-			
-            /*
-            ArrowItem arrowItem = (ArrowItem) Items.ARROW;
-            PersistentProjectileEntity persistentProjectileEntity = arrowItem.createArrow(world, new ItemStack(arrowItem), user);
-            persistentProjectileEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 3.0F, 1.0F);
-            persistentProjectileEntity.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
-            world.spawnEntity(persistentProjectileEntity);
-            */
         }
         return TypedActionResult.consume(itemStack);
     }

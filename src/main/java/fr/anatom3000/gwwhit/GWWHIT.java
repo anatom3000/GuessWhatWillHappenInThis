@@ -12,6 +12,7 @@ import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.reflect.TypeUtils;
@@ -49,6 +50,10 @@ public class GWWHIT implements ModInitializer {
     public static final Random RANDOM = new Random();
     public static final TableRandomizer TABLE_RANDOMIZER = new TableRandomizer(RANDOM);
     public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create(MOD_ID);
+    public static final Identifier SNIPER_NS = new Identifier("gwwhit:sniper_ns"); // point
+    public static final SoundEvent SNIPER_NS_EVENT = new SoundEvent(SNIPER_NS); // and
+    public static final Identifier SNIPER_THX = new Identifier("gwwhit:sniper_thx"); // click
+    public static final SoundEvent SNIPER_THX_EVENT = new SoundEvent(SNIPER_THX); // adventure
 
     //Caches
     public static final Map<String, Map<String, String>> TRANSLATIONS = new HashMap<>();
@@ -66,6 +71,7 @@ public class GWWHIT implements ModInitializer {
         ItemRegistry.register();
         BlockRegistry.register();
         BlockEntityRegistry.register();
+        EntityRegistry.register();
         Commands.register();
         EnchantmentRegistry.register();
         NewMaterials.onInitialize();

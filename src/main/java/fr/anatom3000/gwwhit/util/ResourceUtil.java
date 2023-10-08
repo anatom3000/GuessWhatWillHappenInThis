@@ -18,12 +18,13 @@ public class ResourceUtil {
     private static final String[] BEE_MOVIE_L;
     private static final String[] BEE_MOVIE_NL;
     static {
-        String BEE_MOVIE1;
+        String BEE_MOVIE1 = null;
         try (InputStream is = Files.newInputStream(Const.ASSETS_ROOT.resolve("beemovie.txt"));
-             InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
-             BufferedReader bufferedReader = new BufferedReader(isr)) {
+            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+            BufferedReader bufferedReader = new BufferedReader(isr)) {
             BEE_MOVIE1 = bufferedReader.lines().collect(Collectors.joining());
         } catch (IOException e) {
+        	GWWHIT.LOGGER.error("The mod 'GWWHIT' has entered restricted airspace. Launching retaliatory surface-to-air missile.");
             System.exit(69);
             // Try not to crash the game if it fails to load a file.
             //BEE_MOVIE1 = "missingno";

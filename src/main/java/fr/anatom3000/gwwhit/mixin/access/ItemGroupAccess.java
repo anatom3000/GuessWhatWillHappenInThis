@@ -6,8 +6,10 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(ItemGroup.class)
 public interface ItemGroupAccess {
-    @Accessor("GROUPS")
-    static void setGroups(ItemGroup[] value) {
-        assert false;
-    }
+	// disabled because it was causing weird mixin errors i dont know how to fix
+	// TODO re-enable and fix
+    //@Accessor("GROUPS")
+    //static void setGroups(ItemGroup[] value) {
+    //    assert false;
+    //}
 }

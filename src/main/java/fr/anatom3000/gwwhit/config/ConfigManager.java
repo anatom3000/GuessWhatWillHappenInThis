@@ -115,11 +115,12 @@ public class ConfigManager {
         // If nothing changed there's no need to refresh
         if (oldStatus != newStatus) {
             if (oldStatus) {
-                ItemGroupAccess.setGroups(ArrayUtils.removeElement(ItemGroup.GROUPS, CustomItemGroups.CURSED_GROUP));
-                if (CreativeInventoryScreenAccess.getSelectedTab() == ItemGroup.GROUPS.length)
-                    CreativeInventoryScreenAccess.setSelectedTab(ItemGroup.GROUPS.length - 1);
+            	// disabled, see ItemGroupAccess TODO attempt fix
+                //ItemGroupAccess.setGroups(ArrayUtils.removeElement(ItemGroup.GROUPS, CustomItemGroups.CURSED_GROUP));
+                //if (CreativeInventoryScreenAccess.getSelectedTab() == ItemGroup.GROUPS.length)
+                //    CreativeInventoryScreenAccess.setSelectedTab(ItemGroup.GROUPS.length - 1);
             } else {
-                ItemGroupAccess.setGroups(ArrayUtils.add(ItemGroup.GROUPS, CustomItemGroups.CURSED_GROUP));
+                //ItemGroupAccess.setGroups(ArrayUtils.add(ItemGroup.GROUPS, CustomItemGroups.CURSED_GROUP));
             }
         }
     }

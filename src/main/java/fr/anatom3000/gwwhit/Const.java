@@ -16,6 +16,14 @@ public class Const {
         ModContainer container = FabricLoader.getInstance().getModContainer(MOD_ID).get();
         MOD_VERSION = container.getMetadata().getVersion().getFriendlyString();
         MOD_VERSION_CODENAME = container.getMetadata().getCustomValue("codename").getAsString();
-        ASSETS_ROOT = container.getRootPath().resolve("assets/gwwhit");
+        Path treeStraw = null;
+        for (Path path : container.getRootPaths()) {
+        	try {
+                treeStraw = path.resolve("assets/gwwhit");
+                break;
+        	} catch (Exception e) {
+        	}
+        }
+        ASSETS_ROOT = treeStraw;
     }
 }

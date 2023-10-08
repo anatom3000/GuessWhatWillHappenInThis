@@ -32,6 +32,7 @@ import fr.anatom3000.gwwhit.mixin.access.ProjectileEntityAccessor;
 import fr.anatom3000.gwwhit.registry.EntityRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -692,6 +693,8 @@ public class SentientArrow extends PersistentProjectileEntity {
 	
 	private void attemptToTransmuteEntity(LivingEntity entity) {
 		// die!!!!!!
+		entity.world.playSound(null, entity.getBlockPos(), GWWHIT.SNIPER_THX_EVENT, getSoundCategory(), 1, 1);
+		entity.world.playSound(null, owner().getBlockPos(), GWWHIT.SNIPER_THX_EVENT, getSoundCategory(), 1, 1);
 		entity.kill();
 	}
 	
@@ -722,7 +725,8 @@ public class SentientArrow extends PersistentProjectileEntity {
 					chosenTarget = validTargets.get(0);
 				}
 				world.playSound(null, this.getBlockPos(), GWWHIT.SNIPER_NS_EVENT, this.getSoundCategory(), 1f, 1);
-				world.playSound(null, chosenTarget.getBlockPos(), GWWHIT.SNIPER_NS_EVENT, this.getSoundCategory(), 1f, 0.5f);
+				world.playSound(null, chosenTarget.getBlockPos(), GWWHIT.SNIPER_NS_EVENT, this.getSoundCategory(), 1f, 1f);
+				world.playSound(null, owner().getBlockPos(), GWWHIT.SNIPER_NS_EVENT, this.getSoundCategory(), 1f, 1f);
 				return chosenTarget;
 			}
 		}

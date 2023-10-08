@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(PersistentProjectileEntity.class)
 public interface PersistentProjectileEntityAccessor {
     @Accessor("inBlockState")
-    void setInBlockState(PlayerEntity player);
+    void setInBlockState(BlockState state);
 
     @Accessor("inBlockState")
     BlockState getInBlockState();

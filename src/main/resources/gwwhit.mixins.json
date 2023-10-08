@@ -6,6 +6,7 @@
 	"mixins": [
 		"access.ItemGroupAccess",
 		"access.LivingEntityAccessor",
+		"access.PersistentProjectileEntityAccessor",
 		"event.PlayerEntityMixin",
 		"gameplay.AnimalEntityMixin",
 		"gameplay.BlockMixin",

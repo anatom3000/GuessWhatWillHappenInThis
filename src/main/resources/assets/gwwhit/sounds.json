@@ -14,5 +14,18 @@
       "gwwhit:ananas/papaya",
       "gwwhit:ananas/papapaya"
     ]
+  },
+  "sniper_ns": {
+    "sounds": [
+      "gwwhit:sniper/ns1",
+      "gwwhit:sniper/ns2",
+      "gwwhit:sniper/ns3"
+    ]
+  },
+  "sniper_thx": {
+    "sounds": [
+      "gwwhit:sniper/thx1",
+      "gwwhit:sniper/thx2"
+    ]
   }
 }

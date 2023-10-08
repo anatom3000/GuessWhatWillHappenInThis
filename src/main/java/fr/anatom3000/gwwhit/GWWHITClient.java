@@ -28,6 +28,9 @@ public class GWWHITClient implements ClientModInitializer {
         Registry.register(Registry.SOUND_EVENT, WHISTLE_SOUND, WHISTLE_SOUND_EVENT);
         Registry.register(Registry.SOUND_EVENT, MOJAAAANG_SOUND, MOJAAAANG_SOUND_EVENT);
         Registry.register(Registry.SOUND_EVENT, ROCK_SOUND, ROCK_SOUND_EVENT);
+        // server needs to know about these, unless somebody wants to fuck with the SentientArrow code
+        Registry.register(Registry.SOUND_EVENT, GWWHIT.SNIPER_NS, GWWHIT.SNIPER_NS_EVENT); // Good shot mate!
+        Registry.register(Registry.SOUND_EVENT, GWWHIT.SNIPER_THX, GWWHIT.SNIPER_THX_EVENT); // 'preciate it.
 
         ClientPlayNetworking.registerGlobalReceiver(GWWHIT.CONFIG_SYNC_ID, (client, networkHandler, data, sender) -> {
             String version = data.readString();

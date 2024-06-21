@@ -38,8 +38,8 @@ public class GWWHITClient implements ClientModInitializer {
         Registry.register(Registry.SOUND_EVENT, GWWHIT.SNIPER_NS, GWWHIT.SNIPER_NS_EVENT); // Good shot mate!
         Registry.register(Registry.SOUND_EVENT, GWWHIT.SNIPER_THX, GWWHIT.SNIPER_THX_EVENT); // 'preciate it.
 
-        EntityRendererRegistry.INSTANCE.register(EntityRegistry.SENTIENT_ARROW_ENTITY, (ctx) -> new SentientArrowRenderer(ctx));
-        
+        EntityRendererRegistry.INSTANCE.register(EntityRegistry.SENTIENT_ARROW_ENTITY, SentientArrowRenderer::new);
+
         ClientPlayNetworking.registerGlobalReceiver(GWWHIT.CONFIG_SYNC_ID, (client, networkHandler, data, sender) -> {
             String version = data.readString();
             String config = data.readString();

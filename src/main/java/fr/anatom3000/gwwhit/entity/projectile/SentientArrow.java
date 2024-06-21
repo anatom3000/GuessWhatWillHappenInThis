@@ -61,50 +61,18 @@ import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
-//import net.minecraft.core.BlockPos;
-//import net.minecraft.core.particles.ParticleTypes;
-//import net.minecraft.network.syncher.EntityDataAccessor;
-//import net.minecraft.network.syncher.EntityDataSerializers;
-//import net.minecraft.network.syncher.SynchedEntityData;
-//import net.minecraft.server.level.ServerLevel;
-//import net.minecraft.server.level.ServerPlayer;
-//import net.minecraft.sounds.SoundEvents;
-//import net.minecraft.util.Mth;
-//import net.minecraft.world.damagesource.DamageSource;
-//import net.minecraft.world.effect.MobEffectInstance;
-//import net.minecraft.world.entity.Entity;
-//import net.minecraft.world.entity.EntityType;
-//import net.minecraft.world.entity.LivingEntity;
-//import net.minecraft.world.entity.player.Player;
-//import net.minecraft.world.entity.projectile.AbstractArrow;
-//import net.minecraft.world.entity.projectile.ProjectileUtil;
-//import net.minecraft.world.item.ItemStack;
-//import net.minecraft.world.level.ClipContext;
-//import net.minecraft.world.level.Level;
-//import net.minecraft.world.level.block.Blocks;
-//import net.minecraft.world.level.block.state.BlockState;
-//import net.minecraft.world.level.gameevent.GameEvent;
-//import net.minecraft.world.level.pathfinder.Node;
-//import net.minecraft.world.level.pathfinder.Path;
-//import net.minecraft.world.phys.net.minecraft.util.math.Box;
-//import net.minecraft.world.phys.BlockHitResult;
-//import net.minecraft.world.phys.EntityHitResult;
-//import net.minecraft.world.phys.HitResult;
-//import net.minecraft.world.phys.net.minecraft.util.math.Vec3d;
-//import net.minecraft.world.phys.shapes.VoxelShape;
-
 /**
  * An arrow that will automatically search for, chase, and kill entities <br>
  * Intelligently navigates around obstacles, and can be manually redirected by its owner
  * @author solunareclipse1, quartzshard
  */
 public class SentientArrow extends PersistentProjectileEntity {
-	
+
 	private ArrowPathNavigation nav = new ArrowPathNavigation(this, world);
-	
+
 	/** when tickCount > this, arrow dies */
 	private final int maxLife;
-	
+
 	private enum ArrowState {
 		SEARCHING, // Looking for a target
 		DIRECT,    // Has direct line of sight to target
@@ -113,27 +81,27 @@ public class SentientArrow extends PersistentProjectileEntity {
 	}
 	private static final TrackedData<Byte> AI_STATE = DataTracker.registerData(SentientArrow.class, TrackedDataHandlerRegistry.BYTE);
 	private static final TrackedData<Integer> TARGET_ID = DataTracker.registerData(SentientArrow.class, TrackedDataHandlerRegistry.INTEGER);
-	
+
 	/**
 	 * the position we are currently going toward <br>
 	 * usually the position of target entity, or next node in path
 	 */
 	@Nullable
 	private net.minecraft.util.math.Vec3d targetPos = null;
-	
+
 	/** The current path we are moving along */
 	@Nullable
 	private Path currentPath = null;
-	
+
 	/**
 	 * "memory" of previous paths this arrow has taken <br>
 	 * used for making sure its not going in circles
 	 */
 	private Stack<Path> previousPaths = new Stack<>();
-	
+
 	private boolean isReturningToOwner = false;
 	private int searchTime = 0;
-	
+
 	public SentientArrow(EntityType<? extends SentientArrow> entityType, World level) {
 		super(entityType, level);
 		maxLife = 200;
@@ -155,21 +123,17 @@ public class SentientArrow extends PersistentProjectileEntity {
 		dataTracker.startTracking(AI_STATE, (byte) 0);
 		dataTracker.startTracking(TARGET_ID, -1);
 	}
-	
+
 	@Override
 	public void tick() {
-		//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "Tick");
 		if ( age > maxLife || owner() == null ) {
-			//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "OldOrBadOwner");
 			this.kill();
 		}
 		else if (age < 5) {
-			//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "YoungArrow");
 			this.setPosition(getPos().add(this.getVelocity()));
 		}
 		else {
 			if (isLookingForTarget()) {
-				//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "LookingForTarget");
 				if (searchTime < 10) {
 					searchTime++;
 					if (!attemptAutoRetarget() && searchTime >= 10) {
@@ -186,33 +150,27 @@ public class SentientArrow extends PersistentProjectileEntity {
 			}
 			// TRAJECTORY MODIFICATION
 			if (isHoming()) {
-				//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "Homing");
 				Entity target = isReturningToOwner ? owner() : getTarget();
 				if (isReturningToOwner || this.shouldContinueHomingTowards(target)) {
 					boolean lineOfSight = canSee(target);
 					if (lineOfSight) {
-						//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "LineOfSight");
 						// BEELINE
 						forgetPaths();
 						targetPos = target.getBoundingBox().getCenter();
 						if (getState() != ArrowState.DIRECT) {
-							//particles(0);
 							setState(ArrowState.DIRECT); // target visible
 						}
 					} else {
-						//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "Obstructed");
 						// PATHFIND
 						setState(ArrowState.PATHING); // target obstructed
 						pathTo(target);
 					}
 					if (!isInert() && targetPos != null) {
-						//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "Redirecting");
 						if (!world.isClient) {
 							shootAt(targetPos, 3f);
 						}
 					}
 				} else {
-					//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "InvalidTarget");
 					resetTarget();
 					setState(ArrowState.SEARCHING); // searching for target
 				}
@@ -222,10 +180,9 @@ public class SentientArrow extends PersistentProjectileEntity {
 		}
 		this.velocityDirty = true;
 	}
-	
+
 	@Override
 	protected void onBlockHit(BlockHitResult hitRes) {
-		//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "OnHitBlock");
 		BlockPos pos = hitRes.getBlockPos();
 		BlockState hit = world.getBlockState(hitRes.getBlockPos());
 		if (isLookingForTarget()) {
@@ -237,10 +194,9 @@ public class SentientArrow extends PersistentProjectileEntity {
 			super.onBlockHit(hitRes);
 		}
 	}
-	
+
 	@Override
 	protected void onEntityHit(EntityHitResult hitRes) {
-		//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "OnHitEntity");
 		Entity hit = hitRes.getEntity();
 		if (isReturningToOwner && hit.isPartOf(owner())) {
 			isReturningToOwner = false;
@@ -254,13 +210,12 @@ public class SentientArrow extends PersistentProjectileEntity {
 			}
 		}
 	}
-	
+
 	/**
 	 * AbstractArrow.tick() with some minor changes
 	 */
 	private void moveAndCollide() {
 		projectileTick();
-		//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "MoveAndCollide");
 		boolean noClip = !isInert() || this.isNoClip();
 		net.minecraft.util.math.Vec3d curPos = this.getPos();
 		net.minecraft.util.math.Vec3d motion = getVelocity();
@@ -274,25 +229,16 @@ public class SentientArrow extends PersistentProjectileEntity {
 
 		BlockPos curBlockPos = this.getBlockPos();
 		BlockState blockInside = this.world.getBlockState(curBlockPos);
-		if (!blockInside.isAir()) {
-			/*if (blockInside.is(BlockTP.ARROW_ANNIHILATE)) {
-				if (transmuteBlockIntoCovDust(curBlockPos)) {
-					level.playSound(null, curBlockPos, PESoundEvents.DESTRUCT.get(), this.getSoundSource(), 1, 2);
-					return; // dont need to process collision on something that doesnt exist
-				}
-			} else*/ if (!noClip) {
-				VoxelShape blockShape = blockInside.getCollisionShape(this.world, curBlockPos);
-				if (!blockShape.isEmpty()) {
-
-					for(net.minecraft.util.math.Box aabb : blockShape.getBoundingBoxes()) {
-						//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "Blocknet.minecraft.util.math.BoxCollisionLoop");
-						if (aabb.offset(curBlockPos).contains(curPos)) {
-							this.inGround = true;
-							break;
-						}
-					}
-				}
-			}
+		if (!blockInside.isAir() && !noClip) {
+            VoxelShape blockShape = blockInside.getCollisionShape(this.world, curBlockPos);
+            if (!blockShape.isEmpty()) {
+                for(net.minecraft.util.math.Box aabb : blockShape.getBoundingBoxes()) {
+                    if (aabb.offset(curBlockPos).contains(curPos)) {
+                        this.inGround = true;
+                        break;
+                    }
+                }
+            }
 		}
 
 		if (this.shake > 0) {
@@ -303,7 +249,7 @@ public class SentientArrow extends PersistentProjectileEntity {
 		if (noClip || this.isTouchingWaterOrRain() || blockInside.isOf(Blocks.POWDER_SNOW)) {
 			this.extinguish();
 		}
-		
+
 		if (this.inGround && !noClip) {
 			PersistentProjectileEntityAccessor ths = ((PersistentProjectileEntityAccessor)this);
 			BlockState lastState = ths.getInBlockState();
@@ -325,7 +271,6 @@ public class SentientArrow extends PersistentProjectileEntity {
 
 			boolean didHit = false;
 			while(!this.isRemoved()) {
-				//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "EntCollisionLoop");
 				EntityHitResult entHitRes = this.getEntityCollision(curPos, nextPos);
 				if (entHitRes != null) {
 					hitRes = entHitRes;
@@ -360,40 +305,21 @@ public class SentientArrow extends PersistentProjectileEntity {
 					onCollision(new EntityHitResult(target, getPos()));
 				}
 			}
-			
+
 			double velX = motion.x;
 			double velY = motion.y;
 			double velZ = motion.z;
-			if (world instanceof ServerWorld lvl) {
-				//ParticleOptions particle = WispParticleData.wisp(0.5f, Color.PHILOSOPHERS.R/255f, Color.PHILOSOPHERS.G/255f, Color.PHILOSOPHERS.B/255f, 1);
-				//MiscHelper.drawVectorWithParticles(position(), position().add(getDeltaMovement()), particle, 0.1, lvl);
-				//for(int i = 0; i < 24; ++i) {
-				//	this.level.addParticle(particle, this.getX() + velX * (double)i / 4.0D, this.getY() + velY * (double)i / 4.0D, this.getZ() + velZ * (double)i / 4.0D, 0,0,0);//-velX, -velY + 0.2D, -velZ);
-				//}
-				// TODO: fix clientside jank because doing this every tick is bad juju
-				for (ServerPlayerEntity plr : lvl.getPlayers()) {
-					BlockPos pos = plr.getBlockPos();
-					if (pos.isWithinDistance(this.getPos(), 96d)) {
-						// like hell am i reimplementing this
-						//AASBNet.toClient(new DrawParticleLinePacket(position().add(getDeltaMovement()), position(), LineParticlePreset.SENTIENT_TRACER), plr);
-					}
-				}
-			}
 
 			double nextX = getX() + velX;
 			double nextY = getY() + velY;
 			double nextZ = getZ() + velZ;
-			//double horizVel = vel.horizontalDistance();
 			setYaw((float)(MathHelper.atan2(velX, velZ) * (180d / (float)Math.PI)));
 			setPitch((float)(MathHelper.atan2(velY, horizVel) * (180d / (float)Math.PI)));
 			setPitch(updateRotation(this.prevPitch, this.getPitch()));
 			setYaw(updateRotation(this.prevYaw, this.getYaw()));
 			float resistanceFactor = 0.99f;
-			//float f1 = 0.05F;
 			if (this.isTouchingWater()) {
 				for(int j = 0; j < 4; ++j) {
-					//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "InWaterLoop");
-					//float f2 = 0.25F;
 					this.world.addParticle(ParticleTypes.BUBBLE, nextX - velX * 0.25, nextY - velY * 0.25, nextZ - velZ * 0.25, velX, velY, velZ);
 				}
 
@@ -411,7 +337,7 @@ public class SentientArrow extends PersistentProjectileEntity {
 			this.checkBlockCollision();
 		}
 	}
-	
+
 	public static boolean canNoclipThrough(BlockState state) {
 		// i dont know how to do tags on fabric :3
 		return state.isOf(Blocks.AIR)
@@ -429,12 +355,11 @@ public class SentientArrow extends PersistentProjectileEntity {
 				|| state.isIn(BlockTags.FLOWERS)
 				|| state.isIn(BlockTags.CLIMBABLE);
 	}
-	
+
 	/**
 	 * identical to Projectile.tick()
 	 */
 	private void projectileTick() {
-		//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "ProjectileTick");
 		ProjectileEntityAccessor ths = ((ProjectileEntityAccessor)this);
 		if (!ths.getShot()) {
 			this.emitGameEvent(GameEvent.PROJECTILE_SHOOT, this.getOwner(), this.getBlockPos());
@@ -452,7 +377,6 @@ public class SentientArrow extends PersistentProjectileEntity {
 	 * identical to Entity.tick()
 	 */
 	private void entityTick() {
-		//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "EntityTick");
 		EntityAccessor ths = ((EntityAccessor)this);
 		this.world.getProfiler().push("entityBaseTick");
 		ths.setBlockStateAtPos(null);
@@ -496,7 +420,7 @@ public class SentientArrow extends PersistentProjectileEntity {
 
 			if (this.getFrozenTicks() > 0) {
 				this.setFrozenTicks(0);
-				this.world.syncWorldEvent((PlayerEntity)null, 1009, this.getBlockPos(), 1);
+				this.world.syncWorldEvent(null, 1009, this.getBlockPos(), 1);
 			}
 		}
 
@@ -513,43 +437,32 @@ public class SentientArrow extends PersistentProjectileEntity {
 		this.firstUpdate = false;
 		this.world.getProfiler().pop();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
 	///////////////
 	// FUNCTIONS //
 	///////////////
 	public void becomeInert() {
-		//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "BecomingInert");
 		this.setState(ArrowState.INERT);
 		resetTarget();
 	}
-	
+
 	@Override
 	public void kill() {
-		//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "EndOfLife");
-		//playSound(EffectInit.ARCHANGELS_EXPIRE.get(), 1, 1);
-		if (getOwner() != null) {
-			//level.playSound(null, getOwner().blockPosition(), EffectInit.ARCHANGELS_EXPIRE.get(), SoundSource.PLAYERS, 1, 0.1f);
-		}
 		discard();
 	}
-	
+
 	private boolean canSee(Entity ent) {
 		return (!ent.isInvisible() || ent.isGlowing()) && canSee(ent.getBoundingBox().getCenter());
 	}
 	private boolean canSee(net.minecraft.util.math.Vec3d pos) {
 		return isUnobstructed(this.getBoundingBox().getCenter(), pos);
-		//BlockHitResult hitRes = this.level.clip(new ClipContext(this.getBoundingBox().getCenter(), pos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this));
-		//if (hitRes != null && hitRes.getType() == HitResult.Type.BLOCK && !level.getBlockState(hitRes.getBlockPos()).is(BlockTP.ARROW_NOCLIP)) {
-		//	return false;
-		//}
-		//return true;
 	}
 	private boolean isUnobstructed(net.minecraft.util.math.Vec3d start, net.minecraft.util.math.Vec3d end) {
 		BlockHitResult hitRes = this.world.raycast(new RaycastContext(start, end, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
@@ -558,7 +471,7 @@ public class SentientArrow extends PersistentProjectileEntity {
 		}
 		return true;
 	}
-	
+
 	@SuppressWarnings("unused")
 	private void shootAt(Entity ent) {
 		shootAt(ent, 1);
@@ -587,7 +500,7 @@ public class SentientArrow extends PersistentProjectileEntity {
 	private Path findPathTo(net.minecraft.util.math.Vec3d pos) {
 		return nav.createPath(pos, 0);
 	}
-	
+
 	private Path trimNodes(Path path) {
 		List<PathNode> nodes = Lists.newArrayList();
 		nodes.add(path.getNode(0));
@@ -600,7 +513,7 @@ public class SentientArrow extends PersistentProjectileEntity {
 		nodes.add(path.getEnd());
 		return new Path(nodes, path.getTarget(), path.reachesTarget());
 	}
-	
+
 	private boolean isPathInsane(Path path) {
 		boolean isInsane = path == null || path.equalsPath(currentPath) || path.getNode(0) == path.getEnd();
 		if (!isInsane) {
@@ -617,17 +530,15 @@ public class SentientArrow extends PersistentProjectileEntity {
 	private void changeTargetPos(net.minecraft.util.math.Vec3d newPos, boolean particles) {
 		targetPos = newPos;
 	}
-	
+
 	/**
 	 * @param target
 	 * @return if pathfinding was unsuccessfull
 	 */
 	private void pathTo(Entity ent) {
-		//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "PathTo");
 		Entity target = ent;
 		Path lastMemorized = null;
 		while (!hasPath()) {
-			//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "FindPathLoop");
 			// FIND PATH
 			if (currentPath != null && !currentPath.equalsPath(lastMemorized)) {
 				previousPaths.push(currentPath);
@@ -667,7 +578,6 @@ public class SentientArrow extends PersistentProjectileEntity {
 			if (nextTargetPos != null) {
 				if (targetPos == null || !nextTargetPos.isInRange(targetPos, 0.5)) {
 					targetPos = nextTargetPos;
-					//particles(0);
 				} else {
 					targetPos = nextTargetPos;
 				}
@@ -680,9 +590,9 @@ public class SentientArrow extends PersistentProjectileEntity {
 	private void particles(int type) {
 		// stubbed because too much work
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param blockPos
 	 * @return if was successfull
 	 */
@@ -690,24 +600,23 @@ public class SentientArrow extends PersistentProjectileEntity {
 		// this doesnt even make sense for this mod
 		return false;
 	}
-	
+
 	private void attemptToTransmuteEntity(LivingEntity entity) {
 		// die!!!!!!
 		entity.world.playSound(null, entity.getBlockPos(), GWWHIT.SNIPER_THX_EVENT, getSoundCategory(), 1, 1);
 		entity.world.playSound(null, owner().getBlockPos(), GWWHIT.SNIPER_THX_EVENT, getSoundCategory(), 1, 1);
 		entity.kill();
 	}
-	
+
 	protected void drawDebugPath(Path path) {
 		// also not applicable here
 	}
-	
-	
+
+
 	//////////////////////
 	// TARGET SELECTION //
 	//////////////////////
 	private LivingEntity findTargetNear(net.minecraft.util.math.Vec3d pos) {
-		//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "FindTargetNear");
 		if (!world.isClient()) {
 			List<LivingEntity> validTargets = world.getEntitiesByClass(LivingEntity.class, net.minecraft.util.math.Box.of(pos, 128, 128, 128), SentientArrow.this::isValidHomingTargetForAutomatic);
 			if (!validTargets.isEmpty()) {
@@ -733,7 +642,6 @@ public class SentientArrow extends PersistentProjectileEntity {
 		return null;
 	}
 	private boolean attemptAutoRetarget() {
-		//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "AutoTargetAttempt");
 		LivingEntity newTarget = findTargetNear(this.getBoundingBox().getCenter());
 		if (newTarget != null && !newTarget.isPartOf(getTarget())) {
 			setTarget(newTarget.getId());
@@ -745,7 +653,6 @@ public class SentientArrow extends PersistentProjectileEntity {
 		return false;
 	}
 	public boolean attemptManualRetarget() {
-		//if (DebugCfg.LOGS.get()) LogHelper.debug("SentientArrow", "ManualTargetAttempt");
 		if (isInert()) {
 			setState(ArrowState.DIRECT);
 		}
@@ -761,7 +668,6 @@ public class SentientArrow extends PersistentProjectileEntity {
 				this.setPosition(owner.getPos());
 			}
 		}
-		// Entity oldTarget = getTarget();
 		net.minecraft.util.math.Vec3d ray = owner.getRotationVector().multiply(128);
 		EntityHitResult hitRes = ProjectileUtil.getEntityCollision(world, owner, owner.getEyePos(), owner.getEyePos().add(ray), owner.getBoundingBox().stretch(ray).expand(1.0D), SentientArrow.this::isValidHomingTarget);
 		if (hitRes != null && !inGround) {
@@ -802,7 +708,7 @@ public class SentientArrow extends PersistentProjectileEntity {
 	protected boolean isValidHomingTargetForAutomatic(LivingEntity entity) {
 		return isValidHomingTarget(entity);
 	}
-	
+
 	protected boolean shouldContinueHomingTowards(Entity entity) {
 		if (entity instanceof LivingEntity ent) {
 			return canHit(entity)
@@ -829,16 +735,16 @@ public class SentientArrow extends PersistentProjectileEntity {
 		boolean canHit = !ent.isPartOf(owner());
 		return canHit && super.canHit(ent);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
 	////////////////////////
 	// DATA / STATE STUFF //
 	////////////////////////
@@ -882,14 +788,14 @@ public class SentientArrow extends PersistentProjectileEntity {
 	public boolean isInert() {
 		return getState() == ArrowState.INERT;
 	}
-	
+
 	public PlayerEntity owner() {
 		if (super.getOwner() instanceof PlayerEntity player) {
 			return player;
 		}
 		return null;
 	}
-	
+
 	@Nullable
 	public Entity getTarget() {
 		return world.getEntityById(getTargetId());

@@ -26,7 +26,7 @@ if ( !(new File(beePath).exists()) ) {
     for (String a : beequotes) {
         compound += "[PARAGRAPH]" + a;
     }
-    Files.writeString(Path.of("${project.projectDir}/src/main/resources/assets/gwwhit/beemovie.txt"), compound)
+    Files.writeString(Path.of(beePath), compound)
 } else {
     System.out.println("According to all known laws of aviation...");
 }

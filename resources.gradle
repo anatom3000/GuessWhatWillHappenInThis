@@ -8,18 +8,26 @@ new XmlParser().parse("https://knowyourmeme.com/memes.rss").channel.item.each { 
 }
 project.ext.codename = possibleNames.get(new Random(project.mod_version.hashCode()).nextInt(possibleNames.size()))
 System.out.println("Chose codename \"" + project.ext.codename + "\" from " + possibleNames.size() + " choices")
-/*
+
+// im not really sure why this was commented out, but the game refused to launch without downloading it because somebody made beemovie.txt loadbearing
+// having that file be mandatory is really funny so im not changing it. uncommenting this means future contributors dont have to download it manually
 // beemovie.txt
-def reader = new BufferedReader(new InputStreamReader(new URL("http://www.script-o-rama.com/movie_scripts/a1/bee-movie-script-transcript-seinfeld.html").openStream()))
-String s = null;
-String compound = "";
-while ((s = reader.readLine()) != null)
-    compound += "\n" + s;
-def beequotes = compound.split("<pre>")[1].split("</pre>")[0].split("\n\n {2}\n")
-beequotes[0] = beequotes[0].replace("  \n  \n", "")
-compound = "";
-for (String a : beequotes) {
-    compound += "[PARAGRAPH]" + a;
+def beePath = "${project.projectDir}/src/main/resources/assets/gwwhit/beemovie.txt";
+if ( !(new File(beePath).exists()) ) {
+    System.out.println("Bee movie script required, not found. Downloading...");
+    def reader = new BufferedReader(new InputStreamReader(new URL("http://www.script-o-rama.com/movie_scripts/a1/bee-movie-script-transcript-seinfeld.html").openStream()))
+    String s = null;
+    String compound = "";
+    while ((s = reader.readLine()) != null)
+        compound += "\n" + s;
+    def beequotes = compound.split("<pre>")[1].split("</pre>")[0].split("\n\n {2}\n")
+    beequotes[0] = beequotes[0].replace("  \n  \n", "")
+    compound = "";
+    for (String a : beequotes) {
+        compound += "[PARAGRAPH]" + a;
+    }
+    Files.writeString(Path.of(beePath), compound)
+} else {
+    System.out.println("According to all known laws of aviation...");
 }
-Files.writeString(Path.of("${project.projectDir}/src/main/resources/assets/gwwhit/beemovie.txt"), compound)
-*/
+

@@ -2,7 +2,7 @@ Credits to JFronny for the usage of LibJF
 
 /*
  * The MIT License (MIT)
- * * Copyright (c) 2020 or 2021 (I really don't know exactly when this came out I'm sorry :() JFronny
+ * * Copyright (c) 2021 JFronny
  * * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights

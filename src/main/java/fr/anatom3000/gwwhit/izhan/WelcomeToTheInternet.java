@@ -1,3 +1,4 @@
+package fr.anatom3000.gwwhit.izhan;
 public class WelcomeToTheInternet {
     public static void main(String[] args) {
         try {

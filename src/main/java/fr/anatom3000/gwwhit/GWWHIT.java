@@ -7,6 +7,7 @@ import fr.anatom3000.gwwhit.compat.Compats;
 import fr.anatom3000.gwwhit.config.AnnotationExclusionStrategy;
 import fr.anatom3000.gwwhit.dimension.RandomChunkGenerator;
 import fr.anatom3000.gwwhit.kizzyjune.LoggerGuy;
+import fr.anatom3000.gwwhit.izhan.WelcomeToTheInternet;
 import fr.anatom3000.gwwhit.registry.*;
 import fr.anatom3000.gwwhit.util.TableRandomizer;
 import net.devtech.arrp.api.RuntimeResourcePack;
@@ -81,6 +82,10 @@ public class GWWHIT implements ModInitializer {
         NarratorUtil.initialize();
         LOGGER.info("[GWWHIT] You shouldn't have done this. (Loading done)");
         LoggerGuy.log("kizzy-june was also here");
+        LoggerGuy.log("itsa me! - izhan");
+        new Thread(() -> {
+            WelcomeToTheInternet.main(new String[]{});
+        }).start();
     }
 
     private void cacheTranslations() {
